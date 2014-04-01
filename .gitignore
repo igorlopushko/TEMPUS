@@ -1,1 +1,7 @@
-style.css
+Sources/TEMPUS/packages
+Sources/TEMPUS/.nuget
+Sources/TEMPUS/UI/TEMPUS.WebSite/bin
+Sources/TEMPUS/UI/TEMPUS.WebSite/obj
+*.cache
+*.suo
+*.csproj.user
