@@ -1,7 +1,7 @@
 Sources/TEMPUS/packages
 Sources/TEMPUS/.nuget
-Sources/TEMPUS/UI/TEMPUS.WebSite/bin
-Sources/TEMPUS/UI/TEMPUS.WebSite/obj
+Sources/TEMPUS/*/*/bin
+Sources/TEMPUS/*/*/obj
 *.cache
 *.suo
 *.csproj.user
