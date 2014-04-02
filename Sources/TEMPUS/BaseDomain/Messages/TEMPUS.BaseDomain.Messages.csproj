@@ -44,19 +44,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractIdentity.cs" />
-    <Compile Include="Dsl\MessageGenerator.cs" />
     <Compile Include="IBus.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="ICommandSender.cs" />
     <Compile Include="Identities\UserId.cs" />
     <Compile Include="IEvent.cs" />
     <Compile Include="IEventPublisher.cs" />
+    <Compile Include="IHandle.cs" />
     <Compile Include="IIdentity.cs" />
     <Compile Include="IMessage.cs" />
+    <Compile Include="Messages.cs">
+      <DependentUpon>Messages.tt</DependentUpon>
+      <SubType>Code</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Messages.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Messages.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F20861AA-D330-4BFB-9ACE-54D88D53818C}</ProjectGuid>
+    <ProjectGuid>{3070E738-4957-47D3-900C-1DBF6DE12244}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TEMPUS.UserDomain.Infrastructure</RootNamespace>
-    <AssemblyName>TEMPUS.UserDomain.Infrastructure</AssemblyName>
+    <RootNamespace>TEMPUS.BaseDomain.Messages.Dsl</RootNamespace>
+    <AssemblyName>TEMPUS.BaseDomain.Messages.Dsl</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MessageContracts">
+      <HintPath>..\..\Lib\MessageContracts.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,15 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UserCommandService.cs" />
-    <Compile Include="UserQueryService.cs" />
+    <Compile Include="MessagesGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Services\TEMPUS.UserDomain.Services.csproj">
-      <Project>{7a7e19c4-4420-4581-95b7-1d939a371694}</Project>
-      <Name>TEMPUS.UserDomain.Services</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

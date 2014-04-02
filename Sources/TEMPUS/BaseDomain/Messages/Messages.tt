@@ -1,0 +1,30 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="$(SolutionDir)\Lib\MessageContracts.dll" #>
+<#@ assembly name="$(SolutionDir)\BaseDomain\Messages.Dsl\bin\Debug\TEMPUS.BaseDomain.Messages.Dsl.dll" #>
+<#@ import namespace="MessageContracts" #>
+<#@ import namespace="TEMPUS.BaseDomain.Messages.Dsl" #>
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.CodeDom.Compiler;
+using TEMPUS.BaseDomain.Messages;
+using TEMPUS.BaseDomain.Messages.Identities;
+
+
+namespace TEMPUS.BaseDomain.Messages
+{
+	<# var generator = new MessagesGenerator();	
+	   var dsl = 
+@"
+	
+
+	let userId = UserId UserId;
+
+	CreateUser? (userId)
+
+";
+	#>
+	<#= GeneratorUtil.Build(dsl, generator) #>
+}

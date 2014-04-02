@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F20861AA-D330-4BFB-9ACE-54D88D53818C}</ProjectGuid>
+    <ProjectGuid>{DB0C9D0F-C8DC-41AC-9BC8-18B38F1FFDAA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TEMPUS.UserDomain.Infrastructure</RootNamespace>
-    <AssemblyName>TEMPUS.UserDomain.Infrastructure</AssemblyName>
+    <RootNamespace>TEMPUS.Infrastructure</RootNamespace>
+    <AssemblyName>TEMPUS.Infrastructure</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,8 +30,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\..\Lib\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\ASP.NET MVC\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,14 +48,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UserCommandService.cs" />
-    <Compile Include="UserQueryService.cs" />
+    <Compile Include="Commands\AutomaticCommandHandlers.cs" />
+    <Compile Include="Unity\Container.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Services\TEMPUS.UserDomain.Services.csproj">
-      <Project>{7a7e19c4-4420-4581-95b7-1d939a371694}</Project>
-      <Name>TEMPUS.UserDomain.Services</Name>
+    <ProjectReference Include="..\..\BaseDomain\Infrastructure\TEMPUS.BaseDomain.Infrastructure.csproj">
+      <Project>{5d39bee1-2343-4f47-b797-a452e5938b44}</Project>
+      <Name>TEMPUS.BaseDomain.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BaseDomain\Messages\TEMPUS.BaseDomain.Messages.csproj">
+      <Project>{4363d55f-33ec-4c1e-aa68-b59c5c1cfc5a}</Project>
+      <Name>TEMPUS.BaseDomain.Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BaseDomain\Model\TEMPUS.BaseDomain.Model.csproj">
+      <Project>{d7d5dadb-f732-4535-810e-92f91d0c28db}</Project>
+      <Name>TEMPUS.BaseDomain.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
