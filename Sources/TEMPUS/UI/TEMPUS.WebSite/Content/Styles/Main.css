@@ -46,6 +46,66 @@ body > .container {
 code {
     font-size: 80%;
 }
+/* Create Project*/
+#create-carusel .step
+{
+    height: 50px;
+    width: 50px;
+    padding: 6px;
+    background-image: linear-gradient(to bottom,#428bca 0,#2d6ca2 100%);
+    border-radius: 50%;
+    border: 1px solid grey;
+    font-size: 25px;
+    color: white;
+    margin: 0 auto;
+}
+
+#create-carusel .item
+{
+    min-height: 500px;
+    color: #000;
+    padding: 20px 0;
+}
+
+#create-carusel .controls
+{
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0;
+    margin: 0;
+    white-space: nowrap;
+    text-align: center;
+    position: relative;
+}
+
+    #create-carusel .controls li
+    {
+        display: table-cell;
+        opacity: 0.4;
+        width: 1%;
+        max-width: 90px;
+    }
+
+        #create-carusel .controls li.active
+        {
+            background-color: #eee;
+            opacity: 1;
+        }
+
+    #create-carusel .controls a small
+    {
+        overflow: hidden;
+        display: block;
+        font-size: 10px;
+        margin-top: 5px;
+        color: black;
+        font-weight: bold;
+    }
+
+#create-carusel .projectTeam
+{
+    border-left: 3px solid #eee;
+}
 /* Timeline */
 .timeline {
     list-style: none;

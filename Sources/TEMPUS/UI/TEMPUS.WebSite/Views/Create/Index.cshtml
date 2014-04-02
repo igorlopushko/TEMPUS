@@ -1,0 +1,346 @@
+﻿<div class="page-header">
+    <h1>Create Project</h1>
+</div>
+<div id="create-carusel" class="carousel slide" data-interval="false" data-ride="carousel">
+    <div class="controls">
+        <ul class="nav">
+            <li data-target="#create-carusel" data-slide-to="0" class="active"><a href="#">
+                <div class="step">1</div>
+                <small>Step One</small></a></li>
+            <li data-target="#create-carusel" data-slide-to="1"><a href="#">
+                <div class="step">2</div>
+                <small>Step Two</small></a></li>
+            <li data-target="#create-carusel" data-slide-to="2"><a href="#">
+                <div class="step">3</div>
+                <small>Step Three</small></a></li>
+        </ul>
+    </div>
+    <!-- Wrapper for slides -->
+    <form class="form-horizontal" role="form">
+        <div class="carousel-inner">
+            <div class="item active">
+                <div class="container">
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="projectName" class="col-sm-3 control-label">Project Name</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="projectName" placeholder="Project Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="projectManager" class="col-sm-3 control-label">Project Manager</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="projectManager" placeholder="Project Manager">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="projectManager" class="col-sm-3 control-label">Department</label>
+                            <div class="col-sm-4">
+                                <select id="department" class="form-control">
+                                    <option>Department1</option>
+                                    <option>Department2</option>
+                                    <option>Department3</option>
+                                    <option>Department4</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <label for="orderer" class="col-sm-3 control-label">Orderer</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="orderer" placeholder="Orderer">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="classification" class="col-sm-3 control-label">PPS Classification</label>
+                            <div class="col-sm-4">
+                                <select id="classification" class="form-control">
+                                    <option>Assignment</option>
+                                    <option>Mini</option>
+                                    <option>Medium</option>
+                                    <option>Mega</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mandatory" class="col-sm-3 control-label">Mandatory</label>
+                            <div class="col-sm-4">
+                                <div class="checkbox">
+                                    <label>
+                                        <input id="mandatory" type="checkbox">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="organisation" class="col-sm-3 control-label">Receiving organisation</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="organisation" placeholder="Receiving organisation">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="start" class="col-sm-3 control-label">Start Date</label>
+                            <div class="col-sm-4">
+                                <input type="date" class="form-control" id="start" placeholder="Start Date">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="due" class="col-sm-3 control-label">Due Date</label>
+                            <div class="col-sm-4">
+                                <input type="date" class="form-control" id="due" placeholder="Due Date">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="step2" class="col-sm-3 control-label"></label>
+                            <div class="col-sm-4">
+                                <button data-target="#create-carusel" id="step2" data-slide-to="1" class="btn btn-primary next">Next Step</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="input-group col-md-5">
+                                <input type="text" class="form-control" placeholder="Search">
+                                <div class="input-group-btn">
+                                    <a class="btn btn-default"><i class="glyphicon glyphicon-search"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>Search Results</h3>
+                            <table class="table" id="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>John Wane</td>
+                                        <td>
+                                            <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-arrow-right" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>John Wane</td>
+                                        <td>
+                                            <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-arrow-right" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>John Wane</td>
+                                        <td>
+                                            <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-arrow-right" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6 projectTeam">
+                            <h3>Project Team</h3>
+                            <table class="table" id="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Role</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>John Wane</td>
+                                        <td>
+                                            <select class="form-control">
+                                                <option>Assignment</option>
+                                                <option>Mini</option>
+                                                <option>Medium</option>
+                                                <option>Mega</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger btn-sm glyphicon glyphicon-remove" />
+                                    </tr>
+                                    <tr>
+                                        <td>John Wane</td>
+                                        <td>
+                                            <select class="form-control">
+                                                <option>Assignment</option>
+                                                <option>Mini</option>
+                                                <option>Medium</option>
+                                                <option>Mega</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger btn-sm glyphicon glyphicon-remove" />
+                                    </tr>
+                                    <tr>
+                                        <td>John Wane</td>
+                                        <td>
+                                            <select class="form-control">
+                                                <option>Assignment</option>
+                                                <option>Mini</option>
+                                                <option>Medium</option>
+                                                <option>Mega</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger btn-sm glyphicon glyphicon-remove" />
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <button data-target="#create-carusel" id="step2" data-slide-to="2" class="btn btn-primary next">Next Step</button>
+                </div>
+            </div>
+            <div class="item">
+                <div class="container">
+                    <a class="btn btn-primary next" data-toggle="modal" data-target="#createRisk">Add New Risk</a>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table class="table" id="table">
+                                <thead>
+                                    <tr>
+                                        <th>№</th>
+                                        <th>Description</th>
+                                        <th>Type</th>
+                                        <th>Probability</th>
+                                        <th>Impact</th>
+                                        <th>Proposed/Implemented response</th>
+                                        <th>Status</th>
+                                        <th>Responsible person</th>
+                                        <th>Finish Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Description</td>
+                                        <td>Type</td>
+                                        <td>Probability</td>
+                                        <td>Impact</td>
+                                        <td>Response</td>
+                                        <td>Status</td>
+                                        <td>Responsible person</td>
+                                        <td>Finish</td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-default glyphicon glyphicon-pencil" />
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-default glyphicon glyphicon-remove" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Description</td>
+                                        <td>Type</td>
+                                        <td>Probability</td>
+                                        <td>Impact</td>
+                                        <td>Response</td>
+                                        <td>Status</td>
+                                        <td>Responsible person</td>
+                                        <td>Finish</td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-default glyphicon glyphicon-pencil" />
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-default glyphicon glyphicon-remove" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Description</td>
+                                        <td>Type</td>
+                                        <td>Probability</td>
+                                        <td>Impact</td>
+                                        <td>Response</td>
+                                        <td>Status</td>
+                                        <td>Responsible person</td>
+                                        <td>Finish</td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-default glyphicon glyphicon-pencil" />
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-default glyphicon glyphicon-remove" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <hr>
+                        </div>
+                    </div>
+                    <a href="@Url.Action("Index", "Projects")"  data-target="#create-carusel" id="step3" class="btn btn-primary next">Done!</a>
+                </div>
+            </div>
+            <!-- End Item -->
+        </div>
+    </form>
+    <!-- End Carousel Inner -->
+
+</div>
+<!-- End Carousel -->
+<div class="modal fade" id="createRisk" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Create Risk</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <div class="container-fluid">
+                        <div class="form-group row">
+                            <label for="projectName" class="col-sm-5 control-label">Description</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="description" placeholder="Description">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="projectManager" class="col-sm-5 control-label">Type</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="type" placeholder="Type">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="projectManager" class="col-sm-5 control-label">Probability</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="probability" placeholder="Probability">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="projectManager" class="col-sm-5 control-label">Impact</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="impact" placeholder="Impact">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="responsible" class="col-sm-5 control-label">Person responsible</label>
+                            <div class="col-sm-6">
+                                <select id="responsible" class="form-control">
+                                    <option>John Rooney</option>
+                                    <option>Dane Wallback</option>
+                                    <option>Diego Milito</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="responsible" class="col-sm-5 control-label">Date measure finished</label>
+                            <div class="col-sm-6">
+                                <input type="date" class="form-control" id="impact" placeholder="Impact">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
