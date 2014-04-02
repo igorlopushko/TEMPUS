@@ -47,6 +47,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B0CF76
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TEMPUS.BaseDomain.Messages.Dsl", "BaseDomain\Messages.Dsl\TEMPUS.BaseDomain.Messages.Dsl.csproj", "{3070E738-4957-47D3-900C-1DBF6DE12244}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UtilityComponents", "UtilityComponents", "{99432040-7C75-410D-9657-5DAE5353557E}"
