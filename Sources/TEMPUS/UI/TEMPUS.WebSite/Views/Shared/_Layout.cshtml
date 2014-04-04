@@ -23,61 +23,65 @@
     <!-- Fixed navbar -->
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">TEMPUS</a>
-            </div>
-            <div>
-                <ul class="collapse navbar-collapse nav navbar-nav">
-                    <li class="active"><a href="/">Home</a>
-                    </li>
-                    <li><a href="@Url.Action("Index", "Projects")">Projects</a>
-                    </li>
-                    <li><a href="#three">Project plan</a>
-                    </li>
-                    <li><a href="@Url.Action("Index", "Flow")">Project flow</a>
-                    </li>
-                    <li><a href="#four">Tasks</a>
-                    </li>
-                    <li><a href="#five">Risks</a>
-                    </li>
-                    <li><a href="#five">Team</a>
-                    </li>
-                </ul>
+            <div class="row">
+                <div class="navbar-header col-lg-1 col-md-1 col-sm-2">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">TEMPUS</a>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-10">
+                    <ul class="collapse navbar-collapse nav navbar-nav">
+                        <li class="active"><a href="/">Home</a>
+                        </li>
+                        <li><a href="@Url.Action("Index", "Projects")">Projects</a>
+                        </li>
+                        <li><a href="#three">Project plan</a>
+                        </li>
+                        <li><a href="@Url.Action("Index", "Flow")">Project flow</a>
+                        </li>
+                        <li><a href="#four">Tasks</a>
+                        </li>
+                        <li><a href="#five">Risks</a>
+                        </li>
+                        <li><a href="#five">Team</a>
+                        </li>
+                    </ul>
+                </div>
                 <!-- User Block -->
-                <ul class="nav navbar-nav navbar-right">
-                    <li></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user">
-                        </span> Username 
+                <div id="user-block" class="col-lg-2 col-lg-offset-1 col-md-3 col-sm-12">
+                    <ul class="nav navbar-nav">
+                        <li></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user">
+                            </span>Username 
                                 <b class="caret"></b>
-                        </a>
-                        <ul id="user-block-dropdown" class="dropdown-menu text-center">
-                            <li>
-                                <img src="@Url.Content("~/Content/images/user.png")" class="img-thumbnail img-responsive">
-                            </li>
-                            <li class="divider"></li>
-                            <li class="text-center">
-                                <button type="button" class="btn btn-primary">
-                                    <span class="glyphicon glyphicon-user"></span>Profile
-                                </button>
-                                <button type="button" class="btn btn-danger">
-                                    <span class="glyphicon glyphicon-log-out"></span>Log out
-                                </button>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                            </a>
+                            <ul id="user-block-dropdown" class="dropdown-menu text-center">
+                                <li>
+                                    <img src="@Url.Content("~/Content/images/user.png")" class="img-thumbnail img-responsive">
+                                </li>
+                                <li class="divider"></li>
+                                <li class="text-center">
+                                    <button type="button" class="btn btn-primary">
+                                        <span class="glyphicon glyphicon-user"></span>Profile
+                                    </button>
+                                    <button type="button" class="btn btn-danger">
+                                        <span class="glyphicon glyphicon-log-out"></span>Log out
+                                    </button>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 
-    <div id="heightStub" class="visible-xs"></div>
+    <div id="heightStub" class="visible-xs visible-sm"></div>
 
     <div id="content">
         <div class="container">

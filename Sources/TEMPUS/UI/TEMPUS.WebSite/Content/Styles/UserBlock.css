@@ -1,4 +1,21 @@
 ﻿#user-block-dropdown
 {
-    min-width:200px;
+    min-width: 200px;
+}
+
+
+@media (max-width: 992px)
+{
+    #user-block
+    {
+        margin-left: -15px;
+    }
+}
+
+@media (max-width: 768px)
+{
+    #user-block
+    {
+        margin-left: 12px;
+    }
 }
