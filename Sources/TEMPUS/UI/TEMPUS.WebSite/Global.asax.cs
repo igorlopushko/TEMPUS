@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using TEMPUS.Infrastructure.ConrollerFactory;
 using TEMPUS.WebSite.Helpers;
 
 namespace TEMPUS.WebSite
@@ -22,6 +23,8 @@ namespace TEMPUS.WebSite
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             Bootstrapper.ConfigureUnityContainer();
+
+            ControllerBuilder.Current.SetControllerFactory(new UnityControllerFactory());
         }
     }
 }

@@ -117,14 +117,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\CreateController.cs" />
+    <Compile Include="BaseController.cs" />
+    <Compile Include="Controllers\AccountController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\ErrorController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\FlowController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HomeController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Bootstrapper.cs" />
+    <Compile Include="Models\Account\ProfilePageViewModel.cs" />
+    <Compile Include="Models\Account\RegisterPageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -170,8 +180,11 @@
     <Content Include="Views\Web.config" />
     <Content Include="Scripts\Lib\jquery-2.1.0.min.map" />
     <Content Include="Views\Flow\Index.cshtml" />
-    <Content Include="Views\Create\Index.cshtml" />
+    <Content Include="Views\Projects\Create.cshtml" />
     <Content Include="Views\Projects\Index.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -196,6 +209,10 @@
     <ProjectReference Include="..\..\BaseDomain\Messages\TEMPUS.BaseDomain.Messages.csproj">
       <Project>{4363d55f-33ec-4c1e-aa68-b59c5c1cfc5a}</Project>
       <Name>TEMPUS.BaseDomain.Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BaseDomain\Model\TEMPUS.BaseDomain.Model.csproj">
+      <Project>{d7d5dadb-f732-4535-810e-92f91d0c28db}</Project>
+      <Name>TEMPUS.BaseDomain.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\UserDomain\Infrastructure\TEMPUS.UserDomain.Infrastructure.csproj">
       <Project>{f20861aa-d330-4bfb-9ace-54d88d53818c}</Project>

@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace TEMPUS.WebSite.Controllers
 {
-    public class ProjectsController : Controller
+    public class ProjectsController : BaseController
     {
         //
         // GET: /Projects/
@@ -16,5 +16,9 @@ namespace TEMPUS.WebSite.Controllers
             return View();
         }
 
+        public ActionResult Create()
+        {
+            return View();
+        }
     }
 }

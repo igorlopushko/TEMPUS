@@ -6,15 +6,18 @@ using System.Web.Mvc;
 
 namespace TEMPUS.WebSite.Controllers
 {
-    public class CreateController : Controller
+    public class ErrorController : Controller
     {
-        //
-        // GET: /Create/
+        /// <summary>
+        /// Default contructor is needed for IoC.
+        /// </summary>
+        public ErrorController()
+        {
+        }
 
         public ActionResult Index()
         {
             return View();
         }
-
     }
 }

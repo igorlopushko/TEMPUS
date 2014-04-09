@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace TEMPUS.WebSite.Controllers
 {
-    public class FlowController : Controller
+    public class FlowController : BaseController
     {
         //
         // GET: /Flow/

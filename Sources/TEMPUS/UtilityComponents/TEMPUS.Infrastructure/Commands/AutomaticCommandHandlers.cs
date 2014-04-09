@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Microsoft.Practices.Unity;
 using TEMPUS.BaseDomain.Infrastructure;
 using TEMPUS.BaseDomain.Messages;
 using TEMPUS.Infrastructure.Unity;
@@ -42,7 +43,7 @@ namespace TEMPUS.Infrastructure.Commands
             foreach (var handler in cmdHandlerTypesWithCommands)
             {
                 //object handlerInstance = Container.Current.Resolve(handler.HandlerType);
-                object handlerInstance = Container.Current.Resolve(handler.HandlerType, null);
+                object handlerInstance = Container.Current.Resolve(handler.HandlerType);
 
                 foreach (Type cmdType in handler.CommandTypes)
                 {

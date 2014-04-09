@@ -36,6 +36,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{96DCC2A8-3C3D-4DBE-B0A9-02B539F10468}"
 	ProjectSection(SolutionItems) = preProject
 		Lib\MessageContracts.dll = Lib\MessageContracts.dll
+		Lib\Microsoft.Practices.ObjectBuilder2.dll = Lib\Microsoft.Practices.ObjectBuilder2.dll
 		Lib\Microsoft.Practices.Unity.dll = Lib\Microsoft.Practices.Unity.dll
 		Lib\Microsoft.Practices.Unity.pdb = Lib\Microsoft.Practices.Unity.pdb
 		Lib\Microsoft.Practices.Unity.xml = Lib\Microsoft.Practices.Unity.xml

@@ -44,6 +44,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BaseDomain\Messages\TEMPUS.BaseDomain.Messages.csproj">
+      <Project>{4363D55F-33EC-4C1E-AA68-B59C5C1CFC5A}</Project>
+      <Name>TEMPUS.BaseDomain.Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BaseDomain\Model\TEMPUS.BaseDomain.Model.csproj">
+      <Project>{d7d5dadb-f732-4535-810e-92f91d0c28db}</Project>
+      <Name>TEMPUS.BaseDomain.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\TEMPUS.UserDomain.Model.csproj">
+      <Project>{d97efff6-0bb8-41a5-a3fa-0a8219772303}</Project>
+      <Name>TEMPUS.UserDomain.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Services\TEMPUS.UserDomain.Services.csproj">
       <Project>{7a7e19c4-4420-4581-95b7-1d939a371694}</Project>
       <Name>TEMPUS.UserDomain.Services</Name>

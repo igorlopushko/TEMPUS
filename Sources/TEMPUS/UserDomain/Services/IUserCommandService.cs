@@ -1,6 +1,9 @@
-﻿namespace TEMPUS.UserDomain.Services
+﻿using TEMPUS.BaseDomain.Messages;
+
+namespace TEMPUS.UserDomain.Services
 {
-    public interface IUserCommandService
+    public interface IUserCommandService : 
+        IHandle<CreateUser>
     {
     }
 }

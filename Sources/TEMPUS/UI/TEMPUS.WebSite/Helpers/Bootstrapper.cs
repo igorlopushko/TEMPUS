@@ -12,6 +12,7 @@ using TEMPUS.Infrastructure.Commands;
 using TEMPUS.Infrastructure.Unity;
 using TEMPUS.UserDomain.Infrastructure;
 using TEMPUS.UserDomain.Services;
+using TEMPUS.WebSite.Controllers;
 
 namespace TEMPUS.WebSite.Helpers
 {
@@ -20,6 +21,8 @@ namespace TEMPUS.WebSite.Helpers
         public static void ConfigureUnityContainer()
         {
             Container.Init(new UnityContainer());
+
+            Container.Add<IController, ErrorController>("ErrorController", true);
 
             // Registrations
             Container.Add<IUserQueryService, UserQueryService>();
