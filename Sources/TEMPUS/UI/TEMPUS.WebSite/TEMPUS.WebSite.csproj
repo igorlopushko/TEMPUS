@@ -129,6 +129,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -152,6 +153,7 @@
     <Content Include="Content\Lib\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\Lib\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Styles\Main.css" />
+    <Content Include="Content\Styles\Team.css" />
     <Content Include="Content\Styles\UserBlock.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Lib\fonts\glyphicons-halflings-regular.woff" />
@@ -165,6 +167,7 @@
     <Content Include="Content\Lib\fonts\FontAwesome.otf" />
     <Content Include="packages.config" />
     <None Include="Scripts\Lib\jquery-2.1.0.intellisense.js" />
+    <Content Include="Scripts\grids.js" />
     <Content Include="Scripts\Lib\bootstrap.js" />
     <Content Include="Scripts\Lib\bootstrap.min.js" />
     <Content Include="Scripts\Lib\jquery-2.1.0.js" />
@@ -182,6 +185,7 @@
     <Content Include="Views\Flow\Index.cshtml" />
     <Content Include="Views\Projects\Create.cshtml" />
     <Content Include="Views\Projects\Index.cshtml" />
+    <Content Include="Views\Team\Index.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
