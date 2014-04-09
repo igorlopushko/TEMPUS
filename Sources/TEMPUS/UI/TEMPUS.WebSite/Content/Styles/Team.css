@@ -1,0 +1,17 @@
+﻿.team-member-block
+{
+    margin-bottom:15px;
+}
+
+.team-member-name
+{
+    margin-top:15px;
+}
+
+@media (min-width: 768px)
+{
+    .team-member-block
+    {
+        text-align:center;
+    }
+}
