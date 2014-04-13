@@ -32,7 +32,8 @@ namespace TEMPUS.UserDomain.Infrastructure
         {
             var user = _userQueryService.GetUserById(id);
 
-            return new User(id, user.FirstName, user.LastName);
+            return new User(id, user.FirstName, user.LastName, user.Login, user.Password, user.Age, user.Image,
+                user.Phone);
         }
 
         /// <summary>

@@ -1,20 +1,10 @@
-﻿using System;
-using TEMPUS.BaseDomain.Messages.Identities;
-using TEMPUS.BaseDomain.Model.ServiceLayer;
-
-namespace TEMPUS.UserDomain.Model.ServiceLayer
+﻿namespace TEMPUS.WebSite.Models.Account
 {
     /// <summary>
     /// The class represents extended user information.
     /// </summary>
-    [Serializable]
-    public class UserInfo : Dto
+    public class ProfileViewModel
     {
-        /// <summary>
-        /// Gets or sets the user identifier.
-        /// </summary>
-        public UserId UserId { get; set; }
-
         /// <summary>
         /// Gets or sets the login of the user.
         /// </summary>
@@ -31,19 +21,14 @@ namespace TEMPUS.UserDomain.Model.ServiceLayer
         public string LastName { get; set; }
 
         /// <summary>
-        /// Gets or sets the password of the user.
+        /// Gets or sets the age of the user.
         /// </summary>
-        public string Password { get; set; }
+        public int Age { get; set; }
 
         /// <summary>
         /// Gets or sets the phone of the user.
         /// </summary>
         public string Phone { get; set; }
-
-        /// <summary>
-        /// Gets or sets the age of the user.
-        /// </summary>
-        public int Age { get; set; }
 
         /// <summary>
         /// Gets or sets the image which represents user avatar.
