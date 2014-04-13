@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UserEventsHandler.cs" />
     <Compile Include="UserCommandService.cs" />
     <Compile Include="UserQueryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

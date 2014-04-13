@@ -2,8 +2,9 @@
 
 namespace TEMPUS.UserDomain.Services
 {
-    public interface IUserCommandService : 
-        IHandle<CreateUser>
+    public interface IUserCommandService :
+        IHandle<CreateUser>,
+        IHandle<ChangeUserInformation>
     {
     }
 }
