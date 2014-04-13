@@ -40,6 +40,8 @@ namespace TEMPUS.UserDomain.Services.DomainLayer
 
             User user = GetOrCreateUser(command.Id);
             user.CreateUser(command.Login, command.Password);
+
+            _userRepository.Save(user);
         }
 
         /// <summary>
@@ -50,8 +52,10 @@ namespace TEMPUS.UserDomain.Services.DomainLayer
         /// <exception cref="System.ArgumentException">When user does not exist.</exception>
         public void Handle(ChangeUserInformation command)
         {
-            if(command.Id == null)
+            if (command.Id == null)
+            {
                 throw new ArgumentNullException("command", "UserId must be specified.");
+            }
 
             User user = _userRepository.Get(command.Id);
             if (user == null)
@@ -60,6 +64,8 @@ namespace TEMPUS.UserDomain.Services.DomainLayer
             }
             user.ChangeInformation(command.Password, command.FirstName, command.LastName, command.Age, command.Image,
                 command.Phone);
+
+            _userRepository.Save(user);
         }
 
         /// <summary>
