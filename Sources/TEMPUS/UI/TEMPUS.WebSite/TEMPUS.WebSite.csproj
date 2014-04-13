@@ -117,7 +117,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AccountController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -203,10 +203,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Models\.gitkeep" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\BaseDomain\Infrastructure\TEMPUS.BaseDomain.Infrastructure.csproj">
+    <ProjectReference Include="..\..\BaseDomain\Infrastructure\TEMPUS.BaseDomain.Infrastructure\TEMPUS.BaseDomain.Infrastructure.csproj">
       <Project>{5d39bee1-2343-4f47-b797-a452e5938b44}</Project>
       <Name>TEMPUS.BaseDomain.Infrastructure</Name>
     </ProjectReference>

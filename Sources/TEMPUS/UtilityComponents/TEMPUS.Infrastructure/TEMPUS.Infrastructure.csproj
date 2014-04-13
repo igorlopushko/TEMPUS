@@ -52,13 +52,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\AutomaticCommandHandlers.cs" />
-    <Compile Include="ConrollerFactory\ControllerAction.cs" />
     <Compile Include="ConrollerFactory\UnityControllerFactory.cs" />
     <Compile Include="Unity\Container.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BaseDomain\Infrastructure\TEMPUS.BaseDomain.Infrastructure.csproj">
+    <ProjectReference Include="..\..\BaseDomain\Infrastructure\TEMPUS.BaseDomain.Infrastructure\TEMPUS.BaseDomain.Infrastructure.csproj">
       <Project>{5d39bee1-2343-4f47-b797-a452e5938b44}</Project>
       <Name>TEMPUS.BaseDomain.Infrastructure</Name>
     </ProjectReference>

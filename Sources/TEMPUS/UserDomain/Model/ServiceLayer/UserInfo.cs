@@ -1,7 +1,7 @@
 ﻿using System;
-using TEMPUS.BaseDomain.Model;
+using TEMPUS.BaseDomain.Model.ServiceLayer;
 
-namespace TEMPUS.UserDomain.Model
+namespace TEMPUS.UserDomain.Model.ServiceLayer
 {
     [Serializable]
     public class UserInfo : Dto

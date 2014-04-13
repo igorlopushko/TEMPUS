@@ -39,10 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DomainLayer\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserInfo.cs" />
+    <Compile Include="ServiceLayer\UserInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BaseDomain\Messages\TEMPUS.BaseDomain.Messages.csproj">
+      <Project>{4363d55f-33ec-4c1e-aa68-b59c5c1cfc5a}</Project>
+      <Name>TEMPUS.BaseDomain.Messages</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BaseDomain\Model\TEMPUS.BaseDomain.Model.csproj">
       <Project>{d7d5dadb-f732-4535-810e-92f91d0c28db}</Project>
       <Name>TEMPUS.BaseDomain.Model</Name>

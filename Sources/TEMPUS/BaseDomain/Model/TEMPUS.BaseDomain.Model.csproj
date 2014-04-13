@@ -39,8 +39,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dto.cs" />
+    <Compile Include="DomainLayer\AggregateRoot.cs" />
+    <Compile Include="DomainLayer\IAggregateRoot.cs" />
+    <Compile Include="ServiceLayer\Dto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceLayer\IRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure\TEMPUS.BaseDomain.Utility\TEMPUS.BaseDomain.Utility.csproj">
+      <Project>{00c28252-0dd4-4981-8478-113ace0a1a93}</Project>
+      <Name>TEMPUS.BaseDomain.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Messages\TEMPUS.BaseDomain.Messages.csproj">
+      <Project>{4363d55f-33ec-4c1e-aa68-b59c5c1cfc5a}</Project>
+      <Name>TEMPUS.BaseDomain.Messages</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

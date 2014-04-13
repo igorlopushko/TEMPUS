@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="IUserCommandService.cs" />
     <Compile Include="IUserQueryService.cs" />
+    <Compile Include="IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

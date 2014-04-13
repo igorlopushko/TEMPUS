@@ -47,9 +47,11 @@
     <Compile Include="IBus.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="ICommandSender.cs" />
+    <Compile Include="Identities\ProjectId.cs" />
     <Compile Include="Identities\UserId.cs" />
     <Compile Include="IEvent.cs" />
     <Compile Include="IEventPublisher.cs" />
+    <Compile Include="IEventStore.cs" />
     <Compile Include="IHandle.cs" />
     <Compile Include="IIdentity.cs" />
     <Compile Include="IMessage.cs" />

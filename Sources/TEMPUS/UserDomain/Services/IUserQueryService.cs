@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TEMPUS.UserDomain.Model;
+using TEMPUS.BaseDomain.Messages.Identities;
+using TEMPUS.UserDomain.Model.ServiceLayer;
 
 namespace TEMPUS.UserDomain.Services
 {
     public interface IUserQueryService
     {
-        UserInfo GetUserById(string id);
+        UserInfo GetUserById(UserId id);
     }
 }

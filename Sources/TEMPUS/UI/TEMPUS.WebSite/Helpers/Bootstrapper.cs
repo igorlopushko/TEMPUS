@@ -8,9 +8,12 @@ using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using TEMPUS.BaseDomain.Infrastructure;
 using TEMPUS.BaseDomain.Messages;
+using TEMPUS.BaseDomain.Messages.Identities;
+using TEMPUS.BaseDomain.Model.ServiceLayer;
 using TEMPUS.Infrastructure.Commands;
 using TEMPUS.Infrastructure.Unity;
 using TEMPUS.UserDomain.Infrastructure;
+using TEMPUS.UserDomain.Model.DomainLayer;
 using TEMPUS.UserDomain.Services;
 using TEMPUS.WebSite.Controllers;
 
@@ -30,15 +33,17 @@ namespace TEMPUS.WebSite.Helpers
             var bus = new InMemoryBus();
             Container.Add<ICommandSender>(bus);
             Container.Add<IEventPublisher>(bus);
-            
+
+            var eventStore = new InMemoryEventStore();
+            Container.Add<IEventStore>(eventStore);
 
             RegisterCommandHandlers(bus);
         }
 
         private static void RegisterCommandHandlers(InMemoryBus bus)
         {
-            //var customerRepo = new UserRepository(Container.Get<IEventStore>(), Container.Get<IUserQueryService>());
-            //Container.Add<IRepository<User, UserId>>(customerRepo);
+            var customerRepository = new UserRepository(Container.Get<IEventStore>(), Container.Get<IUserQueryService>());
+            Container.Add<IRepository<User, UserId>>(customerRepository);
 
             //var orderRepo = new OrderRepository(
             //                        Container.Get<IEventStore>(),

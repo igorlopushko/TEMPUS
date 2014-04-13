@@ -1,0 +1,6 @@
+﻿USE [TEMPUS]
+GO
+
+DROP TABLE [dbo].[User]
+
+GO
