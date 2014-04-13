@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using TEMPUS.BaseDomain.Messages;
 using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.UserDomain.Model.ServiceLayer;
-using TEMPUS.UserDomain.Services;
+using TEMPUS.UserDomain.Services.ServiceLayer;
 using TEMPUS.WebSite.Models.Account;
 
 namespace TEMPUS.WebSite.Controllers
@@ -24,9 +24,9 @@ namespace TEMPUS.WebSite.Controllers
             _cmdSender = cmdSender;
         }
 
-        public ActionResult Register(RegisterPageViewModel model)
+        public ActionResult Register()
         {
-            var cmd = new CreateUser(new UserId(new Guid()), "Igor", "Lopushko");
+            var cmd = new CreateUser(new UserId(Guid.NewGuid()), "Igor", "Lopushko");
             _cmdSender.Send(cmd);
 
             return View();

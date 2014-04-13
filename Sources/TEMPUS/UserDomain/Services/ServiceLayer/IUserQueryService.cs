@@ -5,7 +5,7 @@ using System.Text;
 using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.UserDomain.Model.ServiceLayer;
 
-namespace TEMPUS.UserDomain.Services
+namespace TEMPUS.UserDomain.Services.ServiceLayer
 {
     public interface IUserQueryService
     {

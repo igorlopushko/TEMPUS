@@ -14,7 +14,8 @@ using TEMPUS.Infrastructure.Commands;
 using TEMPUS.Infrastructure.Unity;
 using TEMPUS.UserDomain.Infrastructure;
 using TEMPUS.UserDomain.Model.DomainLayer;
-using TEMPUS.UserDomain.Services;
+using TEMPUS.UserDomain.Services.DomainLayer;
+using TEMPUS.UserDomain.Services.ServiceLayer;
 using TEMPUS.WebSite.Controllers;
 
 namespace TEMPUS.WebSite.Helpers
@@ -38,6 +39,7 @@ namespace TEMPUS.WebSite.Helpers
             Container.Add<IEventStore>(eventStore);
 
             RegisterCommandHandlers(bus);
+            RegisterEventHandlers(bus);
         }
 
         private static void RegisterCommandHandlers(InMemoryBus bus)
@@ -45,12 +47,7 @@ namespace TEMPUS.WebSite.Helpers
             var customerRepository = new UserRepository(Container.Get<IEventStore>(), Container.Get<IUserQueryService>());
             Container.Add<IRepository<User, UserId>>(customerRepository);
 
-            //var orderRepo = new OrderRepository(
-            //                        Container.Get<IEventStore>(),
-            //                        Container.Get<IOrderQueryService>());
-            //Container.Add<IOrderRepository>(orderRepo);
-
-            //Container.Add<IUserIdGeneratorService, NewGuidUserIdGeneratorService>();
+            Container.Add(new UserCommandService(customerRepository));
 
             var commandHandlersAssemblies = new List<Assembly>
             {
@@ -59,6 +56,13 @@ namespace TEMPUS.WebSite.Helpers
             };
 
             AutomaticCommandHandlers.Register(commandHandlersAssemblies, bus);
+        }
+
+        private static void RegisterEventHandlers(InMemoryBus bus)
+        {
+            IUserEventHandler userEventHandler = new UserEventHandler();
+
+            bus.RegisterHandler<UserCreated>(userEventHandler.Handle);
         }
     }
 }

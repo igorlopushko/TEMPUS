@@ -1,8 +1,9 @@
-﻿using TEMPUS.BaseDomain.Messages.Identities;
+﻿using TEMPUS.BaseDomain.Messages;
+using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.UserDomain.Model.DomainLayer;
-using TEMPUS.UserDomain.Services;
+using TEMPUS.UserDomain.Services.ServiceLayer;
 
-namespace TEMPUS.UserDomain.Infrastructure
+namespace TEMPUS.UserDomain.Services.DomainLayer
 {
     public class UserCommandService : IUserCommandService
     {
@@ -13,7 +14,11 @@ namespace TEMPUS.UserDomain.Infrastructure
             _userRepository = userRepository;
         }
 
-        public void Handle(BaseDomain.Messages.CreateUser msg)
+        /// <summary>
+        /// Creates new user aggregate root and saves with reposiroty.
+        /// </summary>
+        /// <param name="msg">Incomming message</param>
+        public void Handle(CreateUser msg)
         {
             User user = GetOrCreateUser(msg.Id);
             user.CreateUser(msg.FirstName, msg.LastName);

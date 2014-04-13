@@ -45,8 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="StoredProcedures\Create\sp_UpdateUser.create.v1.sql" />
     <Compile Include="UserTableV1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="StoredProcedures\Drop\sp_UpdateUser.drop.v1.sql" />
+    <EmbeddedResource Include="StoredProcedures\Drop\sp_CreateUser.drop.v1.sql" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="StoredProcedures\Create\sp_GetUserById.create.v1.sql" />
@@ -59,6 +62,9 @@
   <ItemGroup>
     <None Include="Deploy.bat" />
     <None Include="Rollback.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="StoredProcedures\Create\sp_CreateUser.create.v1.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

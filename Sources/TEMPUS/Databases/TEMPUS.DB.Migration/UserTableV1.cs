@@ -12,12 +12,16 @@ namespace TEMPUS.DB.Migration
         {
             Execute.EmbeddedScript("User.drop.v1.sql");
             Execute.EmbeddedScript("sp_GetUserById.drop.v1.sql");
+            Execute.EmbeddedScript("sp_CreateUser.drop.v1.sql");
+            Execute.EmbeddedScript("sp_UpdateUser.drop.v1.sql");
         }
 
         public override void Up()
         {
             Execute.EmbeddedScript("User.create.v1.sql");
             Execute.EmbeddedScript("sp_GetUserById.create.v1.sql");
+            Execute.EmbeddedScript("sp_CreateUser.create.v1.sql");
+            Execute.EmbeddedScript("sp_UpdateUser.create.v1.sql");
         }
     }
 }
