@@ -36,12 +36,8 @@ namespace TEMPUS.Infrastructure.Commands
                                                         CommandTypes = t.GetInterfaces().First().GetInterfaces().Select(i => i.GetGenericArguments().First())
                                                     });
 
-
-            
-            //foreach (var handler in cmdHandlerTypesWithCommands.Where(x => !String.Equals(x.HandlerType.Name, "OrderIntegrationProcess", StringComparison.OrdinalIgnoreCase)))
             foreach (var handler in cmdHandlerTypesWithCommands)
             {
-                //object handlerInstance = Container.Current.Resolve(handler.HandlerType);
                 object handlerInstance = Container.Current.Resolve(handler.HandlerType);
 
                 foreach (Type cmdType in handler.CommandTypes)

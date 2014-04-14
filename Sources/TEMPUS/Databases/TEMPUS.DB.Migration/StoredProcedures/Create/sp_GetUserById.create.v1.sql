@@ -13,6 +13,7 @@ BEGIN
 		   [FirstName],
 		   [LastName]
 	FROM [dbo].[User]
+	WHERE [Id] = @id
 END
 
 GO

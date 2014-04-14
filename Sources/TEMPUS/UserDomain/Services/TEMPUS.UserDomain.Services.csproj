@@ -39,9 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IUserCommandService.cs" />
-    <Compile Include="IUserQueryService.cs" />
-    <Compile Include="IUserRepository.cs" />
+    <Compile Include="DomainLayer\UserCommandService.cs" />
+    <Compile Include="ServiceLayer\IUserCommandService.cs" />
+    <Compile Include="ServiceLayer\IUserEventHandler.cs" />
+    <Compile Include="ServiceLayer\IUserQueryService.cs" />
+    <Compile Include="ServiceLayer\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

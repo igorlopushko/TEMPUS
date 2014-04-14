@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Commands\AutomaticCommandHandlers.cs" />
     <Compile Include="ConrollerFactory\UnityControllerFactory.cs" />
+    <Compile Include="Data\DbConnector.cs" />
     <Compile Include="Unity\Container.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

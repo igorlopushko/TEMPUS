@@ -1,4 +1,5 @@
-﻿using TEMPUS.BaseDomain.Messages;
+﻿using System;
+using TEMPUS.BaseDomain.Messages;
 using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.BaseDomain.Model.DomainLayer;
 
@@ -17,6 +18,8 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
         private string _image;
         private string _password;
         private string _phone;
+
+        private bool _isNew;
 
         /// <summary>
         /// Gets the user identifier.
@@ -86,9 +89,14 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
         /// Initializes a new instance of the <see cref="User"/> class.
         /// </summary>
         /// <param name="userId">The user identifier.</param>
+        public bool IsNew
+        {
+            get { return _isNew; }
+        }
+
         public User(UserId userId)
         {
-            _id = userId;
+             _id = userId;
         }
 
         /// <summary>
@@ -148,10 +156,16 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
             _age = age;
             _image = image;
             _phone = phone;
+            _isNew = true;
 
             var @event = new UserInformationChanged(_id, _age, _phone, _image, _password, _firstName, _lastName);
 
             this.ApplyChange(@event);
+        }
+
+        private void Apply(UserCreated @event)
+        {
+            
         }
     }
 }

@@ -2,9 +2,9 @@
 using TEMPUS.BaseDomain.Messages;
 using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.UserDomain.Model.DomainLayer;
-using TEMPUS.UserDomain.Services;
+using TEMPUS.UserDomain.Services.ServiceLayer;
 
-namespace TEMPUS.UserDomain.Infrastructure
+namespace TEMPUS.UserDomain.Services.DomainLayer
 {
     /// <summary>
     /// The class represents service for handling commands related to user.
@@ -40,6 +40,8 @@ namespace TEMPUS.UserDomain.Infrastructure
 
             User user = GetOrCreateUser(command.Id);
             user.CreateUser(command.Login, command.Password);
+
+            _userRepository.Save(user);
         }
 
         /// <summary>
@@ -50,8 +52,10 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// <exception cref="System.ArgumentException">When user does not exist.</exception>
         public void Handle(ChangeUserInformation command)
         {
-            if(command.Id == null)
+            if (command.Id == null)
+            {
                 throw new ArgumentNullException("command", "UserId must be specified.");
+            }
 
             User user = _userRepository.Get(command.Id);
             if (user == null)
@@ -60,6 +64,8 @@ namespace TEMPUS.UserDomain.Infrastructure
             }
             user.ChangeInformation(command.Password, command.FirstName, command.LastName, command.Age, command.Image,
                 command.Phone);
+
+            _userRepository.Save(user);
         }
 
         /// <summary>

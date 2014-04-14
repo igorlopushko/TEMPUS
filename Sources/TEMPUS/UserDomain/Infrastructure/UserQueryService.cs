@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.UserDomain.Model.ServiceLayer;
-using TEMPUS.UserDomain.Services;
+using TEMPUS.UserDomain.Services.ServiceLayer;
 
 namespace TEMPUS.UserDomain.Infrastructure
 {
@@ -10,7 +10,7 @@ namespace TEMPUS.UserDomain.Infrastructure
     {
         public UserInfo GetUserById(UserId id)
         {
-            throw new NotImplementedException();
+            return new UserInfo();
         }
 
         public UserInfo GetUserByLogin(string login)

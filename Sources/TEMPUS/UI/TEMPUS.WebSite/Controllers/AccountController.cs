@@ -2,6 +2,8 @@
 using System.Web.Mvc;
 using TEMPUS.BaseDomain.Messages;
 using TEMPUS.BaseDomain.Messages.Identities;
+using TEMPUS.UserDomain.Model.ServiceLayer;
+using TEMPUS.UserDomain.Services.ServiceLayer;
 using TEMPUS.UserDomain.Services;
 using TEMPUS.WebSite.Models.Account;
 
@@ -14,7 +16,7 @@ namespace TEMPUS.WebSite.Controllers
     {
         private readonly IUserQueryService _userQueryService;
         private readonly ICommandSender _cmdSender;
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountController" /> class.
         /// </summary>
@@ -50,7 +52,7 @@ namespace TEMPUS.WebSite.Controllers
             // TODO Change GetUserByLogin for CurrentUser.User when implemented.
             var user = _userQueryService.GetUserByLogin(model.Login);
             if (user != null)
-            {
+        {
                 //TODO: return error message.
             }
 

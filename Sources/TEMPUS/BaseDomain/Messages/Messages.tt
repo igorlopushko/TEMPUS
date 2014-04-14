@@ -21,21 +21,14 @@ namespace TEMPUS.BaseDomain.Messages
 	
 
 	let userId = UserId UserId;
-	let projectId = ProjectId ProjectId;
-	let login = string Login;
-	let password = string Password;
-	let age = int Age;
-	let phone = string Phone;
-	let image = string Image;
-	let firstName = string FirstName;
-	let lastName = string LastName;
+	let projectId = ProjectId ProjectId;	
 
 	AssignUserToProject?(userId, projectId)
 	UserAssignedToProject!(userId, projectId)
-	UserCreated! (userId, login, password)
-	CreateUser? (userId, login, password)
-	ChangeUserInformation?(userId, age, phone, image, password, firstName, lastName)
-	UserInformationChanged!(userId, age, phone, image, password, firstName, lastName)
+	UserCreated! (userId, string Login, string Password)
+	CreateUser? (userId, string Login, string Password)
+	ChangeUserInformation?(userId, int Age, string Phone, string Image, string Password, string FirstName, string LastName)
+	UserInformationChanged!(userId, int Age, string Phone, string Image, string Password, string FirstName, string LastName)
 
 ";
 	#>
