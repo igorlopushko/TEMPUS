@@ -1,17 +1,42 @@
 ﻿.team-member-block
 {
-    margin-bottom:15px;
+    margin-bottom: 15px;
 }
 
 .team-member-name
 {
-    margin-top:15px;
+    margin-top: 15px;
 }
 
 @media (min-width: 768px)
 {
     .team-member-block
     {
-        text-align:center;
+        text-align: center;
     }
+}
+
+#back-button
+{
+    margin-top: 20px;
+    min-width: 150px;
+}
+
+.img-link
+{
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
+    -moz-opacity: 1;
+    opacity: 1;
+}
+
+.img-link:hover
+{
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=70);
+    -moz-opacity: 0.7;
+    opacity: 0.7;
+}
+
+#avatar
+{
+    min-height:200px;
 }

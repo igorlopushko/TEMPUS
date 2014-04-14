@@ -1,0 +1,37 @@
+﻿@model TEMPUS.WebSite.Models.Team.UserViewModel
+
+@{
+    ViewBag.Title = "User";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">@Model.FirstName @Model.LastName, @Model.Role</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4 col-md-3 text-center">
+                <img id="avatar" src="@Url.Content(@Model.Image)" class="img-thumbnail img-responsive" />
+            </div>
+            <div class="col-sm-8 col-md-9">
+                <div class="row">
+                    <div class="col-md-1 col-sm-2 col-xs-2">
+                        <p>Age:</p>
+                        <p>Email:</p>
+                        <p>Phone:</p>
+                    </div>
+                    <div class="col-md-11 col-sm-10 col-xs-10">
+                        <p>@Model.Age</p>
+                        <p>@Model.Email</p>
+                        <p>@Model.Phone</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-3 text-center">
+                <a href="@Url.Action("Index", "Team")" class="btn btn-default" id="back-button">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Back
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

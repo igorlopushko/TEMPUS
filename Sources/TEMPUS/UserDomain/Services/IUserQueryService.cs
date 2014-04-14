@@ -13,5 +13,6 @@ namespace TEMPUS.UserDomain.Services
     {
         UserInfo GetUserById(UserId id);
         UserInfo GetUserByLogin(string login);
+        List<UserInfo> GetUsersByProjectId(ProjectId projectId);
     }
 }
