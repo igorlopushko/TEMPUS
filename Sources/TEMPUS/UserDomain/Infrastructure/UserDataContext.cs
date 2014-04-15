@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.UserDomain.Model.DomainLayer;
 using TEMPUS.UserDomain.Model.ServiceLayer;
 
@@ -9,6 +10,15 @@ namespace TEMPUS.UserDomain.Infrastructure
     /// </summary>
     public class UserDataContext : DbContext
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserDataContext"/> class.
+        /// </summary>
+        public UserDataContext()
+            : base("UserDataContext")
+        {
+
+        }
+
         /// <summary>
         /// Gets or sets the users.
         /// </summary>
@@ -25,7 +35,7 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// <param name="modelBuilder">Model builder</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasKey(x => x.Id);
+            modelBuilder.Entity<User>().HasKey(x => ((UserId)x.Id).Id);
             modelBuilder.Entity<User>().Property(x => x.Login).HasMaxLength(50);
             modelBuilder.Entity<User>().Property(x => x.Phone).HasMaxLength(31);
             modelBuilder.Entity<User>().HasRequired(x => x.Password);

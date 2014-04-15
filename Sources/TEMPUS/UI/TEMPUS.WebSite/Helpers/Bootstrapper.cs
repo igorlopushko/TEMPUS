@@ -17,6 +17,7 @@ using TEMPUS.UserDomain.Model.DomainLayer;
 using TEMPUS.UserDomain.Services.DomainLayer;
 using TEMPUS.UserDomain.Services.ServiceLayer;
 using TEMPUS.WebSite.Controllers;
+using TEMPUS.UserDomain.Model.ServiceLayer;
 
 namespace TEMPUS.WebSite.Helpers
 {
@@ -44,7 +45,15 @@ namespace TEMPUS.WebSite.Helpers
 
         private static void RegisterCommandHandlers(InMemoryBus bus)
         {
-            var customerRepository = new UserRepository(Container.Get<IEventStore>(), Container.Get<IUserQueryService>());
+            var context = new UserDataContext();
+            
+            Container.Add<IUserStorage<User, UserId>>(new UserStorage(context));
+            Container.Add<IUserReadStorage<UserInfo>>(new UserReadStorage(context));
+            Container.Add<IUserStorage<User, UserId>>(new UserStorage(context));
+            Container.Add<IUserReadStorage<UserInfo>>(new UserReadStorage(context));
+            Container.Add<IUserReadRepository>(new UserReadRepository(Container.Get<IUserReadStorage<UserInfo>>()));
+
+            var customerRepository = new UserRepository(Container.Get<IEventStore>(), Container.Get<IUserStorage<User, UserId>>());
             Container.Add<IRepository<User, UserId>>(customerRepository);
 
             Container.Add(new UserCommandService(customerRepository));
