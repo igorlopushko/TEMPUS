@@ -43,8 +43,11 @@
     <Compile Include="ServiceLayer\IUserCommandService.cs" />
     <Compile Include="ServiceLayer\IUserEventHandler.cs" />
     <Compile Include="ServiceLayer\IUserQueryService.cs" />
+    <Compile Include="ServiceLayer\IUserReadRepository.cs" />
+    <Compile Include="ServiceLayer\IUserReadStorage.cs" />
     <Compile Include="ServiceLayer\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceLayer\IUserStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\BaseDomain\Messages\TEMPUS.BaseDomain.Messages.csproj">

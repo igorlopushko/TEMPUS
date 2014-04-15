@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.UserDomain.Model.ServiceLayer;
-﻿using TEMPUS.BaseDomain.Messages.Identities;
-using TEMPUS.UserDomain.Model;
-
+﻿
 namespace TEMPUS.UserDomain.Services.ServiceLayer
 {
     public interface IUserQueryService
     {
         UserInfo GetUserById(UserId id);
         UserInfo GetUserByLogin(string login);
-        List<UserInfo> GetUsersByProjectId(ProjectId projectId);
+        IEnumerable<UserInfo> GetUsersByProjectId(ProjectId projectId);
     }
 }

@@ -322,5 +322,97 @@ namespace TEMPUS.BaseDomain.Messages
 			return !(a == b);
 		}
 	}
+	
+	[Serializable]
+	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
+	public sealed class DeleteUser : ICommand<UserId>
+	{
+		public UserId Id { get; set; }
+		public int Version { get; set; }
+		private DeleteUser () {}
+		public DeleteUser (UserId userId)
+		{
+			Id = userId;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+			var target = obj as DeleteUser;
+			if (target == null)
+			{
+				return false;
+			}
+			return Id.Equals(target.Id);
+		}
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode();
+		}
+		public static bool operator ==(DeleteUser a, DeleteUser b)
+		{
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+			return a.Equals(b);
+		}
+		public static bool operator !=(DeleteUser a, DeleteUser b)
+		{
+			return !(a == b);
+		}
+	}
+	
+	[Serializable]
+	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
+	public sealed class UserDeleted : IEvent<UserId>
+	{
+		public UserId Id { get; set; }
+		public int Version { get; set; }
+		private UserDeleted () {}
+		public UserDeleted (UserId userId)
+		{
+			Id = userId;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+			var target = obj as UserDeleted;
+			if (target == null)
+			{
+				return false;
+			}
+			return Id.Equals(target.Id);
+		}
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode();
+		}
+		public static bool operator ==(UserDeleted a, UserDeleted b)
+		{
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+			return a.Equals(b);
+		}
+		public static bool operator !=(UserDeleted a, UserDeleted b)
+		{
+			return !(a == b);
+		}
+	}
 
 }

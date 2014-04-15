@@ -35,6 +35,7 @@ namespace TEMPUS.UserDomain.Services.DomainLayer
         {
             if (command.Id == null)
                 throw new ArgumentNullException("command", "UserId must be specified.");
+
             if (string.IsNullOrWhiteSpace(command.Login))
                 throw new ArgumentException("User login must be specified.");
 
@@ -53,17 +54,34 @@ namespace TEMPUS.UserDomain.Services.DomainLayer
         public void Handle(ChangeUserInformation command)
         {
             if (command.Id == null)
-            {
                 throw new ArgumentNullException("command", "UserId must be specified.");
-            }
 
             User user = _userRepository.Get(command.Id);
             if (user == null)
-            {
                 throw new ArgumentException(string.Format("User with such id: {0} does not exist.", command.Id));
-            }
+
             user.ChangeInformation(command.Password, command.FirstName, command.LastName, command.Age, command.Image,
                 command.Phone);
+
+            _userRepository.Save(user);
+        }
+
+        /// <summary>
+        /// Handles the specified <see cref="DeleteUser">command</see>.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        /// <exception cref="System.ArgumentNullException">When UserId is null.</exception>
+        /// <exception cref="System.ArgumentException">When user does not exist.</exception>
+        public void Handle(DeleteUser command)
+        {
+            if (command.Id == null)
+                throw new ArgumentNullException("command", "UserId must be specified.");
+
+            var user = _userRepository.Get(command.Id);
+            if (user == null)
+                throw new ArgumentException(string.Format("User with such id: {0} does not exist.", command.Id));
+
+            user.DeleteUser();
 
             _userRepository.Save(user);
         }
@@ -74,8 +92,7 @@ namespace TEMPUS.UserDomain.Services.DomainLayer
         /// <param name="userId">The user identifier.</param>
         private User GetOrCreateUser(UserId userId)
         {
-            User user = _userRepository.Get(userId) ?? new User(userId);
-            return user;
+            return _userRepository.Get(userId) ?? new User(userId);
         }
     }
 }

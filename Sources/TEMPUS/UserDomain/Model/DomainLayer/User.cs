@@ -1,5 +1,4 @@
-﻿using System;
-using TEMPUS.BaseDomain.Messages;
+﻿using TEMPUS.BaseDomain.Messages;
 using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.BaseDomain.Model.DomainLayer;
 
@@ -20,6 +19,7 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
         private string _phone;
 
         private bool _isNew;
+        private bool _isDeleted;
 
         /// <summary>
         /// Gets the user identifier.
@@ -85,42 +85,30 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
             get { return _phone; }
         }
 
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="User"/> class.
+        /// Gets a value indicating whether aggregate is new.
         /// </summary>
-        /// <param name="userId">The user identifier.</param>
         public bool IsNew
         {
             get { return _isNew; }
         }
 
-        public User(UserId userId)
+        /// <summary>
+        /// Gets a value indicating whether aggregate is deleted.
+        /// </summary>
+        public bool IsDeleted
         {
-             _id = userId;
+            get { return _isDeleted; }
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="User"/> class.
         /// </summary>
         /// <param name="userId">The user identifier.</param>
-        /// <param name="firstName">The user first name.</param>
-        /// <param name="lastName">The user last name.</param>
-        /// <param name="login">The user login.</param>
-        /// <param name="password">The user password.</param>
-        /// <param name="age">The user age.</param>
-        /// <param name="image">The user image.</param>
-        /// <param name="phone">The user phone.</param>
-        public User(UserId userId, string firstName, string lastName, string login, string password, int age,
-            string image, string phone)
+        public User(UserId userId)
         {
             _id = userId;
-            _firstName = firstName;
-            _lastName = lastName;
-            _login = login;
-            _password = password;
-            _age = age;
-            _image = image;
-            _phone = phone;
         }
 
         /// <summary>
@@ -132,8 +120,23 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
         {
             _login = login;
             _password = password;
+            _isNew = true;
+            _isDeleted = false;
 
             var @event = new UserCreated(_id, _login, _password);
+
+            this.ApplyChange(@event);
+        }
+
+        /// <summary>
+        /// Deletes the user.
+        /// </summary>
+        public void DeleteUser()
+        {
+            _isNew = false;
+            _isDeleted = true;
+
+            var @event = new UserDeleted(_id);
 
             this.ApplyChange(@event);
         }
@@ -157,6 +160,7 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
             _image = image;
             _phone = phone;
             _isNew = true;
+            _isDeleted = false;
 
             var @event = new UserInformationChanged(_id, _age, _phone, _image, _password, _firstName, _lastName);
 
@@ -165,7 +169,17 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
 
         private void Apply(UserCreated @event)
         {
-            
+            //TODO: Investigate why we need this.
+        }
+
+        private void Apply(UserInformationChanged @event)
+        {
+            //TODO: Investigate why we need this.
+        }
+
+        private void Apply(UserDeleted @event)
+        {
+            //TODO: Investigate why we need this.
         }
     }
 }

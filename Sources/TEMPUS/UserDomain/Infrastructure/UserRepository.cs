@@ -1,26 +1,34 @@
 ﻿using System;
-using System.Data;
-using System.Data.SqlClient;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using TEMPUS.BaseDomain.Infrastructure;
 using TEMPUS.BaseDomain.Messages;
 using TEMPUS.BaseDomain.Messages.Identities;
-using TEMPUS.Infrastructure.Data;
 using TEMPUS.UserDomain.Model.DomainLayer;
 using TEMPUS.UserDomain.Services.ServiceLayer;
 
 namespace TEMPUS.UserDomain.Infrastructure
 {
+    /// <summary>
+    /// The class represents functionality for saving, updating, deleting User.
+    /// </summary>
     public class UserRepository : Repository<User, UserId>, IUserRepository
     {
-        private IUserQueryService _userQueryService;
+        private readonly IUserStorage<User, UserId> _userStorage;
 
-        //TODO: change to configuration interface
-        private string _dbConnectionString = "Data Source=.;Integrated Security=SSPI;Initial Catalog=TEMPUS;Persist Security Info=True";
-
-        public UserRepository(IEventStore eventStore, IUserQueryService userQueryService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserRepository" /> class.
+        /// </summary>
+        /// <param name="eventStore">The event store.</param>
+        /// <param name="userStorage">The user storage.</param>
+        /// <exception cref="System.ArgumentNullException">When userStorage is null.</exception>
+        public UserRepository(IEventStore eventStore, IUserStorage<User, UserId> userStorage)
             : base(eventStore)
         {
-            _userQueryService = userQueryService;
+            if (userStorage == null)
+                throw new ArgumentNullException("userStorage");
+
+            _userStorage = userStorage;
         }
 
         /// <summary>
@@ -30,61 +38,33 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// <returns></returns>
         public override User Get(UserId id)
         {
-            var user = _userQueryService.GetUserById(id);
+            if (id == null)
+                throw new ArgumentNullException("id");
 
-            return new User(id, user.FirstName, user.LastName, user.Login, user.Password, user.Age, user.Image,
-                user.Phone);
+            return _userStorage.Get(id);
+        }
+
+        /// <summary>
+        /// Gets the specified enumerable of users.
+        /// </summary>
+        /// <param name="expression">The expression.</param>
+        public IEnumerable<User> Get(Expression<Func<User,bool>> expression)
+        {
+            return _userStorage.Get(expression);
         }
 
         /// <summary>
         /// Save user aggregate root state.
         /// </summary>
-        /// <param name="root">aggregate root state object</param>
-        public override void Save(User root)
+        /// <param name="aggregate">The user aggregate.</param>
+        public override void Save(User aggregate)
         {
-            if (root.IsNew)
-            {
-                DbConnector.Execute(new SqlConnection(_dbConnectionString), BuildCreateCommand(root));
-            }
+            if (aggregate.IsNew)
+                _userStorage.Add(aggregate);
+            else if (aggregate.IsDeleted)
+                _userStorage.Delete(aggregate);
             else
-            {
-                DbConnector.Execute(new SqlConnection(_dbConnectionString), BuildUpdateCommand(root));
-            }
-        }
-
-        private SqlCommand BuildCreateCommand(User user)
-        {
-            var cmd = new SqlCommand
-                {
-                    CommandText = "sp_CreateUser", 
-                    CommandType = CommandType.StoredProcedure
-                };
-
-            cmd.Parameters.Add(new SqlParameter("@Id", SqlDbType.UniqueIdentifier) {Value = user.Id.Id});
-            cmd.Parameters.Add(new SqlParameter("@FirstName", SqlDbType.NVarChar) { Value = user.FirstName });
-            cmd.Parameters.Add(new SqlParameter("@LastName", SqlDbType.NVarChar) { Value = user.LastName });
-
-            return cmd;
-        }
-
-        private SqlCommand BuildUpdateCommand(User user)
-        {
-            var cmd = new SqlCommand
-                {
-                    CommandText = "sp_UpdateUser", 
-                    CommandType = CommandType.StoredProcedure
-                };
-
-            cmd.Parameters.Add(new SqlParameter("@Id", SqlDbType.UniqueIdentifier) { Value = user.Id.Id });
-            cmd.Parameters.Add(new SqlParameter("@FirstName", SqlDbType.NVarChar) { Value = user.FirstName });
-            cmd.Parameters.Add(new SqlParameter("@LastName", SqlDbType.NVarChar) { Value = user.LastName });
-
-            return cmd;
-        }
-
-        private User BuildObjectFromDataSet(DataSet data)
-        {
-            throw new NotImplementedException();
+                _userStorage.Update(aggregate);
         }
     }
 }

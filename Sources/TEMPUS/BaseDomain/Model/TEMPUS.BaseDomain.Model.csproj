@@ -43,7 +43,9 @@
     <Compile Include="DomainLayer\IAggregateRoot.cs" />
     <Compile Include="ServiceLayer\Dto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceLayer\IReadStorage.cs" />
     <Compile Include="ServiceLayer\IRepository.cs" />
+    <Compile Include="ServiceLayer\IStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\TEMPUS.BaseDomain.Utility\TEMPUS.BaseDomain.Utility.csproj">

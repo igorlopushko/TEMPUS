@@ -29,6 +29,8 @@ namespace TEMPUS.BaseDomain.Messages
 	CreateUser? (userId, string Login, string Password)
 	ChangeUserInformation?(userId, int Age, string Phone, string Image, string Password, string FirstName, string LastName)
 	UserInformationChanged!(userId, int Age, string Phone, string Image, string Password, string FirstName, string LastName)
+	DeleteUser?(userId)
+	UserDeleted!(userId)
 
 ";
 	#>
