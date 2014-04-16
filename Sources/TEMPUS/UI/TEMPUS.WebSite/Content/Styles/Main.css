@@ -288,3 +288,14 @@ code {
 
 //
 }*/
+
+/*Task Details*/
+div.grid-item {
+    padding: 5px 0px;
+}
+.left { 
+    float : left 
+}
+.right { 
+    float : right 
+}
