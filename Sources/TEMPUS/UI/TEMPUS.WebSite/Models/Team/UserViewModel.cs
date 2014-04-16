@@ -44,5 +44,10 @@ namespace TEMPUS.WebSite.Models.Team
         /// Gets or sets user's email.
         /// </summary>
         public string Email { get; set; }
+
+        /// <summary>
+        /// Gets or sets user's mood.
+        /// </summary>
+        public int Mood { get; set; }
     }
 }

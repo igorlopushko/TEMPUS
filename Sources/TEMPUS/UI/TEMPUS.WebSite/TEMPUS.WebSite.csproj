@@ -154,6 +154,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\Images\1_mood.png" />
+    <Content Include="Content\Images\2_mood.png" />
+    <Content Include="Content\Images\3_mood.png" />
+    <Content Include="Content\Images\4_mood.png" />
+    <Content Include="Content\Images\5_mood.png" />
     <Content Include="Content\Images\favicon.ico" />
     <Content Include="Content\Images\user.png" />
     <Content Include="Content\Lib\Styles\bootstrap-theme.css" />
@@ -167,6 +172,7 @@
     <Content Include="Content\Styles\Main.css" />
     <Content Include="Content\Styles\Team.css" />
     <Content Include="Content\Styles\UserBlock.css" />
+    <Content Include="Content\Styles\UserPage.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Lib\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\Lib\fonts\glyphicons-halflings-regular.ttf" />
@@ -185,6 +191,7 @@
     <Content Include="Scripts\Lib\jquery-2.1.0.js" />
     <Content Include="Scripts\Lib\jquery-2.1.0.min.js" />
     <Content Include="Scripts\Main.js" />
+    <Content Include="Scripts\UserPage.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

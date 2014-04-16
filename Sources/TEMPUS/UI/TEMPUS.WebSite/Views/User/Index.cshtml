@@ -4,8 +4,17 @@
     ViewBag.Title = "User";
 }
 
+<link rel="stylesheet" href="@Url.Content("~/Content/Styles/UserPage.css")">
+<script src="~/Scripts/UserPage.js"></script>
+<script>
+    $(document).ready(function (ev) {
+        setMood(@Model.Mood);
+    });
+</script>
+
 <div class="panel panel-default">
-    <div class="panel-heading">@Model.FirstName @Model.LastName, @Model.Role</div>
+    <div id="mood" class="panel-heading">@Model.FirstName @Model.LastName, @Model.Role
+    </div>
     <div class="panel-body">
         <div class="row">
             <div class="col-sm-4 col-md-3 text-center">
@@ -14,11 +23,13 @@
             <div class="col-sm-8 col-md-9">
                 <div class="row">
                     <div class="col-md-1 col-sm-2 col-xs-2">
+                        <p>Mood: </p>
                         <p>Age:</p>
                         <p>Email:</p>
                         <p>Phone:</p>
                     </div>
                     <div class="col-md-11 col-sm-10 col-xs-10">
+                        <p><img src="~/Content/Images/5_mood.png" class="img-responsive" id="mood-img" /></p>
                         <p>@Model.Age</p>
                         <p>@Model.Email</p>
                         <p>@Model.Phone</p>
@@ -29,8 +40,13 @@
         <div class="row">
             <div class="col-sm-4 col-md-3 text-center">
                 <a href="@Url.Action("Index", "Team")" class="btn btn-default" id="back-button">
-                    <span class="glyphicon glyphicon-chevron-left"></span> Back
+                    <span class="glyphicon glyphicon-chevron-left"></span>Back
                 </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <canvas id="respondCanvas" height="400"></canvas>
             </div>
         </div>
     </div>
