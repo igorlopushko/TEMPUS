@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using TEMPUS.BaseDomain.Infrastructure;
 using TEMPUS.BaseDomain.Messages;
 using TEMPUS.BaseDomain.Messages.Identities;
@@ -14,7 +12,7 @@ namespace TEMPUS.UserDomain.Infrastructure
     /// </summary>
     public class UserRepository : Repository<User, UserId>, IUserRepository
     {
-        private readonly IUserStorage<User, UserId> _userStorage;
+        private readonly IUserStorage<DB.Models.User> _userStorage;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserRepository" /> class.
@@ -22,7 +20,7 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// <param name="eventStore">The event store.</param>
         /// <param name="userStorage">The user storage.</param>
         /// <exception cref="System.ArgumentNullException">When userStorage is null.</exception>
-        public UserRepository(IEventStore eventStore, IUserStorage<User, UserId> userStorage)
+        public UserRepository(IEventStore eventStore, IUserStorage<DB.Models.User> userStorage)
             : base(eventStore)
         {
             if (userStorage == null)
@@ -41,16 +39,9 @@ namespace TEMPUS.UserDomain.Infrastructure
             if (id == null)
                 throw new ArgumentNullException("id");
 
-            return _userStorage.Get(id);
-        }
-
-        /// <summary>
-        /// Gets the specified enumerable of users.
-        /// </summary>
-        /// <param name="expression">The expression.</param>
-        public IEnumerable<User> Get(Expression<Func<User,bool>> expression)
-        {
-            return _userStorage.Get(expression);
+            var user = _userStorage.Get(id);
+            return new User(new UserId(user.Id), user.FirstName, user.LastName,
+                user.Login, user.Password, user.Age, user.Image, user.Phone);
         }
 
         /// <summary>
@@ -59,12 +50,24 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// <param name="aggregate">The user aggregate.</param>
         public override void Save(User aggregate)
         {
+            var user = new DB.Models.User
+            {
+                Id = aggregate.Id.Id,
+                FirstName = aggregate.FirstName,
+                LastName = aggregate.LastName,
+                Age = aggregate.Age,
+                Image = aggregate.Image,
+                Login = aggregate.Login,
+                Password = aggregate.Password,
+                Phone = aggregate.Phone
+            };
+
             if (aggregate.IsNew)
-                _userStorage.Add(aggregate);
+                _userStorage.Add(user);
             else if (aggregate.IsDeleted)
-                _userStorage.Delete(aggregate);
+                _userStorage.Delete(user);
             else
-                _userStorage.Update(aggregate);
+                _userStorage.Update(user);
         }
     }
 }

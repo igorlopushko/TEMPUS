@@ -137,6 +137,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\RisksController.cs" />
+    <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -184,6 +186,7 @@
     <Content Include="Content\Lib\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\Lib\fonts\FontAwesome.otf" />
     <Content Include="packages.config" />
+    <Content Include="Content\Fonts\.gitkeep" />
     <None Include="Scripts\Lib\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\grids.js" />
     <Content Include="Scripts\Lib\bootstrap.js" />
@@ -209,6 +212,9 @@
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Risks\Index.cshtml" />
+    <Content Include="Views\Tasks\Details.cshtml" />
+    <Content Include="Views\Tasks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -234,6 +240,10 @@
     <ProjectReference Include="..\..\BaseDomain\Model\TEMPUS.BaseDomain.Model.csproj">
       <Project>{d7d5dadb-f732-4535-810e-92f91d0c28db}</Project>
       <Name>TEMPUS.BaseDomain.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TEMPUS.DB\TEMPUS.DB.csproj">
+      <Project>{23A88EDC-1FDB-487E-ABEC-123F48F99347}</Project>
+      <Name>TEMPUS.DB</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\UserDomain\Infrastructure\TEMPUS.UserDomain.Infrastructure.csproj">
       <Project>{f20861aa-d330-4bfb-9ace-54d88d53818c}</Project>

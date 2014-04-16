@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using TEMPUS.BaseDomain.Messages.Identities;
+using TEMPUS.DB;
 using TEMPUS.UserDomain.Model.ServiceLayer;
 using TEMPUS.UserDomain.Services.ServiceLayer;
 
@@ -12,14 +13,14 @@ namespace TEMPUS.UserDomain.Infrastructure
     /// </summary>
     public class UserQueryService : IUserQueryService
     {
-        private readonly IUserReadRepository _userReadRepository;
+        private readonly DataContext _userReadRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserQueryService"/> class.
         /// </summary>
         /// <param name="userReadRepository">The user read storage.</param>
         /// <exception cref="System.ArgumentNullException">When userReadStorage is null</exception>
-        public UserQueryService(IUserReadRepository userReadRepository)
+        public UserQueryService(DataContext userReadRepository)
         {
             if (userReadRepository == null)
                 throw new ArgumentNullException("userReadRepository");
@@ -36,7 +37,19 @@ namespace TEMPUS.UserDomain.Infrastructure
             if (id == null)
                 throw new ArgumentNullException("id");
 
-            return _userReadRepository.Get(id);
+            return _userReadRepository.Users.Where(x => x.Id == id.Id).Select(x => new UserInfo
+            {
+                Age = x.Age,
+                LastName = x.LastName,
+                FirstName = x.FirstName,
+                Image = x.Image,
+                Login = x.Login,
+                Password = x.Password,
+                Phone = x.Phone,
+                Feelings = x.Feelings,
+                UserId = new UserId(x.Id),
+                Role = x.Role
+            }).FirstOrDefault();
         }
 
         /// <summary>
@@ -45,7 +58,19 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// <param name="login">The login.</param>
         public UserInfo GetUserByLogin(string login)
         {
-            return _userReadRepository.All.FirstOrDefault(x => x.Login == login);
+            return _userReadRepository.Users.Where(x => x.Login == login).Select(x => new UserInfo
+            {
+                Age = x.Age,
+                LastName = x.LastName,
+                FirstName = x.FirstName,
+                Image = x.Image,
+                Login = x.Login,
+                Password = x.Password,
+                Phone = x.Phone,
+                Feelings = x.Feelings,
+                UserId = new UserId(x.Id),
+                Role = x.Role
+            }).FirstOrDefault();
         }
 
         /// <summary>

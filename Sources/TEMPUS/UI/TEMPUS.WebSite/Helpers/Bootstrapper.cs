@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
-using Microsoft.Practices.Unity;
 using TEMPUS.BaseDomain.Infrastructure;
 using TEMPUS.BaseDomain.Messages;
 using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.BaseDomain.Model.ServiceLayer;
+using TEMPUS.DB;
 using TEMPUS.Infrastructure.Commands;
 using TEMPUS.Infrastructure.Unity;
 using TEMPUS.UserDomain.Infrastructure;
@@ -17,7 +17,6 @@ using TEMPUS.UserDomain.Model.DomainLayer;
 using TEMPUS.UserDomain.Services.DomainLayer;
 using TEMPUS.UserDomain.Services.ServiceLayer;
 using TEMPUS.WebSite.Controllers;
-using TEMPUS.UserDomain.Model.ServiceLayer;
 
 namespace TEMPUS.WebSite.Helpers
 {
@@ -25,6 +24,8 @@ namespace TEMPUS.WebSite.Helpers
     {
         public static void ConfigureUnityContainer()
         {
+            Database.SetInitializer<DataContext>(null);
+
             Container.Init(new UnityContainer());
 
             Container.Add<IController, ErrorController>("ErrorController", true);
@@ -45,15 +46,28 @@ namespace TEMPUS.WebSite.Helpers
 
         private static void RegisterCommandHandlers(InMemoryBus bus)
         {
-            var context = new UserDataContext();
+            // TODO: Move database creation from here.
+            var context = new DataContext();
+            if (!context.Database.Exists())
+            {
+                // Create the SimpleMembership database without Entity Framework migration schema
+                ((IObjectContextAdapter)context).ObjectContext.CreateDatabase();
+            }
             
-            Container.Add<IUserStorage<User, UserId>>(new UserStorage(context));
-            Container.Add<IUserReadStorage<UserInfo>>(new UserReadStorage(context));
-            Container.Add<IUserStorage<User, UserId>>(new UserStorage(context));
-            Container.Add<IUserReadStorage<UserInfo>>(new UserReadStorage(context));
-            Container.Add<IUserReadRepository>(new UserReadRepository(Container.Get<IUserReadStorage<UserInfo>>()));
+            // TODO: Remove. This is only for test purposes, for checking if DB is created.
+            context.Users.Add(new DB.Models.User
+            {
+                Id = Guid.NewGuid(),
+                Login = "SomeLogin",
+                Password = "SomePass"
+            });
+            context.SaveChanges();
 
-            var customerRepository = new UserRepository(Container.Get<IEventStore>(), Container.Get<IUserStorage<User, UserId>>());
+            Container.Add<IUserStorage<DB.Models.User>>(new UserStorage(context));
+            Container.Add<IUserStorage<DB.Models.User>>(new UserStorage(context));
+
+            var customerRepository = new UserRepository(Container.Get<IEventStore>(),
+                Container.Get<IUserStorage<DB.Models.User>>());
             Container.Add<IRepository<User, UserId>>(customerRepository);
 
             Container.Add(new UserCommandService(customerRepository));

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using TEMPUS.BaseDomain.Messages.Identities;
-using TEMPUS.UserDomain.Model.DomainLayer;
+using TEMPUS.DB;
 using TEMPUS.UserDomain.Services.ServiceLayer;
 
 namespace TEMPUS.UserDomain.Infrastructure
@@ -11,16 +11,16 @@ namespace TEMPUS.UserDomain.Infrastructure
     /// <summary>
     /// The class represents data access operations related to User.
     /// </summary>
-    public class UserStorage : IUserStorage<User, UserId>
+    public class UserStorage : IUserStorage<DB.Models.User>
     {
-        private readonly UserDataContext _context;
+        private readonly DataContext _context;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserStorage"/> class.
         /// </summary>
         /// <param name="context">The user data context.</param>
         /// <exception cref="System.ArgumentNullException">When the context in null.</exception>
-        public UserStorage(UserDataContext context)
+        public UserStorage(DataContext context)
         {
             if (context == null)
                 throw new ArgumentNullException("context");
@@ -31,7 +31,7 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// <summary>
         /// Gets all users.
         /// </summary>
-        public IQueryable<User> All
+        public IQueryable<DB.Models.User> All
         {
             get { return _context.Users.AsQueryable(); }
         }
@@ -39,30 +39,28 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// <summary>
         /// Adds the specified user aggregate.
         /// </summary>
-        /// <param name="aggregate">The user aggregate.</param>
+        /// <param name="entity">The user aggregate.</param>
         /// <exception cref="System.ArgumentNullException">When user aggregate is null.</exception>
-        public void Add(User aggregate)
+        public void Add(DB.Models.User entity)
         {
-            if(aggregate == null)
-                throw new ArgumentNullException("aggregate");
-            
-            //TODO: Investigate where we need to processing UserInfo.
-            _context.Users.Add(aggregate);
+            if (entity == null)
+                throw new ArgumentNullException("entity");
+
+            _context.Users.Add(entity);
             _context.SaveChanges();
         }
 
         /// <summary>
         /// Deletes the specified user aggregate.
         /// </summary>
-        /// <param name="aggregate">The user aggregate.</param>
+        /// <param name="entity">The user aggregate.</param>
         /// <exception cref="System.ArgumentNullException">When user aggregate is null.</exception>
-        public void Delete(User aggregate)
+        public void Delete(DB.Models.User entity)
         {
-            if(aggregate == null)
-                throw new ArgumentNullException("aggregate");
+            if (entity == null)
+                throw new ArgumentNullException("entity");
 
-            //TODO: Investigate where we need to processing UserInfo.
-            _context.Users.Remove(aggregate);
+            _context.Users.Remove(entity);
             _context.SaveChanges();
         }
 
@@ -72,19 +70,19 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// <param name="id">The user identifier.</param>
         /// <returns>User aggregate.</returns>
         /// <exception cref="System.ArgumentNullException">When user identifier is null.</exception>
-        public User Get(UserId id)
+        public DB.Models.User Get(UserId id)
         {
-            if(id == null)
+            if (id == null)
                 throw new ArgumentNullException("id");
 
-            return _context.Users.FirstOrDefault(x => x.Id == id);
+            return _context.Users.FirstOrDefault(x => x.Id == id.Id);
         }
 
         /// <summary>
         /// Gets the specified enumerable of users.
         /// </summary>
         /// <param name="expression">The expression.</param>
-        public IEnumerable<User> Get(Expression<Func<User, bool>> expression)
+        public IEnumerable<DB.Models.User> Get(Expression<Func<DB.Models.User, bool>> expression)
         {
             return _context.Users.Where(expression).AsEnumerable();
         }
@@ -94,12 +92,11 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// </summary>
         /// <param name="aggregate">The user aggregate.</param>
         /// <exception cref="System.ArgumentNullException">When user aggregate is null.</exception>
-        public void Update(User aggregate)
+        public void Update(DB.Models.User aggregate)
         {
-            if(aggregate == null)
+            if (aggregate == null)
                 throw new ArgumentNullException("aggregate");
 
-            //TODO: Investigate where we need to processing UserInfo.
             _context.SaveChanges();
         }
     }
