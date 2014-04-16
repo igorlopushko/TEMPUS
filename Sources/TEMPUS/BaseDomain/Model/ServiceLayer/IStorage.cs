@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using TEMPUS.BaseDomain.Messages;
 using TEMPUS.BaseDomain.Messages.Identities;
-using TEMPUS.BaseDomain.Model.DomainLayer;
+using TEMPUS.DB.Models;
 
 namespace TEMPUS.BaseDomain.Model.ServiceLayer
 {
-    public interface IStorage<T, TId>
-        where T : AggregateRoot<TId>
-        where TId : GuidIdentity
+
+    public interface IStorage<T>
+        where T : Entity
     {
         T Get(UserId id);
 
@@ -18,9 +17,9 @@ namespace TEMPUS.BaseDomain.Model.ServiceLayer
 
         IEnumerable<T> Get(Expression<Func<T, bool>> expression);
 
-        void Add(T aggregate);
+        void Add(T entity);
 
-        void Delete(T aggregate);
+        void Delete(T entity);
 
         void Update(T aggregate);
     }

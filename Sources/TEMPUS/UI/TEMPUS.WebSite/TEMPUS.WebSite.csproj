@@ -234,6 +234,10 @@
       <Project>{d7d5dadb-f732-4535-810e-92f91d0c28db}</Project>
       <Name>TEMPUS.BaseDomain.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\TEMPUS.DB\TEMPUS.DB.csproj">
+      <Project>{23A88EDC-1FDB-487E-ABEC-123F48F99347}</Project>
+      <Name>TEMPUS.DB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\UserDomain\Infrastructure\TEMPUS.UserDomain.Infrastructure.csproj">
       <Project>{f20861aa-d330-4bfb-9ace-54d88d53818c}</Project>
       <Name>TEMPUS.UserDomain.Infrastructure</Name>

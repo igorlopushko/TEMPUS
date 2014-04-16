@@ -10,97 +10,18 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
     public class User : AggregateRoot<UserId>
     {
         private readonly UserId _id;
-        private string _firstName;
-        private string _lastName;
-        private int _age;
-        private string _login;
-        private string _image;
-        private string _password;
-        private string _phone;
 
-        private bool _isNew;
-        private bool _isDeleted;
+        public override UserId Id { get { return _id; } }
+        public string FirstName { get; private set; }
+        public string LastName { get; private set; }
+        public int Age { get; private set; }
+        public string Login { get; private set; }
+        public string Password { get; private set; }
+        public string Image { get; private set; }
+        public string Phone { get; private set; }
 
-        /// <summary>
-        /// Gets the user identifier.
-        /// </summary>
-        public override UserId Id
-        {
-            get { return _id; }
-        }
-
-        /// <summary>
-        /// Gets the user first name.
-        /// </summary>
-        public string FirstName
-        {
-            get { return _firstName; }
-        }
-
-        /// <summary>
-        /// Gets the user last name.
-        /// </summary>
-        public string LastName
-        {
-            get { return _lastName; }
-        }
-
-        /// <summary>
-        /// Gets the user age.
-        /// </summary>
-        public int Age
-        {
-            get { return _age; }
-        }
-
-        /// <summary>
-        /// Gets the user login.
-        /// </summary>
-        public string Login
-        {
-            get { return _login; }
-        }
-
-        /// <summary>
-        /// Gets the user password.
-        /// </summary>
-        public string Password
-        {
-            get { return _password; }
-        }
-
-        /// <summary>
-        /// Gets the image which represents user avatar.
-        /// </summary>
-        public string Image
-        {
-            get { return _image; }
-        }
-
-        /// <summary>
-        /// Gets the user phone number.
-        /// </summary>
-        public string Phone
-        {
-            get { return _phone; }
-        }
-
-
-        /// <summary>
-        /// Gets a value indicating whether aggregate is new.
-        /// </summary>
-        public bool IsNew
-        {
-            get { return _isNew; }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether aggregate is deleted.
-        /// </summary>
-        public bool IsDeleted
-        {
-            get { return _isDeleted; }
-        }
+        public bool IsNew { get; private set; }
+        public bool IsDeleted { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="User"/> class.
@@ -108,7 +29,31 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
         /// <param name="userId">The user identifier.</param>
         public User(UserId userId)
         {
-            _id = userId;
+            this._id = userId;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="User"/> class.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="firstName">The user first name.</param>
+        /// <param name="lastName">The user last name.</param>
+        /// <param name="login">The user login.</param>
+        /// <param name="password">The user password.</param>
+        /// <param name="age">The user age.</param>
+        /// <param name="image">The user image.</param>
+        /// <param name="phone">The user phone.</param>
+        public User(UserId userId, string firstName, string lastName, string login, string password, int age,
+            string image, string phone)
+        {
+            this._id = userId;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.Login = login;
+            this.Password = password;
+            this.Age = age;
+            this.Image = image;
+            this.Phone = phone;
         }
 
         /// <summary>
@@ -118,12 +63,12 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
         /// <param name="password">The user password.</param>
         public void CreateUser(string login, string password)
         {
-            _login = login;
-            _password = password;
-            _isNew = true;
-            _isDeleted = false;
+            this.Login = login;
+            this.Password = password;
+            this.IsNew = true;
+            this.IsDeleted = false;
 
-            var @event = new UserCreated(_id, _login, _password);
+            var @event = new UserCreated(this.Id, this.Login, this.Password);
 
             this.ApplyChange(@event);
         }
@@ -133,10 +78,10 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
         /// </summary>
         public void DeleteUser()
         {
-            _isNew = false;
-            _isDeleted = true;
+            this.IsNew = false;
+            this.IsDeleted = true;
 
-            var @event = new UserDeleted(_id);
+            var @event = new UserDeleted(this.Id);
 
             this.ApplyChange(@event);
         }
@@ -153,16 +98,17 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
         public void ChangeInformation(string password, string firstName, string lastName, int age, string image,
             string phone)
         {
-            _password = password;
-            _firstName = firstName;
-            _lastName = lastName;
-            _age = age;
-            _image = image;
-            _phone = phone;
-            _isNew = true;
-            _isDeleted = false;
+            this.Password = password;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.Age = age;
+            this.Image = image;
+            this.Phone = phone;
+            this.IsNew = true;
+            this.IsDeleted = false;
 
-            var @event = new UserInformationChanged(_id, _age, _phone, _image, _password, _firstName, _lastName);
+            var @event = new UserInformationChanged(this.Id, this.Age, this.Phone, this.Image, this.Password,
+                this.FirstName, this.LastName);
 
             this.ApplyChange(@event);
         }
