@@ -13,6 +13,9 @@
             <li data-target="#create-carusel" data-slide-to="2"><a href="#">
                 <div class="step">3</div>
                 <small>Step Three</small></a></li>
+            <li data-target="#create-carusel" data-slide-to="3"><a href="#">
+                <div class="step">4</div>
+                <small>Step Four</small></a></li>
         </ul>
     </div>
     <!-- Wrapper for slides -->
@@ -34,7 +37,13 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="projectManager" class="col-sm-3 control-label">Department</label>
+                            <label for="projectOwner" class="col-sm-3 control-label">Project Owner</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="projectOwner" placeholder="Project Owner">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="department" class="col-sm-3 control-label">Department</label>
                             <div class="col-sm-4">
                                 <select id="department" class="form-control">
                                     <option>Department1</option>
@@ -45,7 +54,26 @@
                             </div>
                         </div>
                         <div class="form-group">
-
+                            <label for="priority" class="col-sm-3 control-label">Priority</label>
+                            <div class="col-sm-4">
+                                <select id="priority" class="form-control">
+                                    <option>High</option>
+                                    <option>Medium</option>
+                                    <option>Low</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="quality" class="col-sm-3 control-label">Quality</label>
+                            <div class="col-sm-4">
+                                <select id="quality" class="form-control">
+                                    <option>0.1</option>
+                                    <option>0.3</option>
+                                    <option>0.6</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="orderer" class="col-sm-3 control-label">Orderer</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control" id="orderer" placeholder="Orderer">
@@ -90,6 +118,7 @@
                                 <input type="date" class="form-control" id="due" placeholder="Due Date">
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label for="step2" class="col-sm-3 control-label"></label>
                             <div class="col-sm-4">
@@ -274,7 +303,49 @@
                             <hr>
                         </div>
                     </div>
-                    <a href="@Url.Action("Index", "Projects")"  data-target="#create-carusel" id="step3" class="btn btn-primary next">Done!</a>
+                    <button data-target="#create-carusel" id="step2" data-slide-to="3" class="btn btn-primary next">Next Step</button>
+                </div>
+            </div>
+            <div class="item">
+                <div class="container">
+                    <div class="row">
+                         <div class="form-group">
+                            <label for="onetimeCosts" class="col-sm-3 control-label">Onetime costs</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="onetimeCosts" placeholder="Onetime costs"/>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label for="continuousCosts" class="col-sm-3 control-label">Continuous costs</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="continuousCosts" placeholder="Continuous costs"/>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label for="hours" class="col-sm-3 control-label">Resource hours</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="hours" placeholder="Resource hours"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="roi" class="col-sm-3 control-label">ROI</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="roi" placeholder="ROI"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="benefits" class="col-sm-3 control-label">Benefits description</label>
+                            <div class="col-sm-4">
+                                <textarea class="form-control" id="benefits" placeholder="Benefits"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="step2" class="col-sm-3 control-label"></label>
+                            <div class="col-sm-4">
+                                <a href="@Url.Action("Index", "Projects")"  data-target="#create-carusel" id="step3" class="btn btn-primary next">Done!</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- End Item -->
