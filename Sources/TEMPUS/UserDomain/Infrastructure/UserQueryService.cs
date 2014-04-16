@@ -37,7 +37,7 @@ namespace TEMPUS.UserDomain.Infrastructure
             if (id == null)
                 throw new ArgumentNullException("id");
 
-            return _userReadRepository.Users.Where(x => x.Id == id.Id).Select(x => new UserInfo
+            return _userReadRepository.Users.Where(x => x.Id == id.Id).AsEnumerable().Select(x => new UserInfo
             {
                 Age = x.Age,
                 LastName = x.LastName,
@@ -58,7 +58,7 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// <param name="login">The login.</param>
         public UserInfo GetUserByLogin(string login)
         {
-            return _userReadRepository.Users.Where(x => x.Login == login).Select(x => new UserInfo
+            return _userReadRepository.Users.Where(x => x.Login == login).AsEnumerable().Select(x => new UserInfo
             {
                 Age = x.Age,
                 LastName = x.LastName,

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
 using TEMPUS.BaseDomain.Infrastructure;
@@ -51,17 +52,10 @@ namespace TEMPUS.WebSite.Helpers
             if (!context.Database.Exists())
             {
                 // Create the SimpleMembership database without Entity Framework migration schema
-                ((IObjectContextAdapter)context).ObjectContext.CreateDatabase();
+                ((IObjectContextAdapter)context).ObjectContext.CreateDatabase(); 
             }
-            
-            // TODO: Remove. This is only for test purposes, for checking if DB is created.
-            context.Users.Add(new DB.Models.User
-            {
-                Id = Guid.NewGuid(),
-                Login = "SomeLogin",
-                Password = "SomePass"
-            });
-            context.SaveChanges();
+            //TODO: Need to remove, only for testing.
+            CreateAdmin(context);
 
             Container.Add<IUserStorage<DB.Models.User>>(new UserStorage(context));
             Container.Add<IUserStorage<DB.Models.User>>(new UserStorage(context));
@@ -86,6 +80,21 @@ namespace TEMPUS.WebSite.Helpers
             IUserEventHandler userEventHandler = new UserEventHandler();
 
             bus.RegisterHandler<UserCreated>(userEventHandler.Handle);
+        }
+
+        private static void CreateAdmin(DataContext context)
+        {
+            var user = context.Users.FirstOrDefault(x => x.Login == "Admin" && x.Password == "Admin");
+            if (user == null)
+            {
+                context.Users.Add(new DB.Models.User
+                {
+                    Id = Guid.NewGuid(),
+                    Login = "Admin",
+                    Password = "Admin"
+                });
+                context.SaveChanges();
+            }
         }
     }
 }

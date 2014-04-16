@@ -1,4 +1,5 @@
-﻿<!doctype html>
+﻿@using TEMPUS.WebSite.Security
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -36,50 +37,69 @@
                 </div>
                 <div class="col-lg-8 col-md-8 col-sm-10">
                     <ul id="menu-list" class="collapse navbar-collapse nav navbar-nav">
-                        <li><a href="/">Home</a>
+                        <li>
+                            <a href="/">Home</a>
                         </li>
-                        <li><a href="@Url.Action("Index", "Projects")">Projects</a>
+                        <li>
+                            <a href="@Url.Action("Index", "Projects")">Projects</a>
                         </li>
-                        <li><a href="#three">Project plan</a>
+                        <li>
+                            <a href="#three">Project plan</a>
                         </li>
-                        <li><a href="@Url.Action("Index", "Flow")">Project flow</a>
-                        </li>
-                        
-                        <li><a href="@Url.Action("Index", "Tasks")">Tasks</a>
-                        </li>
-                        
-                        <li><a href="@Url.Action("Index", "Risks")">Risks</a>
+                        <li>
+                            <a href="@Url.Action("Index", "Flow")">Project flow</a>
                         </li>
 
-                        <li><a href="@Url.Action("Index", "Team")">Team</a>
+                        <li>
+                            <a href="@Url.Action("Index", "Tasks")">Tasks</a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("Index", "Risks")">Risks</a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("Index", "Team")">Team</a>
                         </li>
                     </ul>
                 </div>
                 <!-- User Block -->
                 <div id="user-block" class="col-lg-2 col-lg-offset-1 col-md-3 col-sm-12">
-                    <ul class="nav navbar-nav">
-                        <li></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user">
-                            </span>Username 
-                                <b class="caret"></b>
-                            </a>
-                            <ul id="user-block-dropdown" class="dropdown-menu text-center">
-                                <li>
-                                    <img src="@Url.Content("~/Content/images/user.png")" class="img-thumbnail img-responsive">
-                                </li>
-                                <li class="divider"></li>
-                                <li class="text-center">
-                                    <button type="button" class="btn btn-primary">
-                                        <span class="glyphicon glyphicon-user"></span>Profile
-                                    </button>
-                                    <button type="button" class="btn btn-danger">
-                                        <span class="glyphicon glyphicon-log-out"></span>Log out
-                                    </button>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+                    @if (CurrentUser.User != null)
+                    {
+                        <ul class="nav navbar-nav">
+                            <li></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-user">
+                                    </span>@CurrentUser.User.Login
+                                    <b class="caret"></b>
+                                </a>
+                                <ul id="user-block-dropdown" class="dropdown-menu text-center">
+                                    <li>
+                                        <img src="@Url.Content("~/Content/images/user.png")" class="img-thumbnail img-responsive">
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li class="text-center">
+                                        <button type="button" class="btn btn-primary">
+                                            <span class="glyphicon glyphicon-user"></span>Profile
+                                        </button>
+                                        <button type="button" class="btn btn-danger">
+                                            <span class="glyphicon glyphicon-log-out"></span>@Html.ActionLink("Log out", "LogOut", "Account")
+                                        </button>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="nav nav-pills">
+                            <li>
+                                @Html.ActionLink("Log In", "LogIn", "Account")
+                            </li>
+                        </ul>
+                    }
                 </div>
             </div>
         </div>

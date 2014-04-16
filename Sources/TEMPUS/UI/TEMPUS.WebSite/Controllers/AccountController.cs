@@ -4,6 +4,7 @@ using TEMPUS.BaseDomain.Messages;
 using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.UserDomain.Services.ServiceLayer;
 using TEMPUS.WebSite.Models.Account;
+using TEMPUS.WebSite.Security;
 
 namespace TEMPUS.WebSite.Controllers
 {
@@ -61,10 +62,21 @@ namespace TEMPUS.WebSite.Controllers
             return RedirectToAction("LogIn");
         }
 
+        [HttpGet]
+        public ActionResult LogIn()
+        {
+            if (CurrentUser.User == null)
+                return View();
+
+            // TODO: Need to return to the project page.
+            return RedirectToAction("Index", "Team");
+        }
+
         /// <summary>
         /// Logs in the user.
         /// </summary>
         /// <param name="model">The model represents login information of the user.</param>
+        [HttpPost]
         public ActionResult LogIn(LoginViewModel model)
         {
             if (!ModelState.IsValid)
@@ -76,8 +88,11 @@ namespace TEMPUS.WebSite.Controllers
             if (user == null)
             {
                 //TODO: return error message.
+                return RedirectToAction("Index", "Team");
             }
             //TODO Login user using CustomMembershipProvider.
+            CurrentUser.LogIn(model.Login, model.Password);
+
             //TODO Redirect to Project page.
             return RedirectToAction("Index", "Team");
         }
@@ -148,6 +163,8 @@ namespace TEMPUS.WebSite.Controllers
                 //TODO: return error message.
             }
             //TODO: Log off user using CustomMembershipProvider.
+            CurrentUser.LogOut();
+
             return RedirectToAction("LogIn");
         }
     }
