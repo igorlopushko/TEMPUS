@@ -4,6 +4,7 @@ using TEMPUS.BaseDomain.Messages;
 using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.UserDomain.Services.ServiceLayer;
 using TEMPUS.WebSite.Models.Account;
+using TEMPUS.WebSite.Models.Project;
 using TEMPUS.WebSite.Security;
 
 namespace TEMPUS.WebSite.Controllers
@@ -166,6 +167,59 @@ namespace TEMPUS.WebSite.Controllers
             CurrentUser.LogOut();
 
             return RedirectToAction("LogIn");
+        }
+
+        public ActionResult Tasks()
+        {
+            ProjectViewModel[] projects = {
+                new ProjectViewModel {
+                    Name = "TEMPUS",
+                    Tasks = new TaskViewModel[] {
+                        new TaskViewModel {
+                            Name = "Create Time Report Page",
+                            Due = new DateTime(2014, 04, 17),
+                            Status = TaskStatus.InProgress
+                        },
+                        new TaskViewModel {
+                            Name = "Create Tasks Page",
+                            Due = new DateTime(2014, 04, 17),
+                            Status = TaskStatus.InProgress
+                        },
+                        new TaskViewModel {
+                            Name = "Create Project List Page",
+                            Due = new DateTime(2014, 04, 17),
+                            Status = TaskStatus.New
+                        },
+                        new TaskViewModel {
+                            Name = "Enhance Menu Stucture",
+                            Due = new DateTime(2014, 04, 25),
+                            Status = TaskStatus.New
+                        }
+                    }
+                },
+                new ProjectViewModel {
+                    Name = "Other Project",
+                    Tasks = new TaskViewModel[] {
+                        new TaskViewModel {
+                            Name = "Some task",
+                            Due = new DateTime(2014, 04, 17),
+                            Status = TaskStatus.InProgress
+                        },
+                        new TaskViewModel {
+                            Name = "Another important task",
+                            Due = new DateTime(2014, 04, 17),
+                            Status = TaskStatus.Done
+                        },
+                        new TaskViewModel {
+                            Name = "Other one",
+                            Due = new DateTime(2014, 04, 17),
+                            Status = TaskStatus.New
+                        }
+                    }
+                }
+           };
+
+            return View(projects);
         }
     }
 }
