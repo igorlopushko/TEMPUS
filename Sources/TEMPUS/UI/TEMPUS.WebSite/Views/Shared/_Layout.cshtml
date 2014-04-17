@@ -84,12 +84,13 @@
                                     </li>
                                     <li class="divider"></li>
                                     <li class="text-center">
-                                        <button type="button" class="btn btn-primary">
+                                        @* TODO: change url to Account/Profile *@
+                                        <a role="button" class="btn btn-primary" href="@Html.Action("Index", "User")">
                                             <span class="glyphicon glyphicon-user"></span>Profile
-                                        </button>
-                                        <button type="button" class="btn btn-danger">
-                                            <span class="glyphicon glyphicon-log-out"></span>@Html.ActionLink("Log out", "LogOut", "Account")
-                                        </button>
+                                        </a>
+                                        <a role="button" class="btn btn-danger" href="@Html.Action("LogOut", "Account")">
+                                            <span class="glyphicon glyphicon-log-out"></span> Log Out
+                                        </a>
                                     </li>
                                 </ul>
                             </li>
