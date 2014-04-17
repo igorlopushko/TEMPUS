@@ -36,7 +36,7 @@ namespace TEMPUS.WebSite.Controllers
                 Phone = "+380970000000",
                 Role = "Tech Lead",
                 Image = "~/Content/images/user.png",
-                Mood = new Random().Next(1,5)
+                Mood = new Random().Next(1,6)
             };
             return View(user);
         }

@@ -74,8 +74,7 @@
                             <li></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <span class="glyphicon glyphicon-user">
-                                    </span>@CurrentUser.User.Login
+                                    <span class="glyphicon glyphicon-user"></span>@CurrentUser.User.Login
                                     <b class="caret"></b>
                                 </a>
                                 <ul id="user-block-dropdown" class="dropdown-menu text-center">
@@ -84,13 +83,12 @@
                                     </li>
                                     <li class="divider"></li>
                                     <li class="text-center">
-                                        @* TODO: change url to Account/Profile *@
-                                        <a role="button" class="btn btn-primary" href="@Html.Action("Index", "User")">
+                                        <button type="button" class="btn btn-primary">
                                             <span class="glyphicon glyphicon-user"></span>Profile
-                                        </a>
-                                        <a role="button" class="btn btn-danger" href="@Html.Action("LogOut", "Account")">
-                                            <span class="glyphicon glyphicon-log-out"></span> Log Out
-                                        </a>
+                                        </button>
+                                        <button type="button" class="btn btn-danger">
+                                            <span class="glyphicon glyphicon-log-out"></span>@Html.ActionLink("Log out", "LogOut", "Account")
+                                        </button>
                                     </li>
                                 </ul>
                             </li>
