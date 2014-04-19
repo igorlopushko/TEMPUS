@@ -43,17 +43,19 @@ namespace TEMPUS.WebSite.Controllers
             if (model == null)
             {
                 //TODO: return error message.
+                return RedirectToAction("Register", "Account");
             }
             if (!ModelState.IsValid)
             {
                 //TODO: return error message.
+                return RedirectToAction("Register", "Account");
             }
 
-            // TODO Change GetUserByLogin for CurrentUser.User when implemented.
             var user = _userQueryService.GetUserByLogin(model.Login);
             if (user != null)
             {
                 //TODO: return error message.
+                return RedirectToAction("Register", "Account");
             }
 
             var userId = Guid.NewGuid();
@@ -83,13 +85,16 @@ namespace TEMPUS.WebSite.Controllers
             if (!ModelState.IsValid)
             {
                 //TODO: return error message.
+                return RedirectToAction("LogIn", "Account");
             }
-            // TODO Change GetUserByLogin for CurrentUser.User when implemented.
+            if (CurrentUser.User != null)
+                return RedirectToAction("Index", "Team");
+
             var user = _userQueryService.GetUserByLogin(model.Login);
             if (user == null)
             {
                 //TODO: return error message.
-                return RedirectToAction("Index", "Team");
+                return RedirectToAction("LogIn", "Account");
             }
             //TODO Login user using CustomMembershipProvider.
             CurrentUser.LogIn(model.Login, model.Password);
@@ -107,14 +112,16 @@ namespace TEMPUS.WebSite.Controllers
             if (model == null)
             {
                 //TODO: return error message.
+                return RedirectToAction("Manage", "Account");
             }
             if (!ModelState.IsValid)
             {
                 //TODO: return error message.
+                return RedirectToAction("Manage", "Account");
             }
 
             // TODO Change GetUserByLogin for CurrentUser.User when implemented.
-            var userInfo = _userQueryService.GetUserByLogin(User.Identity.Name);
+            var userInfo = _userQueryService.GetUserByLogin(CurrentUser.User.Login);
 
             if (userInfo.Age != model.Age || userInfo.Image != model.Image ||
                 userInfo.Phone != model.Phone || userInfo.Password != model.Password ||
@@ -134,10 +141,11 @@ namespace TEMPUS.WebSite.Controllers
         public new ActionResult Profile()
         {
             // TODO Change GetUserByLogin for CurrentUser.User when implemented.
-            var userInfo = _userQueryService.GetUserByLogin(User.Identity.Name);
+            var userInfo = _userQueryService.GetUserByLogin(CurrentUser.User.Login);
             if (userInfo == null)
             {
                 //TODO: return error message.
+                return RedirectToAction("LogIn", "Account");
             }
             var model = new ProfileViewModel
             {
@@ -158,12 +166,13 @@ namespace TEMPUS.WebSite.Controllers
         public ActionResult LogOut()
         {
             // TODO Change GetUserByLogin for CurrentUser.User when implemented.
-            var userInfo = _userQueryService.GetUserByLogin(User.Identity.Name);
+            var userInfo = _userQueryService.GetUserByLogin(CurrentUser.User.Login);
             if (userInfo == null)
             {
                 //TODO: return error message.
+                return RedirectToAction("LogIn", "Account");
             }
-            //TODO: Log off user using CustomMembershipProvider.
+            //TODO: Log out user using CustomMembershipProvider.
             CurrentUser.LogOut();
 
             return RedirectToAction("LogIn");
