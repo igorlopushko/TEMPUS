@@ -1,7 +1,66 @@
 ﻿@model TEMPUS.WebSite.Models.Account.RegisterViewModel
 
-@{
-    ViewBag.Title = "Register";
-}
+<div class="page-header">
+    <h1>Log in</h1>
+</div>
 
-<h2>Register</h2>
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="container">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="Email" class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-4">
+                            @Html.TextBoxFor(model => model.Login, new { @class = "form-control", id = "email", placeholder = "Email" })
+                            @Html.ValidationMessageFor(model => model.Login)
+                            @Html.ValidationMessageFor(model => model.Login)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Password" class="col-sm-3 control-label">Password</label>
+                        <div class="col-sm-4">
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control", id = "password", placeholder = "Password" })
+                            @Html.ValidationMessageFor(model => model.Password)
+                            @Html.ValidationMessageFor(model => model.Password)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ConfirmPassword" class="col-sm-3 control-label">Confirm password</label>
+                        <div class="col-sm-4">
+                            @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", id = "confirmpassword", placeholder = "Confirm password" })
+                            @Html.ValidationMessageFor(model => model.Password)
+                            @Html.ValidationMessageFor(model => model.Password)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="FirstName" class="col-sm-3 control-label">First name</label>
+                        <div class="col-sm-4">
+                            @Html.PasswordFor(model => model.FirstName, new { @class = "form-control", id = "firstname", placeholder = "First name" })
+                            @Html.ValidationMessageFor(model => model.Password)
+                            @Html.ValidationMessageFor(model => model.Password)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="LastName" class="col-sm-3 control-label">Last name</label>
+                        <div class="col-sm-4">
+                            @Html.PasswordFor(model => model.LastName, new { @class = "form-control", id = "lastname", placeholder = "Last name" })
+                            @Html.ValidationMessageFor(model => model.Password)
+                            @Html.ValidationMessageFor(model => model.Password)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"></label>
+                        <div class="col-sm-4">
+                            <input class="btn btn-primary next" value="Sign In" type="submit" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
