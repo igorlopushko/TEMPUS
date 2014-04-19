@@ -40,7 +40,7 @@
                     <div class="form-group">
                         <label for="FirstName" class="col-sm-3 control-label">First name</label>
                         <div class="col-sm-4">
-                            @Html.PasswordFor(model => model.FirstName, new { @class = "form-control", id = "firstname", placeholder = "First name" })
+                            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", id = "firstname", placeholder = "First name" })
                             @Html.ValidationMessageFor(model => model.Password)
                             @Html.ValidationMessageFor(model => model.Password)
                         </div>
@@ -48,7 +48,7 @@
                     <div class="form-group">
                         <label for="LastName" class="col-sm-3 control-label">Last name</label>
                         <div class="col-sm-4">
-                            @Html.PasswordFor(model => model.LastName, new { @class = "form-control", id = "lastname", placeholder = "Last name" })
+                            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", id = "lastname", placeholder = "Last name" })
                             @Html.ValidationMessageFor(model => model.Password)
                             @Html.ValidationMessageFor(model => model.Password)
                         </div>

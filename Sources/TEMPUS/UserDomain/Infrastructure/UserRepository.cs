@@ -40,7 +40,7 @@ namespace TEMPUS.UserDomain.Infrastructure
                 throw new ArgumentNullException("id");
 
             var user = _userStorage.Get(id);
-            return new User(new UserId(user.Id), user.FirstName, user.LastName,
+            return user == null ? null : new User(new UserId(user.Id), user.FirstName, user.LastName,
                 user.Login, user.Password, user.Age, user.Image, user.Phone);
         }
 

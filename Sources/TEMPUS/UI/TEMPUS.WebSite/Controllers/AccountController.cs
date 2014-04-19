@@ -35,9 +35,22 @@ namespace TEMPUS.WebSite.Controllers
         }
 
         /// <summary>
+        /// Registers the user.
+        /// </summary>
+        [HttpGet]
+        public ActionResult Register()
+        {
+            if (CurrentUser.User == null)
+                return View();
+
+            return RedirectToAction("Index", "Team");
+        }
+
+        /// <summary>
         /// Registers the specified user.
         /// </summary>
         /// <param name="model">The model represents register information of the user.</param>
+        [HttpPost]
         public ActionResult Register(RegisterViewModel model)
         {
             if (model == null)
