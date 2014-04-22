@@ -24,7 +24,6 @@
 <body>
     <!-- Fixed navbar -->
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
             <div class="row">
                 <div class="navbar-header col-lg-1 col-md-1 col-sm-2">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -35,7 +34,7 @@
                     </button>
                     <a class="navbar-brand" href="/">TEMPUS</a>
                 </div>
-                <div class="col-lg-8 col-md-8 col-sm-10">
+                <div class="col-lg-9 col-md-8 col-sm-10">
                     <ul id="menu-list" class="collapse navbar-collapse nav navbar-nav">
                         <li>
                             <a href="/">Home</a>
@@ -67,14 +66,14 @@
                     </ul>
                 </div>
                 <!-- User Block -->
-                <div id="user-block" class="col-lg-2 col-lg-offset-1 col-md-3 col-sm-12">
+                <div id="user-block" class="col-lg-2 col-md-3 col-sm-12">
                     @if (CurrentUser.User != null)
                     {
                         <ul class="nav navbar-nav">
                             <li></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <span class="glyphicon glyphicon-user"></span>@CurrentUser.User.Login
+                                    <span class="glyphicon glyphicon-user"></span> @CurrentUser.User.Login
                                     <b class="caret"></b>
                                 </a>
                                 <ul id="user-block-dropdown" class="dropdown-menu text-center">
@@ -84,7 +83,7 @@
                                     <li class="divider"></li>
                                     <li class="text-center">
                                         <button type="button" class="btn btn-primary">
-                                            <span class="glyphicon glyphicon-user"></span>Profile
+                                            <span class="glyphicon glyphicon-user"></span>@Html.ActionLink("Profile", "Profile", "Account")
                                         </button>
                                         <button type="button" class="btn btn-danger">
                                             <span class="glyphicon glyphicon-log-out"></span>@Html.ActionLink("Log out", "LogOut", "Account")
@@ -104,7 +103,6 @@
                     }
                 </div>
             </div>
-        </div>
     </div>
 
     <div id="heightStub" class="visible-xs visible-sm"></div>

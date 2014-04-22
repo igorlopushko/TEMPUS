@@ -1,0 +1,33 @@
+﻿#select-box img
+{
+    height:25px;
+}
+
+#ul-chooser li
+{
+    padding:5px 5px 5px 5px;
+    height:50px;
+}
+
+#ul-chooser li img
+{
+    opacity:0.4;
+    height:35px;
+}
+
+#ul-chooser li img:hover
+{
+    opacity:1.0;
+}
+
+.panel
+{
+    width:280px;
+}
+
+
+
+#whitespace
+{
+    height:50px;
+}

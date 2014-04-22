@@ -3,7 +3,49 @@
 @{
     ViewBag.Title = "Profile";
 }
+<script src="~/Scripts/Lib/jquery.ddslick.min.js"></script>
+<script src="~/Scripts/Profile.js"></script>
+<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Profile.css")" />
 
 <h2>Profile</h2>
 
 <div>@Model.FirstName</div>
+
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">Set your mood</div>
+    <div class="panel-body">
+        <span>Variant 1</span>
+        <select id="select-box">
+            <option value="1" data-imagesrc="/Content/Images/1_mood.png" data-description=" ">Very
+                sad</option>
+            <option value="2" data-imagesrc="/Content/Images/2_mood.png" data-description=" ">Not
+                OK</option>
+            <option value="3" data-imagesrc="/Content/Images/3_mood.png" data-description=" ">Normal</option>
+            <option value="4" data-imagesrc="/Content/Images/4_mood.png" data-description=" ">Good</option>
+            <option value="5" data-imagesrc="/Content/Images/5_mood.png" data-description=" ">Awesome!</option>
+        </select>
+
+        <div id="whitespace"></div>
+
+        <span>Variant 2</span>
+        <ul class="list-inline" id="ul-chooser">
+            <li>
+                <img src="~/Content/Images/1_mood.png" class="img-responsive" id="mood-1" />
+            </li>
+            <li>
+                <img src="~/Content/Images/2_mood.png" class="img-responsive" id="mood-2" />
+            </li>
+            <li>
+                <img src="~/Content/Images/3_mood.png" class="img-responsive" id="mood-3" />
+            </li>
+            <li>
+                <img src="~/Content/Images/4_mood.png" class="img-responsive" id="mood-4" />
+            </li>
+            <li>
+                <img src="~/Content/Images/5_mood.png" class="img-responsive" id="mood-5" />
+            </li>
+        </ul>
+    </div>
+</div>
