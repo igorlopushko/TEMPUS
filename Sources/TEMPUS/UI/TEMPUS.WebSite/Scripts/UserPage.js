@@ -23,30 +23,19 @@ $(document).ready(function () {
     $(window).resize(redraw);
     function redraw() {
         var ctx = $("#respondCanvas").get(0).getContext("2d");
-        var data = [
-        {
-            value: 2,
-            color: colors.red
-        },
-        {
-            value: 1,
-            color: colors.orange
-        },
-        {
-            value: 4,
-            color: colors.yellow
-        },
-        {
-            value: 8,
-            color: colors.chartreuse
-        },
-        {
-            value: 3,
-            color: colors.green
+        var data = {
+            labels: ["07.04.14", "08.04.14", "09.04.14", "10.04.14", "11.04.14", "14.04.14", "15.04.14"],
+            datasets: [
+                {
+                    fillColor: "rgba(4,200,34, 0.4)",
+                    strokeColor: "rgba(4,200,34, 1)",
+                    pointColor: "rgba(4,200,34, 1)",
+                    pointStrokeColor: "rgba(0,0,0, 0.4)",
+                    data: [3, 2, 1, 4, 5, 4, 4]
+                }
+            ]
         }
-
-        ]
-        var myNewChart = new Chart(ctx).Doughnut(data);
+        var myNewChart = new Chart(ctx).Line(data, { scaleOverride: true, scaleStepWidth: 1, scaleSteps: 5 });
     }
     redraw();
 });

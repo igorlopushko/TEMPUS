@@ -21,7 +21,13 @@
         <div class="row">
             <div class="col-sm-4 col-md-3 text-center">
                 <img id="avatar" src="@Url.Content(@Model.Image)" class="img-thumbnail img-responsive" />
+                <div class="text-center">
+                    <a href="@Url.Action("Index", "Team")" class="btn btn-default hidden-xs back-button">
+                        <span class="glyphicon glyphicon-chevron-left"></span>Back
+                    </a>
+                </div>
             </div>
+
             <div class="col-sm-8 col-md-9">
                 <div class="row">
                     <div class="col-md-1 col-sm-2 col-xs-2">
@@ -30,7 +36,7 @@
                         <p>Email:</p>
                         <p>Phone:</p>
                     </div>
-                    <div class="col-md-3 col-sm-4 col-xs-10">
+                    <div class="col-md-11 col-sm-10 col-xs-10">
                         <p>
                             <img src="~/Content/Images/5_mood.png" class="img-responsive" id="mood-img" />
                         </p>
@@ -38,19 +44,26 @@
                         <p>@Model.Email</p>
                         <p>@Model.Phone</p>
                     </div>
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="text-center">Mood by days</div>
-                        <canvas id="respondCanvas" height="200"></canvas>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Mood by days</div>
+                            <div class="panel-body">
+
+                                <canvas id="respondCanvas" height="200"></canvas>
+                            </div>
+                            <div class="panel-footer"><span class="text-muted">1  - very sad, 5 - awesome</span>
+                            </div>
+                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-4">
+                <a href="@Url.Action("Index", "Team")" class="btn btn-default visible-xs">
+                    <span class="glyphicon glyphicon-chevron-left"></span>Back
+                </a>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-4 col-md-3 text-center">
-            <a href="@Url.Action("Index", "Team")" class="btn btn-default" id="back-button">
-                <span class="glyphicon glyphicon-chevron-left"></span>Back
-            </a>
-        </div>
-    </div>
-</div>
 </div>
