@@ -168,6 +168,8 @@
     <Content Include="Content\Images\5_mood.png" />
     <Content Include="Content\Images\favicon.ico" />
     <Content Include="Content\Images\user.png" />
+    <Content Include="Content\Lib\Styles\bootstrap-datetimepicker.css" />
+    <Content Include="Content\Lib\Styles\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\Lib\Styles\bootstrap-theme.css" />
     <Content Include="Content\Lib\Styles\bootstrap-theme.min.css" />
     <Content Include="Content\Lib\Styles\bootstrap.css" />
@@ -195,6 +197,7 @@
     <Content Include="Content\Fonts\.gitkeep" />
     <None Include="Scripts\Lib\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\grids.js" />
+    <Content Include="Scripts\Lib\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\Lib\bootstrap.js" />
     <Content Include="Scripts\Lib\bootstrap.min.js" />
     <Content Include="Scripts\Lib\Chart.js" />
