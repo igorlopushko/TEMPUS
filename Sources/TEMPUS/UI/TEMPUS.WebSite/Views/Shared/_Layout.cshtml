@@ -1,4 +1,5 @@
-﻿@using TEMPUS.WebSite.Security
+﻿@using TEMPUS.WebSite.Helpers
+@using TEMPUS.WebSite.Security
 <!doctype html>
 <html lang="en">
 
@@ -36,33 +37,13 @@
                 </div>
                 <div class="col-lg-9 col-md-8 col-sm-10">
                     <ul id="menu-list" class="collapse navbar-collapse nav navbar-nav">
-                        <li>
-                            <a href="/">Home</a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Tasks", "Account")">Today</a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Index", "Projects")">Projects</a>
-                        </li>
-                        <li>
-                            <a href="#three">Project plan</a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Index", "Flow")">Project flow</a>
-                        </li>
-
-                        <li>
-                            <a href="@Url.Action("Index", "Tasks")">Tasks</a>
-                        </li>
-
-                        <li>
-                            <a href="@Url.Action("Index", "Risks")">Risks</a>
-                        </li>
-
-                        <li>
-                            <a href="@Url.Action("Index", "Team")">Team</a>
-                        </li>
+                        @Html.MainMenuItem("Today", "Tasks", "Account")
+                        @Html.MainMenuItem("Projects", "Index", "Projects")
+                        @Html.MainMenuItem("Project plan", "Plan", "Projects")
+                        @Html.MainMenuItem("Project flow", "Index", "Flow")
+                        @Html.MainMenuItem("Tasks", "Index", "Tasks")
+                        @Html.MainMenuItem("Risks", "Index", "Risks")
+                        @Html.MainMenuItem("Team", "Index", "Team")
                     </ul>
                 </div>
                 <!-- User Block -->
