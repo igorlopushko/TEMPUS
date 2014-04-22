@@ -1,7 +1,9 @@
 Sources/TEMPUS/packages
 Sources/TEMPUS/.nuget
-Sources/TEMPUS/*/*/bin
-Sources/TEMPUS/*/*/obj
+bin/
+obj/
 *.cache
 *.suo
 *.csproj.user
+*.mdf
+*.ldf
