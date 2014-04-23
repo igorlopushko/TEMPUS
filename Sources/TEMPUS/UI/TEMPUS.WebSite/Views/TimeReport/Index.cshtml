@@ -83,7 +83,8 @@
                 {        
                     <tr>
                         <td>@record.Project.Name</td>
-                        <td>@if (record.Task != null) { @record.Task.Name }</td>
+                        <td>@if (record.Task != null)
+                            { @record.Task.Name }</td>
                         <td>@record.User.FirstName @record.User.LastName</td>
                         <td>@record.Hours</td>
                         <td>@record.StartDate.ToString("MM/dd/yyyy")</td>
@@ -93,5 +94,72 @@
                 }
             </tbody>
         </table>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <a href="#timeSheetModal" data-toggle="modal" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>&nbsp;Create Time Record</a>
+    </div>
+</div>
+
+<div class="modal fade" id="timeSheetModal" tabindex="-1" role="dialog" aria-labelledby="timeSheetModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="timeSheetModalLabel">Create Time Record</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="start_date_" class="col-sm-3 control-label">Start Date</label>
+                        <div class="col-sm-9">
+                            <div class="input-group" role="datepicker">
+                                <input id="start_date_" type="text" class="form-control" placeholder="Date">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="end_date_" class="col-sm-3 control-label">Start Date</label>
+                        <div class="col-sm-9">
+                            <div class="input-group" role="datepicker">
+                                <input id="end_date_" type="text" class="form-control" placeholder="Date">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="project_" class="col-sm-3 control-label">Project</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="project_">
+                                <option>Project</option>
+                                <option>TEMPUS</option>
+                                <option>Happy Project</option>
+                                <option>Lucky Project</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-3 control-label">Hours</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" placeholder="Hours">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-3 control-label">Comment</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Create</button>
+            </div>
+        </div>
     </div>
 </div>
