@@ -5,3 +5,9 @@ $(document).ready(function (ev) {
         $('#create-carusel .controls li:eq(' + $(evt.relatedTarget).index() + ')').addClass('active');
     });
 });
+
+jQuery(function ($) {
+    $('[role="datepicker"]').datetimepicker({
+        pickTime: false
+    });
+});

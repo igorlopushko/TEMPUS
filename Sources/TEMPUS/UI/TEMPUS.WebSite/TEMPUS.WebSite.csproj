@@ -137,6 +137,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\TimeReportController.cs" />
     <Compile Include="Controllers\RisksController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
@@ -205,6 +206,7 @@
     <Content Include="Scripts\Lib\jquery-2.1.0.js" />
     <Content Include="Scripts\Lib\jquery-2.1.0.min.js" />
     <Content Include="Scripts\Lib\jquery.ddslick.min.js" />
+    <Content Include="Scripts\Lib\moment.min.js" />
     <Content Include="Scripts\Main.js" />
     <Content Include="Scripts\Profile.js" />
     <Content Include="Scripts\UserPage.js" />
@@ -230,6 +232,7 @@
     <Content Include="Views\Tasks\Index.cshtml" />
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Account\Tasks.cshtml" />
+    <Content Include="Views\TimeReport\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
