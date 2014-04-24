@@ -50,6 +50,16 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Resource load for this months</div>
+            <div class="panel-body">
+                <div id="timeChart"></div>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="~/Scripts/Projects.js"></script>
 <script>
     google.load("visualization", "1", { packages: ["corechart"] });
@@ -57,6 +67,6 @@
     $(document).ready(function () {
         $(window).resize(redrawDetailsCharts)
         redrawRiskChart();
-        redrawResourceChart();
+        redrawTimeChart();
     });
 </script>

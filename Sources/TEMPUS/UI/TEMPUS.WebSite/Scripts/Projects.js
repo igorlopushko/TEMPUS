@@ -5,7 +5,31 @@
 
 function redrawDetailsCharts() {
     redrawRiskChart();
- 
+    redrawTimeChart();
+}
+
+function redrawTimeChart() {
+    var data = google.visualization.arrayToDataTable([
+          ['Person', 'Planned Time', 'Used Time', 'Trend'],
+          ['Person1', 16, 20, 18],
+          ['Person2', 13, 11, 12],
+          ['Person3', 15, 14, 14.5],
+          ['Person4', 14, 18, 16],
+          ['Person5', 11, 16, 13]
+    ]);
+
+    var options = {
+        vAxis: { title: "Hours" },
+        seriesType: "bars",
+        series: {
+            0: { color: '#E0E0E0' },
+            1: { color: '#C0C0C0' },
+            2: { type: "line", color: '#3399FF' }
+        }
+    };
+
+    var chart = new google.visualization.ComboChart(document.getElementById('timeChart'));
+    chart.draw(data, options);
 }
 
 function redrawBudgetChart() {
