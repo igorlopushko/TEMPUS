@@ -1,0 +1,62 @@
+﻿@using TEMPUS.WebSite.Helpers
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<div class="page-header">
+    <h1>Project Details</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default projectSummary">
+            <div class="panel-heading">Summary</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">Project Name:</div>
+                    <div class="col-md-6">Project1</div>
+                </div>
+                <p />
+                <div class="row">
+                    <div class="col-md-6">General Status:</div>
+                    <div class="col-md-6"><div class="status redStatus"></div></div>
+                </div>
+                <p />
+                <div class="row">
+                    <div class="col-md-6">People assigned:</div>
+                    <div class="col-md-6">5</div>
+                </div>
+                <p />
+                <div class="row">
+                    <div class="col-md-6">Hours spent:</div>
+                    <div class="col-md-6">500</div>
+                </div>
+                <p />
+                <div class="row">
+                    <div class="col-md-6">Hours left:</div>
+                    <div class="col-md-6">100</div>
+                </div>
+                <p />
+                <div class="row">
+                    <div class="col-md-6">Total duration:</div>
+                    <div class="col-md-6">2100 (4 months)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Budget</div>
+            <div class="panel-body">
+                <div id="riskChart"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/Projects.js"></script>
+<script>
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(redrawDetailsCharts);
+    $(document).ready(function () {
+        $(window).resize(redrawDetailsCharts)
+        redrawRiskChart();
+        redrawResourceChart();
+    });
+</script>

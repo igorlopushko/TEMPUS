@@ -235,6 +235,7 @@
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Account\Tasks.cshtml" />
     <Content Include="Views\TimeReport\Index.cshtml" />
+    <Content Include="Views\Projects\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -298,7 +299,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>51682</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:53684/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

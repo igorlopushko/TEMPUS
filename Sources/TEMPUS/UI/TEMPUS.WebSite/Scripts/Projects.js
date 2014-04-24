@@ -1,12 +1,11 @@
-﻿$(document).ready(function () {
-    $(window).resize(redrawCharts)
+﻿function redrawCharts() {
     redrawStatusChart();
     redrawBudgetChart();
-});
+}
 
-function redrawCharts() {
-    redrawStatusChart();
-    redrawBudgetChart();
+function redrawDetailsCharts() {
+    redrawRiskChart();
+ 
 }
 
 function redrawBudgetChart() {
@@ -26,7 +25,7 @@ function redrawBudgetChart() {
 
 function redrawStatusChart() {
     var data = google.visualization.arrayToDataTable([
-      ['Status', 'Hours per Day'],
+      ['Status', 'Count'],
       ['Red', 11],
       ['Yellow', 5],
       ['Green', 7]
@@ -42,5 +41,26 @@ function redrawStatusChart() {
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('statusChart'));
+    chart.draw(data, options);
+}
+
+function redrawRiskChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Status', 'Count'],
+      ['Trouble tasks', 3],
+      ['Task at risk', 5],
+      ['Health tasks', 7]
+    ]);
+
+    var options = {
+        pieSliceTextStyle: { color: 'black' },
+        slices: {
+            0: { color: '#FF0033' },
+            1: { color: '#FFFF66' },
+            2: { color: '#00FF99' }
+        }
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('riskChart'));
     chart.draw(data, options);
 }

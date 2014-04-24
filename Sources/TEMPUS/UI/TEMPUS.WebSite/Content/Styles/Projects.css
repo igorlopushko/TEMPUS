@@ -82,3 +82,9 @@
 {
     background-color: #FFFF66;
 }
+
+/*Project Details*/
+.projectSummary
+{
+    min-height: 275px;
+}
