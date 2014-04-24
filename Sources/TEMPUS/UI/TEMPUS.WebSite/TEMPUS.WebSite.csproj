@@ -177,6 +177,7 @@
     <Content Include="Content\Lib\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Styles\Main.css" />
     <Content Include="Content\Styles\Profile.css" />
+    <Content Include="Content\Styles\Projects.css" />
     <Content Include="Content\Styles\Team.css" />
     <Content Include="Content\Styles\UserBlock.css" />
     <Content Include="Content\Styles\UserPage.css" />
@@ -202,6 +203,7 @@
     <Content Include="Scripts\Lib\jquery.ddslick.min.js" />
     <Content Include="Scripts\Main.js" />
     <Content Include="Scripts\Profile.js" />
+    <Content Include="Scripts\Projects.js" />
     <Content Include="Scripts\UserPage.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

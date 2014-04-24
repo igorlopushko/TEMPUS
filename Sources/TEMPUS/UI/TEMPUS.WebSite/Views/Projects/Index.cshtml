@@ -1,8 +1,126 @@
-﻿<div class="page-header">
+﻿<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<div class="page-header">
     <h1>Projects</h1>
 </div>
 
 <div class="row">
-    <h3>You don't have any project.</h3>
     <a href="@Url.Action("Create", "Projects")" class="btn btn-primary next">Create Project</a>
+    <p/>
+    <div class="form-horizontal">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="col-md-4 control-label">Department:</label>
+                <div class="col-md-8">
+                    <select class="form-control">
+                        <option>All</option>
+                        <option>Department1</option>
+                        <option>Department2</option>
+                        <option>Department3</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="col-md-4 control-label">Status:</label>
+                <div class="col-md-8">
+                    <select class="form-control">
+                        <option>All</option>
+                        <option>Red</option>
+                        <option>Yellow</option>
+                        <option>Green</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="col-md-4 control-label">Progression:</label>
+                <div class="col-md-8">
+                    <select class="form-control">
+                        <option>All</option>
+                        <option>New</option>
+                        <option>Planned</option>
+                        <option>Running</option>
+                        <option>Closed</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <table class="table table-hover" id="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Start Date</th>
+                    <th>Due Date</th>
+                    <th>Manager</th>
+                    <th>Department</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Project1</td>
+                    <td>
+                        <div class="status redStatus" />
+                    </td>
+                    <td>4/1/2012</td>
+                    <td>4/2/2013</td>
+                    <td>Peter Jackson</td>
+                    <td>Department1</td>
+                    <td>Description1</td>
+                </tr>
+                <tr>
+                    <td>Project2</td>
+                    <td>
+                        <div class="status greenStatus" />
+                    </td>
+                    <td>4/1/2013</td>
+                    <td>4/2/2014</td>
+                    <td>Jim Cleverly</td>
+                    <td>Department2</td>
+                    <td>Description2</td>
+                </tr>
+                <tr>
+                    <td>Project3</td>
+                    <td>
+                        <div class="status yellowStatus" />
+                    </td>
+                    <td>10/21/2013</td>
+                    <td>5/30/2014</td>
+                    <td>Wayne Jones</td>
+                    <td>Department3</td>
+                    <td>Description3</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+    </div>
 </div>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">Status</div>
+            <div class="panel-body">
+                <div id="statusChart"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="panel panel-default">
+            <div class="panel-heading">Budget</div>
+            <div class="panel-body">
+                <div id="budgetChart"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/Projects.js"></script>
+<script>
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(redrawCharts);
+</script>
