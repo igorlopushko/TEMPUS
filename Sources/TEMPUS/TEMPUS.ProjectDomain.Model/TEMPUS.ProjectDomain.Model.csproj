@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7A7E19C4-4420-4581-95B7-1D939A371694}</ProjectGuid>
+    <ProjectGuid>{89DA37FB-1705-4889-A5A6-D48AFECDCC2A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TEMPUS.UserDomain.Services</RootNamespace>
-    <AssemblyName>TEMPUS.UserDomain.Services</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>TEMPUS.ProjectDomain.Model</RootNamespace>
+    <AssemblyName>TEMPUS.ProjectDomain.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -39,33 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DomainLayer\UserCommandService.cs" />
-    <Compile Include="ServiceLayer\IUserCommandService.cs" />
-    <Compile Include="ServiceLayer\IUserEventHandler.cs" />
-    <Compile Include="ServiceLayer\IUserQueryService.cs" />
-    <Compile Include="ServiceLayer\IUserReadRepository.cs" />
-    <Compile Include="ServiceLayer\IUserReadStorage.cs" />
-    <Compile Include="ServiceLayer\IUserRepository.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceLayer\IUserStorage.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\BaseDomain\Messages\TEMPUS.BaseDomain.Messages.csproj">
-      <Project>{4363d55f-33ec-4c1e-aa68-b59c5c1cfc5a}</Project>
-      <Name>TEMPUS.BaseDomain.Messages</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\BaseDomain\Model\TEMPUS.BaseDomain.Model.csproj">
-      <Project>{d7d5dadb-f732-4535-810e-92f91d0c28db}</Project>
-      <Name>TEMPUS.BaseDomain.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\TEMPUS.DB\TEMPUS.DB.csproj">
-      <Project>{23A88EDC-1FDB-487E-ABEC-123F48F99347}</Project>
-      <Name>TEMPUS.DB</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Model\TEMPUS.UserDomain.Model.csproj">
-      <Project>{d97efff6-0bb8-41a5-a3fa-0a8219772303}</Project>
-      <Name>TEMPUS.UserDomain.Model</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

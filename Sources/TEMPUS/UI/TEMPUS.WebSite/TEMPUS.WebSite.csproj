@@ -137,6 +137,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\TimeReportController.cs" />
     <Compile Include="Controllers\RisksController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
@@ -145,6 +146,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Bootstrapper.cs" />
+    <Compile Include="Helpers\PageHelper.cs" />
     <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Account\ProfileViewModel.cs" />
     <Compile Include="Models\Account\RegisterViewModel.cs" />
@@ -152,6 +154,7 @@
     <Compile Include="Models\Project\TaskStatus.cs" />
     <Compile Include="Models\Project\ProjectViewModel.cs" />
     <Compile Include="Models\Project\TaskViewModel.cs" />
+    <Compile Include="Models\Project\TimeRecordViewModel.cs" />
     <Compile Include="Models\Team\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\CurrentUser.cs" />
@@ -167,6 +170,8 @@
     <Content Include="Content\Images\5_mood.png" />
     <Content Include="Content\Images\favicon.ico" />
     <Content Include="Content\Images\user.png" />
+    <Content Include="Content\Lib\Styles\bootstrap-datetimepicker.css" />
+    <Content Include="Content\Lib\Styles\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\Lib\Styles\bootstrap-theme.css" />
     <Content Include="Content\Lib\Styles\bootstrap-theme.min.css" />
     <Content Include="Content\Lib\Styles\bootstrap.css" />
@@ -195,12 +200,14 @@
     <Content Include="Content\Fonts\.gitkeep" />
     <None Include="Scripts\Lib\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\grids.js" />
+    <Content Include="Scripts\Lib\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\Lib\bootstrap.js" />
     <Content Include="Scripts\Lib\bootstrap.min.js" />
     <Content Include="Scripts\Lib\Chart.js" />
     <Content Include="Scripts\Lib\jquery-2.1.0.js" />
     <Content Include="Scripts\Lib\jquery-2.1.0.min.js" />
     <Content Include="Scripts\Lib\jquery.ddslick.min.js" />
+    <Content Include="Scripts\Lib\moment.min.js" />
     <Content Include="Scripts\Main.js" />
     <Content Include="Scripts\Profile.js" />
     <Content Include="Scripts\Projects.js" />
@@ -227,6 +234,7 @@
     <Content Include="Views\Tasks\Index.cshtml" />
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Account\Tasks.cshtml" />
+    <Content Include="Views\TimeReport\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
