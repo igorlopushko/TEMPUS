@@ -1,5 +1,4 @@
 Sources/TEMPUS/packages
-Sources/TEMPUS/.nuget
 bin/
 obj/
 *.cache
