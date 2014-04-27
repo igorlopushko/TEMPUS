@@ -12,7 +12,7 @@ namespace TEMPUS.UserDomain.Infrastructure
     /// </summary>
     public class UserRepository : Repository<User, UserId>, IUserRepository
     {
-        private readonly IUserStorage<DB.Models.User> _userStorage;
+        private readonly IUserStorage<DB.Models.User.User> _userStorage;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserRepository" /> class.
@@ -20,7 +20,7 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// <param name="eventStore">The event store.</param>
         /// <param name="userStorage">The user storage.</param>
         /// <exception cref="System.ArgumentNullException">When userStorage is null.</exception>
-        public UserRepository(IEventStore eventStore, IUserStorage<DB.Models.User> userStorage)
+        public UserRepository(IEventStore eventStore, IUserStorage<DB.Models.User.User> userStorage)
             : base(eventStore)
         {
             if (userStorage == null)
@@ -50,7 +50,7 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// <param name="aggregate">The user aggregate.</param>
         public override void Save(User aggregate)
         {
-            var user = new DB.Models.User
+            var user = new DB.Models.User.User
             {
                 Id = aggregate.Id.Id,
                 FirstName = aggregate.FirstName,

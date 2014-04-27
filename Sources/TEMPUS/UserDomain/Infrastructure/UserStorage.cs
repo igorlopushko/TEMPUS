@@ -11,7 +11,7 @@ namespace TEMPUS.UserDomain.Infrastructure
     /// <summary>
     /// The class represents data access operations related to User.
     /// </summary>
-    public class UserStorage : IUserStorage<DB.Models.User>
+    public class UserStorage : IUserStorage<DB.Models.User.User>
     {
         private readonly DataContext _context;
 
@@ -31,7 +31,7 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// <summary>
         /// Gets all users.
         /// </summary>
-        public IQueryable<DB.Models.User> All
+        public IQueryable<DB.Models.User.User> All
         {
             get { return _context.Users.AsQueryable(); }
         }
@@ -41,7 +41,7 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// </summary>
         /// <param name="entity">The user aggregate.</param>
         /// <exception cref="System.ArgumentNullException">When user aggregate is null.</exception>
-        public void Add(DB.Models.User entity)
+        public void Add(DB.Models.User.User entity)
         {
             if (entity == null)
                 throw new ArgumentNullException("entity");
@@ -55,7 +55,7 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// </summary>
         /// <param name="entity">The user aggregate.</param>
         /// <exception cref="System.ArgumentNullException">When user aggregate is null.</exception>
-        public void Delete(DB.Models.User entity)
+        public void Delete(DB.Models.User.User entity)
         {
             if (entity == null)
                 throw new ArgumentNullException("entity");
@@ -70,7 +70,7 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// <param name="id">The user identifier.</param>
         /// <returns>User aggregate.</returns>
         /// <exception cref="System.ArgumentNullException">When user identifier is null.</exception>
-        public DB.Models.User Get(UserId id)
+        public DB.Models.User.User Get(UserId id)
         {
             if (id == null)
                 throw new ArgumentNullException("id");
@@ -82,7 +82,7 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// Gets the specified enumerable of users.
         /// </summary>
         /// <param name="expression">The expression.</param>
-        public IEnumerable<DB.Models.User> Get(Expression<Func<DB.Models.User, bool>> expression)
+        public IEnumerable<DB.Models.User.User> Get(Expression<Func<DB.Models.User.User, bool>> expression)
         {
             return _context.Users.Where(expression).AsEnumerable();
         }
@@ -92,7 +92,7 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// </summary>
         /// <param name="aggregate">The user aggregate.</param>
         /// <exception cref="System.ArgumentNullException">When user aggregate is null.</exception>
-        public void Update(DB.Models.User aggregate)
+        public void Update(DB.Models.User.User aggregate)
         {
             if (aggregate == null)
                 throw new ArgumentNullException("aggregate");

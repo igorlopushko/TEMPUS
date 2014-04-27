@@ -1,4 +1,7 @@
-﻿namespace TEMPUS.DB.Models
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace TEMPUS.DB.Models.User
 {
     /// <summary>
     /// The class represents user entity.
@@ -6,9 +9,22 @@
     public class User : Entity
     {
         /// <summary>
+        /// Gets or sets the identifier of the entity.
+        /// </summary>
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
+
+        /// <summary>
         /// Gets or sets the login of the user.
         /// </summary>
         public string Login { get; set; }
+
+        /// <summary>
+        /// Gets or sets the password of the user.
+        /// </summary>
+        public string Password { get; set; }
+
+        public string Email { get; set; }
 
         /// <summary>
         /// Gets or sets the user first name.
@@ -19,11 +35,6 @@
         /// Gets or sets the user last name.
         /// </summary>
         public string LastName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the password of the user.
-        /// </summary>
-        public string Password { get; set; }
 
         /// <summary>
         /// Gets or sets the phone of the user.
@@ -40,11 +51,8 @@
         /// </summary>
         public string Image { get; set; }
 
-        /// <summary>
-        /// Gets or sets user's role in the project
-        /// </summary>
-        public string Role { get; set; }
+        public Guid RoleId { get; set; }
 
-        //TODO Add properties if needed.
+        public virtual Role Role { get; set; }
     }
 }

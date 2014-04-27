@@ -44,10 +44,10 @@ namespace TEMPUS.WebSite.Helpers
             // TODO: Review! It's highly recommended to use one DataContext per request to avoid high memory consumption.
             var context = new DataContext();
 
-            Container.Add<IUserStorage<DB.Models.User>>(new UserStorage(context));
+            Container.Add<IUserStorage<DB.Models.User.User>>(new UserStorage(context));
 
             var userRepository = new UserRepository(Container.Get<IEventStore>(),
-                Container.Get<IUserStorage<DB.Models.User>>());
+                Container.Get<IUserStorage<DB.Models.User.User>>());
             Container.Add<IRepository<User, UserId>>(userRepository);
 
             Container.Add(new UserCommandService(userRepository));
