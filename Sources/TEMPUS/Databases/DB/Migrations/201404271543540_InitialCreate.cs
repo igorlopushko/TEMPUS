@@ -10,7 +10,7 @@ namespace TEMPUS.DB.Migrations
                 "dbo.Users",
                 c => new
                     {
-                        Id = c.Guid(nullable: false),
+                        Id = c.Guid(nullable: false, identity: true),
                         Login = c.String(),
                         FirstName = c.String(),
                         LastName = c.String(),
