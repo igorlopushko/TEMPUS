@@ -1,9 +1,5 @@
 ﻿using Microsoft.Practices.Unity;
-using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
 using TEMPUS.BaseDomain.Infrastructure;
@@ -25,8 +21,6 @@ namespace TEMPUS.WebSite.Helpers
     {
         public static void ConfigureUnityContainer()
         {
-            Database.SetInitializer<DataContext>(null);
-
             Container.Init(new UnityContainer());
 
             Container.Add<IController, ErrorController>("ErrorController", true);
@@ -47,24 +41,16 @@ namespace TEMPUS.WebSite.Helpers
 
         private static void RegisterCommandHandlers(InMemoryBus bus)
         {
-            // TODO: Move database creation from here.
+            // TODO: Rewview! It's highly recommended to use one DataContext per request to avoid memory consumption.
             var context = new DataContext();
-            if (!context.Database.Exists())
-            {
-                // Create the SimpleMembership database without Entity Framework migration schema
-                ((IObjectContextAdapter)context).ObjectContext.CreateDatabase(); 
-            }
-            //TODO: Need to remove, only for testing.
-            CreateAdmin(context);
 
             Container.Add<IUserStorage<DB.Models.User>>(new UserStorage(context));
-            Container.Add<IUserStorage<DB.Models.User>>(new UserStorage(context));
 
-            var customerRepository = new UserRepository(Container.Get<IEventStore>(),
+            var userRepository = new UserRepository(Container.Get<IEventStore>(),
                 Container.Get<IUserStorage<DB.Models.User>>());
-            Container.Add<IRepository<User, UserId>>(customerRepository);
+            Container.Add<IRepository<User, UserId>>(userRepository);
 
-            Container.Add(new UserCommandService(customerRepository));
+            Container.Add(new UserCommandService(userRepository));
 
             var commandHandlersAssemblies = new List<Assembly>
             {
@@ -80,21 +66,6 @@ namespace TEMPUS.WebSite.Helpers
             IUserEventHandler userEventHandler = new UserEventHandler();
 
             bus.RegisterHandler<UserCreated>(userEventHandler.Handle);
-        }
-
-        private static void CreateAdmin(DataContext context)
-        {
-            var user = context.Users.FirstOrDefault(x => x.Login == "Admin" && x.Password == "Admin");
-            if (user == null)
-            {
-                context.Users.Add(new DB.Models.User
-                {
-                    Id = Guid.NewGuid(),
-                    Login = "Admin",
-                    Password = "Admin"
-                });
-                context.SaveChanges();
-            }
         }
     }
 }

@@ -262,6 +262,10 @@
       <Project>{d7d5dadb-f732-4535-810e-92f91d0c28db}</Project>
       <Name>TEMPUS.BaseDomain.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Databases\TEMPUS.DB.Migration\TEMPUS.DB.Migration.csproj">
+      <Project>{4115d056-49f1-4006-a8e8-3f4db5690831}</Project>
+      <Name>TEMPUS.DB.Migration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\TEMPUS.DB\TEMPUS.DB.csproj">
       <Project>{23A88EDC-1FDB-487E-ABEC-123F48F99347}</Project>
       <Name>TEMPUS.DB</Name>
