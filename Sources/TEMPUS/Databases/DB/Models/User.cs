@@ -41,11 +41,6 @@
         public string Image { get; set; }
 
         /// <summary>
-        /// Gets or sets the user's feelings
-        /// </summary>
-        public string Feelings { get; set; }
-
-        /// <summary>
         /// Gets or sets user's role in the project
         /// </summary>
         public string Role { get; set; }
