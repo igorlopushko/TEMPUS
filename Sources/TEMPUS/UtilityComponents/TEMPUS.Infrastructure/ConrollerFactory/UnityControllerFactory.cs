@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Microsoft.Practices.Unity;
+using System;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Microsoft.Practices.Unity;
 using TEMPUS.Infrastructure.Unity;
 
 namespace TEMPUS.Infrastructure.ConrollerFactory
@@ -21,12 +21,12 @@ namespace TEMPUS.Infrastructure.ConrollerFactory
         {
             _instance = factory;
         }
-        
+
         public ControllerBase GetErrorController()
         {
             return Container.Get<IController>("ErrorController") as ControllerBase;
         }
-       
+
         protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType)
         {
             if (controllerType == null)
