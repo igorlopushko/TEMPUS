@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 using TEMPUS.DB.Migrations;
-using TEMPUS.DB.Models;
+using TEMPUS.DB.Models.User;
 
 namespace TEMPUS.DB
 {
@@ -21,6 +21,9 @@ namespace TEMPUS.DB
         /// Gets or sets the users.
         /// </summary>
         public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Permission> Permissions { get; set; }
+
 
         /// <summary>
         /// Configure model properties for mapping to database
@@ -28,12 +31,7 @@ namespace TEMPUS.DB
         /// <param name="modelBuilder">Model builder</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasKey(x => x.Id);
-            //modelBuilder.Entity<User>().Property(x => x.Login).HasMaxLength(50);
-            //modelBuilder.Entity<User>().Property(x => x.Phone).HasMaxLength(31);
-            //modelBuilder.Entity<User>().Property(x => x.Password).HasMaxLength(16);
-            //modelBuilder.Entity<User>().HasRequired(x => x.Password);
-            //modelBuilder.Entity<User>().HasRequired(x => x.Login);
+
         }
     }
 }
