@@ -45,7 +45,7 @@ namespace TEMPUS.DB.Migrations
                     {
                         Login = role,
                         Password = "test1234",
-                        Role = context.Roles.First(x => x.Name == role)
+                        RoleId = context.Roles.First(x => x.Name == role).Id
                     });
             }
 
