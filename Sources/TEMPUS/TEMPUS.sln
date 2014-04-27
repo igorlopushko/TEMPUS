@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{0E1A63CA-FC64-4488-875B-F8C1905F40EB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TEMPUS.WebSite", "UI\TEMPUS.WebSite\TEMPUS.WebSite.csproj", "{C58BD1C8-ED99-44BE-AB98-17B4FF26F884}"
@@ -57,19 +59,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Databases", "Databases", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TEMPUS.BaseDomain.Utility", "BaseDomain\Infrastructure\TEMPUS.BaseDomain.Utility\TEMPUS.BaseDomain.Utility.csproj", "{00C28252-0DD4-4981-8478-113ACE0A1A93}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Migrator", "Migrator", "{26F0ED7A-FF66-4E8E-9580-9CFA34CE996A}"
-	ProjectSection(SolutionItems) = preProject
-		Lib\Migrator\FluentMigrator.dll = Lib\Migrator\FluentMigrator.dll
-		Lib\Migrator\FluentMigrator.pdb = Lib\Migrator\FluentMigrator.pdb
-		Lib\Migrator\FluentMigrator.Runner.dll = Lib\Migrator\FluentMigrator.Runner.dll
-		Lib\Migrator\FluentMigrator.Runner.pdb = Lib\Migrator\FluentMigrator.Runner.pdb
-		Lib\Migrator\FluentMigrator.xml = Lib\Migrator\FluentMigrator.xml
-		Lib\Migrator\Migrate.exe = Lib\Migrator\Migrate.exe
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TEMPUS.BaseDomain.Infrastructure", "BaseDomain\Infrastructure\TEMPUS.BaseDomain.Infrastructure\TEMPUS.BaseDomain.Infrastructure.csproj", "{5D39BEE1-2343-4F47-B797-A452E5938B44}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TEMPUS.DB.Migration", "Databases\TEMPUS.DB.Migration\TEMPUS.DB.Migration.csproj", "{4115D056-49F1-4006-A8E8-3F4DB5690831}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TEMPUS.DB", "TEMPUS.DB\TEMPUS.DB.csproj", "{23A88EDC-1FDB-487E-ABEC-123F48F99347}"
 EndProject
@@ -133,10 +123,6 @@ Global
 		{5D39BEE1-2343-4F47-B797-A452E5938B44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D39BEE1-2343-4F47-B797-A452E5938B44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D39BEE1-2343-4F47-B797-A452E5938B44}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4115D056-49F1-4006-A8E8-3F4DB5690831}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4115D056-49F1-4006-A8E8-3F4DB5690831}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4115D056-49F1-4006-A8E8-3F4DB5690831}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4115D056-49F1-4006-A8E8-3F4DB5690831}.Release|Any CPU.Build.0 = Release|Any CPU
 		{23A88EDC-1FDB-487E-ABEC-123F48F99347}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{23A88EDC-1FDB-487E-ABEC-123F48F99347}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23A88EDC-1FDB-487E-ABEC-123F48F99347}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -173,9 +159,7 @@ Global
 		{3070E738-4957-47D3-900C-1DBF6DE12244} = {2B62F5FE-02AD-49C7-8B43-2010F52F7300}
 		{00C28252-0DD4-4981-8478-113ACE0A1A93} = {DA65E6C5-89A9-4A05-AB6C-CD69E82FF5B1}
 		{5D39BEE1-2343-4F47-B797-A452E5938B44} = {DA65E6C5-89A9-4A05-AB6C-CD69E82FF5B1}
-		{26F0ED7A-FF66-4E8E-9580-9CFA34CE996A} = {96DCC2A8-3C3D-4DBE-B0A9-02B539F10468}
 		{DB0C9D0F-C8DC-41AC-9BC8-18B38F1FFDAA} = {99432040-7C75-410D-9657-5DAE5353557E}
-		{4115D056-49F1-4006-A8E8-3F4DB5690831} = {88675573-932B-41DA-B96A-7E7583459518}
 		{23A88EDC-1FDB-487E-ABEC-123F48F99347} = {88675573-932B-41DA-B96A-7E7583459518}
 		{32A4068B-4BE3-40C6-ACC6-F6E6E1283A9A} = {5E4BBE67-1CF9-436A-BCA0-991FB8B817E0}
 		{D207C48C-FC71-42AD-A0C8-AEA6E119C5C8} = {5E4BBE67-1CF9-436A-BCA0-991FB8B817E0}
