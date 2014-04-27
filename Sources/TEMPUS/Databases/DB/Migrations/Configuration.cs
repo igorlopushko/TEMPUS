@@ -1,6 +1,7 @@
-using System;
+using System.Collections.Generic;
 using System.Data.Entity.Migrations;
-using TEMPUS.DB.Models;
+using System.Linq;
+using TEMPUS.DB.Models.User;
 
 namespace TEMPUS.DB.Migrations
 {
@@ -14,21 +15,40 @@ namespace TEMPUS.DB.Migrations
 
         protected override void Seed(DataContext context)
         {
-            this.CreateSuperuser(context);
+            List<string> roles = new List<string>()
+            {
+                "Admin",
+                "Director",
+                "Manager",
+                "Asignee"
+            };
+
+            this.CreateRoles(context, roles);
+            this.CreateTestUsers(context, roles);
         }
 
-        private void CreateSuperuser(DataContext context)
+        private void CreateRoles(DataContext context, IEnumerable<string> roles)
         {
-            string login = "admin";
-            string password = "admin1111";
+            foreach (string role in roles)
+            {
+                context.Roles.AddOrUpdate(x => x.Name, new Role() { Name = role });
+            }
+            context.SaveChanges();
+        }
 
-            context.Users.AddOrUpdate(x => x.Login,
-                new User()
-                {
-                    Id = Guid.NewGuid(),
-                    Login = login,
-                    Password = password
-                });
+        private void CreateTestUsers(DataContext context, IEnumerable<string> roles)
+        {
+            foreach (string role in roles)
+            {
+                context.Users.AddOrUpdate(x => x.Login,
+                    new User()
+                    {
+                        Login = role,
+                        Password = "test1234",
+                        Role = context.Roles.First(x => x.Name == role)
+                    });
+            }
+
             context.SaveChanges();
         }
     }
