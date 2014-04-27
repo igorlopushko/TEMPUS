@@ -71,11 +71,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{D207C48C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{C1CFA6CC-AE9F-46D4-B3BB-01F9FFEE51B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TEMPUS.ProjectDomain.Infrastructure", "TEMPUS.ProjectDomain.Infrastructure\TEMPUS.ProjectDomain.Infrastructure.csproj", "{90A290B5-BAF7-4186-82DE-0A161E272B00}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TEMPUS.ProjectDomain.Infrastructure", "ProjectDomain\Infrastructure\TEMPUS.ProjectDomain.Infrastructure\TEMPUS.ProjectDomain.Infrastructure.csproj", "{90A290B5-BAF7-4186-82DE-0A161E272B00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TEMPUS.ProjectDomain.Model", "TEMPUS.ProjectDomain.Model\TEMPUS.ProjectDomain.Model.csproj", "{89DA37FB-1705-4889-A5A6-D48AFECDCC2A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TEMPUS.ProjectDomain.Model", "ProjectDomain\Model\TEMPUS.ProjectDomain.Model\TEMPUS.ProjectDomain.Model.csproj", "{89DA37FB-1705-4889-A5A6-D48AFECDCC2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TEMPUS.ProjectDomain.Services", "TEMPUS.ProjectDomain.Services\TEMPUS.ProjectDomain.Services.csproj", "{2C313214-99B1-4866-BA98-B2F0CF6B969D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TEMPUS.ProjectDomain.Services", "ProjectDomain\Services\TEMPUS.ProjectDomain.Services\TEMPUS.ProjectDomain.Services.csproj", "{2C313214-99B1-4866-BA98-B2F0CF6B969D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
