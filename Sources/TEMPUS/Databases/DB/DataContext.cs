@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using TEMPUS.DB.Migrations;
 using TEMPUS.DB.Models;
 
 namespace TEMPUS.DB
@@ -11,10 +12,9 @@ namespace TEMPUS.DB
         /// <summary>
         /// Initializes a new instance of the <see cref="DataContext"/> class.
         /// </summary>
-        public DataContext()
-            : base("DataContext")
+        static DataContext()
         {
-
+            Database.SetInitializer<DataContext>(new MigrateDatabaseToLatestVersion<DataContext, Configuration>());
         }
 
         /// <summary>
