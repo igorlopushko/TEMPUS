@@ -41,7 +41,7 @@ namespace TEMPUS.WebSite.Helpers
 
         private static void RegisterCommandHandlers(InMemoryBus bus)
         {
-            // TODO: Rewview! It's highly recommended to use one DataContext per request to avoid memory consumption.
+            // TODO: Review! It's highly recommended to use one DataContext per request to avoid high memory consumption.
             var context = new DataContext();
 
             Container.Add<IUserStorage<DB.Models.User>>(new UserStorage(context));
