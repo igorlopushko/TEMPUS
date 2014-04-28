@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<TEMPUS.WebSite.Models.Team.UserViewModel>
+
+@{
     ViewBag.Title = "Team";
 }
 <script type="text/javascript">
@@ -8,7 +10,7 @@
 </script>
 
 <script src="@Url.Content("~/Scripts/grids.js")"></script>
-
+<script src="@Url.Content("~/Scripts/Team.js")"></script>
 
 <div class="panel panel-default">
     <div class="panel-heading">Team</div>
@@ -35,5 +37,71 @@
                 </div>
             }
         </div>
+
     </div>
 </div>
+<div class="panel panel-default">
+    <div class="panel-heading">Mood by days</div>
+    <div class="panel-body">
+
+        <div id="mood-chart" style="height: 400px; width: 100%"></div>
+    </div>
+    <div class="panel-footer">
+        <span class="text-muted">1  - very sad, 2 - not ok, 3 - good, 4 - awesome</span>
+    </div>
+</div>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var names = [];
+        names.push("Date");
+        @foreach (var item in Model)
+        {
+            <text>names.push("@item.LastName @item.FirstName");</text>
+        }
+        var doubleArray = [
+          names,
+          ["07.04.14"],
+          ["08.04.14"],
+          ["09.04.14"],
+          ["10.04.14"],
+          ["11.04.14"],
+          ["14.04.14"],
+          ["15.04.14"]
+        ];
+        for (c = 1; c < doubleArray.length; c++) {
+            doubleArray[c] = doubleArray[c].concat(getRandomArray("@Model.Count", 1, 4));
+        }
+        printDoubleArray(doubleArray);
+        var data = google.visualization.arrayToDataTable(doubleArray);
+
+        var options = {
+            vAxis: {
+                viewWindow: {
+                    max: 4,
+                    min: 0
+                }
+            },
+            chartArea: { width: "90%", height: "75%" },
+            lineWidth: 3,
+            curveType: 'none',
+            legend: { position: 'top', maxLines: 2}
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('mood-chart'));
+        chart.draw(data, options);
+    }
+    $(window).resize(function () {
+        if (this.resizeTO) clearTimeout(this.resizeTO);
+        this.resizeTO = setTimeout(function () {
+            $(this).trigger('resizeEnd');
+        }, 500);
+    });
+
+    //redraw graph when window resize is completed  
+    $(window).on('resizeEnd', function () {
+        drawChart();
+    });
+</script>

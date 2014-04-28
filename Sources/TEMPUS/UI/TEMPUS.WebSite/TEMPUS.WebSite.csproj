@@ -211,6 +211,7 @@
     <Content Include="Scripts\Main.js" />
     <Content Include="Scripts\Profile.js" />
     <Content Include="Scripts\Projects.js" />
+    <Content Include="Scripts\Team.js" />
     <Content Include="Scripts\UserPage.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

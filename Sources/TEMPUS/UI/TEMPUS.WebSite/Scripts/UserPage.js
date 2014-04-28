@@ -18,6 +18,10 @@ $(document).ready(function () {
     respondCanvas();
 });
 
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 //draw chart
 $(document).ready(function () {
     $(window).resize(redraw);
@@ -25,17 +29,22 @@ $(document).ready(function () {
         var ctx = $("#respondCanvas").get(0).getContext("2d");
         var data = {
             labels: ["07.04.14", "08.04.14", "09.04.14", "10.04.14", "11.04.14", "14.04.14", "15.04.14"],
-            datasets: [
-                {
-                    fillColor: "rgba(4,200,34, 0.4)",
-                    strokeColor: "rgba(4,200,34, 1)",
-                    pointColor: "rgba(4,200,34, 1)",
-                    pointStrokeColor: "rgba(0,0,0, 0.4)",
-                    data: [3, 2, 1, 4, 5, 4, 4]
-                }
-            ]
+            datasets: []
         }
-        var myNewChart = new Chart(ctx).Line(data, { scaleOverride: true, scaleStepWidth: 1, scaleSteps: 5 });
+        for (i = 0; i < 7; i++) {
+            var pushData = {
+                fillColor: "rgba(4," + i * 30 + ",34, 0.4)",
+                strokeColor: "rgba(4," + i * 30 + ",34, 0.4)",
+                pointColor: "rgba(4," + i * 30 + ",34, 0.4)",
+                pointStrokeColor: "rgba(0,0,0, 0.4)",
+                data: []
+            };
+            for (j = 0; j < 7; j++) {
+                pushData.data.push(getRandomInt(1,4));
+            }
+            data.datasets.push(pushData);
+        }
+        var myNewChart = new Chart(ctx).Line(data, { scaleOverride: true, scaleStepWidth: 1, scaleSteps: 4, datasetFill: false });
     }
     redraw();
 });
