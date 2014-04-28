@@ -48,7 +48,7 @@
     <Compile Include="ServiceLayer\IStorage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\TEMPUS.DB\TEMPUS.DB.csproj">
+    <ProjectReference Include="..\..\Databases\DB\TEMPUS.DB.csproj">
       <Project>{23A88EDC-1FDB-487E-ABEC-123F48F99347}</Project>
       <Name>TEMPUS.DB</Name>
     </ProjectReference>

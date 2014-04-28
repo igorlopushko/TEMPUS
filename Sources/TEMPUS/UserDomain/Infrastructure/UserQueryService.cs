@@ -46,9 +46,8 @@ namespace TEMPUS.UserDomain.Infrastructure
                 Login = x.Login,
                 Password = x.Password,
                 Phone = x.Phone,
-                Feelings = x.Feelings,
                 UserId = new UserId(x.Id),
-                Role = x.Role
+                Role = null
             }).FirstOrDefault();
         }
 
@@ -67,9 +66,8 @@ namespace TEMPUS.UserDomain.Infrastructure
                 Login = x.Login,
                 Password = x.Password,
                 Phone = x.Phone,
-                Feelings = x.Feelings,
                 UserId = new UserId(x.Id),
-                Role = x.Role
+                Role = null
             }).FirstOrDefault();
         }
 

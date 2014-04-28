@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F20861AA-D330-4BFB-9ACE-54D88D53818C}</ProjectGuid>
+    <ProjectGuid>{23A88EDC-1FDB-487E-ABEC-123F48F99347}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TEMPUS.UserDomain.Infrastructure</RootNamespace>
-    <AssemblyName>TEMPUS.UserDomain.Infrastructure</AssemblyName>
+    <RootNamespace>TEMPUS.DB</RootNamespace>
+    <AssemblyName>TEMPUS.DB</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -50,45 +50,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UserEventHandler.cs" />
-    <Compile Include="UserQueryService.cs" />
+    <Compile Include="DataContext.cs" />
+    <Compile Include="Migrations\201404271543540_InitialCreate.cs" />
+    <Compile Include="Migrations\201404271543540_InitialCreate.Designer.cs">
+      <DependentUpon>201404271543540_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404271734000_RemoveFeelingsFromUser.cs" />
+    <Compile Include="Migrations\201404271734000_RemoveFeelingsFromUser.Designer.cs">
+      <DependentUpon>201404271734000_RemoveFeelingsFromUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404271901362_AddRolesAndPermissions.cs" />
+    <Compile Include="Migrations\201404271901362_AddRolesAndPermissions.Designer.cs">
+      <DependentUpon>201404271901362_AddRolesAndPermissions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\User\User.cs" />
+    <Compile Include="Models\User\Role.cs" />
+    <Compile Include="Models\User\Permission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserRepository.cs" />
-    <Compile Include="UserStorage.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\BaseDomain\Infrastructure\TEMPUS.BaseDomain.Infrastructure\TEMPUS.BaseDomain.Infrastructure.csproj">
-      <Project>{5d39bee1-2343-4f47-b797-a452e5938b44}</Project>
-      <Name>TEMPUS.BaseDomain.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\BaseDomain\Messages\TEMPUS.BaseDomain.Messages.csproj">
-      <Project>{4363D55F-33EC-4C1E-AA68-B59C5C1CFC5A}</Project>
-      <Name>TEMPUS.BaseDomain.Messages</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\BaseDomain\Model\TEMPUS.BaseDomain.Model.csproj">
-      <Project>{d7d5dadb-f732-4535-810e-92f91d0c28db}</Project>
-      <Name>TEMPUS.BaseDomain.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Databases\DB\TEMPUS.DB.csproj">
-      <Project>{23A88EDC-1FDB-487E-ABEC-123F48F99347}</Project>
-      <Name>TEMPUS.DB</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\UtilityComponents\TEMPUS.Infrastructure\TEMPUS.Infrastructure.csproj">
-      <Project>{db0c9d0f-c8dc-41ac-9bc8-18b38f1ffdaa}</Project>
-      <Name>TEMPUS.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Model\TEMPUS.UserDomain.Model.csproj">
-      <Project>{d97efff6-0bb8-41a5-a3fa-0a8219772303}</Project>
-      <Name>TEMPUS.UserDomain.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Services\TEMPUS.UserDomain.Services.csproj">
-      <Project>{7a7e19c4-4420-4581-95b7-1d939a371694}</Project>
-      <Name>TEMPUS.UserDomain.Services</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201404271543540_InitialCreate.resx">
+      <DependentUpon>201404271543540_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404271734000_RemoveFeelingsFromUser.resx">
+      <DependentUpon>201404271734000_RemoveFeelingsFromUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404271901362_AddRolesAndPermissions.resx">
+      <DependentUpon>201404271901362_AddRolesAndPermissions.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
