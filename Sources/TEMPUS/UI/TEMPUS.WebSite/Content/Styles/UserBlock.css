@@ -11,22 +11,26 @@
     }
 }
 
-#user-block-dropdown a:link
+#profile-btn
 {
-    color: white;
+    width:42%;
+    float:left;
+    margin-left:7%;
 }
 
-#user-block-dropdown a:visited
+    #profile-btn button
+    {
+        width:100%;
+    }
+
+#logout-btn
 {
-    color: white;
+    width:42%;
+    float:right;
+    margin-right:7%;
 }
 
-#user-block-dropdown a:hover
-{
-    color: white;
-}
-
-#user-block-dropdown a:active
-{
-    color: white;
-}
+    #logout-btn button
+    {
+        width:100%;
+    }

@@ -6,32 +6,38 @@
     'green': '#04FF22'
 };
 
-//rubber canvas
-$(document).ready(function () {
-    var c = $('#respondCanvas');
-    var ct = c.get(0).getContext('2d');
-    var container = $(c).parent();
-    $(window).resize(respondCanvas);
-    function respondCanvas() {
-        c.attr('width', $(container).width());
-    }
-    respondCanvas();
-});
-
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 //draw chart
 $(document).ready(function () {
-    $(window).resize(redraw);
+    //wait for 500ms before trigging the redrawing of the chart
+    $(window).resize(function () {
+        if (this.resizeTO) clearTimeout(this.resizeTO);
+        this.resizeTO = setTimeout(function () {
+            $(this).trigger('resizeEnd');
+        }, 500);
+
+    });
+    var width = $(window).width();
+    //redraw graph when window resize is completed  
+    $(window).on('resizeEnd', function () {
+        if ($(window).width() == width) return;
+        width = $(window).width();
+        respondCanvas();
+        redraw();
+    });
+    function respondCanvas() {
+        $('#respondCanvas').attr('width', $('#respondCanvas').parent().width());
+    }
     function redraw() {
         var ctx = $("#respondCanvas").get(0).getContext("2d");
         var data = {
             labels: ["07.04.14", "08.04.14", "09.04.14", "10.04.14", "11.04.14", "14.04.14", "15.04.14"],
             datasets: []
         }
-        for (i = 0; i < 7; i++) {
+        for (i = 0; i < 1; i++) {
             var pushData = {
                 fillColor: "rgba(4," + i * 30 + ",34, 0.4)",
                 strokeColor: "rgba(4," + i * 30 + ",34, 0.4)",
@@ -46,6 +52,7 @@ $(document).ready(function () {
         }
         var myNewChart = new Chart(ctx).Line(data, { scaleOverride: true, scaleStepWidth: 1, scaleSteps: 4, datasetFill: false });
     }
+    respondCanvas();
     redraw();
 });
 
@@ -61,18 +68,12 @@ function setMood(mood) {
             color = colors.orange;
             break;
         case 3:
-            color = colors.yellow;
-            break;
-        case 4:
             color = colors.chartreuse;
             break;
-        case 5:
+        case 4:
             color = colors.green;
             break;
     }
-    var current_attr = $("#mood").css('background-color');
-    $("#mood").css('background-image', 'none');
-    $("#mood").css('background-color', color);
-    current_attr = $("#mood-img").attr("src");
+    $("#avatar").css('background-color', color);
     $("#mood-img").attr("src", img);
 }
