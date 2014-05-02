@@ -125,10 +125,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AccountController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -163,6 +163,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="App_Data\TEMPUS.mdf" />
+    <Content Include="App_Data\TEMPUS_log.ldf">
+      <DependentUpon>TEMPUS.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\Images\1_mood.png" />
     <Content Include="Content\Images\2_mood.png" />
     <Content Include="Content\Images\3_mood.png" />
@@ -236,10 +240,9 @@
     <Content Include="Views\Account\Tasks.cshtml" />
     <Content Include="Views\TimeReport\Index.cshtml" />
     <Content Include="Views\Projects\Details.cshtml" />
+    <Content Include="Views\Projects\Plan.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>

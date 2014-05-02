@@ -120,17 +120,17 @@ namespace TEMPUS.WebSite.Controllers
         /// Manages user profile.
         /// </summary>
         /// <param name="model">The model represents information for the user updating operation.</param>
-        public ActionResult Manage(UpdateUserViewModel model)
+        public ActionResult Edit(UpdateUserViewModel model)
         {
             if (model == null)
             {
                 //TODO: return error message.
-                return RedirectToAction("Manage", "Account");
+                return RedirectToAction("Edit", "Account");
             }
             if (!ModelState.IsValid)
             {
                 //TODO: return error message.
-                return RedirectToAction("Manage", "Account");
+                return RedirectToAction("Edit", "Account");
             }
 
             // TODO Change GetUserByLogin for CurrentUser.User when implemented.
@@ -189,59 +189,6 @@ namespace TEMPUS.WebSite.Controllers
             CurrentUser.LogOut();
 
             return RedirectToAction("LogIn");
-        }
-
-        public ActionResult Tasks()
-        {
-            ProjectViewModel[] projects = {
-                new ProjectViewModel {
-                    Name = "TEMPUS",
-                    Tasks = new TaskViewModel[] {
-                        new TaskViewModel {
-                            Name = "Create Time Report Page",
-                            Due = new DateTime(2014, 04, 17),
-                            Status = TaskStatus.InProgress
-                        },
-                        new TaskViewModel {
-                            Name = "Create Tasks Page",
-                            Due = new DateTime(2014, 04, 17),
-                            Status = TaskStatus.InProgress
-                        },
-                        new TaskViewModel {
-                            Name = "Create Project List Page",
-                            Due = new DateTime(2014, 04, 17),
-                            Status = TaskStatus.New
-                        },
-                        new TaskViewModel {
-                            Name = "Enhance Menu Stucture",
-                            Due = new DateTime(2014, 04, 25),
-                            Status = TaskStatus.New
-                        }
-                    }
-                },
-                new ProjectViewModel {
-                    Name = "Other Project",
-                    Tasks = new TaskViewModel[] {
-                        new TaskViewModel {
-                            Name = "Some task",
-                            Due = new DateTime(2014, 04, 17),
-                            Status = TaskStatus.InProgress
-                        },
-                        new TaskViewModel {
-                            Name = "Another important task",
-                            Due = new DateTime(2014, 04, 17),
-                            Status = TaskStatus.Done
-                        },
-                        new TaskViewModel {
-                            Name = "Other one",
-                            Due = new DateTime(2014, 04, 17),
-                            Status = TaskStatus.New
-                        }
-                    }
-                }
-           };
-
-            return View(projects);
         }
     }
 }

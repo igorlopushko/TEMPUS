@@ -25,5 +25,10 @@ namespace TEMPUS.WebSite.Controllers
         {
             return View();
         }
+
+        public ActionResult Plan()
+        {
+            return View();
+        }
     }
 }
