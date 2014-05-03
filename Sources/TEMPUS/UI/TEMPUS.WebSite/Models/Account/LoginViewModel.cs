@@ -1,8 +1,11 @@
-﻿namespace TEMPUS.WebSite.Models.Account
+﻿using System;
+
+namespace TEMPUS.WebSite.Models.Account
 {
     /// <summary>
     /// The class represents the login information of the user.
     /// </summary>
+    [Serializable]
     public class LoginViewModel
     {
         /// <summary>

@@ -125,6 +125,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contexts\UserContext.cs" />
     <Compile Include="Controllers\AccountController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -147,17 +148,26 @@
     </Compile>
     <Compile Include="Helpers\Bootstrapper.cs" />
     <Compile Include="Helpers\PageHelper.cs" />
+    <Compile Include="Infrastructure\CustomMembershipProvider.cs" />
+    <Compile Include="Interfaces\IFormsAuthenticationService.cs" />
+    <Compile Include="Interfaces\IMembershipService.cs" />
     <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Account\ProfileViewModel.cs" />
     <Compile Include="Models\Account\RegisterViewModel.cs" />
     <Compile Include="Models\Account\UpdateUserViewModel.cs" />
+    <Compile Include="Models\Account\UserMenuViewModel.cs" />
     <Compile Include="Models\Project\TaskStatus.cs" />
     <Compile Include="Models\Project\ProjectViewModel.cs" />
     <Compile Include="Models\Project\TaskViewModel.cs" />
     <Compile Include="Models\Project\TimeRecordViewModel.cs" />
     <Compile Include="Models\Team\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\CurrentUser.cs" />
+    <Compile Include="Security\AllowedRolesAttribute.cs" />
+    <Compile Include="Security\SitePrincipal.cs" />
+    <Compile Include="Security\SitePrincipalFactory.cs" />
+    <Compile Include="Security\SiteSecurity.cs" />
+    <Compile Include="Services\AccountMembershipService.cs" />
+    <Compile Include="Services\FormsAuthenticationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -237,9 +247,11 @@
     <Content Include="Views\TimeReport\Index.cshtml" />
     <Content Include="Views\Projects\Details.cshtml" />
     <Content Include="Views\Projects\Plan.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\UserMenuViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />

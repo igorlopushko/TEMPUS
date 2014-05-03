@@ -10,6 +10,7 @@ namespace TEMPUS.WebSite.Controllers
 {
     public class TimeReportController : Controller
     {
+        [Authorize]
         public ActionResult Index()
         {
             ProjectViewModel tempus = new ProjectViewModel()

@@ -14,6 +14,8 @@ using TEMPUS.UserDomain.Model.DomainLayer;
 using TEMPUS.UserDomain.Services.DomainLayer;
 using TEMPUS.UserDomain.Services.ServiceLayer;
 using TEMPUS.WebSite.Controllers;
+using TEMPUS.WebSite.Interfaces;
+using TEMPUS.WebSite.Services;
 
 namespace TEMPUS.WebSite.Helpers
 {
@@ -27,6 +29,8 @@ namespace TEMPUS.WebSite.Helpers
 
             // Registrations
             Container.Add<IUserQueryService, UserQueryService>();
+            Container.Add<IFormsAuthenticationService, FormsAuthenticationService>();
+            Container.Add<IMembershipService, AccountMembershipService>();
 
             var bus = new InMemoryBus();
             Container.Add<ICommandSender>(bus);

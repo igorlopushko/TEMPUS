@@ -10,6 +10,7 @@ namespace TEMPUS.WebSite.Controllers
 {
     public class HomeController : BaseController
     {
+        [Authorize]
         public ActionResult Index()
         {
             return View();

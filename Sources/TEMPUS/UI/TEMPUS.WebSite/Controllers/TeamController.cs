@@ -27,6 +27,7 @@ namespace TEMPUS.WebSite.Controllers
             _cmdSender = cmdSender;
         }
 
+        [Authorize]
         public ActionResult Index()
         {
             //TODO: get the real team list
@@ -89,6 +90,5 @@ namespace TEMPUS.WebSite.Controllers
                                    };
             return View(Team.ToList());
         }
-
     }
 }

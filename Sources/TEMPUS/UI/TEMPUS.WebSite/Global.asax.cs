@@ -9,7 +9,7 @@ using TEMPUS.WebSite.Security;
 
 namespace TEMPUS.WebSite
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -23,11 +23,17 @@ namespace TEMPUS.WebSite
             ControllerBuilder.Current.SetControllerFactory(new UnityControllerFactory());
         }
 
-        protected void Application_BeginRequest(object sender, EventArgs e)
+        /// <summary>
+        /// Authenticate request event handler
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event args</param>
+        protected void Application_AuthenticateRequest(object sender, EventArgs e)
         {
-            if (CurrentUser.User == null)
+            if (Request.IsAuthenticated)
             {
-                
+                var principal = SitePrincipalFactory.CreatePrincipal(HttpContext.Current.User);
+                HttpContext.Current.User = principal;
             }
         }
     }

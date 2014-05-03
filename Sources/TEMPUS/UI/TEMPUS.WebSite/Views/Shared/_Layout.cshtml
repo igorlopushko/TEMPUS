@@ -1,5 +1,6 @@
-﻿@using TEMPUS.WebSite.Helpers
-@using TEMPUS.WebSite.Security
+﻿@using TEMPUS.WebSite.Contexts
+@using TEMPUS.WebSite.Helpers
+
 <!doctype html>
 <html lang="en">
 
@@ -29,76 +30,36 @@
 <body>
     <!-- Fixed navbar -->
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="row">
-            <div class="navbar-header col-lg-1 col-md-1 col-sm-2">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">TEMPUS</a>
-            </div>
-            <div class="col-lg-9 col-md-8 col-sm-10">
-                <ul id="menu-list" class="collapse navbar-collapse nav navbar-nav">
-                    @*@Html.MainMenuItem("Today", "Tasks", "Account")*@
-                    @Html.MainMenuItem("Projects", "Index", "Projects")
-                    @Html.MainMenuItem("Project plan", "Plan", "Projects")
-                    @Html.MainMenuItem("Project flow", "Index", "Flow")
-                    @Html.MainMenuItem("Tasks", "Index", "Tasks")
-                    @Html.MainMenuItem("Risks", "Index", "Risks")
-                    @Html.MainMenuItem("Team", "Index", "Team")
-                    @Html.MainMenuItem("Time Records", "Index", "TimeReport")
-                </ul>
-            </div>
-            <!-- User Block -->
-            <div id="user-block" class="col-lg-2 col-md-3 col-sm-12">
-                @if (CurrentUser.User != null)
-                {
-                    <ul class="nav navbar-nav">
-                        <li></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-user"></span> @CurrentUser.User.Email
-                                <b class="caret"></b>
-                            </a>
-                            <ul id="user-block-dropdown" class="dropdown-menu text-center">
-                                <li>
-                                    <img src="@Url.Content("~/Content/images/user.png")" class="img-thumbnail img-responsive">
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <span id="profile-btn">
-                                        @using (Html.BeginForm("Profile", "Account"))
-                                        {
-                                            <button type="submit" class="btn btn-primary">
-                                                <span class="glyphicon glyphicon-user"></span>Profile
-                                            </button>
-                                        }
-                                    </span>
-                                    <span id="logout-btn">
-                                        @using (Html.BeginForm("LogOut", "Account"))
-                                        {
-                                            <button type="submit" class="btn btn-danger">
-                                                <span class="glyphicon glyphicon-user"></span>LogOut
-                                            </button>
-                                        }
-                                    </span>
-                                </li>
-                            </ul>
-                        </li>
+        @if (Request.IsAuthenticated)
+        {
+            <div class="row">
+                <div class="navbar-header col-lg-1 col-md-1 col-sm-2">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">TEMPUS</a>
+                </div>
+                <div class="col-lg-9 col-md-8 col-sm-10">
+                    <ul id="menu-list" class="collapse navbar-collapse nav navbar-nav">
+                        @*@Html.MainMenuItem("Today", "Tasks", "Account")*@
+                        @Html.MainMenuItem("Projects", "Index", "Projects")
+                        @Html.MainMenuItem("Project plan", "Plan", "Projects")
+                        @Html.MainMenuItem("Project flow", "Index", "Flow")
+                        @Html.MainMenuItem("Tasks", "Index", "Tasks")
+                        @Html.MainMenuItem("Risks", "Index", "Risks")
+                        @Html.MainMenuItem("Team", "Index", "Team")
+                        @Html.MainMenuItem("Time Records", "Index", "TimeReport")
                     </ul>
-                }
-                else
-                {
-                    <ul class="nav navbar-nav">
-                        <li>
-                            @Html.ActionLink("Log In", "LogIn", "Account")
-                        </li>
-                    </ul>
-                }
+                </div>
+
+                <!-- User Block -->
+                @{ Html.RenderAction("UserMenu", "Account"); }
+               
             </div>
-        </div>
+        }
     </div>
 
     <div id="heightStub" class="visible-xs visible-sm"></div>
