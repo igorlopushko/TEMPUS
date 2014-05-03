@@ -1,8 +1,11 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using TEMPUS.Infrastructure.ConrollerFactory;
 using TEMPUS.WebSite.Helpers;
+using TEMPUS.WebSite.Security;
 
 namespace TEMPUS.WebSite
 {
@@ -18,6 +21,14 @@ namespace TEMPUS.WebSite
 
             Bootstrapper.ConfigureUnityContainer();
             ControllerBuilder.Current.SetControllerFactory(new UnityControllerFactory());
+        }
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            if (CurrentUser.User == null)
+            {
+                
+            }
         }
     }
 }

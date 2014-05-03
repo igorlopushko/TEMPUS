@@ -39,36 +39,62 @@ namespace TEMPUS.UserDomain.Infrastructure
 
             return _userReadRepository.Users.Where(x => x.Id == id.Id).AsEnumerable().Select(x => new UserInfo
             {
-                Age = x.Age,
+                UserId = new UserId(x.Id),
                 LastName = x.LastName,
                 FirstName = x.FirstName,
+                Email = x.Email,
                 Image = x.Image,
-                Login = x.Login,
                 Password = x.Password,
                 Phone = x.Phone,
-                UserId = new UserId(x.Id),
-                Role = null
+                DateOfBirth = x.DateOfBirth,
+                Roles = GetUserRoles(new UserId(x.Id))
             }).FirstOrDefault();
         }
 
         /// <summary>
-        /// Gets the user by login.
+        /// Gets the user by email.
         /// </summary>
-        /// <param name="login">The login.</param>
-        public UserInfo GetUserByLogin(string login)
+        /// <param name="email">user specific email address</param>
+        public UserInfo GetUserByEmail(string email)
         {
-            return _userReadRepository.Users.Where(x => x.Login == login).AsEnumerable().Select(x => new UserInfo
+            var user = _userReadRepository.Users.Where(x => x.Email == email).AsEnumerable().Select(x => new UserInfo
             {
-                Age = x.Age,
+                UserId = new UserId(x.Id),
                 LastName = x.LastName,
                 FirstName = x.FirstName,
+                Email = x.Email,
                 Image = x.Image,
-                Login = x.Login,
                 Password = x.Password,
                 Phone = x.Phone,
-                UserId = new UserId(x.Id),
-                Role = null
+                DateOfBirth = x.DateOfBirth
+                
             }).FirstOrDefault();
+            if (user != null)
+            {
+                user.Roles = GetUserRoles(user.UserId);
+                return user;
+            }
+
+            return null;
+        }
+
+        private IEnumerable<UserRole> GetUserRoles(UserId userId)
+        {
+
+            var data = _userReadRepository.UserRoleRelations.Where(x => x.UserId == userId.Id).ToList();
+            var result = new List<UserRole>();
+
+            foreach (var userRoleRelation in data)
+            {
+                var value = new UserRole();
+                bool success = Enum.TryParse(userRoleRelation.Role.Name, out value);
+                if (success)
+                {
+                    result.Add(value);
+                }
+            }
+
+            return result;
         }
 
         /// <summary>

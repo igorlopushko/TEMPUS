@@ -7,7 +7,7 @@ namespace TEMPUS.UserDomain.Services.ServiceLayer
     public interface IUserQueryService
     {
         UserInfo GetUserById(UserId id);
-        UserInfo GetUserByLogin(string login);
+        UserInfo GetUserByEmail(string emails);
         IEnumerable<UserInfo> GetUsersByProjectId(ProjectId projectId);
     }
 }

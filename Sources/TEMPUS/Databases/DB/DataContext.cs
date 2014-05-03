@@ -23,6 +23,7 @@ namespace TEMPUS.DB
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Permission> Permissions { get; set; }
+        public DbSet<UserRoleRelation> UserRoleRelations { get; set; }
 
 
         /// <summary>

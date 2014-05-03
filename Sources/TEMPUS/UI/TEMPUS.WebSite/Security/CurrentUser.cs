@@ -13,7 +13,7 @@ namespace TEMPUS.WebSite.Security
         {
             User = new UserInfo
             {
-                Login = login,
+                Email = login,
                 Password = password
             };
         }

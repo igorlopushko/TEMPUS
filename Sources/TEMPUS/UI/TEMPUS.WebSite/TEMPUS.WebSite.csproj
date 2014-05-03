@@ -163,10 +163,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Content Include="App_Data\TEMPUS.mdf" />
-    <Content Include="App_Data\TEMPUS_log.ldf">
-      <DependentUpon>TEMPUS.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\Images\1_mood.png" />
     <Content Include="Content\Images\2_mood.png" />
     <Content Include="Content\Images\3_mood.png" />
@@ -242,7 +238,9 @@
     <Content Include="Views\Projects\Details.cshtml" />
     <Content Include="Views\Projects\Plan.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>

@@ -12,9 +12,7 @@ namespace TEMPUS.BaseDomain.Model.ServiceLayer
         where T : Entity
     {
         T Get(UserId id);
-
-        IQueryable<T> All { get; }
-
+        
         IEnumerable<T> Get(Expression<Func<T, bool>> expression);
 
         void Add(T entity);
