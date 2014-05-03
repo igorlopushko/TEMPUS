@@ -1,0 +1,44 @@
+﻿@using TEMPUS.UserDomain.Model.ServiceLayer
+@using TEMPUS.WebSite.Helpers
+@using TEMPUS.WebSite.Security
+
+@model TEMPUS.WebSite.Models.Base.TopNavigationViewModel
+
+<div class="navbar-header col-lg-1 col-md-1 col-sm-2">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="/">@Model.CurrentProjectName</a>
+</div>
+
+<div class="col-lg-9 col-md-8 col-sm-10">
+    <ul id="menu-list" class="collapse navbar-collapse nav navbar-nav">
+        @*@Html.MainMenuItem("Today", "Tasks", "Account")*@
+        @if (SiteSecurity.UserInRole(UserRole.Director) ||
+             SiteSecurity.UserInRole(UserRole.Manager) ||
+             Model.HasMoreThanOneProject)
+        {
+            @Html.MainMenuItem("Projects", "Index", "Projects")
+        }
+        
+        @if (SiteSecurity.UserInRole(UserRole.Director) ||
+             SiteSecurity.UserInRole(UserRole.Manager))
+        {
+            @Html.MainMenuItem("Project plan", "Plan", "Projects")
+            @Html.MainMenuItem("Project flow", "Index", "Flow")
+        }
+        
+        @Html.MainMenuItem("Tasks", "Index", "Tasks")
+        @Html.MainMenuItem("Risks", "Index", "Risks")
+        @Html.MainMenuItem("Team", "Index", "Team")
+        @Html.MainMenuItem("Time Records", "Index", "TimeReport")
+        
+        @if (SiteSecurity.UserInRole(UserRole.Administrator))
+        {
+            @Html.MainMenuItem("Register User", "Register", "Account")
+        }
+    </ul>
+</div>

@@ -156,6 +156,7 @@
     <Compile Include="Models\Account\RegisterViewModel.cs" />
     <Compile Include="Models\Account\UpdateUserViewModel.cs" />
     <Compile Include="Models\Account\UserMenuViewModel.cs" />
+    <Compile Include="Models\Base\TopNavigationViewModel.cs" />
     <Compile Include="Models\Project\TaskStatus.cs" />
     <Compile Include="Models\Project\ProjectViewModel.cs" />
     <Compile Include="Models\Project\TaskViewModel.cs" />
@@ -248,6 +249,7 @@
     <Content Include="Views\Projects\Details.cshtml" />
     <Content Include="Views\Projects\Plan.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\UserMenuViewModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\TopNavigationViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

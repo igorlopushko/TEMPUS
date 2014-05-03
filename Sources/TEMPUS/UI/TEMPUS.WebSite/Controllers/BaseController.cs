@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TEMPUS.BaseDomain.Messages;
+using TEMPUS.WebSite.Models.Base;
 
 namespace TEMPUS.WebSite.Controllers
 {
@@ -62,6 +63,12 @@ namespace TEMPUS.WebSite.Controllers
         protected virtual string GetAreaPath()
         {
             return "~/";
+        }
+
+        public ActionResult TopNavigation()
+        {
+            var model = new TopNavigationViewModel("TEMPUS", false);
+            return DisplayFor(model);
         }
     }
 }
