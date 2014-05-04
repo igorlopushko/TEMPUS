@@ -73,7 +73,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity.cs" />
-    <Compile Include="Models\Project\Department.cs" />
+    <Compile Include="Models\Project\Department.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\Project\Project.cs" />
     <Compile Include="Models\Project\PpsClassification.cs" />
     <Compile Include="Models\Project\ProjectRole.cs" />
