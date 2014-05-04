@@ -180,6 +180,7 @@
     <Content Include="Content\Lib\Styles\font-awesome.min.css" />
     <Content Include="Content\Lib\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\Lib\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Lib\Styles\jasny-bootstrap.css" />
     <Content Include="Content\Styles\Main.css" />
     <Content Include="Content\Styles\Profile.css" />
     <Content Include="Content\Styles\Projects.css" />
@@ -204,6 +205,7 @@
     <Content Include="Scripts\Lib\bootstrap.js" />
     <Content Include="Scripts\Lib\bootstrap.min.js" />
     <Content Include="Scripts\Lib\Chart.js" />
+    <Content Include="Scripts\Lib\jasny-bootstrap.js" />
     <Content Include="Scripts\Lib\jquery-2.1.0.js" />
     <Content Include="Scripts\Lib\jquery-2.1.0.min.js" />
     <Content Include="Scripts\Lib\jquery.ddslick.min.js" />

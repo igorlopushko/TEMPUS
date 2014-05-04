@@ -55,7 +55,7 @@
         </div>
     </div>
     <div class="col-md-12">
-        <table class="table table-hover" id="projectList">
+        <table data-link="row" class="rowlink table table-hover" id="projectList">
             <thead>
                 <tr>
                     <th>Title</th>
@@ -69,7 +69,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>@Html.MainMenuItem("Project1", "Details", "Projects")</td>
+                    <td><a href="@Url.Action("Details", "Projects")">Project1</a></td>
                     <td>
                         <div class="status redStatus" />
                     </td>
@@ -80,7 +80,7 @@
                     <td>Description1</td>
                 </tr>
                 <tr>
-                    <td>@Html.MainMenuItem("Project2", "Details", "Projects")</td>
+                    <td><a href="@Url.Action("Details", "Projects")">Project2</a></td>
                     <td>
                         <div class="status greenStatus" />
                     </td>
@@ -91,7 +91,7 @@
                     <td>Description2</td>
                 </tr>
                 <tr>
-                    <td>@Html.MainMenuItem("Project3", "Details", "Projects")</td>
+                    <td><a href="@Url.Action("Details", "Projects")">Project3</a></td>
                     <td>
                         <div class="status yellowStatus" />
                     </td>
