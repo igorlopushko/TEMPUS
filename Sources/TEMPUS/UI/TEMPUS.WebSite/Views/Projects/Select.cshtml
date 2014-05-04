@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Select Project";
+}
+@using TEMPUS.WebSite.Models.Project
+<div class="page-header">
+    <h1>Select Project</h1>
+</div>
+<div class="row">
+    @foreach (var project in Model)
+    {        
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 projectWrapper">
+            <a class="projectBlock">
+                <div class="projectName">@project.Name</div>
+                <div>
+                    @if (project.Status == ProjectStatus.Green)
+                    { <div class="status greenStatus"></div> }
+                    @if (project.Status == ProjectStatus.Yellow)
+                    { <div class="status yellowStatus"></div> }
+                    @if (project.Status == ProjectStatus.Red)
+                    { <div class="status redStatus"></div> }
+                </div>
+            </a>
+        </div>
+    }
+</div>
