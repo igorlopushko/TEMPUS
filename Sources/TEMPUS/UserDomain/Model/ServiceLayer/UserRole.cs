@@ -3,8 +3,8 @@
     public enum UserRole
     {
         Administrator,
-        Director,
-        Manager,
-        TeamMember
+        Management,
+        ProjectManager,
+        User
     }
 }

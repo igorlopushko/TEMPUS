@@ -157,6 +157,8 @@
     <Compile Include="Models\Account\UpdateUserViewModel.cs" />
     <Compile Include="Models\Account\UserMenuViewModel.cs" />
     <Compile Include="Models\Base\TopNavigationViewModel.cs" />
+    <Compile Include="Models\Project\ProjectStatus.cs" />
+    <Compile Include="Models\Project\ProjectListViewModel.cs" />
     <Compile Include="Models\Project\TaskStatus.cs" />
     <Compile Include="Models\Project\ProjectViewModel.cs" />
     <Compile Include="Models\Project\TaskViewModel.cs" />
@@ -190,6 +192,7 @@
     <Content Include="Content\Lib\Styles\font-awesome.min.css" />
     <Content Include="Content\Lib\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\Lib\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Lib\Styles\jasny-bootstrap.css" />
     <Content Include="Content\Styles\Main.css" />
     <Content Include="Content\Styles\Profile.css" />
     <Content Include="Content\Styles\Projects.css" />
@@ -214,6 +217,7 @@
     <Content Include="Scripts\Lib\bootstrap.js" />
     <Content Include="Scripts\Lib\bootstrap.min.js" />
     <Content Include="Scripts\Lib\Chart.js" />
+    <Content Include="Scripts\Lib\jasny-bootstrap.js" />
     <Content Include="Scripts\Lib\jquery-2.1.0.js" />
     <Content Include="Scripts\Lib\jquery-2.1.0.min.js" />
     <Content Include="Scripts\Lib\jquery.ddslick.min.js" />
@@ -250,6 +254,7 @@
     <Content Include="Views\Projects\Plan.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\UserMenuViewModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\TopNavigationViewModel.cshtml" />
+    <Content Include="Views\Projects\Select.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

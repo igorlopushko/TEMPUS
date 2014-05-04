@@ -17,20 +17,9 @@
 <div class="col-lg-9 col-md-8 col-sm-10">
     <ul id="menu-list" class="collapse navbar-collapse nav navbar-nav">
         @*@Html.MainMenuItem("Today", "Tasks", "Account")*@
-        @if (SiteSecurity.UserInRole(UserRole.Director) ||
-             SiteSecurity.UserInRole(UserRole.Manager) ||
-             Model.HasMoreThanOneProject)
-        {
-            @Html.MainMenuItem("Projects", "Index", "Projects")
-        }
-        
-        @if (SiteSecurity.UserInRole(UserRole.Director) ||
-             SiteSecurity.UserInRole(UserRole.Manager))
-        {
-            @Html.MainMenuItem("Project plan", "Plan", "Projects")
-            @Html.MainMenuItem("Project flow", "Index", "Flow")
-        }
-        
+        @Html.MainMenuItem("Projects", "Index", "Projects")
+        @Html.MainMenuItem("Project plan", "Plan", "Projects")
+        @Html.MainMenuItem("Project flow", "Index", "Flow")
         @Html.MainMenuItem("Tasks", "Index", "Tasks")
         @Html.MainMenuItem("Risks", "Index", "Risks")
         @Html.MainMenuItem("Team", "Index", "Team")
