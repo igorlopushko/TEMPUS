@@ -8,14 +8,13 @@ namespace TEMPUS.WebSite.Controllers
 {
     public class TasksController : Controller
     {
-        //
-        // GET: /Tasks/
-
+        [Authorize]
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult Details()
         {
             return View();

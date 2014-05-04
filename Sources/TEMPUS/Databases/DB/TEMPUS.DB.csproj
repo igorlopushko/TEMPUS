@@ -63,11 +63,16 @@
     <Compile Include="Migrations\201404271901362_AddRolesAndPermissions.Designer.cs">
       <DependentUpon>201404271901362_AddRolesAndPermissions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405031603524_AddUserRoleRelation.cs" />
+    <Compile Include="Migrations\201405031603524_AddUserRoleRelation.Designer.cs">
+      <DependentUpon>201405031603524_AddUserRoleRelation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\User\User.cs" />
     <Compile Include="Models\User\Role.cs" />
     <Compile Include="Models\User\Permission.cs" />
+    <Compile Include="Models\User\UserRoleRelation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +88,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201404271901362_AddRolesAndPermissions.resx">
       <DependentUpon>201404271901362_AddRolesAndPermissions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405031603524_AddUserRoleRelation.resx">
+      <DependentUpon>201405031603524_AddUserRoleRelation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

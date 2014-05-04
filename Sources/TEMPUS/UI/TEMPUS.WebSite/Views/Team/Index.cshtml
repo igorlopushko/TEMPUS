@@ -12,33 +12,31 @@
 <script src="@Url.Content("~/Scripts/grids.js")"></script>
 <script src="@Url.Content("~/Scripts/Team.js")"></script>
 
-<div class="panel panel-default">
-    <div class="panel-heading">Team</div>
-    <div class="panel-body">
-        <div class="row wrapper">
-            @foreach (var item in Model)
-            {
-                <div class="col-md-2 col-sm-3 team-member-block element">
-                    <div class="row">
-                        <a href="@Url.Action("Index", "User")">
-                            <div class="col-xs-4 col-sm-12">
-                                <img src="@Url.Content(item.Image)" class="img-thumbnail img-responsive img-link">
-                            </div>
-                        </a>
-                        <div class="col-xs-8 col-sm-12">
-                            <p class="team-member-name">
-                                @item.LastName @item.FirstName
-                            </p>
-                            <p>
-                                @item.Role
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
+<div class="page-header">
+    <h1>Team</h1>
+</div>
 
-    </div>
+<div class="row wrapper">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-2 col-sm-3 team-member-block element">
+            <div class="row">
+                <a href="@Url.Action("Profile", "Account")">
+                    <div class="col-xs-4 col-sm-12">
+                        <img src="@Url.Content(item.Image)" class="img-thumbnail img-responsive img-link">
+                    </div>
+                </a>
+                <div class="col-xs-8 col-sm-12">
+                    <p class="team-member-name">
+                        @item.LastName @item.FirstName
+                    </p>
+                    <p>
+                        @item.Role
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
 </div>
 <div class="panel panel-default">
     <div class="panel-heading">Mood by days</div>
@@ -87,21 +85,25 @@
             chartArea: { width: "90%", height: "75%" },
             lineWidth: 3,
             curveType: 'none',
-            legend: { position: 'top', maxLines: 2}
+            legend: { position: 'top', maxLines: 2 }
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('mood-chart'));
         chart.draw(data, options);
     }
+    //wait for 500ms before trigging the redrawing of the chart
     $(window).resize(function () {
         if (this.resizeTO) clearTimeout(this.resizeTO);
         this.resizeTO = setTimeout(function () {
             $(this).trigger('resizeEnd');
         }, 500);
-    });
 
+    });
+    var width = $(window).width();
     //redraw graph when window resize is completed  
     $(window).on('resizeEnd', function () {
+        if ($(window).width() == width) return;
+        width = $(window).width();
         drawChart();
     });
 </script>

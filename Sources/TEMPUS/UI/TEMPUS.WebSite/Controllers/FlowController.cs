@@ -8,13 +8,10 @@ namespace TEMPUS.WebSite.Controllers
 {
     public class FlowController : BaseController
     {
-        //
-        // GET: /Flow/
-
+        [Authorize]
         public ActionResult Index()
         {
             return View();
         }
-
     }
 }

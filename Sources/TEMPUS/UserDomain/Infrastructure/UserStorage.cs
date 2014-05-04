@@ -23,17 +23,11 @@ namespace TEMPUS.UserDomain.Infrastructure
         public UserStorage(DataContext context)
         {
             if (context == null)
+            {
                 throw new ArgumentNullException("context");
+            }
 
             this._context = context;
-        }
-
-        /// <summary>
-        /// Gets all users.
-        /// </summary>
-        public IQueryable<DB.Models.User.User> All
-        {
-            get { return _context.Users.AsQueryable(); }
         }
 
         /// <summary>
@@ -44,7 +38,9 @@ namespace TEMPUS.UserDomain.Infrastructure
         public void Add(DB.Models.User.User entity)
         {
             if (entity == null)
+            {
                 throw new ArgumentNullException("entity");
+            }
 
             _context.Users.Add(entity);
             _context.SaveChanges();
@@ -58,7 +54,9 @@ namespace TEMPUS.UserDomain.Infrastructure
         public void Delete(DB.Models.User.User entity)
         {
             if (entity == null)
+            {
                 throw new ArgumentNullException("entity");
+            }
 
             _context.Users.Remove(entity);
             _context.SaveChanges();
@@ -73,7 +71,9 @@ namespace TEMPUS.UserDomain.Infrastructure
         public DB.Models.User.User Get(UserId id)
         {
             if (id == null)
+            {
                 throw new ArgumentNullException("id");
+            }
 
             return _context.Users.FirstOrDefault(x => x.Id == id.Id);
         }
@@ -95,7 +95,9 @@ namespace TEMPUS.UserDomain.Infrastructure
         public void Update(DB.Models.User.User aggregate)
         {
             if (aggregate == null)
+            {
                 throw new ArgumentNullException("aggregate");
+            }
 
             _context.SaveChanges();
         }

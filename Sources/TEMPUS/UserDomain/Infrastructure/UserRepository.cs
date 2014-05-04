@@ -41,7 +41,7 @@ namespace TEMPUS.UserDomain.Infrastructure
 
             var user = _userStorage.Get(id);
             return user == null ? null : new User(new UserId(user.Id), user.FirstName, user.LastName,
-                user.Login, user.Password, user.Age, user.Image, user.Phone);
+                String.Empty, user.Password, 20, user.Image, user.Phone);
         }
 
         /// <summary>
@@ -55,19 +55,23 @@ namespace TEMPUS.UserDomain.Infrastructure
                 Id = aggregate.Id.Id,
                 FirstName = aggregate.FirstName,
                 LastName = aggregate.LastName,
-                Age = aggregate.Age,
                 Image = aggregate.Image,
-                Login = aggregate.Login,
                 Password = aggregate.Password,
                 Phone = aggregate.Phone
             };
 
             if (aggregate.IsNew)
+            {
                 _userStorage.Add(user);
+            }
             else if (aggregate.IsDeleted)
+            {
                 _userStorage.Delete(user);
+            }
             else
+            {
                 _userStorage.Update(user);
+            }
         }
     }
 }
