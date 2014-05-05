@@ -14,43 +14,53 @@
             <div class="container">
                 <div class="row">
                     <div class="form-group">
+                        <div class="col-sm-4">
+                            <div class="form-group has-error" align="center">
+                                <label class="control-label">
+                                    <p>@Html.ValidationMessageFor(model => model.Email)</p>
+                                    <p>@Html.ValidationMessageFor(model => model.Password)</p>
+                                    <p>@Html.ValidationMessageFor(model => model.ConfirmPassword)</p>
+                                    <p>@Html.ValidationMessageFor(model => model.FirstName)</p>
+                                    <p>@Html.ValidationMessageFor(model => model.LastName)</p>
+                                    @if (ViewData.ModelState["Error"] != null)
+                                    {
+                                        if (ViewData.ModelState["Error"].Errors[0] != null)
+                                        {
+                                        <p>@ViewData.ModelState["Error"].Errors[0].ErrorMessage</p>
+                                        }
+                                    }
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="Email" class="col-sm-3 control-label">Email</label>
                         <div class="col-sm-4">
-                            @Html.TextBoxFor(model => model.Login, new { @class = "form-control", id = "email", placeholder = "Email" })
-                            @Html.ValidationMessageFor(model => model.Login)
-                            @Html.ValidationMessageFor(model => model.Login)
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "email", placeholder = "Email" })
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="Password" class="col-sm-3 control-label">Password</label>
                         <div class="col-sm-4">
                             @Html.PasswordFor(model => model.Password, new { @class = "form-control", id = "password", placeholder = "Password" })
-                            @Html.ValidationMessageFor(model => model.Password)
-                            @Html.ValidationMessageFor(model => model.Password)
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="ConfirmPassword" class="col-sm-3 control-label">Confirm password</label>
                         <div class="col-sm-4">
                             @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", id = "confirmpassword", placeholder = "Confirm password" })
-                            @Html.ValidationMessageFor(model => model.Password)
-                            @Html.ValidationMessageFor(model => model.Password)
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="FirstName" class="col-sm-3 control-label">First name</label>
                         <div class="col-sm-4">
                             @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", id = "firstname", placeholder = "First name" })
-                            @Html.ValidationMessageFor(model => model.Password)
-                            @Html.ValidationMessageFor(model => model.Password)
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="LastName" class="col-sm-3 control-label">Last name</label>
                         <div class="col-sm-4">
                             @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", id = "lastname", placeholder = "Last name" })
-                            @Html.ValidationMessageFor(model => model.Password)
-                            @Html.ValidationMessageFor(model => model.Password)
                         </div>
                     </div>
                     <div class="form-group">

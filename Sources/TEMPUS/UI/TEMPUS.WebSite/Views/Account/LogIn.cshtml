@@ -8,25 +8,38 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-
+    
     <div class="carousel-inner">
         <div class="item active">
             <div class="container">
                 <div class="row">
                     <div class="form-group">
+                        <div class="col-sm-4">
+                            <div class="form-group has-error" align="center">
+                                <label class="control-label">
+                                    <p>@Html.ValidationMessageFor(model => model.Email)</p>
+                                    <p>@Html.ValidationMessageFor(model => model.Password)</p>
+                                    @if (ViewData.ModelState["Error"] != null)
+                                    {
+                                        if (ViewData.ModelState["Error"].Errors[0] != null)
+                                        {
+                                        <p>@ViewData.ModelState["Error"].Errors[0].ErrorMessage</p>
+                                        }
+                                    }
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="Email" class="col-sm-3 control-label">Email</label>
                         <div class="col-sm-4">
-                            @Html.TextBoxFor(model => model.Login, new { @class = "form-control", id = "email", placeholder = "Email" })
-                            @Html.ValidationMessageFor(model => model.Login)
-                            @Html.ValidationMessageFor(model => model.Login)
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "email", placeholder = "Email" })
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="Password" class="col-sm-3 control-label">Password</label>
                         <div class="col-sm-4">
                             @Html.PasswordFor(model => model.Password, new { @class = "form-control", id = "password", placeholder = "Password" })
-                            @Html.ValidationMessageFor(model => model.Password)
-                            @Html.ValidationMessageFor(model => model.Password)
                         </div>
                     </div>
                     <div class="form-group">

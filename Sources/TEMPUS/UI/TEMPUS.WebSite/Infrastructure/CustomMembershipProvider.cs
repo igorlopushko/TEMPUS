@@ -42,15 +42,15 @@ namespace TEMPUS.WebSite.Infrastructure
             throw new NotImplementedException();
         }
 
-        public override MembershipUser CreateUser(string username, 
-            string password, string email, 
-            string passwordQuestion, 
-            string passwordAnswer, 
-            bool isApproved, 
-            object providerUserKey, 
+        public override MembershipUser CreateUser(string username,
+            string password, string email,
+            string passwordQuestion,
+            string passwordAnswer,
+            bool isApproved,
+            object providerUserKey,
             out MembershipCreateStatus status)
         {
-            var args = new ValidatePasswordEventArgs(username, password, true);
+            var args = new ValidatePasswordEventArgs(email, password, true);
             OnValidatingPassword(args);
 
             if (args.Cancel)
@@ -65,17 +65,17 @@ namespace TEMPUS.WebSite.Infrastructure
                 return null;
             }
 
-            var user = GetUser(username, true);
+            var user = GetUser(email, true);
 
             if (user == null)
             {
                 var userId = Guid.NewGuid();
-                var cmd = new CreateUser(new UserId(userId), username, GetMd5Hash(password));
+                var cmd = new CreateUser(new UserId(userId), email, GetMd5Hash(password));
                 _cmdSender.Send(cmd);
 
                 status = MembershipCreateStatus.Success;
 
-                return GetUser(username, true);
+                return GetUser(email, true);
             }
             status = MembershipCreateStatus.DuplicateUserName;
 
@@ -207,8 +207,7 @@ namespace TEMPUS.WebSite.Infrastructure
         {
             var md5Hash = GetMd5Hash(password);
 
-            var requiredUser = _userSvc.GetUserByEmail(username);
-            return requiredUser != null;
+            return _userSvc.ValidateUser(username, md5Hash);
         }
 
         public static string GetMd5Hash(string value)

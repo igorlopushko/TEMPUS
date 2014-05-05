@@ -15,7 +15,7 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
         public int Age { get; private set; }
-        public string Login { get; private set; }
+        public string Email { get; private set; }
         public string Password { get; private set; }
         public string Image { get; private set; }
         public string Phone { get; private set; }
@@ -49,7 +49,7 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
             this._id = userId;
             this.FirstName = firstName;
             this.LastName = lastName;
-            this.Login = login;
+            this.Email = login;
             this.Password = password;
             this.Age = age;
             this.Image = image;
@@ -63,12 +63,12 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
         /// <param name="password">The user password.</param>
         public void CreateUser(string login, string password)
         {
-            this.Login = login;
+            this.Email = login;
             this.Password = password;
             this.IsNew = true;
             this.IsDeleted = false;
 
-            var @event = new UserCreated(this.Id, this.Login, this.Password);
+            var @event = new UserCreated(this.Id, this.Email, this.Password);
 
             this.ApplyChange(@event);
         }

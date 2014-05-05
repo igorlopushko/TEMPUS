@@ -67,7 +67,6 @@ namespace TEMPUS.UserDomain.Infrastructure
                 Password = x.Password,
                 Phone = x.Phone,
                 DateOfBirth = x.DateOfBirth
-                
             }).FirstOrDefault();
             if (user != null)
             {
@@ -105,6 +104,18 @@ namespace TEMPUS.UserDomain.Infrastructure
         public IEnumerable<UserInfo> GetUsersByProjectId(ProjectId projectId)
         {
             throw new NotImplementedException();
+        }
+
+
+        /// <summary>
+        /// Validates the user.
+        /// </summary>
+        /// <param name="login">The login.</param>
+        /// <param name="password">The password.</param>
+        public bool ValidateUser(string login, string password)
+        {
+            var user = _userReadRepository.Users.FirstOrDefault(x => x.Email == login && x.Password == password);
+            return user != null;
         }
     }
 }
