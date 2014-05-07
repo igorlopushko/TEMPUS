@@ -1,14 +1,14 @@
 ﻿@model TEMPUS.WebSite.Models.Account.RegisterViewModel
 
 <div class="page-header">
-    <h1>Log in</h1>
+    <h1>Register user</h1>
 </div>
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-    
+
     <div class="carousel-inner">
         <div class="item active">
             <div class="container">
@@ -22,11 +22,12 @@
                                     <p>@Html.ValidationMessageFor(model => model.ConfirmPassword)</p>
                                     <p>@Html.ValidationMessageFor(model => model.FirstName)</p>
                                     <p>@Html.ValidationMessageFor(model => model.LastName)</p>
+                                    <p>@Html.ValidationMessageFor(model => model.DateOfBirth)</p>
                                     @if (ViewData.ModelState["Error"] != null)
                                     {
                                         if (ViewData.ModelState["Error"].Errors[0] != null)
                                         {
-                                        <p>@ViewData.ModelState["Error"].Errors[0].ErrorMessage</p>
+                                            <p>@ViewData.ModelState["Error"].Errors[0].ErrorMessage</p>
                                         }
                                     }
                                 </label>
@@ -64,9 +65,32 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="DateOfBirth" class="col-sm-3 control-label">Date of birth</label>
+                        <div class="col-sm-4">
+                            <div class='input-group date' id='date_of_birth' role="datepicker">
+                                @Html.TextBoxFor(model => model.DateOfBirth, new { @class = "form-control", placeholder = "Date of birth" })
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Role" class="col-sm-3 control-label">Role</label>
+                        <div class="col-sm-4">
+                            @*<select class="form-control" id="project">
+                                    <option>Project</option>
+                                    <option>TEMPUS</option>
+                                    <option>Happy Project</option>
+                                    <option>Lucky Project</option>
+                                </select>*@
+                            @Html.DropDownListFor(model => model.Role, ViewBag.UserRoles as IEnumerable<SelectListItem>, null, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-3 control-label"></label>
                         <div class="col-sm-4">
-                            <input class="btn btn-primary next" value="Sign In" type="submit" />
+                            <input class="btn btn-primary next" value="Register user" type="submit" />
                         </div>
                     </div>
                 </div>

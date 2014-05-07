@@ -9,6 +9,7 @@ namespace TEMPUS.UserDomain.Services.ServiceLayer
         UserInfo GetUserById(UserId id);
         UserInfo GetUserByEmail(string emails);
         bool ValidateUser(string login, string password);
+        IEnumerable<string> GetUsersRoles();
         IEnumerable<UserInfo> GetUsersByProjectId(ProjectId projectId);
     }
 }

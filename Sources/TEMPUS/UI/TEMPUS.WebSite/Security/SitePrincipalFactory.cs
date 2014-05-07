@@ -1,6 +1,5 @@
 ﻿using System.Security.Principal;
-using TEMPUS.Infrastructure.Unity;
-using TEMPUS.UserDomain.Services.ServiceLayer;
+using TEMPUS.WebSite.Contexts;
 
 namespace TEMPUS.WebSite.Security
 {
@@ -21,10 +20,7 @@ namespace TEMPUS.WebSite.Security
                 return null;
             }
 
-            var userName = principal.Identity.Name;
-            var userQueryService = Container.Get<IUserQueryService>();
-            var user = userQueryService.GetUserByEmail(userName);
-            return new SitePrincipal(principal, user);
+            return new SitePrincipal(principal, UserContext.Current);
         }
     }
 }

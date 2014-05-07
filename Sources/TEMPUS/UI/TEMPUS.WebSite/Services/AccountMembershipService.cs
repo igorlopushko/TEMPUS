@@ -40,7 +40,7 @@ namespace TEMPUS.WebSite.Services
             return _provider.ValidateUser(userName, password);
         }
 
-        public MembershipCreateStatus CreateUser(string userName, string password, string email)
+        public MembershipCreateStatus CreateUser(string userName, string password, string email, string lastName, string role, DateTime dateOfBirth)
         {
             if (String.IsNullOrEmpty(userName))
             {

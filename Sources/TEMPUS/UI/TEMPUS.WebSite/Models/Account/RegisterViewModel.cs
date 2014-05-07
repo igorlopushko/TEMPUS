@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace TEMPUS.WebSite.Models.Account
@@ -41,5 +42,16 @@ namespace TEMPUS.WebSite.Models.Account
         /// Gets or sets the user last name.
         /// </summary>
         public string LastName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the role of the new user.
+        /// </summary>
+        public string Role { get; set; }
+
+        /// <summary>
+        /// Gets or sets the date of birth of the new user.
+        /// </summary>
+        [Required]
+        public DateTime DateOfBirth { get; set; }
     }
 }

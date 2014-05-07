@@ -117,5 +117,13 @@ namespace TEMPUS.UserDomain.Infrastructure
             var user = _userReadRepository.Users.FirstOrDefault(x => x.Email == login && x.Password == password);
             return user != null;
         }
+
+        /// <summary>
+        /// Gets the users roles.
+        /// </summary>
+        public IEnumerable<string> GetUsersRoles()
+        {
+            return _userReadRepository.Roles.AsEnumerable().Select(x => x.Name);
+        }
     }
 }

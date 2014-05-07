@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using TEMPUS.BaseDomain.Messages;
+using TEMPUS.UserDomain.Model.ServiceLayer;
 using TEMPUS.UserDomain.Services.ServiceLayer;
 using TEMPUS.WebSite.Contexts;
 using TEMPUS.WebSite.Interfaces;
 using TEMPUS.WebSite.Models.Account;
+using TEMPUS.WebSite.Security;
 using TEMPUS.WebSite.Services;
 
 namespace TEMPUS.WebSite.Controllers
@@ -62,14 +66,12 @@ namespace TEMPUS.WebSite.Controllers
         /// Registers the user.
         /// </summary>
         [HttpGet]
+        [Authorize]
+        [AllowedRoles(UserRole.Administrator)]
         public ActionResult Register()
         {
-            if (UserContext.Current == null)
-            {
-                return View();
-            }
-
-            return RedirectToAction("Index", "Team");
+            ViewBag.UserRoles = this.GetUserRoles();
+            return View();
         }
 
         /// <summary>
@@ -77,6 +79,8 @@ namespace TEMPUS.WebSite.Controllers
         /// </summary>
         /// <param name="model">The model represents register information of the user.</param>
         [HttpPost]
+        [Authorize]
+        [AllowedRoles(UserRole.Administrator)]
         public ActionResult Register(RegisterViewModel model)
         {
             if (model == null)
@@ -86,6 +90,7 @@ namespace TEMPUS.WebSite.Controllers
             }
             if (!ModelState.IsValid)
             {
+                ViewBag.UserRoles = this.GetUserRoles();
                 return View(model);
             }
 
@@ -96,15 +101,16 @@ namespace TEMPUS.WebSite.Controllers
                 return RedirectToAction("Register", "Account");
             }
 
-            var result = _membershipService.CreateUser(model.FirstName, model.Password, model.Email);
+            var result = _membershipService.CreateUser(model.FirstName, model.Password, model.Email, model.LastName, model.Role, model.DateOfBirth);
 
             if (result == MembershipCreateStatus.Success)
             {
-                return RedirectToAction("LogIn");
+                return RedirectToAction("Index", "Team");
             }
             else
             {
                 SetErrorMessage(result);
+                ViewBag.UserRoles = this.GetUserRoles();
                 return View(model);
             }
         }
@@ -238,12 +244,18 @@ namespace TEMPUS.WebSite.Controllers
                         ModelState.AddModelError("Error", "Invalid Email.");
                         break;
                     }
-                    case MembershipCreateStatus.DuplicateEmail:
+                case MembershipCreateStatus.DuplicateEmail:
                     {
                         ModelState.AddModelError("Error", "Such Email already exist in the system.");
                         break;
                     }
             }
+        }
+
+        private IEnumerable<SelectListItem> GetUserRoles()
+        {
+            var userRoles = _userQueryService.GetUsersRoles();
+            return new List<SelectListItem>(userRoles.Select(x => new SelectListItem { Value = x, Text = x }).ToList());
         }
     }
 }
