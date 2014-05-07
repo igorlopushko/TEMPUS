@@ -57,7 +57,10 @@ namespace TEMPUS.UserDomain.Infrastructure
                 LastName = aggregate.LastName,
                 Image = aggregate.Image,
                 Password = aggregate.Password,
-                Phone = aggregate.Phone
+                Phone = aggregate.Phone,
+                Email = aggregate.Email,
+                //TODO: Change DateOfBirth when implemented.
+                DateOfBirth = DateTime.Now.AddYears(-10)
             };
 
             if (aggregate.IsNew)

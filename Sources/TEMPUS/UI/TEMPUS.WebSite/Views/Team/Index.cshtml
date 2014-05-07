@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Team";
+    string jsonUrl = Url.Content("~/Content/test-mood-data.json");
 }
 <script type="text/javascript">
     jQuery(function ($) {
@@ -11,6 +12,12 @@
 
 <script src="@Url.Content("~/Scripts/grids.js")"></script>
 <script src="@Url.Content("~/Scripts/Team.js")"></script>
+<script src="@Url.Content("~/Scripts/Lib/d3.v3.min.js")"></script>
+<script src="@Url.Content("~/Scripts/Lib/c3.min.js")"></script>
+<script src="@Url.Content("~/Scripts/moodCharts.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/Content/Lib/Styles/c3.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/Lib/Styles/tipsy.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/Styles/moodCharts.css")">
 
 <div class="page-header">
     <h1>Team</h1>
@@ -41,69 +48,28 @@
 <div class="panel panel-default">
     <div class="panel-heading">Mood by days</div>
     <div class="panel-body">
-
-        <div id="mood-chart" style="height: 400px; width: 100%"></div>
+        <div id="chart"></div>
     </div>
     <div class="panel-footer">
         <span class="text-muted">1  - very sad, 2 - not ok, 3 - good, 4 - awesome</span>
     </div>
 </div>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript">
-    google.load("visualization", "1", { packages: ["corechart"] });
-    google.setOnLoadCallback(drawChart);
-    function drawChart() {
-        var names = [];
-        names.push("Date");
-        @foreach (var item in Model)
-        {
-            <text>names.push("@item.LastName @item.FirstName");</text>
-        }
-        var doubleArray = [
-          names,
-          ["07.04.14"],
-          ["08.04.14"],
-          ["09.04.14"],
-          ["10.04.14"],
-          ["11.04.14"],
-          ["14.04.14"],
-          ["15.04.14"]
-        ];
-        for (c = 1; c < doubleArray.length; c++) {
-            doubleArray[c] = doubleArray[c].concat(getRandomArray("@Model.Count", 1, 4));
-        }
-        printDoubleArray(doubleArray);
-        var data = google.visualization.arrayToDataTable(doubleArray);
-
-        var options = {
-            vAxis: {
-                viewWindow: {
-                    max: 4,
-                    min: 0
-                }
-            },
-            chartArea: { width: "90%", height: "75%" },
-            lineWidth: 3,
-            curveType: 'none',
-            legend: { position: 'top', maxLines: 2 }
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('mood-chart'));
-        chart.draw(data, options);
-    }
-    //wait for 500ms before trigging the redrawing of the chart
+<script>
+    //wait for 100ms before trigging the redrawing of the chart
     $(window).resize(function () {
         if (this.resizeTO) clearTimeout(this.resizeTO);
         this.resizeTO = setTimeout(function () {
             $(this).trigger('resizeEnd');
-        }, 500);
+        }, 100);
 
     });
     var width = $(window).width();
-    //redraw graph when window resize is completed  
+    //redraw chart when window resize is completed
     $(window).on('resizeEnd', function () {
         if ($(window).width() == width) return;
-        width = $(window).width();
-        drawChart();
+        width = $(window).width();  
+    });
+    $(document).ready(function () {
+        c3DrawMoodChart("@jsonUrl");
     });
 </script>

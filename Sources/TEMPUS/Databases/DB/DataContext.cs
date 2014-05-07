@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using TEMPUS.DB.Migrations;
+using TEMPUS.DB.Models.Project;
 using TEMPUS.DB.Models.User;
 
 namespace TEMPUS.DB
@@ -17,14 +18,17 @@ namespace TEMPUS.DB
             Database.SetInitializer<DataContext>(new MigrateDatabaseToLatestVersion<DataContext, Configuration>());
         }
 
-        /// <summary>
-        /// Gets or sets the users.
-        /// </summary>
+        
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<Permission> Permissions { get; set; }
         public DbSet<UserRoleRelation> UserRoleRelations { get; set; }
 
+        public DbSet<Department> Departments { get; set; }
+
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<ProjectRole> ProjectRoles { get; set; }
+        public DbSet<ProjectRoleRelation> ProjectRoleRelations { get; set; }
+        public DbSet<PpsClassification> PpsClassifications { get; set; }
 
         /// <summary>
         /// Configure model properties for mapping to database

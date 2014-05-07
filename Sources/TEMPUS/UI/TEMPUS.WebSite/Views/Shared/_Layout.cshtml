@@ -1,7 +1,4 @@
-﻿@using TEMPUS.WebSite.Contexts
-@using TEMPUS.WebSite.Helpers
-
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 
 <head>
@@ -33,31 +30,10 @@
         @if (Request.IsAuthenticated)
         {
             <div class="row">
-                <div class="navbar-header col-lg-1 col-md-1 col-sm-2">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">TEMPUS</a>
-                </div>
-                <div class="col-lg-9 col-md-8 col-sm-10">
-                    <ul id="menu-list" class="collapse navbar-collapse nav navbar-nav">
-                        @*@Html.MainMenuItem("Today", "Tasks", "Account")*@
-                        @Html.MainMenuItem("Projects", "Index", "Projects")
-                        @Html.MainMenuItem("Project plan", "Plan", "Projects")
-                        @Html.MainMenuItem("Project flow", "Index", "Flow")
-                        @Html.MainMenuItem("Tasks", "Index", "Tasks")
-                        @Html.MainMenuItem("Risks", "Index", "Risks")
-                        @Html.MainMenuItem("Team", "Index", "Team")
-                        @Html.MainMenuItem("Time Records", "Index", "TimeReport")
-                    </ul>
-                </div>
+                @{ Html.RenderAction("TopNavigation", "Base"); }
 
                 <!-- User Block -->
                 @{ Html.RenderAction("UserMenu", "Account"); }
-               
             </div>
         }
     </div>
@@ -72,7 +48,7 @@
 
     <div id="footer">
         <div class="container">
-            <p class="text-muted text-center">2014 &copy; Copyright</p>
+            <p class="text-muted text-center">@DateTime.Now.Year &copy; Copyright</p>
         </div>
     </div>
 </body>

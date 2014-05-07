@@ -2,15 +2,17 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TEMPUS.DB.Models.User
+namespace TEMPUS.DB.Models.Project
 {
-    public class Permission : Entity
+    public class PpsClassification : Entity
     {
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         [MaxLength(64)]
         [Index(IsUnique = true)]
         public string Name { get; set; }
+        
+        public int Weight { get; set; }
     }
 }

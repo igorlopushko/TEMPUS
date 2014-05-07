@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Security;
 using TEMPUS.BaseDomain.Messages;
-using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.UserDomain.Services.ServiceLayer;
 using TEMPUS.WebSite.Contexts;
 using TEMPUS.WebSite.Interfaces;
 using TEMPUS.WebSite.Models.Account;
-using TEMPUS.WebSite.Security;
 using TEMPUS.WebSite.Services;
 
 namespace TEMPUS.WebSite.Controllers
@@ -43,7 +42,7 @@ namespace TEMPUS.WebSite.Controllers
         /// <param name="cmdSender">The command sender.</param>
         /// <exception cref="System.ArgumentNullException">When  userQueryService or cmdSender are null.</exception>
         public AccountController(
-            IUserQueryService userQueryService, 
+            IUserQueryService userQueryService,
             ICommandSender cmdSender)
         {
             if (userQueryService == null)
@@ -63,7 +62,6 @@ namespace TEMPUS.WebSite.Controllers
         /// Registers the user.
         /// </summary>
         [HttpGet]
-        [Authorize]
         public ActionResult Register()
         {
             if (UserContext.Current == null)
@@ -79,7 +77,6 @@ namespace TEMPUS.WebSite.Controllers
         /// </summary>
         /// <param name="model">The model represents register information of the user.</param>
         [HttpPost]
-        [Authorize]
         public ActionResult Register(RegisterViewModel model)
         {
             if (model == null)
@@ -89,22 +86,27 @@ namespace TEMPUS.WebSite.Controllers
             }
             if (!ModelState.IsValid)
             {
-                //TODO: return error message.
-                return RedirectToAction("Register", "Account");
+                return View(model);
             }
 
-            var user = _userQueryService.GetUserByEmail(model.Login);
+            var user = _userQueryService.GetUserByEmail(model.Email);
             if (user != null)
             {
                 //TODO: return error message.
                 return RedirectToAction("Register", "Account");
             }
 
-            var userId = Guid.NewGuid();
-            var cmd = new CreateUser(new UserId(userId), model.Login, model.Password);
-            _cmdSender.Send(cmd);
+            var result = _membershipService.CreateUser(model.FirstName, model.Password, model.Email);
 
-            return RedirectToAction("LogIn");
+            if (result == MembershipCreateStatus.Success)
+            {
+                return RedirectToAction("LogIn");
+            }
+            else
+            {
+                SetErrorMessage(result);
+                return View(model);
+            }
         }
 
         [HttpGet]
@@ -128,12 +130,12 @@ namespace TEMPUS.WebSite.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_membershipService.ValidateUser(model.Login, model.Password))
+                if (_membershipService.ValidateUser(model.Email, model.Password))
                 {
-                    _formsService.SignIn(model.Login, model.RememberMe);
+                    _formsService.SignIn(model.Email, model.RememberMe);
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                ModelState.AddModelError("Error", "The user name or password provided is incorrect.");
             }
 
             // If we got this far, something failed, redisplay form
@@ -156,11 +158,19 @@ namespace TEMPUS.WebSite.Controllers
             return DisplayFor(model);
         }
 
+        [HttpGet]
+        public ActionResult Edit()
+        {
+            //TODO: Change to return View();
+            return RedirectToAction("Edit", "Account");
+        }
+
         /// <summary>
         /// Manages user profile.
         /// </summary>
         /// <param name="model">The model represents information for the user updating operation.</param>
         [Authorize]
+        [HttpPost]
         public ActionResult Edit(UpdateUserViewModel model)
         {
             if (model == null)
@@ -213,6 +223,27 @@ namespace TEMPUS.WebSite.Controllers
             };
 
             return View(model);
+        }
+
+        private void SetErrorMessage(MembershipCreateStatus status)
+        {
+            if (status == null)
+                return;
+
+            //TODO: Handle all the status.
+            switch (status)
+            {
+                case MembershipCreateStatus.InvalidEmail:
+                    {
+                        ModelState.AddModelError("Error", "Invalid Email.");
+                        break;
+                    }
+                    case MembershipCreateStatus.DuplicateEmail:
+                    {
+                        ModelState.AddModelError("Error", "Such Email already exist in the system.");
+                        break;
+                    }
+            }
         }
     }
 }

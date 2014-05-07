@@ -156,6 +156,7 @@
     <Compile Include="Models\Account\RegisterViewModel.cs" />
     <Compile Include="Models\Account\UpdateUserViewModel.cs" />
     <Compile Include="Models\Account\UserMenuViewModel.cs" />
+    <Compile Include="Models\Base\TopNavigationViewModel.cs" />
     <Compile Include="Models\Project\ProjectStatus.cs" />
     <Compile Include="Models\Project\ProjectListViewModel.cs" />
     <Compile Include="Models\Project\TaskStatus.cs" />
@@ -191,10 +192,14 @@
     <Content Include="Content\Lib\Styles\font-awesome.min.css" />
     <Content Include="Content\Lib\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\Lib\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Lib\Styles\jasny-bootstrap.css" />
+    <Content Include="Content\Lib\Styles\c3.css" />
     <Content Include="Content\Styles\Main.css" />
+    <Content Include="Content\Styles\moodCharts.css" />
     <Content Include="Content\Styles\Profile.css" />
     <Content Include="Content\Styles\Projects.css" />
     <Content Include="Content\Styles\Team.css" />
+    <Content Include="Content\Lib\Styles\tipsy.css" />
     <Content Include="Content\Styles\UserBlock.css" />
     <Content Include="Content\Styles\UserPage.css" />
     <Content Include="Global.asax" />
@@ -209,17 +214,23 @@
     <Content Include="Content\Lib\fonts\FontAwesome.otf" />
     <Content Include="packages.config" />
     <Content Include="Content\Fonts\.gitkeep" />
+    <Content Include="Content\test-mood-data.json" />
     <None Include="Scripts\Lib\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\grids.js" />
     <Content Include="Scripts\Lib\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\Lib\bootstrap.js" />
     <Content Include="Scripts\Lib\bootstrap.min.js" />
+    <Content Include="Scripts\Lib\c3.min.js" />
     <Content Include="Scripts\Lib\Chart.js" />
+    <Content Include="Scripts\Lib\d3.v3.min.js" />
+    <Content Include="Scripts\Lib\jasny-bootstrap.js" />
     <Content Include="Scripts\Lib\jquery-2.1.0.js" />
     <Content Include="Scripts\Lib\jquery-2.1.0.min.js" />
     <Content Include="Scripts\Lib\jquery.ddslick.min.js" />
+    <Content Include="Scripts\Lib\jquery.tipsy.js" />
     <Content Include="Scripts\Lib\moment.min.js" />
     <Content Include="Scripts\Main.js" />
+    <Content Include="Scripts\moodCharts.js" />
     <Content Include="Scripts\Profile.js" />
     <Content Include="Scripts\Projects.js" />
     <Content Include="Scripts\Team.js" />
@@ -250,6 +261,7 @@
     <Content Include="Views\Projects\Details.cshtml" />
     <Content Include="Views\Projects\Plan.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\UserMenuViewModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\TopNavigationViewModel.cshtml" />
     <Content Include="Views\Projects\Select.cshtml" />
   </ItemGroup>
   <ItemGroup>
