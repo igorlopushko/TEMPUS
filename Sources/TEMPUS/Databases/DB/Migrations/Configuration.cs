@@ -51,14 +51,14 @@ namespace TEMPUS.DB.Migrations
                     {
                         Id = id,
                         Email = "igor.lopushko@sigmaukraine.com",
-                        Password = "123123",
+                        Password = "4297f44b13955235245b2497399d7a93",
                         DateOfBirth = new DateTime(1987, 7, 15),
                         FirstName = "Igor",
                         LastName = "Lopushko",
                         Phone = "+38-097-923-36-67"
                     });
                 var role = context.Roles.FirstOrDefault(x => x.Name == "Administrator");
-                context.UserRoleRelations.Add(new UserRoleRelation {RoleId = role.Id, UserId = id});
+                context.UserRoleRelations.Add(new UserRoleRelation { RoleId = role.Id, UserId = id });
             }
 
             context.SaveChanges();
@@ -89,10 +89,10 @@ namespace TEMPUS.DB.Migrations
                 {"Medium", 3},
                 {"Mega", 4}
             };
-            
+
             foreach (var c in classifications)
             {
-                context.PpsClassifications.AddOrUpdate(x => x.Name, new PpsClassification { Name = c.Key, Weight = c.Value});
+                context.PpsClassifications.AddOrUpdate(x => x.Name, new PpsClassification { Name = c.Key, Weight = c.Value });
             }
             context.SaveChanges();
         }
