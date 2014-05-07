@@ -1,16 +1,19 @@
 ﻿/* Sticky footer styles
 -------------------------------------------------- */
-html {
+html
+{
     position: relative;
     min-height: 100%;
 }
 
-body {
+body
+{
     /* Margin bottom by footer height */
     margin-bottom: 60px;
 }
 
-#footer {
+#footer
+{
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -22,40 +25,48 @@ body {
 -------------------------------------------------- */
 
 /* Not required for template or sticky footer method. */
-#content {
+#content
+{
     padding-top: 60px;
 }
 
-#heightStub{
+#heightStub
+{
     height: 60px;
 }
 
-body > .container {
+body > .container
+{
     padding: 60px 15px 0;
 }
 
-.container .text-muted {
+.container .text-muted
+{
     margin: 20px 0;
 }
 
-#footer > .container {
+#footer > .container
+{
     padding-right: 15px;
     padding-left: 15px;
 }
 
-code {
+code
+{
     font-size: 80%;
 }
 /* Create Project*/
 
 /* Timeline */
-.timeline {
+.timeline
+{
     list-style: none;
     padding: 20px 0 20px;
     position: relative;
 }
 
-    .timeline:before {
+    .timeline:before
+    {
         top: 0;
         bottom: 0;
         position: absolute;
@@ -66,30 +77,36 @@ code {
         margin-left: -1.5px;
     }
 
-    .timeline > li {
+    .timeline > li
+    {
         margin-bottom: 20px;
         position: relative;
     }
 
-        .timeline > li:before, .timeline > li:after {
+        .timeline > li:before, .timeline > li:after
+        {
             content: " ";
             display: table;
         }
 
-        .timeline > li:after {
+        .timeline > li:after
+        {
             clear: both;
         }
 
-        .timeline > li:before, .timeline > li:after {
+        .timeline > li:before, .timeline > li:after
+        {
             content: " ";
             display: table;
         }
 
-        .timeline > li:after {
+        .timeline > li:after
+        {
             clear: both;
         }
 
-        .timeline > li > .timeline-panel {
+        .timeline > li > .timeline-panel
+        {
             margin-left: 65px;
             float: left;
             border: 1px solid #d4d4d4;
@@ -101,7 +118,8 @@ code {
             width: 1075px;
         }
 
-            .timeline > li > .timeline-panel:before {
+            .timeline > li > .timeline-panel:before
+            {
                 position: absolute;
                 top: 26px;
                 right: -15px;
@@ -117,7 +135,8 @@ code {
                 right: auto;
             }
 
-            .timeline > li > .timeline-panel:after {
+            .timeline > li > .timeline-panel:after
+            {
                 position: absolute;
                 top: 27px;
                 right: -14px;
@@ -133,7 +152,8 @@ code {
                 right: auto;
             }
 
-        .timeline > li > .timeline-badge {
+        .timeline > li > .timeline-badge
+        {
             color: #fff;
             width: 50px;
             height: 50px;
@@ -152,36 +172,44 @@ code {
             border-bottom-left-radius: 50%;
         }
 
-.timeline-badge.primary {
+.timeline-badge.primary
+{
     background-color: #2e6da4 !important;
 }
 
-.timeline-badge.success {
+.timeline-badge.success
+{
     background-color: #3f903f !important;
 }
 
-.timeline-badge.warning {
+.timeline-badge.warning
+{
     background-color: #f0ad4e !important;
 }
 
-.timeline-badge.danger {
+.timeline-badge.danger
+{
     background-color: #d9534f !important;
 }
 
-.timeline-badge.info {
+.timeline-badge.info
+{
     background-color: #5bc0de !important;
 }
 
-.timeline-title {
+.timeline-title
+{
     margin-top: 0;
     color: inherit;
 }
 
-.timeline-body > p, .timeline-body > ul {
+.timeline-body > p, .timeline-body > ul
+{
     margin-bottom: 0;
 }
 
-    .timeline-body > p + p {
+    .timeline-body > p + p
+    {
         margin-top: 5px;
     }
 
@@ -232,15 +260,92 @@ code {
 }*/
 
 /*Task Details*/
-div.grid-item {
+div.grid-item
+{
     padding: 5px 0px;
 }
-.left { 
-    float : left 
+
+.left
+{
+    float: left;
 }
-.right { 
-    float : right 
+
+.right
+{
+    float: right;
 }
 
 /*Buttons for small screens*/
 
+/* Responsive Grid */
+
+.rightText
+{
+    text-align: right;
+}
+
+.leftText
+{
+    text-align: left;
+}
+
+@media only screen and (max-width: 768px)
+{
+
+    /* Force table to not be like tables anymore */
+    .responsiveGrid table,
+    .responsiveGrid thead,
+    .responsiveGrid tbody,
+    .responsiveGrid th,
+    .responsiveGrid td,
+    .responsiveGrid tr
+    {
+        display: block;
+    }
+
+        /* Hide table headers (but not display: none;, for accessibility) */
+        .responsiveGrid thead tr
+        {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+    .responsiveGrid tr
+    {
+        border: 1px solid #ccc;
+    }
+
+    .responsiveGrid td
+    {
+        /* Behave  like a "row" */
+        border: none !important;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50% !important;
+        white-space: normal;
+        text-align: left;
+    }
+
+        .responsiveGrid td:before
+        {
+            /* Now like a table header */
+            position: absolute;
+            /* Top/left values mimic padding */
+            top: 6px;
+            left: 6px;
+            width: 45%;
+            padding-right: 10px;
+            white-space: nowrap;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        /*
+	Label the data
+	*/
+        .responsiveGrid td:before
+        {
+            content: attr(data-title);
+        }
+}

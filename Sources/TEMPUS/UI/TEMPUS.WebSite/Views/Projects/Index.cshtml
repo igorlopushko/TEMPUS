@@ -1,13 +1,14 @@
 ﻿@using TEMPUS.WebSite.Helpers
+@using TEMPUS.WebSite.Models.Project
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <div class="page-header">
     <h1>Projects</h1>
 </div>
 
 <div class="row">
-    <div  class="col-md-12">
-    <a href="@Url.Action("Create", "Projects")" class="btn btn-primary next">Create Project</a>
-        </div>
+    <div class="col-md-12">
+        <a href="@Url.Action("Create", "Projects")" class="btn btn-primary next">Create Project</a>
+    </div>
 </div>
 
 <div class="row">
@@ -54,9 +55,9 @@
             </div>
         </div>
     </div>
-    <div class="col-md-12">
-        <table data-link="row" class="rowlink table table-hover" id="projectList">
-            <thead>
+    <div class="col-md-12 responsiveGrid">
+        <table class="table cf table-hover table-striped" id="projectList">
+            <thead class="cf">
                 <tr>
                     <th>Title</th>
                     <th>Status</th>
@@ -68,45 +69,30 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><a href="@Url.Action("Details", "Projects")">Project1</a></td>
-                    <td>
-                        <div class="status redStatus" />
-                    </td>
-                    <td>4/1/2012</td>
-                    <td>4/2/2013</td>
-                    <td>Peter Jackson</td>
-                    <td>Department1</td>
-                    <td>Description1</td>
-                </tr>
-                <tr>
-                    <td><a href="@Url.Action("Details", "Projects")">Project2</a></td>
-                    <td>
-                        <div class="status greenStatus" />
-                    </td>
-                    <td>4/1/2013</td>
-                    <td>4/2/2014</td>
-                    <td>Jim Cleverly</td>
-                    <td>Department2</td>
-                    <td>Description2</td>
-                </tr>
-                <tr>
-                    <td><a href="@Url.Action("Details", "Projects")">Project3</a></td>
-                    <td>
-                        <div class="status yellowStatus" />
-                    </td>
-                    <td>10/21/2013</td>
-                    <td>5/30/2014</td>
-                    <td>Wayne Jones</td>
-                    <td>Department3</td>
-                    <td>Description3</td>
-                </tr>
+                @foreach (var project in Model)
+                {     
+                    <tr data-url="@Url.Action("Details", "Projects")">
+                        <td data-title="Title">@project.Name</td>
+                        <td data-title="Status">
+                            @if (project.Status == ProjectStatus.Green)
+                            { <div class="statusForGrid greenStatus leftText"></div> }
+                            @if (project.Status == ProjectStatus.Yellow)
+                            { <div class="statusForGrid yellowStatus leftText"></div> }
+                            @if (project.Status == ProjectStatus.Red)
+                            { <div class="statusForGrid redStatus leftText"></div> }
+                        </td>
+                        <td data-title="Start Date">@project.StartDate.ToString("MM/dd/yyyy")</td>
+                        <td data-title="Due Date">@project.EndDate.ToString("MM/dd/yyyy")</td>
+                        <td data-title="Manager">@project.Manager</td>
+                        <td data-title="Department">@project.Department</td>
+                        <td data-title="Description">@project.Description</td>
+                    </tr>   
+                }
             </tbody>
         </table>
         <hr>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-5">
         <div class="panel panel-default">
@@ -133,5 +119,8 @@
         $(window).resize(redrawCharts)
         redrawStatusChart();
         redrawBudgetChart();
+    });
+    $('table tr[data-url]').on('click', function () {
+        location.href = $(this).data('url');
     });
 </script>
