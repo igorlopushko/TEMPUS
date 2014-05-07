@@ -1,0 +1,35 @@
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.x.axis path {
+    display: none;
+}
+
+.line {
+    fill: none;
+    stroke: green;
+    stroke-width: 2px;
+}
+
+.data-point {
+    stroke: green;
+    stroke-width: 2;
+    fill: #FFF;
+}
+
+.mood-box {
+    min-height: 150px;
+}
+
+.img-place {
+    max-height: 130px;
+    padding-left: 25px;
+}
+
+.img-place img {
+    margin-bottom: 10px;
+}
