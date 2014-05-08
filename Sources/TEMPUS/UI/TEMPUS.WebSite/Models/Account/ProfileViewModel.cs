@@ -1,4 +1,6 @@
-﻿namespace TEMPUS.WebSite.Models.Account
+﻿using System;
+
+namespace TEMPUS.WebSite.Models.Account
 {
     /// <summary>
     /// The class represents extended user information.
@@ -21,11 +23,6 @@
         public string LastName { get; set; }
 
         /// <summary>
-        /// Gets or sets the age of the user.
-        /// </summary>
-        public int Age { get; set; }
-
-        /// <summary>
         /// Gets or sets the phone of the user.
         /// </summary>
         public string Phone { get; set; }
@@ -34,6 +31,11 @@
         /// Gets or sets the image which represents user avatar.
         /// </summary>
         public string Image { get; set; }
+
+        /// <summary>
+        /// Gets or sets the date of birth of the user.
+        /// </summary>
+        public DateTime DateOfBirth { get; set; }
 
         //TODO Add properties if needed.
     }

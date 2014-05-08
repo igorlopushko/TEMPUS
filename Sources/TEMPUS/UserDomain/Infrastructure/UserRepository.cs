@@ -7,6 +7,8 @@ using TEMPUS.UserDomain.Services.ServiceLayer;
 
 namespace TEMPUS.UserDomain.Infrastructure
 {
+    using System.Linq;
+
     /// <summary>
     /// The class represents functionality for saving, updating, deleting User.
     /// </summary>
@@ -41,7 +43,7 @@ namespace TEMPUS.UserDomain.Infrastructure
 
             var user = _userStorage.Get(id);
             return user == null ? null : new User(new UserId(user.Id), user.FirstName, user.LastName,
-                String.Empty, user.Password, 20, user.Image, user.Phone);
+                user.Email, user.Password, user.Image, user.Phone, user.DateOfBirth, user.Roles.ToList());
         }
 
         /// <summary>
@@ -59,8 +61,8 @@ namespace TEMPUS.UserDomain.Infrastructure
                 Password = aggregate.Password,
                 Phone = aggregate.Phone,
                 Email = aggregate.Email,
-                //TODO: Change DateOfBirth when implemented.
-                DateOfBirth = DateTime.Now.AddYears(-10)
+                DateOfBirth = aggregate.DateOfBirth,
+                Roles = aggregate.Roles
             };
 
             if (aggregate.IsNew)

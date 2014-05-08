@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
 using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.DB;
+using TEMPUS.DB.Models.User;
 using TEMPUS.UserDomain.Services.ServiceLayer;
 
 namespace TEMPUS.UserDomain.Infrastructure
@@ -74,8 +76,11 @@ namespace TEMPUS.UserDomain.Infrastructure
             {
                 throw new ArgumentNullException("id");
             }
+            var user = _context.Users.Find(id.Id);
+            if (user != null)
+                user.Roles = this.GetUserRoles(id);
 
-            return _context.Users.FirstOrDefault(x => x.Id == id.Id);
+            return user;
         }
 
         /// <summary>
@@ -99,7 +104,23 @@ namespace TEMPUS.UserDomain.Infrastructure
                 throw new ArgumentNullException("aggregate");
             }
 
+            var user = _context.Users.Find(aggregate.Id);
+            user.FirstName = aggregate.FirstName;
+            user.LastName = aggregate.LastName;
+            user.DateOfBirth = aggregate.DateOfBirth;
+            user.Image = aggregate.Image;
+            user.Phone = aggregate.Phone;
+
+            foreach (var role in aggregate.Roles)
+            {
+                _context.UserRoleRelations.AddOrUpdate(new UserRoleRelation {RoleId = role, UserId = aggregate.Id});
+            }
             _context.SaveChanges();
+        }
+
+        private IEnumerable<Guid> GetUserRoles(UserId userId)
+        {
+            return _context.UserRoleRelations.Where(x => x.UserId == userId.Id).AsEnumerable().Select(x => x.RoleId);
         }
     }
 }

@@ -57,7 +57,7 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// <param name="email">user specific email address</param>
         public UserInfo GetUserByEmail(string email)
         {
-            var user = _userReadRepository.Users.Where(x => x.Email == email).AsEnumerable().Select(x => new UserInfo
+            var user = _userReadRepository.Users.Where(x => x.Email == email).ToArray().Select(x => new UserInfo
             {
                 UserId = new UserId(x.Id),
                 LastName = x.LastName,
@@ -121,9 +121,9 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// <summary>
         /// Gets the users roles.
         /// </summary>
-        public IEnumerable<string> GetUsersRoles()
+        public IEnumerable<KeyValuePair<Guid, string>> GetUsersRoles()
         {
-            return _userReadRepository.Roles.AsEnumerable().Select(x => x.Name);
+            return _userReadRepository.Roles.AsEnumerable().Select(x => new KeyValuePair<Guid, string>(x.Id, x.Name));
         }
     }
 }

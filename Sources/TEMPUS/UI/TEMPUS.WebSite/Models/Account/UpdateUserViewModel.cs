@@ -16,16 +16,6 @@
         public string LastName { get; set; }
 
         /// <summary>
-        /// Gets or sets the password of the user.
-        /// </summary>
-        public string Password { get; set; }
-
-        /// <summary>
-        /// Gets or sets the new age of the user.
-        /// </summary>
-        public int Age { get; set; }
-
-        /// <summary>
         /// Gets or sets the new phone of the user.
         /// </summary>
         public string Phone { get; set; }

@@ -8,7 +8,7 @@ namespace TEMPUS.WebSite.Interfaces
         int MinPasswordLength { get; }
 
         bool ValidateUser(string userName, string password);
-        MembershipCreateStatus CreateUser(string userName, string password, string email, string lastName, string role, DateTime dateOfBirth);
+        MembershipCreateStatus CreateUser(string userName, string password, string email, string lastName, Guid roleId, DateTime dateOfBirth);
         bool ChangePassword(string userName, string oldPassword, string newPassword);
     }
 }

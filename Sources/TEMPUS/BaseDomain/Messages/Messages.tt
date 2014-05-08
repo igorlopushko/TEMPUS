@@ -27,8 +27,10 @@ namespace TEMPUS.BaseDomain.Messages
 	UserAssignedToProject!(userId, projectId)
 	UserCreated! (userId, string Login, string Password)
 	CreateUser? (userId, string Login, string Password)
-	ChangeUserInformation?(userId, int Age, string Phone, string Image, string Password, string FirstName, string LastName)
-	UserInformationChanged!(userId, int Age, string Phone, string Image, string Password, string FirstName, string LastName)
+	ChangeUserInformation?(userId, string Phone, string Image, string FirstName, string LastName, DateTime DateOfBirth)
+	UserInformationChanged!(userId, string Phone, string Image, string FirstName, string LastName, DateTime DateOfBirth)
+	AddRoleToUser?(userId, Guid RoleId)
+	RoleToUserAdded!(userId, Guid RoleId)
 	DeleteUser?(userId)
 	UserDeleted!(userId)
 

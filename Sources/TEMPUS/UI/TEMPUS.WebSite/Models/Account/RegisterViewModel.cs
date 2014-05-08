@@ -46,7 +46,7 @@ namespace TEMPUS.WebSite.Models.Account
         /// <summary>
         /// Gets or sets the role of the new user.
         /// </summary>
-        public string Role { get; set; }
+        public Guid RoleId { get; set; }
 
         /// <summary>
         /// Gets or sets the date of birth of the new user.

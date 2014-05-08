@@ -213,22 +213,20 @@ namespace TEMPUS.BaseDomain.Messages
 	{
 		public UserId Id { get; set; }
 		public int Version { get; set; }
-		public int Age { get; set; }
 		public string Phone { get; set; }
 		public string Image { get; set; }
-		public string Password { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
+		public DateTime DateOfBirth { get; set; }
 		private ChangeUserInformation () {}
-		public ChangeUserInformation (UserId userId, int age, string phone, string image, string password, string firstName, string lastName)
+		public ChangeUserInformation (UserId userId, string phone, string image, string firstName, string lastName, DateTime dateOfBirth)
 		{
 			Id = userId;
-			Age = age;
 			Phone = phone;
 			Image = image;
-			Password = password;
 			FirstName = firstName;
 			LastName = lastName;
+			DateOfBirth = dateOfBirth;
 		}
 		public override bool Equals(object obj)
 		{
@@ -241,11 +239,11 @@ namespace TEMPUS.BaseDomain.Messages
 			{
 				return false;
 			}
-			return Id.Equals(target.Id) && Age.Equals(target.Age) && Phone.Equals(target.Phone) && Image.Equals(target.Image) && Password.Equals(target.Password) && FirstName.Equals(target.FirstName) && LastName.Equals(target.LastName);
+			return Id.Equals(target.Id) && Phone.Equals(target.Phone) && Image.Equals(target.Image) && FirstName.Equals(target.FirstName) && LastName.Equals(target.LastName) && DateOfBirth.Equals(target.DateOfBirth);
 		}
 		public override int GetHashCode()
 		{
-			return Id.GetHashCode() ^ Age.GetHashCode() ^ Phone.GetHashCode() ^ Image.GetHashCode() ^ Password.GetHashCode() ^ FirstName.GetHashCode() ^ LastName.GetHashCode();
+			return Id.GetHashCode() ^ Phone.GetHashCode() ^ Image.GetHashCode() ^ FirstName.GetHashCode() ^ LastName.GetHashCode() ^ DateOfBirth.GetHashCode();
 		}
 		public static bool operator ==(ChangeUserInformation a, ChangeUserInformation b)
 		{
@@ -271,22 +269,20 @@ namespace TEMPUS.BaseDomain.Messages
 	{
 		public UserId Id { get; set; }
 		public int Version { get; set; }
-		public int Age { get; set; }
 		public string Phone { get; set; }
 		public string Image { get; set; }
-		public string Password { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
+		public DateTime DateOfBirth { get; set; }
 		private UserInformationChanged () {}
-		public UserInformationChanged (UserId userId, int age, string phone, string image, string password, string firstName, string lastName)
+		public UserInformationChanged (UserId userId, string phone, string image, string firstName, string lastName, DateTime dateOfBirth)
 		{
 			Id = userId;
-			Age = age;
 			Phone = phone;
 			Image = image;
-			Password = password;
 			FirstName = firstName;
 			LastName = lastName;
+			DateOfBirth = dateOfBirth;
 		}
 		public override bool Equals(object obj)
 		{
@@ -299,11 +295,11 @@ namespace TEMPUS.BaseDomain.Messages
 			{
 				return false;
 			}
-			return Id.Equals(target.Id) && Age.Equals(target.Age) && Phone.Equals(target.Phone) && Image.Equals(target.Image) && Password.Equals(target.Password) && FirstName.Equals(target.FirstName) && LastName.Equals(target.LastName);
+			return Id.Equals(target.Id) && Phone.Equals(target.Phone) && Image.Equals(target.Image) && FirstName.Equals(target.FirstName) && LastName.Equals(target.LastName) && DateOfBirth.Equals(target.DateOfBirth);
 		}
 		public override int GetHashCode()
 		{
-			return Id.GetHashCode() ^ Age.GetHashCode() ^ Phone.GetHashCode() ^ Image.GetHashCode() ^ Password.GetHashCode() ^ FirstName.GetHashCode() ^ LastName.GetHashCode();
+			return Id.GetHashCode() ^ Phone.GetHashCode() ^ Image.GetHashCode() ^ FirstName.GetHashCode() ^ LastName.GetHashCode() ^ DateOfBirth.GetHashCode();
 		}
 		public static bool operator ==(UserInformationChanged a, UserInformationChanged b)
 		{
@@ -318,6 +314,102 @@ namespace TEMPUS.BaseDomain.Messages
 			return a.Equals(b);
 		}
 		public static bool operator !=(UserInformationChanged a, UserInformationChanged b)
+		{
+			return !(a == b);
+		}
+	}
+	
+	[Serializable]
+	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
+	public sealed class AddRoleToUser : ICommand<UserId>
+	{
+		public UserId Id { get; set; }
+		public int Version { get; set; }
+		public Guid RoleId { get; set; }
+		private AddRoleToUser () {}
+		public AddRoleToUser (UserId userId, Guid roleId)
+		{
+			Id = userId;
+			RoleId = roleId;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+			var target = obj as AddRoleToUser;
+			if (target == null)
+			{
+				return false;
+			}
+			return Id.Equals(target.Id) && RoleId.Equals(target.RoleId);
+		}
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode() ^ RoleId.GetHashCode();
+		}
+		public static bool operator ==(AddRoleToUser a, AddRoleToUser b)
+		{
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+			return a.Equals(b);
+		}
+		public static bool operator !=(AddRoleToUser a, AddRoleToUser b)
+		{
+			return !(a == b);
+		}
+	}
+	
+	[Serializable]
+	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
+	public sealed class RoleToUserAdded : IEvent<UserId>
+	{
+		public UserId Id { get; set; }
+		public int Version { get; set; }
+		public Guid RoleId { get; set; }
+		private RoleToUserAdded () {}
+		public RoleToUserAdded (UserId userId, Guid roleId)
+		{
+			Id = userId;
+			RoleId = roleId;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+			var target = obj as RoleToUserAdded;
+			if (target == null)
+			{
+				return false;
+			}
+			return Id.Equals(target.Id) && RoleId.Equals(target.RoleId);
+		}
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode() ^ RoleId.GetHashCode();
+		}
+		public static bool operator ==(RoleToUserAdded a, RoleToUserAdded b)
+		{
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+			return a.Equals(b);
+		}
+		public static bool operator !=(RoleToUserAdded a, RoleToUserAdded b)
 		{
 			return !(a == b);
 		}

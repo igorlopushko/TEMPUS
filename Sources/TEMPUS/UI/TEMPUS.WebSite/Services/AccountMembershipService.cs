@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Web.Security;
 using TEMPUS.WebSite.Interfaces;
+using TEMPUS.BaseDomain.Messages;
+using TEMPUS.BaseDomain.Messages.Identities;
 
 namespace TEMPUS.WebSite.Services
 {
     public class AccountMembershipService : IMembershipService
     {
         private readonly MembershipProvider _provider;
+        private readonly ICommandSender _commandSender;
 
-        public AccountMembershipService()
-            : this(null)
-        {
-        }
-
-        public AccountMembershipService(MembershipProvider provider)
+        public AccountMembershipService(MembershipProvider provider, ICommandSender commandSender)
         {
             _provider = provider ?? Membership.Provider;
+            _commandSender = commandSender;
         }
 
         public int MinPasswordLength
@@ -40,7 +39,7 @@ namespace TEMPUS.WebSite.Services
             return _provider.ValidateUser(userName, password);
         }
 
-        public MembershipCreateStatus CreateUser(string userName, string password, string email, string lastName, string role, DateTime dateOfBirth)
+        public MembershipCreateStatus CreateUser(string userName, string password, string email, string lastName, Guid roleId, DateTime dateOfBirth)
         {
             if (String.IsNullOrEmpty(userName))
             {
@@ -56,7 +55,21 @@ namespace TEMPUS.WebSite.Services
             }
 
             MembershipCreateStatus status;
-            _provider.CreateUser(userName, password, email, null, null, true, null, out status);
+            var user = _provider.CreateUser(userName, password, email, null, null, true, null, out status);
+
+            ICommand command;
+            if (user != null && user.ProviderUserKey != null)
+            {
+                var userId = new Guid();
+                Guid.TryParse(user.ProviderUserKey.ToString(), out userId);
+
+                command = new ChangeUserInformation(new UserId(userId), null, null, userName, lastName, dateOfBirth);
+                _commandSender.Send(command);
+
+                command = new AddRoleToUser(new UserId(userId), roleId);
+                _commandSender.Send(command);
+            }
+
             return status;
         }
 

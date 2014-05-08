@@ -60,8 +60,7 @@ namespace TEMPUS.UserDomain.Services.DomainLayer
             if (user == null)
                 throw new ArgumentException(string.Format("User with such id: {0} does not exist.", command.Id));
 
-            user.ChangeInformation(command.Password, command.FirstName, command.LastName, command.Age, command.Image,
-                command.Phone);
+            user.ChangeInformation(command.FirstName, command.LastName, command.Image, command.Phone, command.DateOfBirth);
 
             _userRepository.Save(user);
         }
@@ -82,6 +81,26 @@ namespace TEMPUS.UserDomain.Services.DomainLayer
                 throw new ArgumentException(string.Format("User with such id: {0} does not exist.", command.Id));
 
             user.DeleteUser();
+
+            _userRepository.Save(user);
+        }
+
+        /// <summary>
+        /// Handles the specified <see cref="AddRoleToUser"/> command.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        /// <exception cref="System.ArgumentNullException">When UserId is null.</exception>
+        /// <exception cref="System.ArgumentException">When user does not exist.</exception>
+        public void Handle(AddRoleToUser command)
+        {
+            if(command.Id == null)
+                throw new ArgumentNullException("command", "UserId must be specified.");
+
+            var user = _userRepository.Get(command.Id);
+            if (user == null)
+                throw new ArgumentException(string.Format("User with such id: {0} does not exist.", command.Id));
+
+            user.AddRole(command.RoleId);
 
             _userRepository.Save(user);
         }

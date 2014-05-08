@@ -33,7 +33,7 @@ namespace TEMPUS.WebSite.Controllers
             }
             if (_membershipService == null)
             {
-                _membershipService = new AccountMembershipService();
+                _membershipService = new AccountMembershipService(null, _cmdSender);
             }
 
             base.Initialize(requestContext);
@@ -101,7 +101,7 @@ namespace TEMPUS.WebSite.Controllers
                 return RedirectToAction("Register", "Account");
             }
 
-            var result = _membershipService.CreateUser(model.FirstName, model.Password, model.Email, model.LastName, model.Role, model.DateOfBirth);
+            var result = _membershipService.CreateUser(model.FirstName, model.Password, model.Email, model.LastName, model.RoleId, model.DateOfBirth);
 
             if (result == MembershipCreateStatus.Success)
             {
@@ -193,12 +193,11 @@ namespace TEMPUS.WebSite.Controllers
             // TODO Change GetUserByLogin for CurrentUser.User when implemented.
             var userInfo = _userQueryService.GetUserByEmail(UserContext.Current.Email);
 
-            if (userInfo.Image != model.Image ||
-                userInfo.Phone != model.Phone || userInfo.Password != model.Password ||
+            if (userInfo.Image != model.Image || userInfo.Phone != model.Phone ||
                 userInfo.FirstName != model.FirstName || userInfo.LastName != model.LastName)
             {
-                var command = new ChangeUserInformation(userInfo.UserId, model.Age, model.Phone, model.Image,
-                    model.Password, model.FirstName, model.LastName);
+                var command = new ChangeUserInformation(userInfo.UserId, model.Phone, model.Image, model.FirstName,
+                    model.LastName, userInfo.DateOfBirth);
                 _cmdSender.Send(command);
             }
 
@@ -220,12 +219,12 @@ namespace TEMPUS.WebSite.Controllers
             }
             var model = new ProfileViewModel
             {
-                //Age = userInfo.Age,
                 Image = userInfo.Image,
                 Login = userInfo.Email,
                 Phone = userInfo.Phone,
                 FirstName = userInfo.FirstName,
-                LastName = userInfo.LastName
+                LastName = userInfo.LastName,
+                DateOfBirth = userInfo.DateOfBirth
             };
 
             return View(model);
@@ -233,9 +232,6 @@ namespace TEMPUS.WebSite.Controllers
 
         private void SetErrorMessage(MembershipCreateStatus status)
         {
-            if (status == null)
-                return;
-
             //TODO: Handle all the status.
             switch (status)
             {
@@ -255,7 +251,7 @@ namespace TEMPUS.WebSite.Controllers
         private IEnumerable<SelectListItem> GetUserRoles()
         {
             var userRoles = _userQueryService.GetUsersRoles();
-            return new List<SelectListItem>(userRoles.Select(x => new SelectListItem { Value = x, Text = x }).ToList());
+            return new List<SelectListItem>(userRoles.Select(x => new SelectListItem { Value = x.Key.ToString(), Text = x.Value }).ToList());
         }
     }
 }
