@@ -16,8 +16,7 @@
 <script src="@Url.Content("~/Scripts/Lib/c3.min.js")"></script>
 <script src="@Url.Content("~/Scripts/moodCharts.js")"></script>
 <link rel="stylesheet" href="@Url.Content("~/Content/Lib/Styles/c3.css")">
-<link rel="stylesheet" href="@Url.Content("~/Content/Lib/Styles/tipsy.css")">
-<link rel="stylesheet" href="@Url.Content("~/Content/Styles/moodCharts.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Team.css")" />
 
 <div class="page-header">
     <h1>Team</h1>
@@ -45,30 +44,12 @@
         </div>
     }
 </div>
-<div class="panel panel-default">
-    <div class="panel-heading">Mood by days</div>
-    <div class="panel-body">
-        <div id="chart"></div>
-    </div>
-    <div class="panel-footer">
-        <span class="text-muted">1  - very sad, 2 - not ok, 3 - good, 4 - awesome</span>
-    </div>
+<div>
+    <h3 class="text-center">Mood by days</h3>
+    <div id="chart"></div>
+    <p class="well text-center">1  - very sad, 2 - not ok, 3 - good, 4 - awesome</p>
 </div>
 <script>
-    //wait for 100ms before trigging the redrawing of the chart
-    $(window).resize(function () {
-        if (this.resizeTO) clearTimeout(this.resizeTO);
-        this.resizeTO = setTimeout(function () {
-            $(this).trigger('resizeEnd');
-        }, 100);
-
-    });
-    var width = $(window).width();
-    //redraw chart when window resize is completed
-    $(window).on('resizeEnd', function () {
-        if ($(window).width() == width) return;
-        width = $(window).width();  
-    });
     $(document).ready(function () {
         c3DrawMoodChart("@jsonUrl");
     });

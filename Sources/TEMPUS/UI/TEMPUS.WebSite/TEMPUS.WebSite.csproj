@@ -194,11 +194,9 @@
     <Content Include="Content\Lib\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Lib\Styles\c3.css" />
     <Content Include="Content\Styles\Main.css" />
-    <Content Include="Content\Styles\moodCharts.css" />
     <Content Include="Content\Styles\Profile.css" />
     <Content Include="Content\Styles\Projects.css" />
     <Content Include="Content\Styles\Team.css" />
-    <Content Include="Content\Lib\Styles\tipsy.css" />
     <Content Include="Content\Styles\UserBlock.css" />
     <Content Include="Content\Styles\UserPage.css" />
     <Content Include="Global.asax" />
@@ -225,7 +223,6 @@
     <Content Include="Scripts\Lib\jquery-2.1.0.js" />
     <Content Include="Scripts\Lib\jquery-2.1.0.min.js" />
     <Content Include="Scripts\Lib\jquery.ddslick.min.js" />
-    <Content Include="Scripts\Lib\jquery.tipsy.js" />
     <Content Include="Scripts\Lib\moment.min.js" />
     <Content Include="Scripts\Main.js" />
     <Content Include="Scripts\moodCharts.js" />
