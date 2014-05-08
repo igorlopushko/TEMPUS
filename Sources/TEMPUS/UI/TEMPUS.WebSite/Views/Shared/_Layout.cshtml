@@ -29,16 +29,12 @@
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
         @if (Request.IsAuthenticated)
         {
-            <div class="row">
-                @{ Html.RenderAction("TopNavigation", "Base"); }
-
-                <!-- User Block -->
-                @{ Html.RenderAction("UserMenu", "Account"); }
+            <div class="container">
+                    @{ Html.RenderAction("TopNavigation", "Base"); }
             </div>
         }
     </div>
 
-    <div id="heightStub" class="visible-xs visible-sm"></div>
 
     <div id="content">
         <div class="container">

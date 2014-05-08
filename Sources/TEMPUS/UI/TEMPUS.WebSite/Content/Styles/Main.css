@@ -1,6 +1,4 @@
-﻿/* Sticky footer styles
--------------------------------------------------- */
-html
+﻿html
 {
     position: relative;
     min-height: 100%;
@@ -8,8 +6,19 @@ html
 
 body
 {
+    /* Margin top by navbar height */
+    margin-top: 60px;
     /* Margin bottom by footer height */
     margin-bottom: 60px;
+}
+/* Noscroll for collapsed navbar */
+@media (min-width: 768px) and (max-width: 1199px)
+{
+    body
+    {
+        /* Margin top by navbar height */
+        margin-top: 120px;
+    }
 }
 
 #footer
@@ -21,28 +30,15 @@ body
     height: 60px;
     background-color: #f5f5f5;
 }
-/* Custom page CSS
--------------------------------------------------- */
 
-/* Not required for template or sticky footer method. */
-#content
+/* Noscroll for collapsed navbar */
+@media (max-width: 768px)
 {
-    padding-top: 60px;
-}
-
-#heightStub
-{
-    height: 60px;
-}
-
-body > .container
-{
-    padding: 60px 15px 0;
-}
-
-.container .text-muted
-{
-    margin: 20px 0;
+    .navbar-collapse
+    {
+        max-height: none;
+        overflow-x: auto;
+    }
 }
 
 #footer > .container
