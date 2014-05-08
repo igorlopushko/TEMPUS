@@ -14,10 +14,11 @@ function c3DrawMoodChart(url) {
                 x: {
                     type: 'timeseries',
                     tick: {
-                        format: '%d.%m',
+                        format: '%d-%b',
                     }
                 }
-            }
+            },
+            padding: {right:15}
         };
         json.forEach(function (obj) {
             input.data.xs[obj.name] = "x" + obj.name;
