@@ -39,8 +39,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="IProjectCommandService.cs" />
+    <Compile Include="IProjectQueryService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IProjectRepository.cs" />
+    <Compile Include="IProjectStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BaseDomain\Messages\TEMPUS.BaseDomain.Messages.csproj">
+      <Project>{4363d55f-33ec-4c1e-aa68-b59c5c1cfc5a}</Project>
+      <Name>TEMPUS.BaseDomain.Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BaseDomain\Model\TEMPUS.BaseDomain.Model.csproj">
+      <Project>{d7d5dadb-f732-4535-810e-92f91d0c28db}</Project>
+      <Name>TEMPUS.BaseDomain.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Databases\DB\TEMPUS.DB.csproj">
+      <Project>{23a88edc-1fdb-487e-abec-123f48f99347}</Project>
+      <Name>TEMPUS.DB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\TEMPUS.ProjectDomain.Model\TEMPUS.ProjectDomain.Model.csproj">
+      <Project>{89da37fb-1705-4889-a5a6-d48afecdcc2a}</Project>
+      <Name>TEMPUS.ProjectDomain.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
