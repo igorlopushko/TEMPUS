@@ -130,10 +130,21 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// <summary>
         /// Gets the team moods.
         /// </summary>
-        /// <param name="teamId">The team identifier.</param>
-        public IEnumerable<UserMood> GetTeamMoods(Guid teamId)
+        /// <param name="projectId">The project identifier.</param>
+        public IEnumerable<UserMood> GetTeamMoods(ProjectId projectId)
         {
-            throw new NotImplementedException();
+            if (projectId == null)
+                throw new ArgumentNullException("projectId");
+
+            var teamMembersIds =
+                _userReadRepository.ProjectRoleRelations.Where(x => x.ProjectId == projectId.Id).Select(x => x.UserId);
+            return _userReadRepository.Moods.Where(x => teamMembersIds.Contains(x.UserId)).OrderByDescending(x => x.Date).ToArray().Select(x => new UserMood()
+                {
+                    Date = x.Date,
+                    Rate = x.Rate,
+                    UserId = new UserId(x.UserId),
+                    UserName = x.User.FirstName + " " + x.User.LastName
+                });
         }
     }
 }
