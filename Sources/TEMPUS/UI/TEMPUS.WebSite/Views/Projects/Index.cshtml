@@ -70,23 +70,23 @@
             </thead>
             <tbody>
                 @foreach (var project in Model)
-                {     
+                {
                     <tr data-url="@Url.Action("Details", "Projects")">
                         <td data-title="Title">@project.Name</td>
                         <td data-title="Status">
                             @if (project.Status == ProjectStatus.Green)
-                            { <div class="statusForGrid greenStatus leftText"></div> }
+                            { <div class="statusForGrid greenStatus text-left"></div> }
                             @if (project.Status == ProjectStatus.Yellow)
-                            { <div class="statusForGrid yellowStatus leftText"></div> }
+                            { <div class="statusForGrid yellowStatus text-left"></div> }
                             @if (project.Status == ProjectStatus.Red)
-                            { <div class="statusForGrid redStatus leftText"></div> }
+                            { <div class="statusForGrid redStatus text-left"></div> }
                         </td>
                         <td data-title="Start Date">@project.StartDate.ToString("MM/dd/yyyy")</td>
                         <td data-title="Due Date">@project.EndDate.ToString("MM/dd/yyyy")</td>
                         <td data-title="Manager">@project.Manager</td>
                         <td data-title="Department">@project.Department</td>
                         <td data-title="Description">@project.Description</td>
-                    </tr>   
+                    </tr>
                 }
             </tbody>
         </table>
