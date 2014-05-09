@@ -2,6 +2,14 @@
     ViewBag.Title = "Time Records";
 }
 
+@section PageButtons {
+    <div class="row">
+        <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12 pull-right">
+            <a href="#timeSheetModal" data-toggle="modal" class="btn btn-primary form-control">Create Time Record</a>
+        </div>
+    </div>
+}
+
 <div class="row">
     <div class="col-md-12">
         <form action="@Url.Action("Index", "TimeReport")" method="get">
@@ -90,13 +98,6 @@
                 }
             </tbody>
         </table>
-    </div>
-</div>
-
-
-<div class="row">
-    <div class="col-md-12">
-        <a href="#timeSheetModal" data-toggle="modal" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>&nbsp;Create Time Record</a>
     </div>
 </div>
 
