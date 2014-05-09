@@ -78,7 +78,10 @@ namespace TEMPUS.UserDomain.Infrastructure
             }
             var user = _context.Users.Find(id.Id);
             if (user != null)
+            {
                 user.Roles = this.GetUserRoles(id);
+                user.Moods = this.GetUserMoods(id);
+            }
 
             return user;
         }
@@ -113,14 +116,26 @@ namespace TEMPUS.UserDomain.Infrastructure
 
             foreach (var role in aggregate.Roles)
             {
-                _context.UserRoleRelations.AddOrUpdate(new UserRoleRelation {RoleId = role, UserId = aggregate.Id});
+                _context.UserRoleRelations.AddOrUpdate(new UserRoleRelation { RoleId = role, UserId = aggregate.Id });
             }
+
+            foreach (var mood in aggregate.Moods)
+            {
+                _context.Moods.AddOrUpdate(new Mood { Date = mood.Key, Rate = mood.Value, UserId = aggregate.Id });
+            }
+
             _context.SaveChanges();
         }
 
         private IEnumerable<Guid> GetUserRoles(UserId userId)
         {
             return _context.UserRoleRelations.Where(x => x.UserId == userId.Id).AsEnumerable().Select(x => x.RoleId);
+        }
+
+        private IEnumerable<KeyValuePair<DateTime, int>> GetUserMoods(UserId userId)
+        {
+            return _context.Moods.Where(x => x.UserId == userId.Id).ToArray().Select(
+                    x => new KeyValuePair<DateTime, int>(x.Date, x.Rate));
         }
     }
 }

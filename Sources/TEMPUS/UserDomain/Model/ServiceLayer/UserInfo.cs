@@ -19,7 +19,7 @@ namespace TEMPUS.UserDomain.Model.ServiceLayer
         public string Phone { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Image { get; set; }
-        public IDictionary<DateTime, int> Feelings { get; set; }
+        public IEnumerable<KeyValuePair<DateTime, int>> Moods { get; set; }
         public IEnumerable<UserRole> Roles { get; set; }
     }
 }

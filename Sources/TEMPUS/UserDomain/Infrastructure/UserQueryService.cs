@@ -71,6 +71,7 @@ namespace TEMPUS.UserDomain.Infrastructure
             if (user != null)
             {
                 user.Roles = GetUserRoles(user.UserId);
+                user.Moods = this.GetUserMoods(user.UserId);
                 return user;
             }
 
@@ -131,6 +132,7 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// Gets the team moods.
         /// </summary>
         /// <param name="projectId">The project identifier.</param>
+        /// <exception cref="System.ArgumentNullException">When projectId is null.</exception>
         public IEnumerable<UserMood> GetTeamMoods(ProjectId projectId)
         {
             if (projectId == null)
@@ -145,6 +147,20 @@ namespace TEMPUS.UserDomain.Infrastructure
                     UserId = new UserId(x.UserId),
                     UserName = x.User.FirstName + " " + x.User.LastName
                 });
+        }
+
+        /// <summary>
+        /// Gets the user moods.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <exception cref="System.ArgumentNullException">When userId is null.</exception>
+        public IEnumerable<KeyValuePair<DateTime, int>> GetUserMoods(UserId userId)
+        {
+            if (userId == null)
+                throw new ArgumentNullException("userId");
+
+            return _userReadRepository.Moods.Where(x => x.UserId == userId.Id).ToArray().Select(
+                    x => new KeyValuePair<DateTime, int>(x.Date, x.Rate));
         }
     }
 }

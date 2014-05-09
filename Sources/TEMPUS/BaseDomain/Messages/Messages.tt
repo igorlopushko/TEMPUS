@@ -33,6 +33,8 @@ namespace TEMPUS.BaseDomain.Messages
 	RoleToUserAdded!(userId, Guid RoleId)
 	DeleteUser?(userId)
 	UserDeleted!(userId)
+	SetUserMood?(userId, int Rate)
+	UserMoodSet!(userId, int Rate, DateTime Date)
 
 ";
 	#>

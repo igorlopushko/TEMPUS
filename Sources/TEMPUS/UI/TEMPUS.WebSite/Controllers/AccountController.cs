@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using TEMPUS.BaseDomain.Messages;
+using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.UserDomain.Model.ServiceLayer;
 using TEMPUS.UserDomain.Services.ServiceLayer;
 using TEMPUS.WebSite.Contexts;
@@ -228,6 +229,41 @@ namespace TEMPUS.WebSite.Controllers
             };
 
             return View(model);
+        }
+
+        /// <summary>
+        /// Sets the mood.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">model is null.</exception>
+        /// <exception cref="System.ArgumentException">
+        /// User can change rate of the mood only for himself.
+        /// or
+        /// Rate of the mood should be more than 0 and less or equal 5.
+        /// </exception>
+        [HttpPost]
+        [Authorize]
+        public JsonResult SetMood(UserMoodViewModel model)
+        {
+            if (model == null)
+                throw new ArgumentNullException("model");
+
+            if (model.UserId != UserContext.Current.UserId.Id)
+                throw new ArgumentException("User can change rate of the mood only for himself.");
+
+            if (model.Rate <= 0 || model.Rate > 5)
+                throw new ArgumentException("Rate of the mood should be more than 0 and less or equal 5.");
+
+            var userMoods = _userQueryService.GetUserMoods(new UserId(model.UserId));
+            if (userMoods.Any(x => x.Key.Year == DateTime.Now.Year && x.Key.Month == DateTime.Now.Month && x.Key.Day == DateTime.Now.Day))
+                throw new ArgumentException("User can set his mood only one time per day.");
+
+            var command = new SetUserMood(new UserId(model.UserId), model.Rate);
+
+            _cmdSender.Send(command);
+
+            return Json(new { success = true, rate = model.Rate });
         }
 
         private void SetErrorMessage(MembershipCreateStatus status)

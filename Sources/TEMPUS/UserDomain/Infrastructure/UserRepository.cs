@@ -43,7 +43,7 @@ namespace TEMPUS.UserDomain.Infrastructure
 
             var user = _userStorage.Get(id);
             return user == null ? null : new User(new UserId(user.Id), user.FirstName, user.LastName,
-                user.Email, user.Password, user.Image, user.Phone, user.DateOfBirth, user.Roles.ToList());
+                user.Email, user.Password, user.Image, user.Phone, user.DateOfBirth, user.Roles.ToList(), user.Moods.ToList());
         }
 
         /// <summary>
@@ -62,7 +62,8 @@ namespace TEMPUS.UserDomain.Infrastructure
                 Phone = aggregate.Phone,
                 Email = aggregate.Email,
                 DateOfBirth = aggregate.DateOfBirth,
-                Roles = aggregate.Roles
+                Roles = aggregate.Roles,
+                Moods = aggregate.Moods
             };
 
             if (aggregate.IsNew)

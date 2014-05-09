@@ -156,6 +156,7 @@
     <Compile Include="Models\Account\RegisterViewModel.cs" />
     <Compile Include="Models\Account\UpdateUserViewModel.cs" />
     <Compile Include="Models\Account\UserMenuViewModel.cs" />
+    <Compile Include="Models\Account\UserMoodViewModel.cs" />
     <Compile Include="Models\Base\TopNavigationViewModel.cs" />
     <Compile Include="Models\Project\ProjectStatus.cs" />
     <Compile Include="Models\Project\ProjectListViewModel.cs" />

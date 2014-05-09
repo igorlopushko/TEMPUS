@@ -106,6 +106,25 @@ namespace TEMPUS.UserDomain.Services.DomainLayer
         }
 
         /// <summary>
+        /// Handles the specified <see cref="SetUserMood"/> command.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        public void Handle(SetUserMood command)
+        {
+            if (command.Id == null)
+                throw new ArgumentNullException("command", "UserId must be specified.");
+
+            var user = _userRepository.Get(command.Id);
+            if (user == null)
+                throw new ArgumentException(string.Format("User with such id: {0} does not exist.", command.Id));
+
+            var date = DateTime.Now;
+            user.AddMood(command.Rate, date);
+
+            _userRepository.Save(user);
+        }
+
+        /// <summary>
         /// Gets the or create user.
         /// </summary>
         /// <param name="userId">The user identifier.</param>
