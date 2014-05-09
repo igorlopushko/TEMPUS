@@ -1,14 +1,14 @@
 ﻿@model TEMPUS.WebSite.Models.Account.LoginViewModel
 
-<div class="page-header">
-    <h1>Log in</h1>
-</div>
+@{
+    ViewBag.Title = "Log in";
+}
 
 @using (Html.BeginForm("LogIn", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-    
+
     <div class="carousel-inner">
         <div class="item active">
             <div class="container">

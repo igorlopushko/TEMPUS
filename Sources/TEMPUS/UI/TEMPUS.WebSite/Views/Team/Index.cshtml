@@ -4,6 +4,7 @@
     ViewBag.Title = "Team";
     string jsonUrl = Url.Content("~/Content/test-mood-data.json");
 }
+
 <script type="text/javascript">
     jQuery(function ($) {
         $('.element').responsiveEqualHeightGrid();
@@ -17,10 +18,6 @@
 <script src="@Url.Content("~/Scripts/moodCharts.js")"></script>
 <link rel="stylesheet" href="@Url.Content("~/Content/Lib/Styles/c3.css")">
 <link rel="stylesheet" href="@Url.Content("~/Content/Styles/Team.css")" />
-
-<div class="page-header">
-    <h1>Team</h1>
-</div>
 
 <div class="row wrapper">
     @foreach (var item in Model)
