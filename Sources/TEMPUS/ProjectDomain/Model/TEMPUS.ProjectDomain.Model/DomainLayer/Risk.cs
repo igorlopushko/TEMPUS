@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TEMPUS.ProjectDomain.Model.ServiceLayer
+namespace TEMPUS.ProjectDomain.Model.DomainLayer
 {
-    public class ProjectInfo
+    public class Risk
     {
     }
 }
