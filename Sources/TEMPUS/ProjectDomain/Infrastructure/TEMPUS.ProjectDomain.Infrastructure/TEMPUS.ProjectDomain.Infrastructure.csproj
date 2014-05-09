@@ -41,7 +41,9 @@
   <ItemGroup>
     <Compile Include="ProjectQueryService.cs" />
     <Compile Include="ProjectRepository.cs" />
-    <Compile Include="ProjectStorage.cs" />
+    <Compile Include="ProjectStorage.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
