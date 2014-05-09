@@ -59,8 +59,8 @@
         </div>
     </div>
     <div class="col-md-12 responsiveGrid">
-        <table class="table cf table-hover table-striped" id="projectList">
-            <thead class="cf">
+        <table class="table table-hover table-striped" id="projectList">
+            <thead>
                 <tr>
                     <th>Title</th>
                     <th>Status</th>
@@ -122,8 +122,5 @@
         $(window).resize(redrawCharts)
         redrawStatusChart();
         redrawBudgetChart();
-    });
-    $('table tr[data-url]').on('click', function () {
-        location.href = $(this).data('url');
     });
 </script>

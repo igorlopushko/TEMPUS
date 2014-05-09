@@ -19,4 +19,8 @@ $(document).ready(function (ev) {
         var windowHeight = $(window).height();
         $(".navbar-collapse").css("max-height", (windowHeight - navHeight) + "px");
     });
+
+    $('table tr[data-url]').on('click', function () {
+        location.href = $(this).data('url');
+    });
 });
