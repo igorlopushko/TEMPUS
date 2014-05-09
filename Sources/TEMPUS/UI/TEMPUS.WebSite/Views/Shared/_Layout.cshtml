@@ -20,14 +20,15 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/Lib/Styles/font-awesome.min.css")">
     <link rel="stylesheet" href="@Url.Content("~/Content/Styles/Main.css")">
     <link rel="stylesheet" href="@Url.Content("~/Content/Styles/UserBlock.css")">
-    <link rel="stylesheet" href="@Url.Content("~/Content/Styles/Projects.css")" />
-    <link rel="stylesheet" href="@Url.Content("~/Content/Styles/Projects/Flow.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/Styles/Projects.css")">
+    @RenderSection("CustomCss", false)
 
     <script src="@Url.Content("~/Scripts/Lib/jquery-2.1.0.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Lib/bootstrap.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Lib/moment.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Lib/bootstrap-datetimepicker.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Main.js")"></script>
+    @RenderSection("CustomJs", false)
 </head>
 
 <body>

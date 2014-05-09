@@ -5,19 +5,24 @@
     string jsonUrl = Url.Content("~/Content/test-mood-data.json");
 }
 
+@section CustomCss {
+    <link rel="stylesheet" href="@Url.Content("~/Content/Lib/Styles/c3.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/Styles/Team.css")">
+}
+
+@section CustomJs {
+    <script src="@Url.Content("~/Scripts/grids.js")"></script>
+    <script src="@Url.Content("~/Scripts/Team.js")"></script>
+    <script src="@Url.Content("~/Scripts/Lib/d3.v3.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/Lib/c3.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/moodCharts.js")"></script>
+}
+
 <script type="text/javascript">
     jQuery(function ($) {
         $('.element').responsiveEqualHeightGrid();
     });
 </script>
-
-<script src="@Url.Content("~/Scripts/grids.js")"></script>
-<script src="@Url.Content("~/Scripts/Team.js")"></script>
-<script src="@Url.Content("~/Scripts/Lib/d3.v3.min.js")"></script>
-<script src="@Url.Content("~/Scripts/Lib/c3.min.js")"></script>
-<script src="@Url.Content("~/Scripts/moodCharts.js")"></script>
-<link rel="stylesheet" href="@Url.Content("~/Content/Lib/Styles/c3.css")">
-<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Team.css")" />
 
 <div class="row wrapper">
     @foreach (var item in Model)
