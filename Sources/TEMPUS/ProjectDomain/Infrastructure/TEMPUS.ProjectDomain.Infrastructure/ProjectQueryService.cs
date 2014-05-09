@@ -9,5 +9,9 @@ namespace TEMPUS.ProjectDomain.Infrastructure
 {
     public class ProjectQueryService : IProjectQueryService
     {
+        public IEnumerable<Model.ServiceLayer.ProjectInfo> GetUserProjects(BaseDomain.Messages.Identities.UserId userid)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
