@@ -42,15 +42,30 @@ code
     font-size: 80%;
 }
 
-/* Create Project*/
+/* Utils */
 
-/*Task Details*/
+.offset-top {
+    margin-top: 20px;
+}
+
+.offset-bottom {
+    margin-bottom: 20px;
+}
+
+.no-offset-top {
+    margin-top: 0 !important;
+}
+
+.no-offset-bottom {
+    margin-bottom: 0 !important;
+}
+
+/* Task Details */
+
 div.grid-item
 {
     padding: 5px 0px;
 }
-
-/*Buttons for small screens*/
 
 /* Responsive Grid */
 
