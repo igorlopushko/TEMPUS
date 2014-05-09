@@ -5,9 +5,14 @@
     ViewBag.PageTitle = Model.FirstName + " " + Model.LastName + ", " + Model.Role;
 }
 
-<link rel="stylesheet" href="@Url.Content("~/Content/Styles/UserPage.css")">
-<script src="~/Scripts/Lib/Chart.js"></script>
-<script src="~/Scripts/UserPage.js"></script>
+@section CustomCss {
+    <link rel="stylesheet" href="@Url.Content("~/Content/Styles/UserPage.css")">
+}
+
+@section CustomJs {
+    <script src="~/Scripts/Lib/Chart.js"></script>
+    <script src="~/Scripts/UserPage.js"></script>
+}
 
 <script>
     $(document).ready(function (ev) {
