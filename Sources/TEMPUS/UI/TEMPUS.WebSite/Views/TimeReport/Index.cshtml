@@ -2,10 +2,6 @@
     ViewBag.Title = "Time Records";
 }
 
-<div class="page-header">
-    <h1>Time Records</h1>
-</div>
-
 <div class="row">
     <div class="col-md-12">
         <form action="@Url.Action("Index", "TimeReport")" method="get">
@@ -80,7 +76,7 @@
             </thead>
             <tbody>
                 @foreach (var record in Model)
-                {        
+                {
                     <tr>
                         <td>@record.Project.Name</td>
                         <td>@if (record.Task != null)

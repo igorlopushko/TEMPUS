@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TEMPUS.ProjectDomain.Model
+namespace TEMPUS.ProjectDomain.Services
 {
-    public class Class1
+    public interface IProjectQueryService
     {
     }
 }

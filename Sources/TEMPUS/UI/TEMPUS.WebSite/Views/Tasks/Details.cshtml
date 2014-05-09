@@ -1,137 +1,131 @@
 ﻿@{
-    ViewBag.Title = "Task Details Page";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Task Details";
     ViewBag.Lorem = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum";
 }
 
-<div class="page-header">
-    <h1>Task Details Page</h1>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <h4>Details</h4>
-            <div class="row grid-item">
-                <div id="taskTitle" class="col-md-4">Title: </div>
-                <div class="col-md-8">
-                    <input type="text" class="form-control" readonly="true" value="Task1">
-                </div>
-            </div>
-            <div class="row grid-item">
-                <div id="taskStatus" class="col-md-4">Satus: </div>
-                <div class="col-md-8 ">
-                    <span class="glyphicon glyphicon-ok"></span> Done  
-                </div>
+<div class="row">
+    <div class="col-md-3">
+        <h4>Details</h4>
+        <div class="row grid-item">
+            <div id="taskTitle" class="col-md-4">Title: </div>
+            <div class="col-md-8">
+                <input type="text" class="form-control" readonly="true" value="Task1">
             </div>
         </div>
-        <div class="col-md-3 col-md-offset-1">
-            <h4>Dates</h4>
-            <div class="row grid-item">
-                <div id="startDate" class="col-md-5">Start date: </div>
-                <div class="col-md-7">
-                    <input type="date" class="form-control" readonly="true" value="2013-08-20">
-                </div>
-            </div>
-            <div class="row grid-item">
-                <div id="endDate" class="col-md-5">End date: </div>
-                <div class="col-md-7 ">
-                    <input type="date" class="form-control" readonly="true" value="2014-08-21">
-                </div>
-            </div>
-            <div class="row grid-item">
-                <div id="spentHours" class="col-md-5">Spent hours: </div>
-                <div class="col-md-7">
-                    <input type="text" class="form-control" readonly="true" value="32h">
-                </div>
-            </div>
-            <div class="row grid-item">
-                <div id="totalEffort" class="col-md-5">Total effort: </div>
-                <div class="col-md-7 ">
-                    <input type="text" class="form-control" readonly="true" value="35h">
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 col-md-offset-1">
-            <h4>Rerponsible person</h4>
-            <div class="row grid-item">
-                <div id="assignee" class="col-md-4">Assignee: </div>
-                <div class="col-md-8">
-                    <input type="text" class="form-control" readonly="true" value="Roman Abramovich">
-                </div>
-            </div>
-            <div class="row grid-item">
-                <div id="author" class="col-md-4">Author: </div>
-                <div class="col-md-8 ">
-                    <a href="#">John Douwe</a>
-                </div>
+        <div class="row grid-item">
+            <div id="taskStatus" class="col-md-4">Satus: </div>
+            <div class="col-md-8 ">
+                <span class="glyphicon glyphicon-ok"></span> Done
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs row col-md-12">
-                <li class="active"><a href="#description" data-toggle="tab">Description</a></li>
-                <li><a href="#risks" data-toggle="tab">Risks</a></li>
-                <li><a href="#comments" data-toggle="tab">Comments</a></li>
-                <li><a href="#attachments" data-toggle="tab">Attacments</a></li>
-            </ul>
-            <!-- Tab panes -->
-            <div class="tab-content row col-md-12">
-                <!-- Description tab -->
-                <div class="tab-pane active" id="description">
-                    <div class="row">
-                        <h4>Description</h4>
-                        <textarea class="form-control" rows="6" placeholder="Input discription">@ViewBag.Lorem</textarea>
-                    </div>
+    <div class="col-md-3 col-md-offset-1">
+        <h4>Dates</h4>
+        <div class="row grid-item">
+            <div id="startDate" class="col-md-5">Start date: </div>
+            <div class="col-md-7">
+                <input type="date" class="form-control" readonly="true" value="2013-08-20">
+            </div>
+        </div>
+        <div class="row grid-item">
+            <div id="endDate" class="col-md-5">End date: </div>
+            <div class="col-md-7 ">
+                <input type="date" class="form-control" readonly="true" value="2014-08-21">
+            </div>
+        </div>
+        <div class="row grid-item">
+            <div id="spentHours" class="col-md-5">Spent hours: </div>
+            <div class="col-md-7">
+                <input type="text" class="form-control" readonly="true" value="32h">
+            </div>
+        </div>
+        <div class="row grid-item">
+            <div id="totalEffort" class="col-md-5">Total effort: </div>
+            <div class="col-md-7 ">
+                <input type="text" class="form-control" readonly="true" value="35h">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-md-offset-1">
+        <h4>Rerponsible person</h4>
+        <div class="row grid-item">
+            <div id="assignee" class="col-md-4">Assignee: </div>
+            <div class="col-md-8">
+                <input type="text" class="form-control" readonly="true" value="Roman Abramovich">
+            </div>
+        </div>
+        <div class="row grid-item">
+            <div id="author" class="col-md-4">Author: </div>
+            <div class="col-md-8 ">
+                <a href="#">John Douwe</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs row col-md-12">
+            <li class="active"><a href="#description" data-toggle="tab">Description</a></li>
+            <li><a href="#risks" data-toggle="tab">Risks</a></li>
+            <li><a href="#comments" data-toggle="tab">Comments</a></li>
+            <li><a href="#attachments" data-toggle="tab">Attacments</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content row col-md-12">
+            <!-- Description tab -->
+            <div class="tab-pane active" id="description">
+                <div class="row">
+                    <h4>Description</h4>
+                    <textarea class="form-control" rows="6" placeholder="Input discription">@ViewBag.Lorem</textarea>
                 </div>
-                <!-- Risks tab -->
-                <div class="tab-pane" id="risks">
-                    <div class="row">
-                        <h4>Risks <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button></h4>
-                        <table class="table table-hover" id="tableRisks">
-                            <tbody>
-                                <tr>
-                                    <td><a href="#">Tittle for Risk1</a></td>
-                                    <td><span class="glyphicon glyphicon-ok-circle"></span> Done</td> 
-                                </tr>
-                                <tr>
-                                    <td><a href="#">Tittle for Risk2</a></td>
-                                    <td><span class="glyphicon glyphicon-ok-circle"></span> Done</td> 
-                                </tr>
-                                <tr>
-                                    <td><a href="#">Tittle for Risk3</a></td>
-                                    <td><span class="glyphicon glyphicon-ok-circle"></span> Done</td> 
-                                </tr>
-                                <tr>
-                                    <td><a href="#">Tittle for Risk4</a></td>
-                                    <td><span class="glyphicon glyphicon-ok-circle"></span> Done</td> 
-                                </tr>
-                                <tr>
-                                    <td><a href="#">Tittle for Risk5</a></td>
-                                    <td><span class="glyphicon glyphicon-question-sign"></span> Done</td> 
-                                </tr>
-                                <tr>
-                                    <td><a href="#">Tittle for Risk6</a></td>
-                                    <td><span class="glyphicon glyphicon-exclamation-sign"></span> Done</td> 
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            </div>
+            <!-- Risks tab -->
+            <div class="tab-pane" id="risks">
+                <div class="row">
+                    <h4>Risks <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button></h4>
+                    <table class="table table-hover" id="tableRisks">
+                        <tbody>
+                            <tr>
+                                <td><a href="#">Tittle for Risk1</a></td>
+                                <td><span class="glyphicon glyphicon-ok-circle"></span> Done</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">Tittle for Risk2</a></td>
+                                <td><span class="glyphicon glyphicon-ok-circle"></span> Done</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">Tittle for Risk3</a></td>
+                                <td><span class="glyphicon glyphicon-ok-circle"></span> Done</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">Tittle for Risk4</a></td>
+                                <td><span class="glyphicon glyphicon-ok-circle"></span> Done</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">Tittle for Risk5</a></td>
+                                <td><span class="glyphicon glyphicon-question-sign"></span> Done</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">Tittle for Risk6</a></td>
+                                <td><span class="glyphicon glyphicon-exclamation-sign"></span> Done</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <!-- Commnets tab -->
-                <div class="tab-pane" id="comments">
-                    <div class="row col-md-12">
-                        <h4>Comments <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button></h4>
-                        ...
-                    </div>
+            </div>
+            <!-- Commnets tab -->
+            <div class="tab-pane" id="comments">
+                <div class="row col-md-12">
+                    <h4>Comments <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button></h4>
+                    ...
                 </div>
-                <!-- Attacments tab -->
-                <div class="tab-pane" id="attachments">
-                    <div class="row col-md-12">
-                        <h4>Attacments <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button></h4>                       
-                        ...
-                    </div>
+            </div>
+            <!-- Attacments tab -->
+            <div class="tab-pane" id="attachments">
+                <div class="row col-md-12">
+                    <h4>Attacments <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button></h4>
+                    ...
                 </div>
             </div>
         </div>

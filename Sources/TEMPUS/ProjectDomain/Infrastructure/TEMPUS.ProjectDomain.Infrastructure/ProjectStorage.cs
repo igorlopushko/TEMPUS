@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TEMPUS.ProjectDomain.Services
+namespace TEMPUS.ProjectDomain.Infrastructure
 {
-    public class Class1
+    public class ProjectStorage
     {
     }
 }

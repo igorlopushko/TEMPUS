@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "User";
+    ViewBag.PageTitle = Model.FirstName + " " + Model.LastName + ", " + Model.Role;
 }
 
 <link rel="stylesheet" href="@Url.Content("~/Content/Styles/UserPage.css")">
@@ -13,10 +14,6 @@
         setMood(@Model.Mood);
     });
 </script>
-
-<div class="page-header">
-    <h1>@Model.FirstName @Model.LastName, @Model.Role</h1>
-</div>
 
 <div class="row">
     <div class="col-sm-4 col-md-3 text-center">

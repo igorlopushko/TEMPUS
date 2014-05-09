@@ -1,15 +1,19 @@
 ﻿@using TEMPUS.WebSite.Helpers
 @using TEMPUS.WebSite.Models.Project
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<div class="page-header">
-    <h1>Projects</h1>
-</div>
 
-<div class="row">
-    <div class="col-md-12">
-        <a href="@Url.Action("Create", "Projects")" class="btn btn-primary next">Create Project</a>
+@{
+    ViewBag.Title = "Projects";
+}
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+@section PageButtons {
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 pull-right">
+            <a href="@Url.Action("Create", "Projects")" class="btn btn-primary form-control">Create Project</a>
+        </div>
     </div>
-</div>
+}
 
 <div class="row">
     <p />
@@ -70,23 +74,23 @@
             </thead>
             <tbody>
                 @foreach (var project in Model)
-                {     
+                {
                     <tr data-url="@Url.Action("Details", "Projects")">
                         <td data-title="Title">@project.Name</td>
                         <td data-title="Status">
                             @if (project.Status == ProjectStatus.Green)
-                            { <div class="statusForGrid greenStatus leftText"></div> }
+                            { <div class="statusForGrid greenStatus text-left"></div> }
                             @if (project.Status == ProjectStatus.Yellow)
-                            { <div class="statusForGrid yellowStatus leftText"></div> }
+                            { <div class="statusForGrid yellowStatus text-left"></div> }
                             @if (project.Status == ProjectStatus.Red)
-                            { <div class="statusForGrid redStatus leftText"></div> }
+                            { <div class="statusForGrid redStatus text-left"></div> }
                         </td>
                         <td data-title="Start Date">@project.StartDate.ToString("MM/dd/yyyy")</td>
                         <td data-title="Due Date">@project.EndDate.ToString("MM/dd/yyyy")</td>
                         <td data-title="Manager">@project.Manager</td>
                         <td data-title="Department">@project.Department</td>
                         <td data-title="Description">@project.Description</td>
-                    </tr>   
+                    </tr>
                 }
             </tbody>
         </table>
