@@ -16,9 +16,14 @@ function c3DrawMoodChart(url) {
                     tick: {
                         format: '%d-%b',
                     }
+                },
+                y: {
+                    tick: {
+                        format: formatY
+                    }
                 }
             },
-            padding: {right:15}
+            padding: {left:55, right:15}
         };
         json.forEach(function (obj) {
             input.data.xs[obj.name] = "x" + obj.name;
@@ -41,4 +46,24 @@ function c3DrawMoodChart(url) {
             chart.toggle(obj.name);
         });
     });
+}
+
+function formatY(data) {
+    switch (data) {
+        case 1:
+            data = "very sad"
+            break
+        case 2:
+            data = "not ok"
+            break
+        case 3:
+            data = "good"
+            break
+        case 4:
+            data = "awesome"
+            break
+        default:
+            data = ""
+    }
+    return data;
 }
