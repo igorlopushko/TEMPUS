@@ -42,6 +42,7 @@
     <Compile Include="DomainLayer\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceLayer\UserInfo.cs" />
+    <Compile Include="ServiceLayer\UserMood.cs" />
     <Compile Include="ServiceLayer\UserRole.cs" />
   </ItemGroup>
   <ItemGroup>

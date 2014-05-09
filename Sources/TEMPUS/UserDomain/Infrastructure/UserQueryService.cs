@@ -125,5 +125,15 @@ namespace TEMPUS.UserDomain.Infrastructure
         {
             return _userReadRepository.Roles.AsEnumerable().Select(x => new KeyValuePair<Guid, string>(x.Id, x.Name));
         }
+
+
+        /// <summary>
+        /// Gets the team moods.
+        /// </summary>
+        /// <param name="teamId">The team identifier.</param>
+        public IEnumerable<UserMood> GetTeamMoods(Guid teamId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
