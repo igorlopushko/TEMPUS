@@ -43,8 +43,12 @@
     <Compile Include="IProjectQueryService.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="IProjectRepository.cs" />
-    <Compile Include="IProjectStorage.cs" />
+    <Compile Include="IProjectRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IProjectStorage.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
