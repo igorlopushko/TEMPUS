@@ -23,7 +23,9 @@ namespace TEMPUS.ProjectDomain.Infrastructure
         public ProjectQueryService(DataContext context)
         {
             if (context == null)
+            {
                 throw new ArgumentNullException("context");
+            }
 
             this._context = context;
         }

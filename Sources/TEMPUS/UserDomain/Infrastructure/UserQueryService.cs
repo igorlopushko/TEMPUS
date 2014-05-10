@@ -97,16 +97,6 @@ namespace TEMPUS.UserDomain.Infrastructure
             return result;
         }
 
-        /// <summary>
-        /// Gets the users by project identifier.
-        /// </summary>
-        /// <param name="projectId">The project identifier.</param>
-        /// <returns>Collection of users</returns>
-        public IEnumerable<UserInfo> GetUsersByProjectId(ProjectId projectId)
-        {
-            throw new NotImplementedException();
-        }
-
 
         /// <summary>
         /// Validates the user.

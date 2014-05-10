@@ -37,8 +37,10 @@ namespace TEMPUS.ProjectDomain.Infrastructure
         /// <exception cref="System.ArgumentNullException">When id is null</exception>
         public DB.Models.Project.Project Get(ProjectId id)
         {
-            if(id == null)
+            if (id == null)
+            {
                 throw new ArgumentNullException("id");
+            }
 
             return _context.Projects.Find(id.Id);
         }
@@ -59,8 +61,10 @@ namespace TEMPUS.ProjectDomain.Infrastructure
         /// <exception cref="System.ArgumentNullException">When entity is null.</exception>
         public void Add(DB.Models.Project.Project entity)
         {
-            if(entity == null)
+            if (entity == null)
+            {
                 throw new ArgumentNullException("entity");
+            }
 
             _context.Projects.Add(entity);
             _context.SaveChanges();
@@ -73,8 +77,10 @@ namespace TEMPUS.ProjectDomain.Infrastructure
         /// <exception cref="System.ArgumentNullException">When entity is null.</exception>
         public void Delete(DB.Models.Project.Project entity)
         {
-            if(entity == null)
+            if (entity == null)
+            {
                 throw new ArgumentNullException("entity");
+            }
 
             _context.Projects.Remove(entity);
             _context.SaveChanges();
@@ -87,8 +93,10 @@ namespace TEMPUS.ProjectDomain.Infrastructure
         /// <exception cref="System.ArgumentNullException">When aggregate is null.</exception>
         public void Update(DB.Models.Project.Project aggregate)
         {
-            if(aggregate == null)
+            if (aggregate == null)
+            {
                 throw new ArgumentNullException("aggregate");
+            }
 
             var project = _context.Projects.Find(aggregate.Id);
             project.Name = aggregate.Name;
