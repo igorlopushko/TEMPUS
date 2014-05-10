@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.ProjectDomain.Model.ServiceLayer;
 
@@ -10,6 +6,6 @@ namespace TEMPUS.ProjectDomain.Services
 {
     public interface IProjectQueryService
     {
-        IEnumerable<ProjectInfo> GetUserProjects(UserId userid);
+        IEnumerable<ProjectInfo> GetUserProjects(UserId userId);
     }
 }

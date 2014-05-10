@@ -18,10 +18,13 @@ namespace TEMPUS.ProjectDomain.Model.DomainLayer
         public PpsClassification Classification { get; private set; }
         public IEnumerable<Task> Tasks { get; private set; }
         public IEnumerable<Risk> Risks { get; private set; }
-        
+
         public UserId Owner { get; private set; }
         public UserId Manager { get; private set; }
         public IEnumerable<UserId> TeamMembers { get; private set; }
+
+        public bool IsNew { get; private set; }
+        public bool IsDeleted { get; private set; }
 
         public override ProjectId Id
         {

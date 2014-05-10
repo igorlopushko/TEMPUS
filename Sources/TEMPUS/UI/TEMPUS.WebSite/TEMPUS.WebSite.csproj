@@ -290,6 +290,18 @@
       <Project>{23A88EDC-1FDB-487E-ABEC-123F48F99347}</Project>
       <Name>TEMPUS.DB</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\ProjectDomain\Infrastructure\TEMPUS.ProjectDomain.Infrastructure\TEMPUS.ProjectDomain.Infrastructure.csproj">
+      <Project>{90a290b5-baf7-4186-82de-0a161e272b00}</Project>
+      <Name>TEMPUS.ProjectDomain.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ProjectDomain\Model\TEMPUS.ProjectDomain.Model\TEMPUS.ProjectDomain.Model.csproj">
+      <Project>{89da37fb-1705-4889-a5a6-d48afecdcc2a}</Project>
+      <Name>TEMPUS.ProjectDomain.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ProjectDomain\Services\TEMPUS.ProjectDomain.Services\TEMPUS.ProjectDomain.Services.csproj">
+      <Project>{2c313214-99b1-4866-ba98-b2f0cf6b969d}</Project>
+      <Name>TEMPUS.ProjectDomain.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\UserDomain\Infrastructure\TEMPUS.UserDomain.Infrastructure.csproj">
       <Project>{f20861aa-d330-4bfb-9ace-54d88d53818c}</Project>
       <Name>TEMPUS.UserDomain.Infrastructure</Name>
