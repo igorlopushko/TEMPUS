@@ -23,7 +23,21 @@ function c3DrawMoodChart(url) {
                     }
                 }
             },
-            padding: {left:55, right:15}
+            padding: {
+                left: 55, right: 15
+            },
+            //hack for mobile devices
+            legend: {
+                item: {
+                    onmouseover: function (id) {
+                        chart.revert();
+                    },
+                    onclick: function (id) {
+                        chart.toggle(id);
+                        chart.revert(id);
+                    }
+                }
+            }
         };
         json.forEach(function (obj) {
             input.data.xs[obj.name] = "x" + obj.name;
