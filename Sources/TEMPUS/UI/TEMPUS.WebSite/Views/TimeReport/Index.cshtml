@@ -11,11 +11,11 @@
 }
 
 <div class="row">
-    <div class="col-md-12">
-        <form action="@Url.Action("Index", "TimeReport")" method="get">
-            <div class="row">
-                <div class="form-group col-md-3 col-sm-4">
-                    <label for="user" class="sr-only">Person</label>
+    <div class="form-horizontal">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="user" class="col-md-4 control-label">Person</label>
+                <div class="col-md-8">
                     <select class="form-control" id="user">
                         <option>Person</option>
                         <option>Aleksander Zayats</option>
@@ -24,8 +24,12 @@
                         <option>Yaroslav Admin</option>
                     </select>
                 </div>
-                <div class="form-group col-md-3 col-sm-4">
-                    <label for="project" class="sr-only">Project</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="project" class="col-md-4 control-label">Project</label>
+                <div class="col-md-8">
                     <select class="form-control" id="project">
                         <option>Project</option>
                         <option>TEMPUS</option>
@@ -33,8 +37,12 @@
                         <option>Lucky Project</option>
                     </select>
                 </div>
-                <div class="form-group col-md-3 col-sm-4">
-                    <label for="status" class="sr-only">Status</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="status" class="col-md-4 control-label">Status</label>
+                <div class="col-md-8">
                     <select class="form-control" id="status">
                         <option>Status</option>
                         <option>New</option>
@@ -43,28 +51,31 @@
                     </select>
                 </div>
             </div>
-            <div class="row">
-                <div class="form-group col-md-3 col-sm-4">
-                    <label for="start_date" class="sr-only">Start Date</label>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="start_date" class="col-md-4 control-label">Start Date</label>
+                <div class="col-md-8">
                     <div class='input-group date' id='start_date' role="datepicker">
                         <input type='text' class="form-control" placeholder="Start Date" />
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div>
                 </div>
-                <div class="form-group col-md-3 col-sm-4">
-                    <label for="end_date" class="sr-only">End Date</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="end_date" class="col-md-4 control-label">End Date</label>
+                <div class="col-md-8">
                     <div class='input-group date' id='end_date' role="datepicker">
                         <input type='text' class="form-control" placeholder="End Date" />
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div>
                 </div>
-                <div class="form-group col-md-3 col-sm-4">
-                    <button type="button" class="btn btn-primary">Show</button>
-                </div>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 
