@@ -21,7 +21,9 @@ namespace TEMPUS.ProjectDomain.Infrastructure
             : base(eventStore)
         {
             if (projectStorage == null)
+            {
                 throw new ArgumentNullException("projectStorage");
+            }
 
             _projectStorage = projectStorage;
         }
@@ -35,11 +37,38 @@ namespace TEMPUS.ProjectDomain.Infrastructure
         public override Project Get(ProjectId id)
         {
             if (id == null)
+            {
                 throw new ArgumentNullException("id", "ProjectId must be specified.");
+            }
 
-            var project = _projectStorage.Get(id);
-            //TODO: Change creating project when Project ctor implemented.
-            return project == null ? null : new Project();
+            var projectEntity = _projectStorage.Get(id);
+            //TODO: Change project ctor when implemented.
+            var projectAggregate = projectEntity == null
+                                       ? null
+                                       : new Project(
+                                             projectEntity.Name,
+                                             projectEntity.Description,
+                                             projectEntity.ProjectOrderer,
+                                             projectEntity.RecievingOrganization,
+                                             projectEntity.Mandatory,
+                                             projectEntity.StartDate,
+                                             projectEntity.EndDate,
+                                             projectEntity.Department == null
+                                                 ? null
+                                                 : new Department(
+                                                       projectEntity.Department.Id, projectEntity.Department.Name),
+                                             projectEntity.PpsClassification == null
+                                                 ? null
+                                                 : new PpsClassification(
+                                                       projectEntity.PpsClassification.Id,
+                                                       projectEntity.PpsClassification.Name),
+                                             null,
+                                             null,
+                                             null,
+                                             null,
+                                             null);
+
+            return projectAggregate;
         }
 
         /// <summary>
@@ -49,18 +78,18 @@ namespace TEMPUS.ProjectDomain.Infrastructure
         public override void Save(Project root)
         {
             var project = new DB.Models.Project.Project
-            {
-                Id = root.Id.Id,
-                Mandatory = root.Mandatory,
-                Name = root.Name,
-                Description = root.Description,
-                ProjectOrderer = root.ProjectOrderer,
-                RecievingOrganization = root.RecievingOrganization,
-                StartDate = root.StartDate,
-                EndDate = root.EndDate,
-                DepartmentId = root.Department.Id,
-                PpsClassificationId = root.Classification.Id
-            };
+                {
+                    Id = root.Id.Id,
+                    Mandatory = root.Mandatory,
+                    Name = root.Name,
+                    Description = root.Description,
+                    ProjectOrderer = root.ProjectOrderer,
+                    RecievingOrganization = root.RecievingOrganization,
+                    StartDate = root.StartDate,
+                    EndDate = root.EndDate,
+                    DepartmentId = root.Department.Id,
+                    PpsClassificationId = root.Classification.Id
+                };
 
             if (root.IsNew)
             {

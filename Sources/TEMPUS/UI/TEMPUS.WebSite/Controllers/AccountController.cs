@@ -252,11 +252,11 @@ namespace TEMPUS.WebSite.Controllers
             if (model.UserId != UserContext.Current.UserId.Id)
                 throw new ArgumentException("User can change rate of the mood only for himself.");
 
-            if (model.Rate <= 0 || model.Rate > 5)
+            if (model.Rate <= 0 || model.Rate > 4)
                 throw new ArgumentException("Rate of the mood should be more than 0 and less or equal 5.");
 
-            var userMoods = _userQueryService.GetUserMoods(new UserId(model.UserId));
-            if (userMoods.Any(x => x.Key.Year == DateTime.Now.Year && x.Key.Month == DateTime.Now.Month && x.Key.Day == DateTime.Now.Day))
+            var userMood = _userQueryService.GetUserMood(new UserId(model.UserId));
+            if (userMood != null)
                 throw new ArgumentException("User can set his mood only one time per day.");
 
             var command = new SetUserMood(new UserId(model.UserId), model.Rate);

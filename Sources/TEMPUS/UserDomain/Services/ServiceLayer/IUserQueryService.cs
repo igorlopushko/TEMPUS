@@ -11,6 +11,6 @@ namespace TEMPUS.UserDomain.Services.ServiceLayer
         bool ValidateUser(string login, string password);
         IEnumerable<KeyValuePair<Guid, string>> GetUsersRoles();
         IEnumerable<UserMood> GetTeamMoods(ProjectId projectId);
-        IEnumerable<KeyValuePair<DateTime, int>> GetUserMoods(UserId userId);
+        UserMood GetUserMood(UserId userId);
     }
 }

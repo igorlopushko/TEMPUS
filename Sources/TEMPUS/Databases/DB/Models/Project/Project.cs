@@ -25,12 +25,12 @@ namespace TEMPUS.DB.Models.Project
         [ForeignKey("Department")]
         public Guid DepartmentId { get; set; }
 
-        public Department Department { get; set; }
+        public virtual Department Department { get; set; }
 
         [ForeignKey("PpsClassification")]
         public Guid PpsClassificationId { get; set; }
 
-        public PpsClassification PpsClassification { get; set; }
+        public virtual PpsClassification PpsClassification { get; set; }
 
         public DateTime StartDate { get; set; }
 

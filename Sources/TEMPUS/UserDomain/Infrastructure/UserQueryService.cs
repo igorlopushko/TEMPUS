@@ -71,7 +71,7 @@ namespace TEMPUS.UserDomain.Infrastructure
             if (user != null)
             {
                 user.Roles = GetUserRoles(user.UserId);
-                user.Moods = this.GetUserMoods(user.UserId);
+                user.Mood = this.GetUserMood(user.UserId);
                 return user;
             }
 
@@ -130,12 +130,13 @@ namespace TEMPUS.UserDomain.Infrastructure
 
             var teamMembersIds =
                 _userReadRepository.ProjectRoleRelations.Where(x => x.ProjectId == projectId.Id).Select(x => x.UserId);
-            return _userReadRepository.Moods.Where(x => teamMembersIds.Contains(x.UserId)).OrderByDescending(x => x.Date).ToArray().Select(x => new UserMood()
+            return _userReadRepository.Moods.Where(x => teamMembersIds.Contains(x.UserId)).OrderByDescending(x => x.Date).ToArray().Select(x => new UserMood
                 {
                     Date = x.Date,
                     Rate = x.Rate,
                     UserId = new UserId(x.UserId),
-                    UserName = x.User.FirstName + " " + x.User.LastName
+                    FirstName = x.User.FirstName,
+                    LastName = x.User.LastName
                 });
         }
 
@@ -144,13 +145,23 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// </summary>
         /// <param name="userId">The user identifier.</param>
         /// <exception cref="System.ArgumentNullException">When userId is null.</exception>
-        public IEnumerable<KeyValuePair<DateTime, int>> GetUserMoods(UserId userId)
+        public UserMood GetUserMood(UserId userId)
         {
             if (userId == null)
                 throw new ArgumentNullException("userId");
 
-            return _userReadRepository.Moods.Where(x => x.UserId == userId.Id).ToArray().Select(
-                    x => new KeyValuePair<DateTime, int>(x.Date, x.Rate));
+            var date = DateTime.Now;
+            return _userReadRepository.Moods.Where(
+                    x => x.UserId == userId.Id && x.Date.Year == date.Year && x.Date.Month == date.Month
+                    && x.Date.Day == date.Day).ToArray().Select(x => new UserMood
+                        {
+                            Date = x.Date,
+                            Rate = x.Rate,
+                            FirstName = x.User.FirstName,
+                            LastName = x.User.LastName,
+                            UserId = new UserId(x.UserId)
+                        }).
+                    FirstOrDefault();
         }
     }
 }

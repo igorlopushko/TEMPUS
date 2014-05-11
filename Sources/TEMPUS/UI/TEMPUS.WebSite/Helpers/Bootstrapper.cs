@@ -12,6 +12,7 @@ using TEMPUS.Infrastructure.Unity;
 using TEMPUS.ProjectDomain.Infrastructure;
 using TEMPUS.ProjectDomain.Model.DomainLayer;
 using TEMPUS.ProjectDomain.Services;
+using TEMPUS.ProjectDomain.Services.DomainLayer;
 using TEMPUS.UserDomain.Infrastructure;
 using TEMPUS.UserDomain.Model.DomainLayer;
 using TEMPUS.UserDomain.Services.DomainLayer;
@@ -65,7 +66,7 @@ namespace TEMPUS.WebSite.Helpers
                 Container.Get<IProjectStorage<DB.Models.Project.Project>>());
             Container.Add<IRepository<Project, ProjectId>>(projectRepository);
 
-            //TODO: Add registration of the ProjectCommandService.
+            Container.Add(new ProjectCommandService(projectRepository));
 
             var commandHandlersAssemblies = new List<Assembly>
             {

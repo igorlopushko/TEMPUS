@@ -40,14 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IProjectCommandService.cs" />
-    <Compile Include="IProjectQueryService.cs">
+    <Compile Include="DomainLayer\ProjectCommandService.cs" />
+    <Compile Include="ServiceLayer\IProjectCommandService.cs" />
+    <Compile Include="ServiceLayer\IProjectQueryService.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="IProjectRepository.cs">
+    <Compile Include="ServiceLayer\IProjectRepository.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="IProjectStorage.cs">
+    <Compile Include="ServiceLayer\IProjectStorage.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

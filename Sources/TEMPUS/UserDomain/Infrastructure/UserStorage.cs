@@ -80,7 +80,7 @@ namespace TEMPUS.UserDomain.Infrastructure
             if (user != null)
             {
                 user.Roles = this.GetUserRoles(id);
-                user.Moods = this.GetUserMoods(id);
+                user.Mood = this.GetUserMood(id);
             }
 
             return user;
@@ -119,9 +119,9 @@ namespace TEMPUS.UserDomain.Infrastructure
                 _context.UserRoleRelations.AddOrUpdate(new UserRoleRelation { RoleId = role, UserId = aggregate.Id });
             }
 
-            foreach (var mood in aggregate.Moods)
+            if (aggregate.Mood != null)
             {
-                _context.Moods.AddOrUpdate(new Mood { Date = mood.Key, Rate = mood.Value, UserId = aggregate.Id });
+                _context.Moods.Add(new UserMood { Date = aggregate.Mood.Date, Rate = aggregate.Mood.Rate, UserId = aggregate.Id });
             }
 
             _context.SaveChanges();
@@ -132,10 +132,18 @@ namespace TEMPUS.UserDomain.Infrastructure
             return _context.UserRoleRelations.Where(x => x.UserId == userId.Id).AsEnumerable().Select(x => x.RoleId);
         }
 
-        private IEnumerable<KeyValuePair<DateTime, int>> GetUserMoods(UserId userId)
+        private UserMood GetUserMood(UserId userId)
         {
-            return _context.Moods.Where(x => x.UserId == userId.Id).ToArray().Select(
-                    x => new KeyValuePair<DateTime, int>(x.Date, x.Rate));
+            var date = DateTime.Now;
+            return _context.Moods.Where(
+                    x => x.UserId == userId.Id && x.Date.Year == date.Year && x.Date.Month == date.Month
+                    && x.Date.Day == date.Day).ToArray().Select(x => new UserMood
+                    {
+                        Date = x.Date,
+                        Rate = x.Rate,
+                        UserId = x.UserId
+                    }).
+                    FirstOrDefault();
         }
     }
 }

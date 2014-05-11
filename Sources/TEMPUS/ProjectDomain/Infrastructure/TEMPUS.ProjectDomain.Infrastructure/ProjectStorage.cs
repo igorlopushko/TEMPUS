@@ -42,6 +42,7 @@ namespace TEMPUS.ProjectDomain.Infrastructure
                 throw new ArgumentNullException("id");
             }
 
+            //TODO: Added getting Tasks, Risks, TeamMembers.
             return _context.Projects.Find(id.Id);
         }
 
@@ -108,6 +109,8 @@ namespace TEMPUS.ProjectDomain.Infrastructure
             project.StartDate = aggregate.StartDate;
             project.EndDate = aggregate.EndDate;
             project.DepartmentId = aggregate.DepartmentId;
+
+            //TODO: Add updating Tasks, Risks, TeamMebers.
 
             _context.SaveChanges();
         }

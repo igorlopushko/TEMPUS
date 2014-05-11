@@ -35,6 +35,6 @@ namespace TEMPUS.DB.Models.User
         public IEnumerable<Guid> Roles { get; set; }
 
         [NotMapped]
-        public IEnumerable<KeyValuePair<DateTime, int>> Moods { get; set; }
+        public UserMood Mood { get; set; }
     }
 }

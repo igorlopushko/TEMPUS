@@ -38,12 +38,22 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// <returns></returns>
         public override User Get(UserId id)
         {
-            if (id == null)
-                throw new ArgumentNullException("id");
+            if (id == null) throw new ArgumentNullException("id");
 
             var user = _userStorage.Get(id);
-            return user == null ? null : new User(new UserId(user.Id), user.FirstName, user.LastName,
-                user.Email, user.Password, user.Image, user.Phone, user.DateOfBirth, user.Roles.ToList(), user.Moods.ToList());
+            return user == null
+                       ? null
+                       : new User(
+                             new UserId(user.Id),
+                             user.FirstName,
+                             user.LastName,
+                             user.Email,
+                             user.Password,
+                             user.Image,
+                             user.Phone,
+                             user.DateOfBirth,
+                             user.Roles.ToList(),
+                             user.Mood == null ? null : new UserMood(user.Mood.Date, user.Mood.Rate));
         }
 
         /// <summary>
@@ -53,18 +63,23 @@ namespace TEMPUS.UserDomain.Infrastructure
         public override void Save(User aggregate)
         {
             var user = new DB.Models.User.User
-            {
-                Id = aggregate.Id.Id,
-                FirstName = aggregate.FirstName,
-                LastName = aggregate.LastName,
-                Image = aggregate.Image,
-                Password = aggregate.Password,
-                Phone = aggregate.Phone,
-                Email = aggregate.Email,
-                DateOfBirth = aggregate.DateOfBirth,
-                Roles = aggregate.Roles,
-                Moods = aggregate.Moods
-            };
+                {
+                    Id = aggregate.Id.Id,
+                    FirstName = aggregate.FirstName,
+                    LastName = aggregate.LastName,
+                    Image = aggregate.Image,
+                    Password = aggregate.Password,
+                    Phone = aggregate.Phone,
+                    Email = aggregate.Email,
+                    DateOfBirth = aggregate.DateOfBirth,
+                    Roles = aggregate.Roles,
+                    Mood = aggregate.Mood == null ? null : new DB.Models.User.UserMood
+                        {
+                            Date = aggregate.Mood.Date,
+                            Rate = aggregate.Mood.Rate,
+                            UserId = aggregate.Id.Id
+                        }
+                };
 
             if (aggregate.IsNew)
             {
