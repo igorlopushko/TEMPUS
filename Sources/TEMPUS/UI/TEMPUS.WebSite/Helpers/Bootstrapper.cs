@@ -66,12 +66,13 @@ namespace TEMPUS.WebSite.Helpers
                 Container.Get<IProjectStorage<DB.Models.Project.Project>>());
             Container.Add<IRepository<Project, ProjectId>>(projectRepository);
 
-            Container.Add(new ProjectCommandService(projectRepository));
+            Container.Add(new ProjectCommandService(projectRepository, context));
 
             var commandHandlersAssemblies = new List<Assembly>
             {
                 //assemblies with command handlers
-                Assembly.Load(new AssemblyName("TEMPUS.UserDomain.Services"))
+                Assembly.Load(new AssemblyName("TEMPUS.UserDomain.Services")),
+                Assembly.Load(new AssemblyName("TEMPUS.ProjectDomain.Services"))
             };
 
             AutomaticCommandHandlers.Register(commandHandlersAssemblies, bus);

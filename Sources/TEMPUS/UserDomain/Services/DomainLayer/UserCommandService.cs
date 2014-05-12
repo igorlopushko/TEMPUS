@@ -133,7 +133,11 @@ namespace TEMPUS.UserDomain.Services.DomainLayer
         /// <param name="userId">The user identifier.</param>
         private User GetOrCreateUser(UserId userId)
         {
-            return _userRepository.Get(userId) ?? new User(userId);
+            var user = _userRepository.Get(userId);
+            if(user != null)
+                throw new ArgumentException(string.Format("User with such id: {0} exist in the system."));
+
+            return new User(userId);
         }
     }
 }

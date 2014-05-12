@@ -604,5 +604,255 @@ namespace TEMPUS.BaseDomain.Messages
 			return !(a == b);
 		}
 	}
+	
+	[Serializable]
+	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
+	public sealed class CreateProject : ICommand<ProjectId>
+	{
+		public ProjectId Id { get; set; }
+		public int Version { get; set; }
+		public string Name { get; set; }
+		public string Description { get; set; }
+		public string ProjectOrderer { get; set; }
+		public string RecievingOrganization { get; set; }
+		public bool Mandatory { get; set; }
+		public DateTime StartDate { get; set; }
+		public DateTime EndDate { get; set; }
+		public Guid DepartmentId { get; set; }
+		public Guid PpsClassificationId { get; set; }
+		public UserId OwnerId { get; set; }
+		public UserId Manager { get; set; }
+		private CreateProject () {}
+		public CreateProject (ProjectId projectId, string name, string description, string projectOrderer, string recievingOrganization, bool mandatory, DateTime startDate, DateTime endDate, Guid departmentId, Guid ppsClassificationId, UserId ownerId, UserId manager)
+		{
+			Id = projectId;
+			Name = name;
+			Description = description;
+			ProjectOrderer = projectOrderer;
+			RecievingOrganization = recievingOrganization;
+			Mandatory = mandatory;
+			StartDate = startDate;
+			EndDate = endDate;
+			DepartmentId = departmentId;
+			PpsClassificationId = ppsClassificationId;
+			OwnerId = ownerId;
+			Manager = manager;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+			var target = obj as CreateProject;
+			if (target == null)
+			{
+				return false;
+			}
+			return Id.Equals(target.Id) && Name.Equals(target.Name) && Description.Equals(target.Description) && ProjectOrderer.Equals(target.ProjectOrderer) && RecievingOrganization.Equals(target.RecievingOrganization) && Mandatory.Equals(target.Mandatory) && StartDate.Equals(target.StartDate) && EndDate.Equals(target.EndDate) && DepartmentId.Equals(target.DepartmentId) && PpsClassificationId.Equals(target.PpsClassificationId) && OwnerId.Equals(target.OwnerId) && Manager.Equals(target.Manager);
+		}
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode() ^ Name.GetHashCode() ^ Description.GetHashCode() ^ ProjectOrderer.GetHashCode() ^ RecievingOrganization.GetHashCode() ^ Mandatory.GetHashCode() ^ StartDate.GetHashCode() ^ EndDate.GetHashCode() ^ DepartmentId.GetHashCode() ^ PpsClassificationId.GetHashCode() ^ OwnerId.GetHashCode() ^ Manager.GetHashCode();
+		}
+		public static bool operator ==(CreateProject a, CreateProject b)
+		{
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+			return a.Equals(b);
+		}
+		public static bool operator !=(CreateProject a, CreateProject b)
+		{
+			return !(a == b);
+		}
+	}
+	
+	[Serializable]
+	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
+	public sealed class ProjectCreated : IEvent<ProjectId>
+	{
+		public ProjectId Id { get; set; }
+		public int Version { get; set; }
+		private ProjectCreated () {}
+		public ProjectCreated (ProjectId projectId)
+		{
+			Id = projectId;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+			var target = obj as ProjectCreated;
+			if (target == null)
+			{
+				return false;
+			}
+			return Id.Equals(target.Id);
+		}
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode();
+		}
+		public static bool operator ==(ProjectCreated a, ProjectCreated b)
+		{
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+			return a.Equals(b);
+		}
+		public static bool operator !=(ProjectCreated a, ProjectCreated b)
+		{
+			return !(a == b);
+		}
+	}
+	
+	[Serializable]
+	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
+	public sealed class ChangeProjectInformation : ICommand<ProjectId>
+	{
+		public ProjectId Id { get; set; }
+		public int Version { get; set; }
+		public string Name { get; set; }
+		public string Description { get; set; }
+		public string ProjectOrderer { get; set; }
+		public string RecievingOrganization { get; set; }
+		public bool Mandatory { get; set; }
+		public DateTime StartDate { get; set; }
+		public DateTime EndDate { get; set; }
+		public Guid DepartmentId { get; set; }
+		public Guid PpsClassificationId { get; set; }
+		public UserId OwnerId { get; set; }
+		public UserId Manager { get; set; }
+		private ChangeProjectInformation () {}
+		public ChangeProjectInformation (ProjectId projectId, string name, string description, string projectOrderer, string recievingOrganization, bool mandatory, DateTime startDate, DateTime endDate, Guid departmentId, Guid ppsClassificationId, UserId ownerId, UserId manager)
+		{
+			Id = projectId;
+			Name = name;
+			Description = description;
+			ProjectOrderer = projectOrderer;
+			RecievingOrganization = recievingOrganization;
+			Mandatory = mandatory;
+			StartDate = startDate;
+			EndDate = endDate;
+			DepartmentId = departmentId;
+			PpsClassificationId = ppsClassificationId;
+			OwnerId = ownerId;
+			Manager = manager;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+			var target = obj as ChangeProjectInformation;
+			if (target == null)
+			{
+				return false;
+			}
+			return Id.Equals(target.Id) && Name.Equals(target.Name) && Description.Equals(target.Description) && ProjectOrderer.Equals(target.ProjectOrderer) && RecievingOrganization.Equals(target.RecievingOrganization) && Mandatory.Equals(target.Mandatory) && StartDate.Equals(target.StartDate) && EndDate.Equals(target.EndDate) && DepartmentId.Equals(target.DepartmentId) && PpsClassificationId.Equals(target.PpsClassificationId) && OwnerId.Equals(target.OwnerId) && Manager.Equals(target.Manager);
+		}
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode() ^ Name.GetHashCode() ^ Description.GetHashCode() ^ ProjectOrderer.GetHashCode() ^ RecievingOrganization.GetHashCode() ^ Mandatory.GetHashCode() ^ StartDate.GetHashCode() ^ EndDate.GetHashCode() ^ DepartmentId.GetHashCode() ^ PpsClassificationId.GetHashCode() ^ OwnerId.GetHashCode() ^ Manager.GetHashCode();
+		}
+		public static bool operator ==(ChangeProjectInformation a, ChangeProjectInformation b)
+		{
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+			return a.Equals(b);
+		}
+		public static bool operator !=(ChangeProjectInformation a, ChangeProjectInformation b)
+		{
+			return !(a == b);
+		}
+	}
+	
+	[Serializable]
+	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
+	public sealed class ProjectInformationChanged : IEvent<ProjectId>
+	{
+		public ProjectId Id { get; set; }
+		public int Version { get; set; }
+		public string Name { get; set; }
+		public string Description { get; set; }
+		public string ProjectOrderer { get; set; }
+		public string RecievingOrganization { get; set; }
+		public bool Mandatory { get; set; }
+		public DateTime StartDate { get; set; }
+		public DateTime EndDate { get; set; }
+		public Guid DepartmentId { get; set; }
+		public Guid PpsClassificationId { get; set; }
+		public UserId OwnerId { get; set; }
+		public UserId Manager { get; set; }
+		private ProjectInformationChanged () {}
+		public ProjectInformationChanged (ProjectId projectId, string name, string description, string projectOrderer, string recievingOrganization, bool mandatory, DateTime startDate, DateTime endDate, Guid departmentId, Guid ppsClassificationId, UserId ownerId, UserId manager)
+		{
+			Id = projectId;
+			Name = name;
+			Description = description;
+			ProjectOrderer = projectOrderer;
+			RecievingOrganization = recievingOrganization;
+			Mandatory = mandatory;
+			StartDate = startDate;
+			EndDate = endDate;
+			DepartmentId = departmentId;
+			PpsClassificationId = ppsClassificationId;
+			OwnerId = ownerId;
+			Manager = manager;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+			var target = obj as ProjectInformationChanged;
+			if (target == null)
+			{
+				return false;
+			}
+			return Id.Equals(target.Id) && Name.Equals(target.Name) && Description.Equals(target.Description) && ProjectOrderer.Equals(target.ProjectOrderer) && RecievingOrganization.Equals(target.RecievingOrganization) && Mandatory.Equals(target.Mandatory) && StartDate.Equals(target.StartDate) && EndDate.Equals(target.EndDate) && DepartmentId.Equals(target.DepartmentId) && PpsClassificationId.Equals(target.PpsClassificationId) && OwnerId.Equals(target.OwnerId) && Manager.Equals(target.Manager);
+		}
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode() ^ Name.GetHashCode() ^ Description.GetHashCode() ^ ProjectOrderer.GetHashCode() ^ RecievingOrganization.GetHashCode() ^ Mandatory.GetHashCode() ^ StartDate.GetHashCode() ^ EndDate.GetHashCode() ^ DepartmentId.GetHashCode() ^ PpsClassificationId.GetHashCode() ^ OwnerId.GetHashCode() ^ Manager.GetHashCode();
+		}
+		public static bool operator ==(ProjectInformationChanged a, ProjectInformationChanged b)
+		{
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+			return a.Equals(b);
+		}
+		public static bool operator !=(ProjectInformationChanged a, ProjectInformationChanged b)
+		{
+			return !(a == b);
+		}
+	}
 
 }

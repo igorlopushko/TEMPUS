@@ -143,7 +143,7 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
 
             var @event = new UserMoodSet(this.Id, rate, date);
 
-            this.Apply(@event);
+            this.ApplyChange(@event);
         }
 
         private void Apply(UserCreated @event)

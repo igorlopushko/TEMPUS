@@ -78,12 +78,6 @@
                     <div class="form-group">
                         <label for="Role" class="col-sm-3 control-label">Role</label>
                         <div class="col-sm-4">
-                            @*<select class="form-control" id="project">
-                                    <option>Project</option>
-                                    <option>TEMPUS</option>
-                                    <option>Happy Project</option>
-                                    <option>Lucky Project</option>
-                                </select>*@
                             @Html.DropDownListFor(model => model.RoleId, ViewBag.UserRoles as IEnumerable<SelectListItem>, null, new { @class = "form-control" })
                         </div>
                     </div>

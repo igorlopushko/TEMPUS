@@ -35,6 +35,14 @@ namespace TEMPUS.BaseDomain.Messages
 	UserDeleted!(userId)
 	SetUserMood?(userId, int Rate)
 	UserMoodSet!(userId, int Rate, DateTime Date)
+	CreateProject?(projectId, string Name, string Description, string ProjectOrderer, string RecievingOrganization, bool Mandatory, DateTime StartDate, DateTime EndDate,
+					Guid DepartmentId, Guid PpsClassificationId, UserId OwnerId, UserId Manager)
+	ProjectCreated!(projectId)
+	ChangeProjectInformation?(projectId, string Name, string Description, string ProjectOrderer, string RecievingOrganization, bool Mandatory, DateTime StartDate, DateTime EndDate, 
+					Guid DepartmentId, Guid PpsClassificationId, UserId OwnerId, UserId Manager)
+	ProjectInformationChanged!(projectId, string Name, string Description, string ProjectOrderer, string RecievingOrganization, bool Mandatory, DateTime StartDate, DateTime EndDate, 
+					Guid DepartmentId, Guid PpsClassificationId, UserId OwnerId, UserId Manager)
+
 
 ";
 	#>

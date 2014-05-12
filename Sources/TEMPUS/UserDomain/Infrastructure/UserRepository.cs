@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using TEMPUS.BaseDomain.Infrastructure;
 using TEMPUS.BaseDomain.Messages;
 using TEMPUS.BaseDomain.Messages.Identities;
@@ -7,8 +8,6 @@ using TEMPUS.UserDomain.Services.ServiceLayer;
 
 namespace TEMPUS.UserDomain.Infrastructure
 {
-    using System.Linq;
-
     /// <summary>
     /// The class represents functionality for saving, updating, deleting User.
     /// </summary>

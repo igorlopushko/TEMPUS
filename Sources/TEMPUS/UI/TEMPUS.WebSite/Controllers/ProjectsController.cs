@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Web.Mvc;
+using TEMPUS.BaseDomain.Messages;
 using TEMPUS.ProjectDomain.Services;
+using TEMPUS.UserDomain.Services.ServiceLayer;
 using TEMPUS.WebSite.Models.Project;
 using TEMPUS.WebSite.Models.Task;
 
@@ -9,18 +11,31 @@ namespace TEMPUS.WebSite.Controllers
     public class ProjectsController : BaseController
     {
         private readonly IProjectQueryService _projectService;
+        private readonly ICommandSender _commandSender;
+        private readonly IUserQueryService _userQueryService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProjectsController"/> class.
+        /// Initializes a new instance of the <see cref="ProjectsController" /> class.
         /// </summary>
         /// <param name="projectService">The project service.</param>
-        /// <exception cref="System.ArgumentNullException">When projectService is null.</exception>
-        public ProjectsController(IProjectQueryService projectService)
+        /// <param name="commandSender">The command sender.</param>
+        /// <param name="userQueryService">The user query service.</param>
+        /// <exception cref="System.ArgumentNullException">When projectService or commandSender or userQueryService are null.</exception>
+        public ProjectsController(IProjectQueryService projectService, ICommandSender commandSender,
+            IUserQueryService userQueryService)
         {
-            if(projectService == null)
+            if (projectService == null)
                 throw new ArgumentNullException("projectService");
 
+            if (commandSender == null)
+                throw new ArgumentNullException("commandSender");
+
+            if (userQueryService == null)
+                throw new ArgumentNullException("userQueryService");
+
             _projectService = projectService;
+            _commandSender = commandSender;
+            _userQueryService = userQueryService;
         }
 
         [Authorize]
