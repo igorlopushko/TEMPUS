@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TEMPUS.ProjectDomain.Services</RootNamespace>
     <AssemblyName>TEMPUS.ProjectDomain.Services</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,12 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IProjectCommandService.cs" />
-    <Compile Include="IProjectQueryService.cs">
+    <Compile Include="DomainLayer\ProjectCommandService.cs" />
+    <Compile Include="ServiceLayer\IProjectCommandService.cs" />
+    <Compile Include="ServiceLayer\IProjectQueryService.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="IProjectRepository.cs" />
-    <Compile Include="IProjectStorage.cs" />
+    <Compile Include="ServiceLayer\IProjectRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServiceLayer\IProjectStorage.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

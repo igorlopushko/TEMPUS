@@ -71,6 +71,7 @@ namespace TEMPUS.UserDomain.Infrastructure
             if (user != null)
             {
                 user.Roles = GetUserRoles(user.UserId);
+                user.Mood = this.GetUserMood(user.UserId);
                 return user;
             }
 
@@ -96,16 +97,6 @@ namespace TEMPUS.UserDomain.Infrastructure
             return result;
         }
 
-        /// <summary>
-        /// Gets the users by project identifier.
-        /// </summary>
-        /// <param name="projectId">The project identifier.</param>
-        /// <returns>Collection of users</returns>
-        public IEnumerable<UserInfo> GetUsersByProjectId(ProjectId projectId)
-        {
-            throw new NotImplementedException();
-        }
-
 
         /// <summary>
         /// Validates the user.
@@ -124,6 +115,53 @@ namespace TEMPUS.UserDomain.Infrastructure
         public IEnumerable<KeyValuePair<Guid, string>> GetUsersRoles()
         {
             return _userReadRepository.Roles.AsEnumerable().Select(x => new KeyValuePair<Guid, string>(x.Id, x.Name));
+        }
+
+
+        /// <summary>
+        /// Gets the team moods.
+        /// </summary>
+        /// <param name="projectId">The project identifier.</param>
+        /// <exception cref="System.ArgumentNullException">When projectId is null.</exception>
+        public IEnumerable<UserMood> GetTeamMoods(ProjectId projectId)
+        {
+            if (projectId == null)
+                throw new ArgumentNullException("projectId");
+
+            var teamMembersIds =
+                _userReadRepository.ProjectRoleRelations.Where(x => x.ProjectId == projectId.Id).Select(x => x.UserId);
+            return _userReadRepository.Moods.Where(x => teamMembersIds.Contains(x.UserId)).OrderByDescending(x => x.Date).ToArray().Select(x => new UserMood
+                {
+                    Date = x.Date,
+                    Rate = x.Rate,
+                    UserId = new UserId(x.UserId),
+                    FirstName = x.User.FirstName,
+                    LastName = x.User.LastName
+                });
+        }
+
+        /// <summary>
+        /// Gets the user moods.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <exception cref="System.ArgumentNullException">When userId is null.</exception>
+        public UserMood GetUserMood(UserId userId)
+        {
+            if (userId == null)
+                throw new ArgumentNullException("userId");
+
+            var date = DateTime.Now;
+            return _userReadRepository.Moods.Where(
+                    x => x.UserId == userId.Id && x.Date.Year == date.Year && x.Date.Month == date.Month
+                    && x.Date.Day == date.Day).ToArray().Select(x => new UserMood
+                        {
+                            Date = x.Date,
+                            Rate = x.Rate,
+                            FirstName = x.User.FirstName,
+                            LastName = x.User.LastName,
+                            UserId = new UserId(x.UserId)
+                        }).
+                    FirstOrDefault();
         }
     }
 }

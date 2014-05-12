@@ -78,7 +78,10 @@ namespace TEMPUS.UserDomain.Infrastructure
             }
             var user = _context.Users.Find(id.Id);
             if (user != null)
+            {
                 user.Roles = this.GetUserRoles(id);
+                user.Mood = this.GetUserMood(id);
+            }
 
             return user;
         }
@@ -113,14 +116,34 @@ namespace TEMPUS.UserDomain.Infrastructure
 
             foreach (var role in aggregate.Roles)
             {
-                _context.UserRoleRelations.AddOrUpdate(new UserRoleRelation {RoleId = role, UserId = aggregate.Id});
+                _context.UserRoleRelations.AddOrUpdate(new UserRoleRelation { RoleId = role, UserId = aggregate.Id });
             }
+
+            if (aggregate.Mood != null)
+            {
+                _context.Moods.Add(new UserMood { Date = aggregate.Mood.Date, Rate = aggregate.Mood.Rate, UserId = aggregate.Id });
+            }
+
             _context.SaveChanges();
         }
 
         private IEnumerable<Guid> GetUserRoles(UserId userId)
         {
             return _context.UserRoleRelations.Where(x => x.UserId == userId.Id).AsEnumerable().Select(x => x.RoleId);
+        }
+
+        private UserMood GetUserMood(UserId userId)
+        {
+            var date = DateTime.Now;
+            return _context.Moods.Where(
+                    x => x.UserId == userId.Id && x.Date.Year == date.Year && x.Date.Month == date.Month
+                    && x.Date.Day == date.Day).ToArray().Select(x => new UserMood
+                    {
+                        Date = x.Date,
+                        Rate = x.Rate,
+                        UserId = x.UserId
+                    }).
+                    FirstOrDefault();
         }
     }
 }

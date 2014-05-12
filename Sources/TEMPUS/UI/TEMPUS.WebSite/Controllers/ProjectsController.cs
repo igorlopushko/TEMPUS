@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using TEMPUS.ProjectDomain.Services;
 using TEMPUS.WebSite.Models.Project;
 using TEMPUS.WebSite.Models.Task;
 
@@ -10,6 +8,21 @@ namespace TEMPUS.WebSite.Controllers
 {
     public class ProjectsController : BaseController
     {
+        private readonly IProjectQueryService _projectService;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProjectsController"/> class.
+        /// </summary>
+        /// <param name="projectService">The project service.</param>
+        /// <exception cref="System.ArgumentNullException">When projectService is null.</exception>
+        public ProjectsController(IProjectQueryService projectService)
+        {
+            if(projectService == null)
+                throw new ArgumentNullException("projectService");
+
+            _projectService = projectService;
+        }
+
         [Authorize]
         public ActionResult Index()
         {

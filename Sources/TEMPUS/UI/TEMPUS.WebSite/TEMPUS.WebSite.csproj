@@ -156,6 +156,7 @@
     <Compile Include="Models\Account\RegisterViewModel.cs" />
     <Compile Include="Models\Account\UpdateUserViewModel.cs" />
     <Compile Include="Models\Account\UserMenuViewModel.cs" />
+    <Compile Include="Models\Account\UserMoodViewModel.cs" />
     <Compile Include="Models\Base\TopNavigationViewModel.cs" />
     <Compile Include="Models\Project\ProjectStatus.cs" />
     <Compile Include="Models\Project\ProjectListViewModel.cs" />
@@ -195,6 +196,7 @@
     <Content Include="Content\Lib\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\Lib\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Lib\Styles\c3.css" />
+    <Content Include="Content\Styles\Projects\Flow.css" />
     <Content Include="Content\Styles\Main.css" />
     <Content Include="Content\Styles\Profile.css" />
     <Content Include="Content\Styles\Projects.css" />
@@ -253,7 +255,6 @@
     <Content Include="Views\Tasks\Details.cshtml" />
     <Content Include="Views\Tasks\Index.cshtml" />
     <Content Include="Views\Account\LogIn.cshtml" />
-    <Content Include="Views\Account\Tasks.cshtml" />
     <Content Include="Views\TimeReport\Index.cshtml" />
     <Content Include="Views\Projects\Details.cshtml" />
     <Content Include="Views\Projects\Plan.cshtml" />
@@ -290,6 +291,18 @@
     <ProjectReference Include="..\..\Databases\DB\TEMPUS.DB.csproj">
       <Project>{23A88EDC-1FDB-487E-ABEC-123F48F99347}</Project>
       <Name>TEMPUS.DB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ProjectDomain\Infrastructure\TEMPUS.ProjectDomain.Infrastructure\TEMPUS.ProjectDomain.Infrastructure.csproj">
+      <Project>{90a290b5-baf7-4186-82de-0a161e272b00}</Project>
+      <Name>TEMPUS.ProjectDomain.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ProjectDomain\Model\TEMPUS.ProjectDomain.Model\TEMPUS.ProjectDomain.Model.csproj">
+      <Project>{89da37fb-1705-4889-a5a6-d48afecdcc2a}</Project>
+      <Name>TEMPUS.ProjectDomain.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ProjectDomain\Services\TEMPUS.ProjectDomain.Services\TEMPUS.ProjectDomain.Services.csproj">
+      <Project>{2c313214-99b1-4866-ba98-b2f0cf6b969d}</Project>
+      <Name>TEMPUS.ProjectDomain.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\UserDomain\Infrastructure\TEMPUS.UserDomain.Infrastructure.csproj">
       <Project>{f20861aa-d330-4bfb-9ace-54d88d53818c}</Project>
@@ -343,7 +356,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

@@ -22,6 +22,7 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
         public string Phone { get; private set; }
         public DateTime DateOfBirth { get; private set; }
         public IList<Guid> Roles { get; private set; }
+        public UserMood Mood { get; private set; }
 
         public bool IsNew { get; private set; }
         public bool IsDeleted { get; private set; }
@@ -47,8 +48,9 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
         /// <param name="phone">The user phone.</param>
         /// <param name="dateOfBirth">The date of birth of the user.</param>
         /// <param name="roles">The roles of the user.</param>
+        /// <param name="mood">The last mood of the user.</param>
         public User(UserId userId, string firstName, string lastName, string login, string password,
-            string image, string phone, DateTime dateOfBirth, IList<Guid> roles)
+            string image, string phone, DateTime dateOfBirth, IList<Guid> roles, UserMood mood)
         {
             this._id = userId;
             this.FirstName = firstName;
@@ -59,6 +61,7 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
             this.Phone = phone;
             this.DateOfBirth = dateOfBirth;
             this.Roles = roles;
+            this.Mood = mood;
         }
 
         /// <summary>
@@ -132,6 +135,17 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
             this.ApplyChange(@event);
         }
 
+        public void AddMood(int rate, DateTime date)
+        {
+            this.Mood = new UserMood(date, rate);
+            this.IsNew = false;
+            this.IsDeleted = false;
+
+            var @event = new UserMoodSet(this.Id, rate, date);
+
+            this.Apply(@event);
+        }
+
         private void Apply(UserCreated @event)
         {
             //TODO: Investigate why we need this.
@@ -148,6 +162,11 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
         }
 
         private void Apply(RoleToUserAdded @event)
+        {
+            //TODO: Investigate why we need this.
+        }
+
+        private void Apply(UserMoodSet @event)
         {
             //TODO: Investigate why we need this.
         }

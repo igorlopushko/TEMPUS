@@ -9,6 +9,10 @@ using TEMPUS.BaseDomain.Model.ServiceLayer;
 using TEMPUS.DB;
 using TEMPUS.Infrastructure.Commands;
 using TEMPUS.Infrastructure.Unity;
+using TEMPUS.ProjectDomain.Infrastructure;
+using TEMPUS.ProjectDomain.Model.DomainLayer;
+using TEMPUS.ProjectDomain.Services;
+using TEMPUS.ProjectDomain.Services.DomainLayer;
 using TEMPUS.UserDomain.Infrastructure;
 using TEMPUS.UserDomain.Model.DomainLayer;
 using TEMPUS.UserDomain.Services.DomainLayer;
@@ -31,6 +35,7 @@ namespace TEMPUS.WebSite.Helpers
             Container.Add<IUserQueryService, UserQueryService>();
             Container.Add<IFormsAuthenticationService, FormsAuthenticationService>();
             Container.Add<IMembershipService, AccountMembershipService>();
+            Container.Add<IProjectQueryService, ProjectQueryService>();
 
             var bus = new InMemoryBus();
             Container.Add<ICommandSender>(bus);
@@ -49,12 +54,19 @@ namespace TEMPUS.WebSite.Helpers
             var context = new DataContext();
 
             Container.Add<IUserStorage<DB.Models.User.User>>(new UserStorage(context));
+            Container.Add<IProjectStorage<DB.Models.Project.Project>>(new ProjectStorage(context));
 
             var userRepository = new UserRepository(Container.Get<IEventStore>(),
                 Container.Get<IUserStorage<DB.Models.User.User>>());
             Container.Add<IRepository<User, UserId>>(userRepository);
 
             Container.Add(new UserCommandService(userRepository));
+
+            var projectRepository = new ProjectRepository(Container.Get<IEventStore>(),
+                Container.Get<IProjectStorage<DB.Models.Project.Project>>());
+            Container.Add<IRepository<Project, ProjectId>>(projectRepository);
+
+            Container.Add(new ProjectCommandService(projectRepository));
 
             var commandHandlersAssemblies = new List<Assembly>
             {

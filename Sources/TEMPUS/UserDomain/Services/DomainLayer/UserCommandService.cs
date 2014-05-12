@@ -93,7 +93,7 @@ namespace TEMPUS.UserDomain.Services.DomainLayer
         /// <exception cref="System.ArgumentException">When user does not exist.</exception>
         public void Handle(AddRoleToUser command)
         {
-            if(command.Id == null)
+            if (command.Id == null)
                 throw new ArgumentNullException("command", "UserId must be specified.");
 
             var user = _userRepository.Get(command.Id);
@@ -101,6 +101,28 @@ namespace TEMPUS.UserDomain.Services.DomainLayer
                 throw new ArgumentException(string.Format("User with such id: {0} does not exist.", command.Id));
 
             user.AddRole(command.RoleId);
+
+            _userRepository.Save(user);
+        }
+
+        /// <summary>
+        /// Handles the specified <see cref="SetUserMood"/> command.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        public void Handle(SetUserMood command)
+        {
+            if (command.Id == null)
+                throw new ArgumentNullException("command", "UserId must be specified.");
+
+            var user = _userRepository.Get(command.Id);
+            if (user == null)
+                throw new ArgumentException(string.Format("User with such id: {0} does not exist.", command.Id));
+
+            if (user.Mood != null)
+                throw new ArgumentException("User can set his mood only one time per day.");
+
+            var date = DateTime.Now;
+            user.AddMood(command.Rate, date);
 
             _userRepository.Save(user);
         }

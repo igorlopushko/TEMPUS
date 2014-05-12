@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TEMPUS.ProjectDomain.Model</RootNamespace>
     <AssemblyName>TEMPUS.ProjectDomain.Model</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,13 +40,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DomainLayer\Project.cs" />
+    <Compile Include="DomainLayer\Department.cs" />
+    <Compile Include="DomainLayer\PpsClassification.cs" />
+    <Compile Include="DomainLayer\Project.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DomainLayer\Risk.cs" />
     <Compile Include="ServiceLayer\ProjectInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DomainLayer\Task.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BaseDomain\Infrastructure\TEMPUS.BaseDomain.Infrastructure\TEMPUS.BaseDomain.Infrastructure.csproj">
+      <Project>{5d39bee1-2343-4f47-b797-a452e5938b44}</Project>
+      <Name>TEMPUS.BaseDomain.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\BaseDomain\Messages\TEMPUS.BaseDomain.Messages.csproj">
       <Project>{4363d55f-33ec-4c1e-aa68-b59c5c1cfc5a}</Project>
       <Name>TEMPUS.BaseDomain.Messages</Name>

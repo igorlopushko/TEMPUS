@@ -506,5 +506,103 @@ namespace TEMPUS.BaseDomain.Messages
 			return !(a == b);
 		}
 	}
+	
+	[Serializable]
+	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
+	public sealed class SetUserMood : ICommand<UserId>
+	{
+		public UserId Id { get; set; }
+		public int Version { get; set; }
+		public int Rate { get; set; }
+		private SetUserMood () {}
+		public SetUserMood (UserId userId, int rate)
+		{
+			Id = userId;
+			Rate = rate;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+			var target = obj as SetUserMood;
+			if (target == null)
+			{
+				return false;
+			}
+			return Id.Equals(target.Id) && Rate.Equals(target.Rate);
+		}
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode() ^ Rate.GetHashCode();
+		}
+		public static bool operator ==(SetUserMood a, SetUserMood b)
+		{
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+			return a.Equals(b);
+		}
+		public static bool operator !=(SetUserMood a, SetUserMood b)
+		{
+			return !(a == b);
+		}
+	}
+	
+	[Serializable]
+	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
+	public sealed class UserMoodSet : IEvent<UserId>
+	{
+		public UserId Id { get; set; }
+		public int Version { get; set; }
+		public int Rate { get; set; }
+		public DateTime Date { get; set; }
+		private UserMoodSet () {}
+		public UserMoodSet (UserId userId, int rate, DateTime date)
+		{
+			Id = userId;
+			Rate = rate;
+			Date = date;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+			var target = obj as UserMoodSet;
+			if (target == null)
+			{
+				return false;
+			}
+			return Id.Equals(target.Id) && Rate.Equals(target.Rate) && Date.Equals(target.Date);
+		}
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode() ^ Rate.GetHashCode() ^ Date.GetHashCode();
+		}
+		public static bool operator ==(UserMoodSet a, UserMoodSet b)
+		{
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+			return a.Equals(b);
+		}
+		public static bool operator !=(UserMoodSet a, UserMoodSet b)
+		{
+			return !(a == b);
+		}
+	}
 
 }

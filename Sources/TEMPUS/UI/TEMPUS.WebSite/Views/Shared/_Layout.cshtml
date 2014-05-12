@@ -7,21 +7,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="@Url.Content("~/Images/favicon.ico")">
 
-    <title>@ViewBag.Title</title>
+    <title>
+        @if (ViewBag.Title != null) {
+            @ViewBag.Title
+            @: -
+        }
+        TEMPUS
+    </title>
     <link rel="stylesheet" href="@Url.Content("~/Content/Lib/Styles/bootstrap.css")">
     <link rel="stylesheet" href="@Url.Content("~/Content/Lib/Styles/bootstrap-theme.min.css")">
     <link rel="stylesheet" href="@Url.Content("~/Content/Lib/Styles/bootstrap-datetimepicker.min.css")">
     <link rel="stylesheet" href="@Url.Content("~/Content/Lib/Styles/font-awesome.min.css")">
     <link rel="stylesheet" href="@Url.Content("~/Content/Styles/Main.css")">
     <link rel="stylesheet" href="@Url.Content("~/Content/Styles/UserBlock.css")">
-    <link rel="stylesheet" href="@Url.Content("~/Content/Styles/Projects.css")" />
-    <link rel="stylesheet" href="@Url.Content("~/Content/Styles/Projects/Flow.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/Styles/Projects.css")">
+    @RenderSection("CustomCss", false)
 
     <script src="@Url.Content("~/Scripts/Lib/jquery-2.1.0.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Lib/bootstrap.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Lib/moment.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Lib/bootstrap-datetimepicker.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Main.js")"></script>
+    @RenderSection("CustomJs", false)
 </head>
 
 <body>
@@ -30,14 +37,28 @@
         @if (Request.IsAuthenticated)
         {
             <div class="container">
-                    @{ Html.RenderAction("TopNavigation", "Base"); }
+                @{ Html.RenderAction("TopNavigation", "Base"); }
             </div>
         }
     </div>
 
-
     <div id="content">
         <div class="container">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <h1>
+                            @if (ViewBag.PageTitle != null) {
+                                @ViewBag.PageTitle
+                            } else {
+                                @ViewBag.Title
+                            }
+                        </h1>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 page-buttons">@RenderSection("PageButtons", false)</div>
+                </div>
+            </div>
+
             @RenderBody()
         </div>
     </div>

@@ -3,15 +3,17 @@
 @{
     ViewBag.Title = "Profile";
 }
-<script src="~/Scripts/Lib/jquery.ddslick.min.js"></script>
-<script src="~/Scripts/Profile.js"></script>
-<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Profile.css")" />
 
-<h2>Profile</h2>
+@section CustomCss {
+    <link rel="stylesheet" href="@Url.Content("~/Content/Styles/Profile.css")">
+}
+
+@section CustomJs {
+    <script src="~/Scripts/Lib/jquery.ddslick.min.js"></script>
+    <script src="~/Scripts/Profile.js"></script>
+}
 
 <div>@Model.FirstName</div>
-
-
 
 <div class="panel panel-default">
     <div class="panel-heading">Set your mood</div>

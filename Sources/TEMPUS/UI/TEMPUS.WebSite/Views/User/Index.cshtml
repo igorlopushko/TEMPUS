@@ -2,21 +2,23 @@
 
 @{
     ViewBag.Title = "User";
+    ViewBag.PageTitle = Model.FirstName + " " + Model.LastName + ", " + Model.Role;
 }
 
-<link rel="stylesheet" href="@Url.Content("~/Content/Styles/UserPage.css")">
-<script src="~/Scripts/Lib/Chart.js"></script>
-<script src="~/Scripts/UserPage.js"></script>
+@section CustomCss {
+    <link rel="stylesheet" href="@Url.Content("~/Content/Styles/UserPage.css")">
+}
+
+@section CustomJs {
+    <script src="~/Scripts/Lib/Chart.js"></script>
+    <script src="~/Scripts/UserPage.js"></script>
+}
 
 <script>
     $(document).ready(function (ev) {
         setMood(@Model.Mood);
     });
 </script>
-
-<div class="page-header">
-    <h1>@Model.FirstName @Model.LastName, @Model.Role</h1>
-</div>
 
 <div class="row">
     <div class="col-sm-4 col-md-3 text-center">

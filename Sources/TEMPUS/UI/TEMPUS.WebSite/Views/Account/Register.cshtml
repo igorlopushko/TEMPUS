@@ -1,8 +1,8 @@
 ﻿@model TEMPUS.WebSite.Models.Account.RegisterViewModel
 
-<div class="page-header">
-    <h1>Register user</h1>
-</div>
+@{
+    ViewBag.Title = "Register user";
+}
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {

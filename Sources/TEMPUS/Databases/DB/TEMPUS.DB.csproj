@@ -71,6 +71,14 @@
     <Compile Include="Migrations\201405041652460_AddProjectAndRemovePermissions.Designer.cs">
       <DependentUpon>201405041652460_AddProjectAndRemovePermissions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405072214338_AddMoods.cs" />
+    <Compile Include="Migrations\201405072214338_AddMoods.Designer.cs">
+      <DependentUpon>201405072214338_AddMoods.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405110837445_AddUserMoods.cs" />
+    <Compile Include="Migrations\201405110837445_AddUserMoods.Designer.cs">
+      <DependentUpon>201405110837445_AddUserMoods.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Project\Department.cs">
@@ -80,6 +88,7 @@
     <Compile Include="Models\Project\PpsClassification.cs" />
     <Compile Include="Models\Project\ProjectRole.cs" />
     <Compile Include="Models\Project\ProjectRoleRelation.cs" />
+    <Compile Include="Models\User\UserMood.cs" />
     <Compile Include="Models\User\User.cs" />
     <Compile Include="Models\User\Role.cs" />
     <Compile Include="Models\User\UserRoleRelation.cs" />
@@ -104,6 +113,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201405041652460_AddProjectAndRemovePermissions.resx">
       <DependentUpon>201405041652460_AddProjectAndRemovePermissions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405072214338_AddMoods.resx">
+      <DependentUpon>201405072214338_AddMoods.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405110837445_AddUserMoods.resx">
+      <DependentUpon>201405110837445_AddUserMoods.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -1,55 +1,44 @@
 ﻿@using TEMPUS.WebSite.Models.Project
-@{
-    ViewBag.Title = "Task page";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+    ViewBag.Title = "Tasks";
 }
 
-
-<div class="page-header">
-    <h1>Tasks</h1>
-</div>
-<div class="container">
+@section PageButtons {
     <div class="row">
-        <div class="col-md-3">
-            <div class="form-group">
-                <label for="responsiblePerson" class="control-label">Responsible person</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="...">
-                    <div class="input-group-btn">
-                        <button id="responsiblePerson" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">All</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">John Wayne</a></li>
-                            <li><a href="#">Clint Eastwood</a></li>
-                            <li><a href="#">Roman Abramovich</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 pull-right">
+            <a href="#" class="btn btn-primary form-control">Create Task</a>
         </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                <label for="status" class="control-label">Status</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="...">
-                    <div class="input-group-btn">
-                        <button id="status" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">All</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Done</a></li>
-                            <li><a href="#">Parked</a></li>
-                            <li><a href="#">In progress</a></li>
-                            <li><a href="#">New</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+    </div>
+}
 
-        <div class="col-md-3 col-md-offset-3 col-sm-6 col-xs-12 text-center">
-            <button type="button" class="btn btn-primary">New task</button>
+<div class="row">
+    <div class="form-horizontal">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="col-md-4 control-label">Asignee</label>
+                <div class="col-md-8">
+                    <select class="form-control">
+                        <option>All</option>
+                        <option>John Wayne</option>
+                        <option>Clint Eastwood</option>
+                        <option>Roman Abramovich</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="col-md-4 control-label">Status</label>
+                <div class="col-md-8">
+                    <select class="form-control">
+                        <option>All</option>
+                        <option>Done</option>
+                        <option>Parked</option>
+                        <option>In progress</option>
+                        <option>New</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -87,5 +76,3 @@
         <hr>
     </div>
 </div>
-
-
