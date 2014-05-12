@@ -66,7 +66,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <table class="table table-striped">
+        <table class="responsiveGrid table table-striped table-hover">
             <thead>
                 <tr>
                     <th>Project</th>
@@ -82,14 +82,14 @@
                 @foreach (var record in Model)
                 {        
                     <tr>
-                        <td>@record.Project.Name</td>
-                        <td>@if (record.Task != null)
+                        <td data-title="Project">@record.Project.Name</td>
+                        <td data-title="Task">@if (record.Task != null)
                             { @record.Task.Name }</td>
-                        <td>@record.User.FirstName @record.User.LastName</td>
-                        <td>@record.Hours</td>
-                        <td>@record.StartDate.ToString("MM/dd/yyyy")</td>
-                        <td>@record.EndDate.ToString("MM/dd/yyyy")</td>
-                        <td>@record.Description</td>
+                        <td data-title="Person">@record.User.FirstName @record.User.LastName</td>
+                        <td data-title="Effort (hours)">@record.Hours</td>
+                        <td data-title="From">@record.StartDate.ToString("MM/dd/yyyy")</td>
+                        <td data-title="To">@record.EndDate.ToString("MM/dd/yyyy")</td>
+                        <td data-title="Description">@record.Description</td>
                     </tr>
                 }
             </tbody>

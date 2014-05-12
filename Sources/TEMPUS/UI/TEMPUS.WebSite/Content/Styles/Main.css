@@ -31,25 +31,30 @@ body
     background-color: #f5f5f5;
 }
 
-.page-header {
+.page-header
+{
     margin-top: 20px;
 }
 
 /* Utils */
 
-.offset-top {
+.offset-top
+{
     margin-top: 20px;
 }
 
-.offset-bottom {
+.offset-bottom
+{
     margin-bottom: 20px;
 }
 
-.no-offset-top {
+.no-offset-top
+{
     margin-top: 0 !important;
 }
 
-.no-offset-bottom {
+.no-offset-bottom
+{
     margin-bottom: 0 !important;
 }
 
@@ -61,7 +66,6 @@ div.grid-item
 }
 
 /* Responsive Grid */
-
 @media only screen and (max-width: 768px)
 {
 
@@ -76,18 +80,49 @@ div.grid-item
         display: block;
     }
 
-        /* Hide table headers (but not display: none;, for accessibility) */
-        .responsiveGrid thead tr
-        {
-            position: absolute;
-            top: -9999px;
-            left: -9999px;
-        }
+    .responsiveGrid .editButton
+    {
+        float: left;
+        width: 35px;
+    }
+
+    .responsiveGrid .removeButton
+    {
+        word-wrap: break-word;
+        margin-left: 10px;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    .responsiveGrid thead tr
+    {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .responsiveGrid tbody
+    {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
 
     .responsiveGrid tr
     {
-        border: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
     }
+
+        .responsiveGrid tr:first-child,
+        .responsiveGrid tr:first-child td:first-child
+        {
+            border-radius: 5px 5px 0px 0px;
+        }
+
+        .responsiveGrid tr:last-child,
+        .responsiveGrid tr:last-child td:last-child
+        {
+            border-radius: 0px 0px 5px 5px;
+            border: none;
+        }
 
     .responsiveGrid td
     {
@@ -98,6 +133,8 @@ div.grid-item
         padding-left: 50% !important;
         white-space: normal;
         text-align: left;
+        /* For empty fields */
+        min-height: 36px;
     }
 
         .responsiveGrid td:before

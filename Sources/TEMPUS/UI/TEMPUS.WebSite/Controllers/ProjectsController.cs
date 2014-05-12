@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TEMPUS.WebSite.Models.Project;
+using TEMPUS.WebSite.Models.Task;
 
 namespace TEMPUS.WebSite.Controllers
 {
@@ -56,7 +57,39 @@ namespace TEMPUS.WebSite.Controllers
         [Authorize]
         public ActionResult Create()
         {
-            return View();
+            RiskViewModel[] defaultRisks = new RiskViewModel[] {
+                new RiskViewModel() {
+                    Description = "Description",
+                    FinishDate = DateTime.Now,
+                    Person = "Person",
+                    Probability = "Probability",
+                    Response = "Response",
+                    Status = "Status",
+                    Type = "Type",
+                    Impact = "Impact"
+                },
+                new RiskViewModel() {
+                    Description = "Description",
+                    FinishDate = DateTime.Now,
+                    Person = "Person",
+                    Probability = "Probability",
+                    Response = "Response",
+                    Status = "Status",
+                    Type = "Type",
+                    Impact = "Impact"
+                },
+                new RiskViewModel() {
+                    Description = "Description",
+                    FinishDate = DateTime.Now,
+                    Person = "Person",
+                    Probability = "Probability",
+                    Response = "Response",
+                    Status = "Status",
+                    Type = "Type",
+                    Impact = "Impact"
+                }
+            };
+            return View(defaultRisks);
         }
 
         [Authorize]

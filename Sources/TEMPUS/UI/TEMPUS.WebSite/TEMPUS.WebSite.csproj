@@ -159,10 +159,12 @@
     <Compile Include="Models\Base\TopNavigationViewModel.cs" />
     <Compile Include="Models\Project\ProjectStatus.cs" />
     <Compile Include="Models\Project\ProjectListViewModel.cs" />
+    <Compile Include="Models\Project\RiskViewModel.cs" />
     <Compile Include="Models\Project\TaskStatus.cs" />
     <Compile Include="Models\Project\ProjectViewModel.cs" />
     <Compile Include="Models\Project\TaskViewModel.cs" />
     <Compile Include="Models\Project\TimeRecordViewModel.cs" />
+    <Compile Include="Models\Task\TaskListViewModel.cs" />
     <Compile Include="Models\Team\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\AllowedRolesAttribute.cs" />

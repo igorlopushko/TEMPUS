@@ -234,8 +234,8 @@
                 <div class="container">
                     <a class="btn btn-primary next" data-toggle="modal" data-target="#createRisk">Add New Risk</a>
                     <div class="row">
-                        <div class="col-lg-12">
-                            <table class="table" id="table">
+                        <div class="col-md-12 col-lg-12 col-sm-12">
+                            <table class="responsiveGrid table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>№</th>
@@ -243,64 +243,36 @@
                                         <th>Type</th>
                                         <th>Probability</th>
                                         <th>Impact</th>
-                                        <th>Proposed/Implemented response</th>
+                                        <th>Proposed / Implemented response</th>
                                         <th>Status</th>
                                         <th>Responsible person</th>
                                         <th>Finish Date</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Description</td>
-                                        <td>Type</td>
-                                        <td>Probability</td>
-                                        <td>Impact</td>
-                                        <td>Response</td>
-                                        <td>Status</td>
-                                        <td>Responsible person</td>
-                                        <td>Finish</td>
-                                        <td>
-                                            <button type="button" class="btn btn-sm btn-default glyphicon glyphicon-pencil" />
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-sm btn-default glyphicon glyphicon-remove" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Description</td>
-                                        <td>Type</td>
-                                        <td>Probability</td>
-                                        <td>Impact</td>
-                                        <td>Response</td>
-                                        <td>Status</td>
-                                        <td>Responsible person</td>
-                                        <td>Finish</td>
-                                        <td>
-                                            <button type="button" class="btn btn-sm btn-default glyphicon glyphicon-pencil" />
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-sm btn-default glyphicon glyphicon-remove" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Description</td>
-                                        <td>Type</td>
-                                        <td>Probability</td>
-                                        <td>Impact</td>
-                                        <td>Response</td>
-                                        <td>Status</td>
-                                        <td>Responsible person</td>
-                                        <td>Finish</td>
-                                        <td>
-                                            <button type="button" class="btn btn-sm btn-default glyphicon glyphicon-pencil" />
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-sm btn-default glyphicon glyphicon-remove" />
-                                        </td>
-                                    </tr>
+                                    @{
+                                        int i = 0;
+                                    }
+                                    @foreach (var risk in Model)
+                                    {
+                                        i++;
+                                        <tr>
+                                            <td data-title="№">@i</td>
+                                            <td data-title="Description">@risk.Description</td>
+                                            <td data-title="FinishDate">@risk.FinishDate.ToString("MM/dd/yyyy")</td>
+                                            <td data-title="Person">@risk.Person</td>
+                                            <td data-title="Probability">@risk.Probability</td>
+                                            <td data-title="Response">@risk.Response</td>
+                                            <td data-title="Status">@risk.Status</td>
+                                            <td data-title="Type">@risk.Type</td>
+                                            <td data-title="Impact">@risk.Impact</td>
+                                            <td>
+                                                <button type="button" class="editButton btn btn-sm btn-default glyphicon glyphicon-pencil" />
+                                                <button type="button" class="removeButton btn btn-sm btn-default glyphicon glyphicon-remove" />
+                                            </td>
+                                        </tr>
+                                    }
                                 </tbody>
                             </table>
                             <hr>
@@ -312,28 +284,28 @@
             <div class="item">
                 <div class="container">
                     <div class="row">
-                         <div class="form-group">
+                        <div class="form-group">
                             <label for="onetimeCosts" class="col-sm-3 control-label">Onetime costs</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="onetimeCosts" placeholder="Onetime costs"/>
+                                <input type="text" class="form-control" id="onetimeCosts" placeholder="Onetime costs" />
                             </div>
                         </div>
-                         <div class="form-group">
+                        <div class="form-group">
                             <label for="continuousCosts" class="col-sm-3 control-label">Continuous costs</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="continuousCosts" placeholder="Continuous costs"/>
+                                <input type="text" class="form-control" id="continuousCosts" placeholder="Continuous costs" />
                             </div>
                         </div>
-                         <div class="form-group">
+                        <div class="form-group">
                             <label for="hours" class="col-sm-3 control-label">Resource hours</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="hours" placeholder="Resource hours"/>
+                                <input type="text" class="form-control" id="hours" placeholder="Resource hours" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="roi" class="col-sm-3 control-label">ROI</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="roi" placeholder="ROI"/>
+                                <input type="text" class="form-control" id="roi" placeholder="ROI" />
                             </div>
                         </div>
                         <div class="form-group">
