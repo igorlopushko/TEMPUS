@@ -12,5 +12,6 @@ namespace TEMPUS.UserDomain.Services.ServiceLayer
         IEnumerable<KeyValuePair<Guid, string>> GetUsersRoles();
         IEnumerable<UserMood> GetTeamMoods(ProjectId projectId);
         UserMood GetUserMood(UserId userId);
+        UserInfo GetUser(UserId id);
     }
 }

@@ -163,5 +163,36 @@ namespace TEMPUS.UserDomain.Infrastructure
                         }).
                     FirstOrDefault();
         }
+
+
+        /// <summary>
+        /// Gets the specified user.
+        /// </summary>
+        /// <param name="id">The user identifier.</param>
+        /// <exception cref="System.ArgumentNullException">When id is null.</exception>
+        public UserInfo GetUser(UserId id)
+        {
+            if (id == null)
+            {
+                throw new ArgumentNullException("id");
+            }
+
+            var user = _userReadRepository.Users.Find(id.Id);
+            return user == null
+                ? null
+                : new UserInfo
+                {
+                    DateOfBirth = user.DateOfBirth,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    Image = user.Image,
+                    LastName = user.LastName,
+                    Mood = this.GetUserMood(id),
+                    Password = user.Password,
+                    Phone = user.Phone,
+                    UserId = id,
+                    Roles = this.GetUserRoles(id)
+                };
+        }
     }
 }

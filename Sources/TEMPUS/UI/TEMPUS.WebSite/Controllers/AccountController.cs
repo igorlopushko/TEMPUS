@@ -165,34 +165,29 @@ namespace TEMPUS.WebSite.Controllers
             return DisplayFor(model);
         }
 
-        [HttpGet]
-        public ActionResult Edit()
-        {
-            //TODO: Change to return View();
-            return RedirectToAction("Edit", "Account");
-        }
-
         /// <summary>
         /// Manages user profile.
         /// </summary>
         /// <param name="model">The model represents information for the user updating operation.</param>
         [Authorize]
         [HttpPost]
-        public ActionResult Edit(UpdateUserViewModel model)
+        public ActionResult Profile(ProfileViewModel model)
         {
             if (model == null)
             {
-                //TODO: return error message.
-                return RedirectToAction("Edit", "Account");
+                return View();
             }
             if (!ModelState.IsValid)
             {
-                //TODO: return error message.
-                return RedirectToAction("Edit", "Account");
+                return View();
             }
 
-            // TODO Change GetUserByLogin for CurrentUser.User when implemented.
-            var userInfo = _userQueryService.GetUserByEmail(UserContext.Current.Email);
+            var userInfo = _userQueryService.GetUser(model.UserId);
+            if (userInfo == null)
+            {
+                //TODO: Set the error message.
+                return View();
+            }
 
             if (userInfo.Image != model.Image || userInfo.Phone != model.Phone ||
                 userInfo.FirstName != model.FirstName || userInfo.LastName != model.LastName)
@@ -209,15 +204,16 @@ namespace TEMPUS.WebSite.Controllers
         /// Returns the profile of the current user.
         /// </summary>
         [Authorize]
-        public new ActionResult Profile()
+        [HttpGet]
+        public ActionResult Profile(Guid id)
         {
-            // TODO Change GetUserByLogin for CurrentUser.User when implemented.
-            var userInfo = _userQueryService.GetUserByEmail(UserContext.Current.Email);
+            var userInfo = _userQueryService.GetUser(new UserId(id));
             if (userInfo == null)
             {
-                //TODO: return error message.
-                return RedirectToAction("LogIn", "Account");
+                //TODO: Set the error message.
+                return View();
             }
+
             var model = new ProfileViewModel
             {
                 Image = userInfo.Image,
@@ -225,7 +221,11 @@ namespace TEMPUS.WebSite.Controllers
                 Phone = userInfo.Phone,
                 FirstName = userInfo.FirstName,
                 LastName = userInfo.LastName,
-                DateOfBirth = userInfo.DateOfBirth
+                DateOfBirth = userInfo.DateOfBirth,
+                UserId = userInfo.UserId,
+                Email = userInfo.Email,
+                Mood = userInfo.Mood == null ? 0 : userInfo.Mood.Rate,
+                Role = userInfo.Roles == null ? null : userInfo.Roles.FirstOrDefault().ToString()
             };
 
             return View(model);

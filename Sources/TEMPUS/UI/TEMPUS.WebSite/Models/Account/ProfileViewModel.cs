@@ -1,4 +1,5 @@
 ﻿using System;
+using TEMPUS.BaseDomain.Messages.Identities;
 
 namespace TEMPUS.WebSite.Models.Account
 {
@@ -7,6 +8,10 @@ namespace TEMPUS.WebSite.Models.Account
     /// </summary>
     public class ProfileViewModel
     {
+        /// <summary>
+        /// Gets or sets the user identifier.
+        /// </summary>
+        public UserId UserId { get; set; }
         /// <summary>
         /// Gets or sets the login of the user.
         /// </summary>
@@ -37,6 +42,19 @@ namespace TEMPUS.WebSite.Models.Account
         /// </summary>
         public DateTime DateOfBirth { get; set; }
 
-        //TODO Add properties if needed.
+        /// <summary>
+        /// Gets or sets user's role in project.
+        /// </summary>
+        public string Role { get; set; }
+
+        /// <summary>
+        /// Gets or sets user's email.
+        /// </summary>
+        public string Email { get; set; }
+
+        /// <summary>
+        /// Gets or sets user's mood.
+        /// </summary>
+        public int Mood { get; set; }
     }
 }

@@ -2,16 +2,78 @@
 
 @{
     ViewBag.Title = "Profile";
+    ViewBag.PageTitle = Model.FirstName + " " + Model.LastName + ", " + Model.Role;
 }
 
 @section CustomCss {
     <link rel="stylesheet" href="@Url.Content("~/Content/Styles/Profile.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/Styles/UserPage.css")">
 }
 
 @section CustomJs {
+    <script src="~/Scripts/Lib/Chart.js"></script>
+    <script src="~/Scripts/UserPage.js"></script>
     <script src="~/Scripts/Lib/jquery.ddslick.min.js"></script>
     <script src="~/Scripts/Profile.js"></script>
 }
+
+<script>
+    $(document).ready(function (ev) {
+        setMood(@Model.Mood);
+    });
+</script>
+
+<div class="row">
+    <div class="col-sm-4 col-md-3 text-center">
+        <img id="avatar" src="@Url.Content(@Model.Image)" class="img-thumbnail img-responsive" />
+        <div class="text-center">
+            <a href="@Url.Action("Index", "Team")" class="btn btn-default hidden-xs back-button">
+                <span class="glyphicon glyphicon-chevron-left"></span>Back
+            </a>
+        </div>
+    </div>
+
+    <div class="col-sm-8 col-md-9">
+        <div class="row">
+            <div class="col-md-1 col-sm-2 col-xs-2">
+                <p>Mood: </p>
+                <p>Date of birth:</p>
+                <p>Email:</p>
+                <p>Phone:</p>
+            </div>
+            <div class="col-md-11 col-sm-10 col-xs-10">
+                <p>
+                    <img src="~/Content/Images/4_mood.png" class="img-responsive" id="mood-img" />
+                </p>
+                <p>@Model.DateOfBirth</p>
+                <p>@Model.Email</p>
+                <p>@Model.Phone</p>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Mood by days</div>
+                    <div class="panel-body">
+
+                        <canvas id="respondCanvas" height="200"></canvas>
+                    </div>
+                    <div class="panel-footer">
+                        <span class="text-muted">1  - very sad, 2 - not ok, 3 - good, 4 - awesome</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-4 col-xs-offset-4">
+        <a href="@Url.Action("Index", "Team")" class="btn btn-default visible-xs">
+            <span class="glyphicon glyphicon-chevron-left"></span>Back
+        </a>
+    </div>
+</div>
+
+----------------------------------------------------------------------------------------------------------------
+Old profile page:
 
 <div>@Model.FirstName</div>
 
@@ -20,10 +82,14 @@
     <div class="panel-body">
         <span>Variant 1</span>
         <select id="select-box">
-            <option value="1" data-imagesrc="/Content/Images/1_mood.png" data-description=" ">Very
-                sad</option>
-            <option value="2" data-imagesrc="/Content/Images/2_mood.png" data-description=" ">Not
-                OK</option>
+            <option value="1" data-imagesrc="/Content/Images/1_mood.png" data-description=" ">
+                Very
+                sad
+            </option>
+            <option value="2" data-imagesrc="/Content/Images/2_mood.png" data-description=" ">
+                Not
+                OK
+            </option>
             <option value="3" data-imagesrc="/Content/Images/3_mood.png" data-description=" ">Normal</option>
             <option value="4" data-imagesrc="/Content/Images/4_mood.png" data-description=" ">Good</option>
             <option value="5" data-imagesrc="/Content/Images/5_mood.png" data-description=" ">Awesome!</option>
