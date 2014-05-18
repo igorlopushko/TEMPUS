@@ -111,8 +111,8 @@ namespace TEMPUS.WebSite.Controllers
                     model.ProjectMainInfo.EndDate,
                     model.ProjectMainInfo.DepartmentId,
                     model.ProjectMainInfo.PpsClassificationId,
-                    model.ProjectMainInfo.OwnerId,
-                    model.ProjectMainInfo.ManagerId);
+                    new UserId(model.ProjectMainInfo.OwnerId),
+                    new UserId(model.ProjectMainInfo.ManagerId));
                 _commandSender.Send(command);
 
                 //TODO: create commands for information from 2, 3, 4 steps.
@@ -182,19 +182,19 @@ namespace TEMPUS.WebSite.Controllers
         private IEnumerable<SelectListItem> GetDepartments()
         {
             var departments = _projectService.GetDepartments().ToArray();
-            return departments.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Name });
+            return departments.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Name }).ToList();
         }
 
         private IEnumerable<SelectListItem> GetPpsClassifications()
         {
             var classifications = _projectService.GetPpsClassifications().ToArray();
-            return classifications.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Name });
+            return classifications.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Name }).ToList();
         }
 
         private IEnumerable<SelectListItem> GetUsers()
         {
             var users = _userQueryService.GetUsers().ToArray();
-            return users.Select(x => new SelectListItem { Value = x.UserId.Id.ToString(), Text = x.Email });
+            return users.Select(x => new SelectListItem { Value = x.UserId.Id.ToString(), Text = x.Email }).ToList();
         }
 
         private CreateProjectViewModel PrepareCreateProjectModel(CreateProjectViewModel model)
@@ -204,9 +204,9 @@ namespace TEMPUS.WebSite.Controllers
 
             model.ProjectMainInfo.Priorities = new List<SelectListItem>
                 {
-                    new SelectListItem { Text = "High", Value = "High" },
-                    new SelectListItem { Text = "Medium", Value = "Medium" },
-                    new SelectListItem { Text = "Low", Value = "Low" }
+                    new SelectListItem { Text = "High", Value = "1" },
+                    new SelectListItem { Text = "Medium", Value = "2" },
+                    new SelectListItem { Text = "Low", Value = "3" }
                 };
             model.ProjectMainInfo.Departments = this.GetDepartments();
             model.ProjectMainInfo.PpsClassifications = this.GetPpsClassifications();

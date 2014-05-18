@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using TEMPUS.BaseDomain.Messages.Identities;
 
 namespace TEMPUS.WebSite.Models.Project
 {
@@ -13,10 +12,10 @@ namespace TEMPUS.WebSite.Models.Project
         public String Name { get; set; }
 
         [Required]
-        public UserId ManagerId { get; set; }
+        public Guid ManagerId { get; set; }
 
         [Required]
-        public UserId OwnerId { get; set; }
+        public Guid OwnerId { get; set; }
 
         [Required]
         public Guid DepartmentId { get; set; }
