@@ -140,6 +140,27 @@ namespace TEMPUS.UserDomain.Infrastructure
                 });
         }
 
+        public IEnumerable<UserInfo> GetUsersByProjectId(ProjectId projectId)
+        {
+            if (projectId == null)
+                throw new ArgumentNullException("projectId");
+            var teamMembersIds =
+                _userReadRepository.ProjectRoleRelations.Where(x => x.ProjectId == projectId.Id).Select(x => x.UserId);
+            var users = _userReadRepository.Users.Where(x => teamMembersIds.Contains(x.Id)).ToArray().Select(x => new UserInfo
+            {
+                UserId = new UserId(x.Id),
+                LastName = x.LastName,
+                FirstName = x.FirstName,
+                Email = x.Email,
+                Image = x.Image,
+                Password = x.Password,
+                Phone = x.Phone,
+                DateOfBirth = x.DateOfBirth,
+                Roles = GetUserRoles(new UserId(x.Id))
+            });
+            return users;
+        }
+
         /// <summary>
         /// Gets the user moods.
         /// </summary>

@@ -73,6 +73,8 @@ function setMood(mood) {
         case 4:
             color = colors.green;
             break;
+        default:
+            return;
     }
     $("#avatar").css('background-color', color);
     $("#mood-img").attr("src", img);

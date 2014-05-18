@@ -216,7 +216,7 @@ namespace TEMPUS.WebSite.Controllers
 
             var model = new ProfileViewModel
             {
-                Image = userInfo.Image,
+                Image = userInfo.Image == null ? "~/Content/images/user.png" : userInfo.Image,
                 Login = userInfo.Email,
                 Phone = userInfo.Phone,
                 FirstName = userInfo.FirstName,

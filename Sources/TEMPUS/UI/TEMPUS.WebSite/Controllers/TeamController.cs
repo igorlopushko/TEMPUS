@@ -5,8 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using TEMPUS.BaseDomain.Messages;
 using TEMPUS.BaseDomain.Messages.Identities;
+using TEMPUS.ProjectDomain.Services;
 using TEMPUS.UserDomain.Services;
 using TEMPUS.UserDomain.Services.ServiceLayer;
+using TEMPUS.WebSite.Contexts;
+using TEMPUS.WebSite.Models.Account;
 using TEMPUS.WebSite.Models.Team;
 
 namespace TEMPUS.WebSite.Controllers
@@ -15,14 +18,18 @@ namespace TEMPUS.WebSite.Controllers
     {
         private readonly IUserQueryService _userQueryService;
         private readonly ICommandSender _cmdSender;
+        private readonly IProjectQueryService _projectQueryService;
 
-        public TeamController(IUserQueryService userQueryService, ICommandSender cmdSender)
+        public TeamController(IUserQueryService userQueryService, ICommandSender cmdSender, IProjectQueryService projectQueryService)
         {
             if (userQueryService == null)
                 throw new ArgumentNullException("userQueryService");
             if (cmdSender == null)
                 throw new ArgumentNullException("cmdSender");
+            if (projectQueryService == null)
+                throw new ArgumentNullException("projectQueryService");
 
+            _projectQueryService = projectQueryService;
             _userQueryService = userQueryService;
             _cmdSender = cmdSender;
         }
@@ -30,64 +37,20 @@ namespace TEMPUS.WebSite.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            //TODO: get the real team list
-            //ProjectId teamId = null;
-            //var Team = _userQueryService.GetUsersByProjectId(teamId);
+            //Next two lines are just stub, don't look at them!
+            Guid id = _projectQueryService
+                .GetUserProjects(_userQueryService.GetUserByEmail("shatovska@gmail.com").UserId).FirstOrDefault().Id;
+            ProjectId projectId = new ProjectId(id);
 
-
-
-            //this team is stub
-            UserViewModel[] Team = {
-                                       new UserViewModel
-                                       {
-                                           FirstName = "Tetyana",
-                                           LastName = "Shatovska",
-                                           Image = "~/Content/images/user.png",
-                                           Role = "Project Manager"
-                                       },
-                                       new UserViewModel
-                                       {
-                                           FirstName = "Igor",
-                                           LastName = "Lopushko",
-                                           Image = "~/Content/images/user.png",
-                                           Role = "Tech lead"
-                                       },
-                                       new UserViewModel
-                                       {
-                                           FirstName = "Yaroslav",
-                                           LastName = "Admin",
-                                           Image = "~/Content/images/user.png",
-                                           Role = "Developer"
-                                       },
-                                       new UserViewModel
-                                       {
-                                           FirstName = "Anatolii",
-                                           LastName = "Ovchinnikov",
-                                           Image = "~/Content/images/user.png",
-                                           Role = "Developer"
-                                       },
-                                       new UserViewModel
-                                       {
-                                           FirstName = "Alexandra",
-                                           LastName = "Yugan",
-                                           Image = "~/Content/images/user.png",
-                                           Role = "Developer"
-                                       },
-                                       new UserViewModel
-                                       {
-                                           FirstName = "Alexander",
-                                           LastName = "Zayac",
-                                           Image = "~/Content/images/user.png",
-                                           Role = "Developer"
-                                       },
-                                       new UserViewModel
-                                       {
-                                           FirstName = "Volkov",
-                                           LastName = "Dmitriy",
-                                           Image = "~/Content/images/user.png",
-                                           Role = "Developer"
-                                       },
-                                   };
+            var Team = _userQueryService.GetUsersByProjectId(projectId).Select(x => new ProfileViewModel
+            {
+                DateOfBirth = x.DateOfBirth,
+                Email = x.Email,
+                FirstName = x.FirstName,
+                Image = x.Image == null ? "~/Content/images/user.png" : x.Image,
+                LastName = x.LastName,
+                UserId = x.UserId
+            }).AsEnumerable();
             return View(Team.ToList());
         }
     }

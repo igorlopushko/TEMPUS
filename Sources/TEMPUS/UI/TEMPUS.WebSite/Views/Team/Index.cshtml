@@ -1,4 +1,7 @@
-﻿@model List<TEMPUS.WebSite.Models.Team.UserViewModel>
+﻿@using TEMPUS.UserDomain.Model.ServiceLayer
+@using TEMPUS.WebSite.Security
+
+@model List<TEMPUS.WebSite.Models.Account.ProfileViewModel>
 
 @{
     ViewBag.Title = "Team";
@@ -29,7 +32,7 @@
     {
         <div class="col-md-2 col-sm-3 team-member-block element">
             <div class="row">
-                <a href="@Url.Action("Profile", "Account")">
+                <a href="@Url.Action("Profile", "Account", item.UserId)">
                     <div class="col-xs-4 col-sm-12">
                         <img src="@Url.Content(item.Image)" class="img-thumbnail img-responsive img-link">
                     </div>
@@ -46,12 +49,16 @@
         </div>
     }
 </div>
-<div>
-    <h3 class="text-center">Mood by days</h3>
-    <div id="chart"></div>
-</div>
-<script>
-    $(document).ready(function () {
-        c3DrawMoodChart("@jsonUrl");
+@if (SiteSecurity.UserInRole(UserRole.ProjectManager))
+{
+    <div>
+        <h3 class="text-center">Mood by days</h3>
+        <div id="chart"></div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            c3DrawMoodChart("@jsonUrl");
     });
-</script>
+    </script>
+}
+

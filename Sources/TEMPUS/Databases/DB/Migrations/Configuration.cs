@@ -22,6 +22,8 @@ namespace TEMPUS.DB.Migrations
             CreateDepartments(context);
             CreatePpsClassifications(context);
             CreateProjectRoles(context);
+            CreateProjects(context);
+            CreateProjectRoleRelations(context);
         }
 
         private void CreateRoles(DataContext context)
@@ -55,9 +57,111 @@ namespace TEMPUS.DB.Migrations
                         DateOfBirth = new DateTime(1987, 7, 15),
                         FirstName = "Igor",
                         LastName = "Lopushko",
-                        Phone = "+38-097-923-36-67"
+                        Phone = "+380979233667"
                     });
                 var role = context.Roles.FirstOrDefault(x => x.Name == "Administrator");
+                context.UserRoleRelations.Add(new UserRoleRelation { RoleId = role.Id, UserId = id });
+            }
+            if (!context.Users.Any(x => x.Email == "shatovska@gmail.com"))
+            {
+                var id = Guid.NewGuid();
+                context.Users.AddOrUpdate(x => x.Email,
+                    new User
+                    {
+                        Id = id,
+                        Email = "shatovska@gmail.com",
+                        Password = "4297f44b13955235245b2497399d7a93",
+                        DateOfBirth = new DateTime(1975, 5, 10),
+                        FirstName = "Tetyana",
+                        LastName = "Shatovska",
+                        Phone = "+380958252745"
+                    });
+                var role = context.Roles.FirstOrDefault(x => x.Name == "ProjectManager");
+                context.UserRoleRelations.Add(new UserRoleRelation { RoleId = role.Id, UserId = id });
+            }
+            if (!context.Users.Any(x => x.Email == "devoto13@gmail.com"))
+            {
+                var id = Guid.NewGuid();
+                context.Users.AddOrUpdate(x => x.Email,
+                    new User
+                    {
+                        Id = id,
+                        Email = "devoto13@gmail.com",
+                        Password = "4297f44b13955235245b2497399d7a93",
+                        DateOfBirth = new DateTime(1993, 1, 13),
+                        FirstName = "Yaroslav",
+                        LastName = "Admin",
+                        Phone = "+380939382461"
+                    });
+                var role = context.Roles.FirstOrDefault(x => x.Name == "User");
+                context.UserRoleRelations.Add(new UserRoleRelation { RoleId = role.Id, UserId = id });
+            }
+            if (!context.Users.Any(x => x.Email == "sanyazayats@gmail.com"))
+            {
+                var id = Guid.NewGuid();
+                context.Users.AddOrUpdate(x => x.Email,
+                    new User
+                    {
+                        Id = id,
+                        Email = "sanyazayats@gmail.com",
+                        Password = "4297f44b13955235245b2497399d7a93",
+                        DateOfBirth = new DateTime(1993, 1, 1),
+                        FirstName = "Alexander",
+                        LastName = "Zayats",
+                        Phone = "+380935048448"
+                    });
+                var role = context.Roles.FirstOrDefault(x => x.Name == "User");
+                context.UserRoleRelations.Add(new UserRoleRelation { RoleId = role.Id, UserId = id });
+            }
+            if (!context.Users.Any(x => x.Email == "anatoliy.ovchinnikov@sigmaukraine.com"))
+            {
+                var id = Guid.NewGuid();
+                context.Users.AddOrUpdate(x => x.Email,
+                    new User
+                    {
+                        Id = id,
+                        Email = "anatoliy.ovchinnikov@sigmaukraine.com",
+                        Password = "4297f44b13955235245b2497399d7a93",
+                        DateOfBirth = new DateTime(1993, 7, 24),
+                        FirstName = "Anatoliy",
+                        LastName = "Ovchinnikov",
+                        Phone = "+380956146247"
+                    });
+                var role = context.Roles.FirstOrDefault(x => x.Name == "User");
+                context.UserRoleRelations.Add(new UserRoleRelation { RoleId = role.Id, UserId = id });
+            }
+            if (!context.Users.Any(x => x.Email == "wer3452@gmail.com"))
+            {
+                var id = Guid.NewGuid();
+                context.Users.AddOrUpdate(x => x.Email,
+                    new User
+                    {
+                        Id = id,
+                        Email = "wer3452@gmail.com",
+                        Password = "4297f44b13955235245b2497399d7a93",
+                        DateOfBirth = new DateTime(1994, 4, 30),
+                        FirstName = "Dmitriy",
+                        LastName = "Volkov",
+                        Phone = "+380957558789"
+                    });
+                var role = context.Roles.FirstOrDefault(x => x.Name == "User");
+                context.UserRoleRelations.Add(new UserRoleRelation { RoleId = role.Id, UserId = id });
+            }
+            if (!context.Users.Any(x => x.Email == "alexandra.yugan@sigmaukraine.com"))
+            {
+                var id = Guid.NewGuid();
+                context.Users.AddOrUpdate(x => x.Email,
+                    new User
+                    {
+                        Id = id,
+                        Email = "alexandra.yugan@sigmaukraine.com",
+                        Password = "4297f44b13955235245b2497399d7a93",
+                        DateOfBirth = new DateTime(1993, 1, 1),
+                        FirstName = "Alexandra",
+                        LastName = "Yugan",
+                        Phone = "+380996588615"
+                    });
+                var role = context.Roles.FirstOrDefault(x => x.Name == "User");
                 context.UserRoleRelations.Add(new UserRoleRelation { RoleId = role.Id, UserId = id });
             }
 
@@ -109,6 +213,49 @@ namespace TEMPUS.DB.Migrations
             foreach (string role in roles)
             {
                 context.ProjectRoles.AddOrUpdate(x => x.Name, new ProjectRole { Name = role });
+            }
+            context.SaveChanges();
+        }
+
+        private void CreateProjects(DataContext context)
+        {
+            Guid department = context.Departments.FirstOrDefault().Id;
+            Guid pps = context.PpsClassifications.FirstOrDefault().Id;
+            context.Projects.AddOrUpdate(x => x.Name, new Project
+            {
+                Name = "Tempus project",
+                Description = "Management tool",
+                ProjectOrderer = "IKEA",
+                RecievingOrganization = "IKEA",
+                Mandatory = true,
+                DepartmentId = department,
+                PpsClassificationId = pps,
+                StartDate = new DateTime(2014, 3, 1),
+                EndDate = new DateTime(2014, 6, 5)
+            });
+            context.SaveChanges();
+        }
+
+        private void CreateProjectRoleRelations(DataContext context)
+        {
+            Guid project = context.Projects.FirstOrDefault(x => x.Name == "Tempus project").Id;
+            Guid manager = context.ProjectRoles.FirstOrDefault(x => x.Name == "Manager").Id;
+            Guid teamMember = context.ProjectRoles.FirstOrDefault(x => x.Name == "TeamMember").Id;
+            Guid shatovska = context.Users.FirstOrDefault(x => x.LastName == "Shatovska").Id;
+            context.ProjectRoleRelations.AddOrUpdate(x => x.UserId, new ProjectRoleRelation
+            {
+                ProjectId = project,
+                ProjectRoleId = manager,
+                UserId = shatovska
+            });
+            foreach (var userId in context.Users.Where(x => x.Id!=shatovska).Select(x => x.Id).ToArray())
+            {
+                context.ProjectRoleRelations.AddOrUpdate(x => x.UserId, new ProjectRoleRelation
+                {
+                    ProjectId = project,
+                    ProjectRoleId = teamMember,
+                    UserId = userId
+                });
             }
             context.SaveChanges();
         }
