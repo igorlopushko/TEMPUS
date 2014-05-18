@@ -215,5 +215,26 @@ namespace TEMPUS.UserDomain.Infrastructure
                     Roles = this.GetUserRoles(id)
                 };
         }
+
+        /// <summary>
+        /// Gets the users.
+        /// </summary>
+        public IEnumerable<UserInfo> GetUsers()
+        {
+            return _userReadRepository.Users.ToArray().Select(x =>
+                    new UserInfo
+                        {
+                            DateOfBirth = x.DateOfBirth,
+                            UserId = new UserId(x.Id),
+                            Email = x.Email,
+                            FirstName = x.FirstName,
+                            LastName = x.LastName,
+                            Image = x.Image,
+                            Mood = this.GetUserMood(new UserId(x.Id)),
+                            Password = x.Password,
+                            Phone = x.Phone,
+                            Roles = this.GetUserRoles(new UserId(x.Id))
+                        });
+        }
     }
 }

@@ -1,3 +1,4 @@
+﻿@model TEMPUS.WebSite.Models.Project.CreateProjectViewModel
 ﻿@{
     ViewBag.Title = "Create Project";
 }
@@ -5,125 +6,120 @@
 <div id="create-carusel" class="carousel slide" data-interval="false" data-ride="carousel">
     <div class="controls">
         <ul class="nav">
-            <li data-target="#create-carusel" data-slide-to="0" class="active"><a href="#">
+            <li data-target="#create-carusel" class="active">
                 <div class="step">1</div>
-                <small>Step One</small></a></li>
-            <li data-target="#create-carusel" data-slide-to="1"><a href="#">
+                <small>Step One</small></li>
+            <li data-target="#create-carusel">
                 <div class="step">2</div>
-                <small>Step Two</small></a></li>
-            <li data-target="#create-carusel" data-slide-to="2"><a href="#">
+                <small>Step Two</small></li>
+            <li data-target="#create-carusel">
                 <div class="step">3</div>
-                <small>Step Three</small></a></li>
-            <li data-target="#create-carusel" data-slide-to="3"><a href="#">
+                <small>Step Three</small></li>
+            <li data-target="#create-carusel">
                 <div class="step">4</div>
-                <small>Step Four</small></a></li>
+                <small>Step Four</small></li>
         </ul>
     </div>
     <!-- Wrapper for slides -->
-    <form class="form-horizontal" role="form">
+    @using (Html.BeginForm("Create", "Projects", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
         <div class="carousel-inner">
             <div class="item active">
                 <div class="container">
                     <div class="row">
                         <div class="form-group">
-                            <label for="projectName" class="col-sm-3 control-label">Project Name</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="projectName" placeholder="Project Name">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="projectManager" class="col-sm-3 control-label">Project Manager</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="projectManager" placeholder="Project Manager">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="projectOwner" class="col-sm-3 control-label">Project Owner</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="projectOwner" placeholder="Project Owner">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="department" class="col-sm-3 control-label">Department</label>
-                            <div class="col-sm-4">
-                                <select id="department" class="form-control">
-                                    <option>Department1</option>
-                                    <option>Department2</option>
-                                    <option>Department3</option>
-                                    <option>Department4</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="priority" class="col-sm-3 control-label">Priority</label>
-                            <div class="col-sm-4">
-                                <select id="priority" class="form-control">
-                                    <option>High</option>
-                                    <option>Medium</option>
-                                    <option>Low</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="quality" class="col-sm-3 control-label">Quality</label>
-                            <div class="col-sm-4">
-                                <select id="quality" class="form-control">
-                                    <option>0.1</option>
-                                    <option>0.3</option>
-                                    <option>0.6</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="orderer" class="col-sm-3 control-label">Orderer</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="orderer" placeholder="Orderer">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="classification" class="col-sm-3 control-label">PPS Classification</label>
-                            <div class="col-sm-4">
-                                <select id="classification" class="form-control">
-                                    <option>Assignment</option>
-                                    <option>Mini</option>
-                                    <option>Medium</option>
-                                    <option>Mega</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="mandatory" class="col-sm-3 control-label">Mandatory</label>
-                            <div class="col-sm-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input id="mandatory" type="checkbox">
+                                <div class="form-group has-error" align="center">
+                                    <label class="control-label">
+                                        <p>@Html.ValidationMessageFor(model => model.ProjectMainInfo.Name)</p>
+                                        <p>@Html.ValidationMessageFor(model => model.ProjectMainInfo.Orderer)</p>
+                                        <p>@Html.ValidationMessageFor(model => model.ProjectMainInfo.RecievingOrganization)</p>
                                     </label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="projectName" class="col-sm-3 control-label">Project Name</label>
+                            <div class="col-sm-4">
+                                @Html.TextBoxFor(model => model.ProjectMainInfo.Name, new { @class = "form-control", id = "projectName", placeholder = "Project Name" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="projectManager" class="col-sm-3 control-label">Project Manager</label>
+                            <div class="col-sm-4">
+                                @Html.DropDownListFor(model => model.ProjectMainInfo.ManagerId, Model.ProjectMainInfo.Managers, null, new { @class = "form-control", id = "projectManager" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="projectOwner" class="col-sm-3 control-label">Project Owner</label>
+                            <div class="col-sm-4">
+                                @Html.DropDownListFor(model => model.ProjectMainInfo.OwnerId, Model.ProjectMainInfo.Owners, null, new { @class = "form-control", id = "projectOwner" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="department" class="col-sm-3 control-label">Department</label>
+                            <div class="col-sm-4">
+                                @Html.DropDownListFor(model => model.ProjectMainInfo.DepartmentId, Model.ProjectMainInfo.Departments, null, new { @class = "form-control", id = "department" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="priority" class="col-sm-3 control-label">Priority</label>
+                            <div class="col-sm-4">
+                                @Html.DropDownListFor(model => model.ProjectMainInfo.Priority, Model.ProjectMainInfo.Priorities, null, new { @class = "form-control", id = "priority" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="quality" class="col-sm-3 control-label">Quality</label>
+                            <div class="col-sm-4">
+                                @Html.DropDownListFor(model => model.ProjectMainInfo.Quality, Model.ProjectMainInfo.Qualities, null, new { @class = "form-control", id = "quality" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="orderer" class="col-sm-3 control-label">Orderer</label>
+                            <div class="col-sm-4">
+                                @Html.TextBoxFor(model => model.ProjectMainInfo.Orderer, new { @class = "form-control", id = "orderer", placeholder = "Orderer" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="classification" class="col-sm-3 control-label">PPS Classification</label>
+                            <div class="col-sm-4">
+                                @Html.DropDownListFor(model => model.ProjectMainInfo.PpsClassificationId, Model.ProjectMainInfo.PpsClassifications, null, new { @class = "form-control", id = "classification" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mandatory" class="col-sm-3 control-label">Mandatory</label>
+                            <div class="col-sm-4">
+                                @Html.CheckBoxFor(model => model.ProjectMainInfo.Mandatory, new { @class = "form-control", id = "mandatory" })
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="organisation" class="col-sm-3 control-label">Receiving organisation</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="organisation" placeholder="Receiving organisation">
+                                @Html.TextBoxFor(model => model.ProjectMainInfo.RecievingOrganization, new { @class = "form-control", id = "organisation", placeholder = "Receiving organisation" })
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="start" class="col-sm-3 control-label">Start Date</label>
                             <div class="col-sm-4">
-                                <input type="date" class="form-control" id="start" placeholder="Start Date">
+                                @Html.TextBoxFor(model => model.ProjectMainInfo.StartDate, new { @class = "form-control", id = "start", placeholder = "Start Date", type = "date" })
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="due" class="col-sm-3 control-label">Due Date</label>
                             <div class="col-sm-4">
-                                <input type="date" class="form-control" id="due" placeholder="Due Date">
+                                @Html.TextBoxFor(model => model.ProjectMainInfo.EndDate, new { @class = "form-control", id = "due", placeholder = "Due Date", type = "date" })
                             </div>
                         </div>
-
+                        <div class="form-group row">
+                            <label for="description" class="col-sm-3 control-label">Description</label>
+                            <div class="col-sm-4">
+                                @Html.TextAreaFor(model => model.ProjectMainInfo.Description, new { @class = "form-control", id = "description", placeholder = "Description" })
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="step2" class="col-sm-3 control-label"></label>
                             <div class="col-sm-4">
-                                <button data-target="#create-carusel" id="step2" data-slide-to="1" class="btn btn-primary next">Next Step</button>
+                                <button data-target="#create-carusel" id="step0_next" data-slide-to="1" class="btn btn-primary next">Next Step</button>
                             </div>
                         </div>
                     </div>
@@ -225,7 +221,8 @@
                             </table>
                         </div>
                     </div>
-                    <button data-target="#create-carusel" id="step2" data-slide-to="2" class="btn btn-primary next">Next Step</button>
+                    <button data-target="#create-carusel" id="step1_prev" data-slide-to="0" class="btn btn-primary prev">Back</button>
+                    <button data-target="#create-carusel" id="step1_next" data-slide-to="2" class="btn btn-primary next">Next Step</button>
                 </div>
             </div>
             <div class="item">
@@ -249,7 +246,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @{
+                                    @*@{
                                         int i = 0;
                                     }
                                     @foreach (var risk in Model)
@@ -270,14 +267,15 @@
                                                 <button type="button" class="removeButton btn btn-sm btn-default glyphicon glyphicon-remove" />
                                             </td>
                                         </tr>
-                                    }
+                                    }*@
                                 </tbody>
                             </table>
                             <hr>
                         </div>
                     </div>
-                    <button data-target="#create-carusel" id="step2" data-slide-to="3" class="btn btn-primary next">Next Step</button>
                 </div>
+                <button data-target="#create-carusel" id="step2_prev" data-slide-to="1" class="btn btn-primary prev">Back</button>
+                <button data-target="#create-carusel" id="step2_next" data-slide-to="3" class="btn btn-primary next">Next Step</button>
             </div>
             <div class="item">
                 <div class="container">
@@ -286,12 +284,6 @@
                             <label for="onetimeCosts" class="col-sm-3 control-label">Onetime costs</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control" id="onetimeCosts" placeholder="Onetime costs" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="continuousCosts" class="col-sm-3 control-label">Continuous costs</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="continuousCosts" placeholder="Continuous costs" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -306,85 +298,115 @@
                                 <input type="text" class="form-control" id="roi" placeholder="ROI" />
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="benefits" class="col-sm-3 control-label">Benefits description</label>
-                            <div class="col-sm-4">
-                                <textarea class="form-control" id="benefits" placeholder="Benefits"></textarea>
+                        <div class="item">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label for="onetimeCosts" class="col-sm-3 control-label">Onetime costs</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="onetimeCosts" placeholder="Onetime costs" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="continuousCosts" class="col-sm-3 control-label">Continuous costs</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="continuousCosts" placeholder="Continuous costs" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="hours" class="col-sm-3 control-label">Resource hours</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="hours" placeholder="Resource hours" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="roi" class="col-sm-3 control-label">ROI</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="roi" placeholder="ROI" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="benefits" class="col-sm-3 control-label">Benefits description</label>
+                                        <div class="col-sm-4">
+                                            <textarea class="form-control" id="benefits" placeholder="Benefits"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="step2" class="col-sm-3 control-label"></label>
+                                        <div class="col-sm-4">
+                                            <button data-target="#create-carusel" id="step3_prev" data-slide-to="2" class="btn btn-primary prev">Back</button>
+                                            <input data-target="#create-carusel" id="save" class="btn btn-primary next" type="submit" value="Done!" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="step2" class="col-sm-3 control-label"></label>
-                            <div class="col-sm-4">
-                                <a href="@Url.Action("Index", "Projects")"  data-target="#create-carusel" id="step3" class="btn btn-primary next">Done!</a>
+                        <!-- End Item -->
+                    </div>
+                    <!-- End Carousel Inner -->
+                </div>
+                <!-- End Carousel -->
+                <div class="modal fade" id="createRisk" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel">Create Risk</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row-fluid">
+                                    <div class="container-fluid">
+                                        <div class="form-group row">
+                                            <label for="projectName" class="col-sm-5 control-label">Description</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" id="description" placeholder="Description">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="projectManager" class="col-sm-5 control-label">Type</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" id="type" placeholder="Type">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="projectManager" class="col-sm-5 control-label">Probability</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" id="probability" placeholder="Probability">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="projectManager" class="col-sm-5 control-label">Impact</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" id="impact" placeholder="Impact">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="responsible" class="col-sm-5 control-label">Person responsible</label>
+                                            <div class="col-sm-6">
+                                                <select id="responsible" class="form-control">
+                                                    <option>John Rooney</option>
+                                                    <option>Dane Wallback</option>
+                                                    <option>Diego Milito</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="responsible" class="col-sm-5 control-label">Date measure finished</label>
+                                            <div class="col-sm-6">
+                                                <input type="date" class="form-control" id="impact" placeholder="Impact">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Add</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- End Item -->
-        </div>
-    </form>
-    <!-- End Carousel Inner -->
-
-</div>
-<!-- End Carousel -->
-<div class="modal fade" id="createRisk" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Create Risk</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row-fluid">
-                    <div class="container-fluid">
-                        <div class="form-group row">
-                            <label for="projectName" class="col-sm-5 control-label">Description</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="description" placeholder="Description">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="projectManager" class="col-sm-5 control-label">Type</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="type" placeholder="Type">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="projectManager" class="col-sm-5 control-label">Probability</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="probability" placeholder="Probability">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="projectManager" class="col-sm-5 control-label">Impact</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="impact" placeholder="Impact">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="responsible" class="col-sm-5 control-label">Person responsible</label>
-                            <div class="col-sm-6">
-                                <select id="responsible" class="form-control">
-                                    <option>John Rooney</option>
-                                    <option>Dane Wallback</option>
-                                    <option>Diego Milito</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="responsible" class="col-sm-5 control-label">Date measure finished</label>
-                            <div class="col-sm-6">
-                                <input type="date" class="form-control" id="impact" placeholder="Impact">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Add</button>
-            </div>
-        </div>
-    </div>
+        </div>  
+    }
 </div>

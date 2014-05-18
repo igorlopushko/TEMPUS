@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using TEMPUS.BaseDomain.Messages;
+using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.ProjectDomain.Services;
 using TEMPUS.UserDomain.Services.ServiceLayer;
 using TEMPUS.WebSite.Models.Project;
-using TEMPUS.WebSite.Models.Task;
 
 namespace TEMPUS.WebSite.Controllers
 {
@@ -83,41 +85,42 @@ namespace TEMPUS.WebSite.Controllers
         }
 
         [Authorize]
+        [HttpGet]
         public ActionResult Create()
         {
-            RiskViewModel[] defaultRisks = new RiskViewModel[] {
-                new RiskViewModel() {
-                    Description = "Description",
-                    FinishDate = DateTime.Now,
-                    Person = "Person",
-                    Probability = "Probability",
-                    Response = "Response",
-                    Status = "Status",
-                    Type = "Type",
-                    Impact = "Impact"
-                },
-                new RiskViewModel() {
-                    Description = "Description",
-                    FinishDate = DateTime.Now,
-                    Person = "Person",
-                    Probability = "Probability",
-                    Response = "Response",
-                    Status = "Status",
-                    Type = "Type",
-                    Impact = "Impact"
-                },
-                new RiskViewModel() {
-                    Description = "Description",
-                    FinishDate = DateTime.Now,
-                    Person = "Person",
-                    Probability = "Probability",
-                    Response = "Response",
-                    Status = "Status",
-                    Type = "Type",
-                    Impact = "Impact"
-                }
-            };
-            return View(defaultRisks);
+            var model = new CreateProjectViewModel
+                {
+                    ProjectMainInfo = new CreateProjectMainInfoViewModel()
+                };
+            return View(this.PrepareCreateProjectModel(model));
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Create(CreateProjectViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var newProjectId = Guid.NewGuid();
+                var command = new CreateProject(new ProjectId(newProjectId), model.ProjectMainInfo.Name,
+                    model.ProjectMainInfo.Description,
+                    model.ProjectMainInfo.Orderer,
+                    model.ProjectMainInfo.RecievingOrganization,
+                    model.ProjectMainInfo.Mandatory,
+                    model.ProjectMainInfo.StartDate,
+                    model.ProjectMainInfo.EndDate,
+                    model.ProjectMainInfo.DepartmentId,
+                    model.ProjectMainInfo.PpsClassificationId,
+                    new UserId(model.ProjectMainInfo.OwnerId),
+                    new UserId(model.ProjectMainInfo.ManagerId));
+                _commandSender.Send(command);
+
+                //TODO: create commands for information from 2, 3, 4 steps.
+
+                return RedirectToAction("Index");
+            }
+
+            return View(this.PrepareCreateProjectModel(model));
         }
 
         [Authorize]
@@ -174,6 +177,49 @@ namespace TEMPUS.WebSite.Controllers
                 }
             };
             return View(projects);
+        }
+
+        private IEnumerable<SelectListItem> GetDepartments()
+        {
+            var departments = _projectService.GetDepartments().ToArray();
+            return departments.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Name }).ToList();
+        }
+
+        private IEnumerable<SelectListItem> GetPpsClassifications()
+        {
+            var classifications = _projectService.GetPpsClassifications().ToArray();
+            return classifications.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Name }).ToList();
+        }
+
+        private IEnumerable<SelectListItem> GetUsers()
+        {
+            var users = _userQueryService.GetUsers().ToArray();
+            return users.Select(x => new SelectListItem { Value = x.UserId.Id.ToString(), Text = x.Email }).ToList();
+        }
+
+        private CreateProjectViewModel PrepareCreateProjectModel(CreateProjectViewModel model)
+        {
+            if (model == null)
+                throw new ArgumentNullException("model");
+
+            model.ProjectMainInfo.Priorities = new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "High", Value = "1" },
+                    new SelectListItem { Text = "Medium", Value = "2" },
+                    new SelectListItem { Text = "Low", Value = "3" }
+                };
+            model.ProjectMainInfo.Departments = this.GetDepartments();
+            model.ProjectMainInfo.PpsClassifications = this.GetPpsClassifications();
+            model.ProjectMainInfo.Managers = this.GetUsers();
+            model.ProjectMainInfo.Owners = this.GetUsers();
+            model.ProjectMainInfo.Qualities = new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "0.1", Value = "0.1" },
+                    new SelectListItem { Text = "0.3", Value = "0.3" },
+                    new SelectListItem { Text = "0.6", Value = "0.6" }
+                };
+
+            return model;
         }
     }
 }
