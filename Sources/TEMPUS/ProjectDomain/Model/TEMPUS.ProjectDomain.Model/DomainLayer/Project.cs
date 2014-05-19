@@ -62,7 +62,7 @@ namespace TEMPUS.ProjectDomain.Model.DomainLayer
         /// <param name="teamMember">The team members of the project.</param>
         public Project(string name, string description, string projectOrdered, string receivingOrganization, bool mandatory,
             DateTime startDate, DateTime endDate, Department department, PpsClassification classification, IEnumerable<Task> tasks,
-            IEnumerable<Risk> risks, UserId owner, UserId manager, IEnumerable<UserId> teamMember)
+            IEnumerable<Risk> risks, UserId owner, UserId manager, IEnumerable<UserId> teamMember, bool isDeleted)
         {
             this.Name = name;
             this.Description = description;
@@ -78,6 +78,7 @@ namespace TEMPUS.ProjectDomain.Model.DomainLayer
             this.Owner = owner;
             this.Manager = manager;
             this.TeamMembers = teamMember;
+            this.IsDeleted = isDeleted;
         }
 
         /// <summary>
@@ -145,7 +146,6 @@ namespace TEMPUS.ProjectDomain.Model.DomainLayer
             this.Owner = owner;
             this.Manager = manager;
             this.IsNew = false;
-            this.IsDeleted = false;
 
             var @event = new ProjectInformationChanged(this.Id, this.Name, this.Description, this.ProjectOrderer,
                 this.RecievingOrganization, this.Mandatory, this.StartDate, this.EndDate, this.Department.Id,

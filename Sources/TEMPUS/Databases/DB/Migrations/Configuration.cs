@@ -57,7 +57,8 @@ namespace TEMPUS.DB.Migrations
                         DateOfBirth = new DateTime(1987, 7, 15),
                         FirstName = "Igor",
                         LastName = "Lopushko",
-                        Phone = "+380979233667"
+                        Phone = "+380979233667",
+                        IsDeleted = false
                     });
                 var role = context.Roles.FirstOrDefault(x => x.Name == "Administrator");
                 context.UserRoleRelations.Add(new UserRoleRelation { RoleId = role.Id, UserId = id });
@@ -74,7 +75,8 @@ namespace TEMPUS.DB.Migrations
                         DateOfBirth = new DateTime(1975, 5, 10),
                         FirstName = "Tetyana",
                         LastName = "Shatovska",
-                        Phone = "+380958252745"
+                        Phone = "+380958252745",
+                        IsDeleted = false
                     });
                 var role = context.Roles.FirstOrDefault(x => x.Name == "ProjectManager");
                 context.UserRoleRelations.Add(new UserRoleRelation { RoleId = role.Id, UserId = id });
@@ -91,7 +93,8 @@ namespace TEMPUS.DB.Migrations
                         DateOfBirth = new DateTime(1993, 1, 13),
                         FirstName = "Yaroslav",
                         LastName = "Admin",
-                        Phone = "+380939382461"
+                        Phone = "+380939382461",
+                        IsDeleted = false
                     });
                 var role = context.Roles.FirstOrDefault(x => x.Name == "User");
                 context.UserRoleRelations.Add(new UserRoleRelation { RoleId = role.Id, UserId = id });
@@ -108,7 +111,8 @@ namespace TEMPUS.DB.Migrations
                         DateOfBirth = new DateTime(1993, 1, 1),
                         FirstName = "Alexander",
                         LastName = "Zayats",
-                        Phone = "+380935048448"
+                        Phone = "+380935048448",
+                        IsDeleted = false
                     });
                 var role = context.Roles.FirstOrDefault(x => x.Name == "User");
                 context.UserRoleRelations.Add(new UserRoleRelation { RoleId = role.Id, UserId = id });
@@ -125,7 +129,8 @@ namespace TEMPUS.DB.Migrations
                         DateOfBirth = new DateTime(1993, 7, 24),
                         FirstName = "Anatoliy",
                         LastName = "Ovchinnikov",
-                        Phone = "+380956146247"
+                        Phone = "+380956146247",
+                        IsDeleted = false
                     });
                 var role = context.Roles.FirstOrDefault(x => x.Name == "User");
                 context.UserRoleRelations.Add(new UserRoleRelation { RoleId = role.Id, UserId = id });
@@ -142,7 +147,8 @@ namespace TEMPUS.DB.Migrations
                         DateOfBirth = new DateTime(1994, 4, 30),
                         FirstName = "Dmitriy",
                         LastName = "Volkov",
-                        Phone = "+380957558789"
+                        Phone = "+380957558789",
+                        IsDeleted = false
                     });
                 var role = context.Roles.FirstOrDefault(x => x.Name == "User");
                 context.UserRoleRelations.Add(new UserRoleRelation { RoleId = role.Id, UserId = id });
@@ -159,7 +165,8 @@ namespace TEMPUS.DB.Migrations
                         DateOfBirth = new DateTime(1993, 1, 1),
                         FirstName = "Alexandra",
                         LastName = "Yugan",
-                        Phone = "+380996588615"
+                        Phone = "+380996588615",
+                        IsDeleted = false
                     });
                 var role = context.Roles.FirstOrDefault(x => x.Name == "User");
                 context.UserRoleRelations.Add(new UserRoleRelation { RoleId = role.Id, UserId = id });
@@ -231,7 +238,8 @@ namespace TEMPUS.DB.Migrations
                 DepartmentId = department,
                 PpsClassificationId = pps,
                 StartDate = new DateTime(2014, 3, 1),
-                EndDate = new DateTime(2014, 6, 5)
+                EndDate = new DateTime(2014, 6, 5),
+                IsDeleted = false
             });
             context.SaveChanges();
         }

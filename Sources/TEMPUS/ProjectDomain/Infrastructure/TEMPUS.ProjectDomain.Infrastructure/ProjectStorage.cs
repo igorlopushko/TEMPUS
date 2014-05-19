@@ -109,8 +109,9 @@ namespace TEMPUS.ProjectDomain.Infrastructure
             project.StartDate = aggregate.StartDate;
             project.EndDate = aggregate.EndDate;
             project.DepartmentId = aggregate.DepartmentId;
+            project.IsDeleted = aggregate.IsDeleted;
 
-            //TODO: Add updating Tasks, Risks, TeamMebers.
+            //TODO: Add updating Tasks, Risks, TeamMembers.
 
             _context.SaveChanges();
         }

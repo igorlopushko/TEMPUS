@@ -31,6 +31,8 @@ namespace TEMPUS.DB.Models.User
 
         public DateTime DateOfBirth { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         [NotMapped]
         public IEnumerable<Guid> Roles { get; set; }
 
