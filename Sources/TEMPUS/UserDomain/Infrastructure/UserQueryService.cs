@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.DB;
+using TEMPUS.DB.Models.Project;
 using TEMPUS.UserDomain.Model.ServiceLayer;
 using TEMPUS.UserDomain.Services.ServiceLayer;
 
@@ -159,6 +160,11 @@ namespace TEMPUS.UserDomain.Infrastructure
                 Roles = GetUserRoles(new UserId(x.Id))
             });
             return users;
+        }
+
+        public ProjectRole GetProjectRoleForUser(ProjectId projectId, UserId userId)
+        {
+            return _userReadRepository.ProjectRoleRelations.Where(x => x.ProjectId == projectId.Id && x.UserId == userId.Id).Select(x => x.ProjectRole).FirstOrDefault();
         }
 
         /// <summary>

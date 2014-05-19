@@ -207,7 +207,7 @@ namespace TEMPUS.DB.Migrations
             {
                 "Owner",
                 "Manager",
-                "TeamMember"
+                "Team member"
             };
 
             foreach (string role in roles)
@@ -240,7 +240,7 @@ namespace TEMPUS.DB.Migrations
         {
             Guid project = context.Projects.FirstOrDefault(x => x.Name == "Tempus project").Id;
             Guid manager = context.ProjectRoles.FirstOrDefault(x => x.Name == "Manager").Id;
-            Guid teamMember = context.ProjectRoles.FirstOrDefault(x => x.Name == "TeamMember").Id;
+            Guid teamMember = context.ProjectRoles.FirstOrDefault(x => x.Name == "Team member").Id;
             Guid shatovska = context.Users.FirstOrDefault(x => x.LastName == "Shatovska").Id;
             context.ProjectRoleRelations.AddOrUpdate(x => x.UserId, new ProjectRoleRelation
             {

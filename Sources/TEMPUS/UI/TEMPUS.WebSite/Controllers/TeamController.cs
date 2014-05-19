@@ -49,8 +49,9 @@ namespace TEMPUS.WebSite.Controllers
                 FirstName = x.FirstName,
                 Image = x.Image == null ? "~/Content/images/user.png" : x.Image,
                 LastName = x.LastName,
-                UserId = x.UserId
-            }).AsEnumerable();
+                UserId = x.UserId,
+                Role = _userQueryService.GetProjectRoleForUser(projectId, x.UserId).Name
+            }).OrderBy(x => x.Role).AsEnumerable();
             return View(Team.ToList());
         }
     }
