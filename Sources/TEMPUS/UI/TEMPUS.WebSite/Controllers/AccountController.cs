@@ -197,7 +197,7 @@ namespace TEMPUS.WebSite.Controllers
                 _cmdSender.Send(command);
             }
 
-            return RedirectToAction("Profile");
+            return RedirectToAction("Profile", model.UserId.Id);
         }
 
         /// <summary>
@@ -244,8 +244,9 @@ namespace TEMPUS.WebSite.Controllers
         /// </exception>
         [HttpPost]
         [Authorize]
-        public JsonResult SetMood(UserMoodViewModel model)
+        public JsonResult SetMood(string UserId, int Rate)
         {
+            UserMoodViewModel model = new UserMoodViewModel { Rate = Rate, UserId = new Guid(UserId) };
             if (model == null)
                 throw new ArgumentNullException("model");
 
@@ -253,7 +254,7 @@ namespace TEMPUS.WebSite.Controllers
                 throw new ArgumentException("User can change rate of the mood only for himself.");
 
             if (model.Rate <= 0 || model.Rate > 4)
-                throw new ArgumentException("Rate of the mood should be more than 0 and less or equal 5.");
+                throw new ArgumentException("Rate of the mood should be more than 0 and less or equal 4.");
 
             var userMood = _userQueryService.GetUserMood(new UserId(model.UserId));
             if (userMood != null)
