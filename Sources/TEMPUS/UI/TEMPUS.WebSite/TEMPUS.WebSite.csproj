@@ -228,7 +228,6 @@
     <Content Include="Scripts\Lib\d3.v3.min.js" />
     <Content Include="Scripts\Lib\jquery-2.1.0.js" />
     <Content Include="Scripts\Lib\jquery-2.1.0.min.js" />
-    <Content Include="Scripts\Lib\jquery.ddslick.min.js" />
     <Content Include="Scripts\Lib\moment.min.js" />
     <Content Include="Scripts\Main.js" />
     <Content Include="Scripts\moodCharts.js" />
