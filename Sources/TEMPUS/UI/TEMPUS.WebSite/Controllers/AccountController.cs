@@ -190,7 +190,9 @@ namespace TEMPUS.WebSite.Controllers
             }
 
             var userInfo = _userQueryService.GetUser(UserContext.Current.UserId);
-            userInfo.Mood = null;
+            userInfo.LastName = model.LastName;
+            userInfo.FirstName = model.FirstName;
+            userInfo.DateOfBirth = model.DateOfBirth;
             if (userInfo == null)
             {
                 //TODO: Set the error message.
