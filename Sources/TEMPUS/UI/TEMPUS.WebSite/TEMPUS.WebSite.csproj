@@ -263,6 +263,7 @@
     <Content Include="Views\Shared\DisplayTemplates\UserMenuViewModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\TopNavigationViewModel.cshtml" />
     <Content Include="Views\Projects\Select.cshtml" />
+    <Content Include="Views\Account\EditProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

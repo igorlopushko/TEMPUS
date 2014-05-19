@@ -44,6 +44,9 @@
             <a href="@Url.Action("Index", "Team")" class="btn btn-default hidden-xs back-button">
                 <span class="glyphicon glyphicon-chevron-left"></span>Back
             </a>
+            <a href="@Url.Action("EditProfile", "Account")" class="btn btn-primary hidden-xs back-button">
+                <span class="glyphicon glyphicon-pencil"></span>Edit Profile
+            </a>
         </div>
     </div>
 
@@ -116,8 +119,11 @@
 </div>
 <div class="row">
     <div class="col-xs-4 col-xs-offset-4">
-        <a href="@Url.Action("Index", "Team")" class="btn btn-default visible-xs">
+        <a href="@Url.Action("Index", "Team")" class="btn btn-default visible-xs back-button">
             <span class="glyphicon glyphicon-chevron-left"></span>Back
+        </a>
+        <a href="@Url.Action("EditProfile", "Account")" class="btn btn-primary visible-xs back-button">
+            <span class="glyphicon glyphicon-pencil"></span>Edit Profile
         </a>
     </div>
 </div>

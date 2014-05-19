@@ -165,6 +165,13 @@ namespace TEMPUS.WebSite.Controllers
             return DisplayFor(model);
         }
 
+        [HttpGet]
+        [Authorize]
+        public ActionResult EditProfile()
+        {
+            return View();
+        }
+
         /// <summary>
         /// Manages user profile.
         /// </summary>
@@ -182,7 +189,8 @@ namespace TEMPUS.WebSite.Controllers
                 return View();
             }
 
-            var userInfo = _userQueryService.GetUser(model.UserId);
+            var userInfo = _userQueryService.GetUser(UserContext.Current.UserId);
+            userInfo.Mood = null;
             if (userInfo == null)
             {
                 //TODO: Set the error message.
@@ -197,7 +205,7 @@ namespace TEMPUS.WebSite.Controllers
                 _cmdSender.Send(command);
             }
 
-            return RedirectToAction("Profile", model.UserId.Id);
+            return RedirectToAction("Profile", userInfo.UserId.Id);
         }
 
         /// <summary>
