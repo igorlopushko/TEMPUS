@@ -182,32 +182,30 @@ namespace TEMPUS.WebSite.Controllers
         {
             if (model == null)
             {
+                //TODO: return error message.
                 return View();
             }
             if (!ModelState.IsValid)
             {
-                return View();
+                //TODO: return error message.
+                return View(model);
             }
 
             var userInfo = _userQueryService.GetUser(UserContext.Current.UserId);
-            userInfo.LastName = model.LastName;
-            userInfo.FirstName = model.FirstName;
-            userInfo.DateOfBirth = model.DateOfBirth;
             if (userInfo == null)
             {
-                //TODO: Set the error message.
-                return View();
+                //TODO: return error message.
+                return RedirectToAction("Profile", new { id = UserContext.Current.UserId });
             }
 
-            if (userInfo.Image != model.Image || userInfo.Phone != model.Phone ||
-                userInfo.FirstName != model.FirstName || userInfo.LastName != model.LastName)
+            if (userInfo.FirstName != model.FirstName || userInfo.LastName != model.LastName || userInfo.DateOfBirth != model.DateOfBirth)
             {
-                var command = new ChangeUserInformation(userInfo.UserId, model.Phone, model.Image, model.FirstName,
-                    model.LastName, userInfo.DateOfBirth);
+                var command = new ChangeUserInformation(userInfo.UserId, userInfo.Phone, userInfo.Image, model.FirstName,
+                    model.LastName, model.DateOfBirth);
                 _cmdSender.Send(command);
             }
 
-            return RedirectToAction("Profile", userInfo.UserId.Id);
+            return RedirectToAction("Profile", new { id = userInfo.UserId.Id });
         }
 
         /// <summary>
@@ -226,7 +224,7 @@ namespace TEMPUS.WebSite.Controllers
 
             var model = new ProfileViewModel
             {
-                Image = userInfo.Image == null ? "~/Content/images/user.png" : userInfo.Image,
+                Image = userInfo.Image ?? "~/Content/images/user.png",
                 Login = userInfo.Email,
                 Phone = userInfo.Phone,
                 FirstName = userInfo.FirstName,

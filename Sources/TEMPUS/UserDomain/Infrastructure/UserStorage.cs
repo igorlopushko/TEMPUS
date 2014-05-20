@@ -122,7 +122,7 @@ namespace TEMPUS.UserDomain.Infrastructure
 
             if (aggregate.Mood != null)
             {
-                _context.Moods.Add(new UserMood { Date = aggregate.Mood.Date, Rate = aggregate.Mood.Rate, UserId = aggregate.Id });
+                _context.Moods.AddOrUpdate(new UserMood { Date = aggregate.Mood.Date, Rate = aggregate.Mood.Rate, UserId = aggregate.Id });
             }
 
             _context.SaveChanges();
