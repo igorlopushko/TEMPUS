@@ -12,11 +12,6 @@
     margin-left:7%;
 }
 
-    #profile-btn button
-    {
-        width:100%;
-    }
-
 #logout-btn
 {
     width:42%;
@@ -24,7 +19,7 @@
     margin-right:7%;
 }
 
-    #logout-btn button
-    {
-        width:100%;
-    }
+#user-block-dropdown .btn
+{
+    width:100%;
+}

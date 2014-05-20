@@ -38,7 +38,7 @@ namespace TEMPUS.UserDomain.Infrastructure
             if (id == null)
                 throw new ArgumentNullException("id");
 
-            return _userReadRepository.Users.Where(x => x.Id == id.Id).AsEnumerable().Select(x => new UserInfo
+            return _userReadRepository.Users.Where(x => x.Id == id.Id && x.IsDeleted == false).AsEnumerable().Select(x => new UserInfo
             {
                 UserId = new UserId(x.Id),
                 LastName = x.LastName,
@@ -58,7 +58,7 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// <param name="email">user specific email address</param>
         public UserInfo GetUserByEmail(string email)
         {
-            var user = _userReadRepository.Users.Where(x => x.Email == email).ToArray().Select(x => new UserInfo
+            var user = _userReadRepository.Users.Where(x => x.Email == email && x.IsDeleted == false).ToArray().Select(x => new UserInfo
             {
                 UserId = new UserId(x.Id),
                 LastName = x.LastName,
@@ -106,7 +106,7 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// <param name="password">The password.</param>
         public bool ValidateUser(string login, string password)
         {
-            var user = _userReadRepository.Users.FirstOrDefault(x => x.Email == login && x.Password == password);
+            var user = _userReadRepository.Users.FirstOrDefault(x => x.Email == login && x.Password == password && x.IsDeleted == false);
             return user != null;
         }
 
@@ -162,6 +162,11 @@ namespace TEMPUS.UserDomain.Infrastructure
             return users;
         }
 
+        /// <summary>
+        /// Gets the project role for the specified user.
+        /// </summary>
+        /// <param name="projectId">The project identifier.</param>
+        /// <param name="userId">The user identifier.</param>
         public ProjectRole GetProjectRoleForUser(ProjectId projectId, UserId userId)
         {
             return _userReadRepository.ProjectRoleRelations.Where(x => x.ProjectId == projectId.Id && x.UserId == userId.Id).Select(x => x.ProjectRole).FirstOrDefault();
@@ -204,7 +209,7 @@ namespace TEMPUS.UserDomain.Infrastructure
                 throw new ArgumentNullException("id");
             }
 
-            var user = _userReadRepository.Users.Find(id.Id);
+            var user = _userReadRepository.Users.FirstOrDefault(x => x.Id == id.Id && x.IsDeleted == false);
             return user == null
                 ? null
                 : new UserInfo
@@ -241,6 +246,28 @@ namespace TEMPUS.UserDomain.Infrastructure
                             Phone = x.Phone,
                             Roles = this.GetUserRoles(new UserId(x.Id))
                         });
+        }
+
+
+        /// <summary>
+        /// Gets all active users.
+        /// </summary>
+        public IEnumerable<UserInfo> GetAllActiveUsers()
+        {
+            return _userReadRepository.Users.Where(x => x.IsDeleted == false).ToArray().Select(x =>
+                    new UserInfo
+                    {
+                        DateOfBirth = x.DateOfBirth,
+                        UserId = new UserId(x.Id),
+                        Email = x.Email,
+                        FirstName = x.FirstName,
+                        LastName = x.LastName,
+                        Image = x.Image,
+                        Mood = this.GetUserMood(new UserId(x.Id)),
+                        Password = x.Password,
+                        Phone = x.Phone,
+                        Roles = this.GetUserRoles(new UserId(x.Id))
+                    });
         }
     }
 }

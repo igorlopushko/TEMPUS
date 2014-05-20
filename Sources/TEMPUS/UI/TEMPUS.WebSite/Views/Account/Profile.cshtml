@@ -1,4 +1,7 @@
-﻿@model TEMPUS.WebSite.Models.Account.ProfileViewModel
+﻿@using TEMPUS.UserDomain.Model.ServiceLayer
+@using TEMPUS.WebSite.Security
+
+@model TEMPUS.WebSite.Models.Account.ProfileViewModel
 
 @{
     ViewBag.Title = "Profile";
@@ -17,62 +20,122 @@
     <script src="~/Scripts/Profile.js"></script>
 }
 
-<script>
-    $(document).ready(function (ev) {
-        setMood(@Model.Mood);
-    });
-</script>
+@section PageButtons {
+    @if (TEMPUS.WebSite.Contexts.UserContext.Current.UserId == Model.UserId)
+    {
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12 pull-right">
+                <a href="@Url.Action("EditProfile", "Account")" class="btn btn-primary back-button">
+                    <span class="glyphicon glyphicon-pencil"></span>Edit Profile
+                </a>
+            </div>
+        </div>
+    }
+}
 
+@if (SiteSecurity.UserInRole(UserRole.ProjectManager) || TEMPUS.WebSite.Contexts.UserContext.Current.UserId == Model.UserId)
+{
+    <script>
+        $(document).ready(function (ev) {
+            setMood(@Model.Mood);
+        });
+    </script>
+}
+
+@if (Model.Mood == 0 && TEMPUS.WebSite.Contexts.UserContext.Current.UserId == Model.UserId)
+{
+    <script>
+        $(document).ready(function (ev) {
+            setMoodHandler("@Url.Action("SetMood", "Account")", "@Model.UserId.Id");
+        });
+    </script>
+}
 <div class="row">
-    <div class="col-sm-4 col-md-3 text-center">
-        <img id="avatar" src="@Url.Content(@Model.Image)" class="img-thumbnail img-responsive" />
+    <div class="col-sm-3 col-md-3">
         <div class="text-center">
+            <img id="avatar" src="@Url.Content(@Model.Image)" class="img-thumbnail img-responsive" />
+        </div>
+        <div>
             <a href="@Url.Action("Index", "Team")" class="btn btn-default hidden-xs back-button">
                 <span class="glyphicon glyphicon-chevron-left"></span>Back
             </a>
         </div>
     </div>
 
-    <div class="col-sm-8 col-md-9">
+    <div class="col-sm-9 col-md-9">
         <div class="row">
-            <div class="col-md-12 text-center">
-                <ul class="list-inline" id="ul-chooser">
-                    <li>
-                        <img src="~/Content/Images/1_mood.png" class="img-responsive" id="mood-1" />
-                    </li>
-                    <li>
-                        <img src="~/Content/Images/2_mood.png" class="img-responsive" id="mood-2" />
-                    </li>
-                    <li>
-                        <img src="~/Content/Images/3_mood.png" class="img-responsive" id="mood-3" />
-                    </li>
-                    <li>
-                        <img src="~/Content/Images/4_mood.png" class="img-responsive" id="mood-4" />
-                    </li>
-                </ul>
+            <div class="col-sm-5 text-center col-xs-8 col-xs-offset-2 col-sm-offset-0 visible-sm visible-xs ">
+                <div class="panel panel-primary mood-set">
+                    <div class="panel-heading">
+                        Set your mood please
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-inline ul-chooser">
+                            <li>
+                                <img src="~/Content/Images/1_mood.png" class="img-responsive" data-mood="1" />
+                            </li>
+                            <li>
+                                <img src="~/Content/Images/2_mood.png" class="img-responsive" data-mood="2" />
+                            </li>
+                            <li>
+                                <img src="~/Content/Images/3_mood.png" class="img-responsive" data-mood="3" />
+                            </li>
+                            <li>
+                                <img src="~/Content/Images/4_mood.png" class="img-responsive" data-mood="4" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-2 col-sm-2 col-xs-2">
-                <p>Mood: </p>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-sm-3 col-xs-4">
+                <p class="mood-related">Mood: </p>
                 <p>Date of birth:</p>
                 <p>Email:</p>
                 <p>Phone:</p>
             </div>
-            <div class="col-md-10 col-sm-10 col-xs-10">
-                <p>
+            <div class="col-md-6 col-sm-9 col-xs-8">
+                <p class="mood-related">
                     <img src="" class="img-responsive" id="mood-img" />
                 </p>
                 <p>@Model.DateOfBirth.ToShortDateString()</p>
                 <p>@Model.Email</p>
                 <p>@Model.Phone</p>
             </div>
+            <div class="col-md-4 text-center visible-md visible-lg">
+                <div class="panel panel-primary mood-set">
+                    <div class="panel-heading">
+                        Set your mood please
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-inline ul-chooser">
+                            <li>
+                                <img src="~/Content/Images/1_mood.png" class="img-responsive" data-mood="1" />
+                            </li>
+                            <li>
+                                <img src="~/Content/Images/2_mood.png" class="img-responsive" data-mood="2" />
+                            </li>
+                            <li>
+                                <img src="~/Content/Images/3_mood.png" class="img-responsive" data-mood="3" />
+                            </li>
+                            <li>
+                                <img src="~/Content/Images/4_mood.png" class="img-responsive" data-mood="4" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-4 col-xs-offset-4">
-        <a href="@Url.Action("Index", "Team")" class="btn btn-default visible-xs">
-            <span class="glyphicon glyphicon-chevron-left"></span>Back
-        </a>
+    <div class="col-xs-12">
+        <div class="text-center">
+            <a href="@Url.Action("Index", "Team")" class="btn btn-default visible-xs back-button">
+                <span class="glyphicon glyphicon-chevron-left"></span>Back
+            </a>
+        </div>
     </div>
 </div>
 

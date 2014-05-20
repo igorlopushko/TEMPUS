@@ -66,7 +66,8 @@ namespace TEMPUS.ProjectDomain.Infrastructure
                                              null,
                                              null,
                                              null,
-                                             null);
+                                             null,
+                                             projectEntity.IsDeleted);
 
             return projectAggregate;
         }
@@ -88,16 +89,13 @@ namespace TEMPUS.ProjectDomain.Infrastructure
                     StartDate = root.StartDate,
                     EndDate = root.EndDate,
                     DepartmentId = root.Department.Id,
-                    PpsClassificationId = root.Classification.Id
+                    PpsClassificationId = root.Classification.Id,
+                    IsDeleted = root.IsDeleted
                 };
 
             if (root.IsNew)
             {
                 _projectStorage.Add(project);
-            }
-            else if (root.IsDeleted)
-            {
-                _projectStorage.Delete(project);
             }
             else
             {

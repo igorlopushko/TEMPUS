@@ -17,5 +17,6 @@ namespace TEMPUS.UserDomain.Services.ServiceLayer
         UserMood GetUserMood(UserId userId);
         UserInfo GetUser(UserId id);
         IEnumerable<UserInfo> GetUsers();
+        IEnumerable<UserInfo> GetAllActiveUsers();
     }
 }

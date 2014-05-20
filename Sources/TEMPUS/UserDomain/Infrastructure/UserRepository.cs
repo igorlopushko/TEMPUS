@@ -52,7 +52,8 @@ namespace TEMPUS.UserDomain.Infrastructure
                              user.Phone,
                              user.DateOfBirth,
                              user.Roles.ToList(),
-                             user.Mood == null ? null : new UserMood(user.Mood.Date, user.Mood.Rate));
+                             user.Mood == null ? null : new UserMood(user.Mood.Date, user.Mood.Rate),
+                             user.IsDeleted);
         }
 
         /// <summary>
@@ -72,6 +73,7 @@ namespace TEMPUS.UserDomain.Infrastructure
                     Email = aggregate.Email,
                     DateOfBirth = aggregate.DateOfBirth,
                     Roles = aggregate.Roles,
+                    IsDeleted = aggregate.IsDeleted,
                     Mood = aggregate.Mood == null ? null : new DB.Models.User.UserMood
                         {
                             Date = aggregate.Mood.Date,
@@ -83,10 +85,6 @@ namespace TEMPUS.UserDomain.Infrastructure
             if (aggregate.IsNew)
             {
                 _userStorage.Add(user);
-            }
-            else if (aggregate.IsDeleted)
-            {
-                _userStorage.Delete(user);
             }
             else
             {

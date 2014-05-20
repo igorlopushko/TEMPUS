@@ -3,29 +3,36 @@
     height:25px;
 }
 
-#ul-chooser li
+.ul-chooser li
 {
     padding:5px 5px 5px 5px;
-    height:50px;
 }
 
-#ul-chooser li img
+.ul-chooser li img
 {
     opacity:0.4;
     height:35px;
 }
 
-#ul-chooser li img:hover
+.ul-chooser li img:hover
 {
     opacity:1.0;
 }
 
-.panel
+.mood-set
 {
-    width:280px;
+    display:none
 }
 
+.panel-body
+{
+    padding:10px 0px 0px 0px;
+}
 
+.mood-related
+{
+    display:none
+}
 
 #whitespace
 {

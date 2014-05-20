@@ -142,7 +142,6 @@
     <Compile Include="Controllers\RisksController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -168,6 +167,7 @@
     <Compile Include="Models\Project\TaskViewModel.cs" />
     <Compile Include="Models\Project\TimeRecordViewModel.cs" />
     <Compile Include="Models\Task\TaskListViewModel.cs" />
+    <Compile Include="Models\Team\TeamViewModel.cs" />
     <Compile Include="Models\Team\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\AllowedRolesAttribute.cs" />
@@ -266,6 +266,7 @@
     <Content Include="Views\Shared\DisplayTemplates\UserMenuViewModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\TopNavigationViewModel.cshtml" />
     <Content Include="Views\Projects\Select.cshtml" />
+    <Content Include="Views\Account\EditProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
