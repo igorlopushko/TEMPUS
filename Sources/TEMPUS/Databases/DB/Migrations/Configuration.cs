@@ -24,6 +24,7 @@ namespace TEMPUS.DB.Migrations
             CreateProjectRoles(context);
             CreateProjects(context);
             CreateProjectRoleRelations(context);
+            CreateUserMoods(context);
         }
 
         private void CreateRoles(DataContext context)
@@ -256,7 +257,7 @@ namespace TEMPUS.DB.Migrations
                 ProjectRoleId = manager,
                 UserId = shatovska
             });
-            foreach (var userId in context.Users.Where(x => x.Id!=shatovska).Select(x => x.Id).ToArray())
+            foreach (var userId in context.Users.Where(x => x.Id != shatovska).Select(x => x.Id).ToArray())
             {
                 context.ProjectRoleRelations.AddOrUpdate(x => x.UserId, new ProjectRoleRelation
                 {
@@ -264,6 +265,25 @@ namespace TEMPUS.DB.Migrations
                     ProjectRoleId = teamMember,
                     UserId = userId
                 });
+            }
+            context.SaveChanges();
+        }
+
+        private void CreateUserMoods(DataContext context)
+        {
+            Random r = new Random();
+            var userIds = context.Users.Select(x => x.Id).ToArray();
+            foreach (var userId in userIds)
+            {
+                for (int i = 1; i < 8; i++)
+                {
+                    context.Moods.AddOrUpdate(x => new { x.Date, x.UserId }, new UserMood
+                    {
+                        UserId = userId,
+                        Rate = r.Next(1, 5),
+                        Date = DateTime.Now.Date.Subtract(TimeSpan.FromDays(i))
+                    });
+                }
             }
             context.SaveChanges();
         }

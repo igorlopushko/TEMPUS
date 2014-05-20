@@ -52,7 +52,25 @@ namespace TEMPUS.WebSite.Controllers
                 UserId = x.UserId,
                 Role = _userQueryService.GetProjectRoleForUser(projectId, x.UserId).Name
             }).OrderBy(x => x.Role).AsEnumerable();
-            return View(Team.ToList());
+            return View(new TeamViewModel{users = Team.ToList(), projectId = projectId});
+        }
+
+        [HttpGet]
+        [Authorize]
+        public JsonResult GetTeamMoods(Guid ProjectId)
+        {
+            var moods = _userQueryService.GetTeamMoods(new ProjectId(ProjectId));
+            moods = moods.Where(x => (DateTime.Now - x.Date).Days <= 7);
+            var users = new List<object>();
+            var ids = moods.Select(x => x.UserId).Distinct();
+            foreach (var id in ids)
+            {
+                var data = moods.Where(x => x.UserId == id).Select(x => new { date = x.Date.ToString("yyyy-MM-dd"), mood = x.Rate });
+                var chosenUser = moods.Where(x => x.UserId == id).FirstOrDefault();
+                string name = chosenUser.FirstName + " " + chosenUser.LastName;
+                users.Add(new {name = name, data = data});
+            }
+            return Json(users, JsonRequestBehavior.AllowGet);
         }
     }
 }

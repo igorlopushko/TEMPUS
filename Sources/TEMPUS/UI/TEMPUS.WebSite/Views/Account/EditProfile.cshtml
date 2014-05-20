@@ -19,12 +19,13 @@
                                 <label class="control-label">
                                     <p>@Html.ValidationMessageFor(model => model.FirstName)</p>
                                     <p>@Html.ValidationMessageFor(model => model.LastName)</p>
+                                    <p>@Html.ValidationMessageFor(model => model.Phone)</p>
                                     <p>@Html.ValidationMessageFor(model => model.DateOfBirth)</p>
                                     @if (ViewData.ModelState["Error"] != null)
                                     {
                                         if (ViewData.ModelState["Error"].Errors[0] != null)
                                         {
-                                            <p>@ViewData.ModelState["Error"].Errors[0].ErrorMessage</p>
+                                        <p>@ViewData.ModelState["Error"].Errors[0].ErrorMessage</p>
                                         }
                                     }
                                 </label>
@@ -34,20 +35,31 @@
                     <div class="form-group">
                         <label for="FirstName" class="col-sm-3 control-label">First name</label>
                         <div class="col-sm-4">
-                            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", id = "firstname", placeholder = "First name" })
+                            @Html.TextBoxFor(model => model.FirstName, new { @Value = TEMPUS.WebSite.Contexts.UserContext.Current.FirstName ?? "", @class = "form-control", id = "firstname", placeholder = "First name" })
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="LastName" class="col-sm-3 control-label">Last name</label>
                         <div class="col-sm-4">
-                            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", id = "lastname", placeholder = "Last name" })
+                            @Html.TextBoxFor(model => model.LastName, new { @Value = TEMPUS.WebSite.Contexts.UserContext.Current.LastName ?? "", @class = "form-control", id = "lastname", placeholder = "Last name" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Phone" class="col-sm-3 control-label">Phone</label>
+                        <div class="col-sm-4">
+                            @Html.TextBoxFor(model => model.Phone, new { @Value = TEMPUS.WebSite.Contexts.UserContext.Current.Phone ?? "", @class = "form-control", id = "phone", placeholder = "phone" })
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="DateOfBirth" class="col-sm-3 control-label">Date of birth</label>
                         <div class="col-sm-4">
                             <div class='input-group date' id='date_of_birth' role="datepicker">
-                                @Html.TextBoxFor(model => model.DateOfBirth, new { @class = "form-control", placeholder = "Date of birth" })
+                                @Html.TextBoxFor(model => model.DateOfBirth, new
+                           {
+                               @Value = TEMPUS.WebSite.Contexts.UserContext.Current.DateOfBirth.Date,
+                               @class = "form-control",
+                               placeholder = "Date of birth"
+                           })
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -56,8 +68,8 @@
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label"></label>
-                        <div class="col-sm-4">
-                            <input class="btn btn-primary next" value="Edit" type="submit" />
+                        <div class="col-sm-4 text-center">
+                            <input style="width:50%" class="btn btn-primary next" value="Edit" type="submit" />
                         </div>
                     </div>
                 </div>

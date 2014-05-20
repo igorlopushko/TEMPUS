@@ -188,7 +188,7 @@ namespace TEMPUS.WebSite.Controllers
             if (!ModelState.IsValid)
             {
                 //TODO: return error message.
-                return View(model);
+                return View("EditProfile", model);
             }
 
             var userInfo = _userQueryService.GetUser(UserContext.Current.UserId);
@@ -198,9 +198,9 @@ namespace TEMPUS.WebSite.Controllers
                 return RedirectToAction("Profile", new { id = UserContext.Current.UserId });
             }
 
-            if (userInfo.FirstName != model.FirstName || userInfo.LastName != model.LastName || userInfo.DateOfBirth != model.DateOfBirth)
+            if (userInfo.FirstName != model.FirstName || userInfo.LastName != model.LastName || userInfo.Phone != model.Phone || userInfo.DateOfBirth != model.DateOfBirth)
             {
-                var command = new ChangeUserInformation(userInfo.UserId, userInfo.Phone, userInfo.Image, model.FirstName,
+                var command = new ChangeUserInformation(userInfo.UserId, model.Phone, userInfo.Image, model.FirstName,
                     model.LastName, model.DateOfBirth);
                 _cmdSender.Send(command);
             }
