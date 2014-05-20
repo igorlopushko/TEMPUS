@@ -202,6 +202,7 @@
     <Content Include="Content\Styles\Main.css" />
     <Content Include="Content\Styles\Profile.css" />
     <Content Include="Content\Styles\Projects.css" />
+    <Content Include="Content\Styles\Projects\Plan.css" />
     <Content Include="Content\Styles\Team.css" />
     <Content Include="Content\Styles\UserBlock.css" />
     <Content Include="Content\Styles\UserPage.css" />
@@ -236,6 +237,7 @@
     <Content Include="Scripts\Main.js" />
     <Content Include="Scripts\moodCharts.js" />
     <Content Include="Scripts\Profile.js" />
+    <Content Include="Scripts\Projects\Plan.js" />
     <Content Include="Scripts\Projects.js" />
     <Content Include="Scripts\Team.js" />
     <Content Include="Scripts\UserPage.js" />
