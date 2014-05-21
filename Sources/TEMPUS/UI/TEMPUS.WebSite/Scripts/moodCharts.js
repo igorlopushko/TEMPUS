@@ -18,6 +18,8 @@ function c3DrawMoodChart(url) {
                     }
                 },
                 y: {
+                    max: 4,
+                    min: 1,
                     tick: {
                         format: formatY
                     }
@@ -39,6 +41,36 @@ function c3DrawMoodChart(url) {
                 }
             }
         };
+        var average =
+            {
+                name: "Average",
+                data: []
+            }
+        var allInOneArray = [];
+        var allDates = [];
+        json.forEach(function (obj) {
+            obj.data.forEach(function (dataObj) {
+                allInOneArray.push(dataObj);
+                if ($.inArray(dataObj.date, allDates) == -1) {
+                    allDates.push(dataObj.date);
+                }
+            });
+        });
+
+        allDates.forEach(function (curDate) {
+            var last = { date: curDate, mood: 0 };
+            var divider = 0;
+            allInOneArray.forEach(function (val) {
+                if (curDate == val.date) {
+                    last.mood += val.mood;
+                    divider++;
+                }
+            });
+            last.mood /= divider;
+            last.mood = Math.round(last.mood);
+            average.data.push(last);
+        });
+        json.unshift(average);
         json.forEach(function (obj) {
             input.data.xs[obj.name] = "x" + obj.name;
             var dates = [("x" + obj.name)];
