@@ -27,13 +27,19 @@ function setMood(mood) {
             return;
     }
     $("#avatar").css('background-color', color);
-    $("#mood-img").attr("src", img);
-    $(".mood-related").removeClass("mood-related");
+    $("#mood-img img").attr("src", img);
+    $(".mood-set").css("display", "none");
+    $(".mood-related").css("display", "block");
+    $("#mood-img").css("display", "block");
+    $("#mood-p").text("Mood:");
 }
 var setted = false;
 
 function setMoodHandler(ajaxUrl, id) {
-    $(".mood-set").removeClass("mood-set");
+    $(".mood-related").css("display", "block");
+    $("#mood-img").css("display", "none");
+    $(".mood-set").css("display", "block");
+    $("#mood-p").text("Set mood:");
     $(".ul-chooser img").click(function (event) {
         if (!setted) {
             setted = true;

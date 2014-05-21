@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pull-right">
                 <a href="@Url.Action("EditProfile", "Account")" class="btn btn-primary form-control">
-                    <span class="fa fa-pencil"></span> Edit Profile
+                    <span class="fa fa-pencil"></span>Edit Profile
                 </a>
             </div>
         </div>
@@ -55,77 +55,44 @@
         </div>
         <div>
             <a href="@Url.Action("Index", "Team")" class="btn btn-default hidden-xs back-button">
-                <span class="fa fa-chevron-left"></span> Back
+                <span class="fa fa-chevron-left"></span>Back
             </a>
         </div>
     </div>
 
     <div class="col-sm-9 col-md-9">
         <div class="row">
-            <div class="col-sm-5 text-center col-xs-8 col-xs-offset-2 col-sm-offset-0 visible-sm visible-xs ">
-                <div class="panel panel-primary mood-set">
-                    <div class="panel-heading">
-                        Set your mood please
-                    </div>
-                    <div class="panel-body">
-                        <ul class="list-inline ul-chooser">
-                            <li>
-                                <img src="~/Content/Images/1_mood.png" class="img-responsive" data-mood="1" />
-                            </li>
-                            <li>
-                                <img src="~/Content/Images/2_mood.png" class="img-responsive" data-mood="2" />
-                            </li>
-                            <li>
-                                <img src="~/Content/Images/3_mood.png" class="img-responsive" data-mood="3" />
-                            </li>
-                            <li>
-                                <img src="~/Content/Images/4_mood.png" class="img-responsive" data-mood="4" />
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-md-2 col-sm-3 col-xs-4">
-                <p class="mood-related">Mood: </p>
+                <p class="mood-related" id="mood-p">Mood: </p>
                 <p>Date of birth:</p>
                 <p>Email:</p>
                 <p>Phone:</p>
             </div>
             <div class="col-md-6 col-sm-9 col-xs-8">
-                <p class="mood-related">
-                    <img src="" class="img-responsive" id="mood-img" />
+                <p class="mood-related" id="mood-img">
+                    <img src="" class="img-responsive" />
+
                 </p>
+                <ul class="list-inline ul-chooser mood-set">
+                    <li>
+                        <img src="~/Content/Images/1_mood.png" class="img-responsive" data-mood="1" />
+                    </li>
+                    <li>
+                        <img src="~/Content/Images/2_mood.png" class="img-responsive" data-mood="2" />
+                    </li>
+                    <li>
+                        <img src="~/Content/Images/3_mood.png" class="img-responsive" data-mood="3" />
+                    </li>
+                    <li>
+                        <img src="~/Content/Images/4_mood.png" class="img-responsive" data-mood="4" />
+                    </li>
+                </ul>
                 <p>@Model.DateOfBirth.ToShortDateString()</p>
                 <p>@Model.Email</p>
                 <p>@Model.Phone</p>
             </div>
-            <div class="col-md-4 text-center visible-md visible-lg">
-                <div class="panel panel-primary mood-set">
-                    <div class="panel-heading">
-                        Set your mood please
-                    </div>
-                    <div class="panel-body">
-                        <ul class="list-inline ul-chooser">
-                            <li>
-                                <img src="~/Content/Images/1_mood.png" class="img-responsive" data-mood="1" />
-                            </li>
-                            <li>
-                                <img src="~/Content/Images/2_mood.png" class="img-responsive" data-mood="2" />
-                            </li>
-                            <li>
-                                <img src="~/Content/Images/3_mood.png" class="img-responsive" data-mood="3" />
-                            </li>
-                            <li>
-                                <img src="~/Content/Images/4_mood.png" class="img-responsive" data-mood="4" />
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
+</div>
 </div>
 <div class="row">
     <div class="col-xs-12">

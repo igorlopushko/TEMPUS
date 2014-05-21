@@ -1,17 +1,22 @@
-﻿#select-box img
+﻿#mood-img img
 {
-    height:25px;
+    height:20px;
+}
+
+.ul-chooser
+{
+    height:20px;
 }
 
 .ul-chooser li
 {
-    padding:5px 5px 5px 5px;
+    padding:0px 5px 0px 5px;
 }
 
 .ul-chooser li img
 {
     opacity:0.4;
-    height:35px;
+    height:20px;
 }
 
 .ul-chooser li img:hover
@@ -22,11 +27,6 @@
 .mood-set
 {
     display:none
-}
-
-.panel-body
-{
-    padding:10px 0px 0px 0px;
 }
 
 .mood-related
