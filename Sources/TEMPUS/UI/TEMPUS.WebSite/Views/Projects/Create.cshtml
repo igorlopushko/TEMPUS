@@ -3,6 +3,9 @@
     ViewBag.Title = "Create Project";
 }
 
+@section CustomJs {
+    <script src="@Url.Content("~/Scripts/Projects.js")"></script>
+}
 <div id="create-carusel" class="carousel slide" data-interval="false" data-ride="carousel">
     <div class="controls">
         <ul class="nav">
@@ -150,57 +153,34 @@
             <div class="item">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-12">
+                        @*<div class="col-md-12">
                             <div class="input-group col-md-5">
                                 <input type="text" class="form-control" placeholder="Search">
                                 <div class="input-group-btn">
                                     <a class="btn btn-default"><i class="glyphicon glyphicon-search"></i></a>
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
                         <div class="col-md-12">
                             <h3>Search Results</h3>
                             <table class="table" id="table">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Department</th>
+                                        @*<th>Department</th>*@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                @*<tbody>
-                                    <tr>
-                                        <td>John Wane</td>
-                                        <td>Department1</td>
-                                        <td>
-                                            <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-plus" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>John Wane</td>
-                                        <td>Department1</td>
-                                        <td>
-                                            <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-plus" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>John Wane</td>
-                                        <td>Department1</td>
-                                        <td>
-                                            <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-plus" />
-                                        </td>
-                                    </tr>
-                                </tbody>*@
                                 <tbody>
-                                    @Html.HiddenFor(x => Model.ProjectTeam.TeamMembers);
+                                    @Html.HiddenFor(x => Model.ProjectTeam.TeamMembers)
                                     @foreach (var person in Model.ProjectTeam.Users)
                                     {
                                         <tr>
-                                            <td>@person.Email </td>
-                                            <td> </td>
+                                            <td data-name="person.Name">@person.FirstName @person.LastName</td>
+                                            @*<td></td>*@
                                             <td>
-                                                @Html.HiddenFor(x => person.UserId);
-                                                <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-arrow-right" />
+                                                @Html.HiddenFor(x => person.UserId)
+                                                <button type="button" onclick="addUser(this)" class="btn btn-success btn-sm glyphicon glyphicon-plus" />
                                             </td>
                                         </tr>
                                     }
@@ -211,7 +191,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h3>Project Team</h3>
-                            <table class="table" id="table">
+                            <div class="h4" id="emptyMessage">There are no users in Team</div>
+                            <table class="table" hidden="hidden" id="resultTable">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -220,35 +201,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <input type="hidden" value="B6647E96-6201-4492-920E-DFA7BC3B6DBB" name="CreateProjectTeamViewModel.ProjectTeamMemberViewModel[0].UserId" />
-                                        </td>
-                                        <td>
-                                            @Html.DropDownList("CreateProjectTeamViewModel.ProjectTeamMemberViewModel[0].RoleId", Model.Roles, new { @class = "form-control", id = "Role" })
-                                        </td>
-                                        <td>
-                                            <input type="text" value="2" name="CreateProjectTeamViewModel.ProjectTeamMemberViewModel[0].FTE" />
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-danger btn-sm glyphicon glyphicon-remove" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                  
-                                        <td>
-                                            <input type="hidden" value="713ACCCA-5F3F-42A6-A81C-286E813CF838" name="CreateProjectTeamViewModel.ProjectTeamMemberViewModel[1].UserId" />
-                                        </td>
-                                        <td>
-                                            @Html.DropDownList("CreateProjectTeamViewModel.ProjectTeamMemberViewModel[1].RoleId", Model.Roles, new { @class = "form-control", id = "Role" })
-                                        </td>
-                                        <td>
-                                            <input type="text" value="5" name="CreateProjectTeamViewModel.ProjectTeamMemberViewModel[1].FTE" />
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-danger btn-sm glyphicon glyphicon-remove" />
-                                        </td>
-                                    </tr>
+                                   
                                 </tbody>
                             </table>
                         </div>
@@ -262,7 +215,8 @@
                     <a class="btn btn-primary next" data-toggle="modal" data-target="#createRisk">Add New Risk</a>
                     <div class="row">
                         <div class="col-md-12 col-lg-12 col-sm-12">
-                            <table class="responsiveGrid table table-striped table-hover">
+                            <div class="h4">There are no risks in project</div>
+                             @*<table class="responsiveGrid table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>№</th>
@@ -278,7 +232,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @*@{
+                                   @{
                                         int i = 0;
                                     }
                                     @foreach (var risk in Model)
@@ -299,9 +253,9 @@
                                                 <button type="button" class="removeButton btn btn-sm btn-default glyphicon glyphicon-remove" />
                                             </td>
                                         </tr>
-                                    }*@
+                                    }
                                 </tbody>
-                            </table>
+                            </table>*@
                             <hr>
                         </div>
                     </div>

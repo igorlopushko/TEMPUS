@@ -88,3 +88,53 @@ function redrawRiskChart() {
     var chart = new google.visualization.PieChart(document.getElementById('riskChart'));
     chart.draw(data, options);
 }
+
+var index = 0;
+
+function addUser(button) {
+    var add = true;
+    var userID = $(button).parent().find("[name='person.UserId']").val();
+    $('#resultTable tr td').children('input').each(function () {
+        if ($(this).val() == userID) {
+            add = false;
+            return false;
+        }
+    });
+    if (add) {
+        var name = $(button).parent().parent().find("[data-name='person.Name']").html();
+        var nameCellTemplate = "<td><input type='hidden' value='" + userID + "' name='CreateProjectTeamViewModel.ProjectTeamMemberViewModel[" + index + "].UserId' />" + name + "</td>";
+        var fteCellTemplate = "<td><div class='col-md-3 col-sm-3'><input name='CreateProjectTeamViewModel.ProjectTeamMemberViewModel[" + index + "].FTE' type='text' class='form-control'></div></td>";
+        var deleteTemplate = "<td><button type='button' onclick='deleteUser(\"" + userID + "\")' class='btn btn-danger btn-sm glyphicon glyphicon-remove' /></td>";
+        $('#resultTable tr:last').after('<tr>' + nameCellTemplate + fteCellTemplate + deleteTemplate + '</tr>');
+        index++;
+    }
+    if (index > 0) {
+        $('#emptyMessage').hide();
+        $('#resultTable').show();
+    }
+}
+
+function deleteUser(userId) {
+    $('#resultTable tr td').children('input').each(function () {
+        if ($(this).val() == userId) {
+            $(this).parent().parent().remove();
+            index--;
+            return false;
+        }
+    });
+
+    var trId = -1;
+    $('#resultTable tr').each(function () {
+        $(this).find('td input').each(function () {
+            var str = $(this).attr('name');
+            var res = str.replace(/\[\d\]/i, "[" + trId + "]");
+            $(this).attr('name', res);
+        });
+        trId++;
+    });
+
+    if (index <= 0) {
+        $('#emptyMessage').show();
+        $('#resultTable').hide();
+    }
+}
