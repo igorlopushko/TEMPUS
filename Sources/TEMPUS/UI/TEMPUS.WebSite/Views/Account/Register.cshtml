@@ -4,6 +4,10 @@
     ViewBag.Title = "Register user";
 }
 
+@section CustomCss {
+    <link rel="stylesheet" href="@Url.Content("~/Content/Styles/MobileButton.css")">
+}
+
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()

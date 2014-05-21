@@ -4,6 +4,10 @@
     ViewBag.Title = "Edit your profile";
 }
 
+@section CustomCss {
+    <link rel="stylesheet" href="@Url.Content("~/Content/Styles/MobileButton.css")">
+}
+
 @using (Html.BeginForm("Profile", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
@@ -68,8 +72,8 @@
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label"></label>
-                        <div class="col-sm-4 text-center">
-                            <input style="width:50%" class="btn btn-primary next" value="Edit" type="submit" />
+                        <div class="col-sm-4">
+                            <input class="btn btn-primary next" value="Edit" type="submit" />
                         </div>
                     </div>
                 </div>

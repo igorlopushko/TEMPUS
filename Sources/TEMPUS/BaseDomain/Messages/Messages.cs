@@ -18,11 +18,13 @@ namespace TEMPUS.BaseDomain.Messages
 		public UserId Id { get; set; }
 		public int Version { get; set; }
 		public ProjectId ProjectId { get; set; }
+		public Guid roleId { get; set; }
 		private AssignUserToProject () {}
-		public AssignUserToProject (UserId userId, ProjectId projectId)
+		public AssignUserToProject (UserId userId, ProjectId projectId, Guid roleId)
 		{
 			Id = userId;
 			ProjectId = projectId;
+			roleId = roleId;
 		}
 		public override bool Equals(object obj)
 		{
@@ -35,11 +37,11 @@ namespace TEMPUS.BaseDomain.Messages
 			{
 				return false;
 			}
-			return Id.Equals(target.Id) && ProjectId.Equals(target.ProjectId);
+			return Id.Equals(target.Id) && ProjectId.Equals(target.ProjectId) && roleId.Equals(target.roleId);
 		}
 		public override int GetHashCode()
 		{
-			return Id.GetHashCode() ^ ProjectId.GetHashCode();
+			return Id.GetHashCode() ^ ProjectId.GetHashCode() ^ roleId.GetHashCode();
 		}
 		public static bool operator ==(AssignUserToProject a, AssignUserToProject b)
 		{
@@ -66,11 +68,13 @@ namespace TEMPUS.BaseDomain.Messages
 		public UserId Id { get; set; }
 		public int Version { get; set; }
 		public ProjectId ProjectId { get; set; }
+		public Guid roleId { get; set; }
 		private UserAssignedToProject () {}
-		public UserAssignedToProject (UserId userId, ProjectId projectId)
+		public UserAssignedToProject (UserId userId, ProjectId projectId, Guid roleId)
 		{
 			Id = userId;
 			ProjectId = projectId;
+			roleId = roleId;
 		}
 		public override bool Equals(object obj)
 		{
@@ -83,11 +87,11 @@ namespace TEMPUS.BaseDomain.Messages
 			{
 				return false;
 			}
-			return Id.Equals(target.Id) && ProjectId.Equals(target.ProjectId);
+			return Id.Equals(target.Id) && ProjectId.Equals(target.ProjectId) && roleId.Equals(target.roleId);
 		}
 		public override int GetHashCode()
 		{
-			return Id.GetHashCode() ^ ProjectId.GetHashCode();
+			return Id.GetHashCode() ^ ProjectId.GetHashCode() ^ roleId.GetHashCode();
 		}
 		public static bool operator ==(UserAssignedToProject a, UserAssignedToProject b)
 		{
