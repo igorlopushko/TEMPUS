@@ -50,7 +50,7 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
         /// <param name="roles">The roles of the user.</param>
         /// <param name="mood">The last mood of the user.</param>
         public User(UserId userId, string firstName, string lastName, string login, string password,
-            string image, string phone, DateTime dateOfBirth, IList<Guid> roles, UserMood mood)
+            string image, string phone, DateTime dateOfBirth, IList<Guid> roles, UserMood mood, bool isDeleted)
         {
             this._id = userId;
             this.FirstName = firstName;
@@ -62,6 +62,7 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
             this.DateOfBirth = dateOfBirth;
             this.Roles = roles;
             this.Mood = mood;
+            this.IsDeleted = isDeleted;
         }
 
         /// <summary>
@@ -113,7 +114,6 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
             this.Phone = phone;
             this.DateOfBirth = dateOfBirth;
             this.IsNew = false;
-            this.IsDeleted = false;
 
             var @event = new UserInformationChanged(this.Id, this.Phone, this.Image, this.FirstName, this.LastName, this.DateOfBirth);
 
@@ -128,18 +128,21 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
         {
             this.Roles.Add(roleId);
             this.IsNew = false;
-            this.IsDeleted = false;
 
             var @event = new RoleToUserAdded(this.Id, roleId);
 
             this.ApplyChange(@event);
         }
 
+        /// <summary>
+        /// Adds the mood.
+        /// </summary>
+        /// <param name="rate">The rate of the mood.</param>
+        /// <param name="date">The date of the mood.</param>
         public void AddMood(int rate, DateTime date)
         {
             this.Mood = new UserMood(date, rate);
             this.IsNew = false;
-            this.IsDeleted = false;
 
             var @event = new UserMoodSet(this.Id, rate, date);
 

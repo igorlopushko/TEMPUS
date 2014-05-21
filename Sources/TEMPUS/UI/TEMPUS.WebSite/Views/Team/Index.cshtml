@@ -1,11 +1,11 @@
 ﻿@using TEMPUS.UserDomain.Model.ServiceLayer
 @using TEMPUS.WebSite.Security
 
-@model List<TEMPUS.WebSite.Models.Account.ProfileViewModel>
+@model TEMPUS.WebSite.Models.Team.TeamViewModel
 
 @{
     ViewBag.Title = "Team";
-    string jsonUrl = Url.Content("~/Content/test-mood-data.json");
+    string jsonUrl = Url.Action("GetTeamMoods", "Team", new { ProjectId = Model.projectId.Id});
 }
 
 @section CustomCss {
@@ -15,7 +15,6 @@
 
 @section CustomJs {
     <script src="@Url.Content("~/Scripts/grids.js")"></script>
-    <script src="@Url.Content("~/Scripts/Team.js")"></script>
     <script src="@Url.Content("~/Scripts/Lib/d3.v3.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Lib/c3.min.js")"></script>
     <script src="@Url.Content("~/Scripts/moodCharts.js")"></script>
@@ -28,7 +27,7 @@
 </script>
 
 <div class="row wrapper">
-    @foreach (var item in Model)
+    @foreach (var item in Model.users)
     {
         <div class="col-md-2 col-sm-3 team-member-block element">
             <div class="row">

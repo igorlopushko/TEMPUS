@@ -15,9 +15,20 @@
 
 @section CustomJs {
     <script src="~/Scripts/Lib/Chart.js"></script>
-    <script src="~/Scripts/UserPage.js"></script>
-    <script src="~/Scripts/Lib/jquery.ddslick.min.js"></script>
     <script src="~/Scripts/Profile.js"></script>
+}
+
+@section PageButtons {
+    @if (TEMPUS.WebSite.Contexts.UserContext.Current.UserId == Model.UserId)
+    {
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12 pull-right">
+                <a href="@Url.Action("EditProfile", "Account")" class="btn btn-primary">
+                    <span class="fa fa-pencil"></span> Edit Profile
+                </a>
+            </div>
+        </div>
+    }
 }
 
 @if (SiteSecurity.UserInRole(UserRole.ProjectManager) || TEMPUS.WebSite.Contexts.UserContext.Current.UserId == Model.UserId)
@@ -38,11 +49,13 @@
     </script>
 }
 <div class="row">
-    <div class="col-sm-3 col-md-3 text-center">
-        <img id="avatar" src="@Url.Content(@Model.Image)" class="img-thumbnail img-responsive" />
+    <div class="col-sm-3 col-md-3">
         <div class="text-center">
+            <img id="avatar" src="@Url.Content(@Model.Image)" class="img-thumbnail img-responsive" />
+        </div>
+        <div>
             <a href="@Url.Action("Index", "Team")" class="btn btn-default hidden-xs back-button">
-                <span class="glyphicon glyphicon-chevron-left"></span>Back
+                <span class="fa fa-chevron-left"></span> Back
             </a>
         </div>
     </div>
@@ -115,10 +128,12 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-4 col-xs-offset-4">
-        <a href="@Url.Action("Index", "Team")" class="btn btn-default visible-xs">
-            <span class="glyphicon glyphicon-chevron-left"></span>Back
-        </a>
+    <div class="col-xs-12">
+        <div class="text-center">
+            <a href="@Url.Action("Index", "Team")" class="btn btn-default visible-xs back-button">
+                <span class="fa fa-chevron-left"></span>Back
+            </a>
+        </div>
     </div>
 </div>
 

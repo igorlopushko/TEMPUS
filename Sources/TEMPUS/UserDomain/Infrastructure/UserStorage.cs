@@ -76,7 +76,7 @@ namespace TEMPUS.UserDomain.Infrastructure
             {
                 throw new ArgumentNullException("id");
             }
-            var user = _context.Users.Find(id.Id);
+            var user = _context.Users.FirstOrDefault(x => x.Id == id.Id && x.IsDeleted == false);
             if (user != null)
             {
                 user.Roles = this.GetUserRoles(id);
@@ -113,6 +113,7 @@ namespace TEMPUS.UserDomain.Infrastructure
             user.DateOfBirth = aggregate.DateOfBirth;
             user.Image = aggregate.Image;
             user.Phone = aggregate.Phone;
+            user.IsDeleted = aggregate.IsDeleted;
 
             foreach (var role in aggregate.Roles)
             {
@@ -121,7 +122,7 @@ namespace TEMPUS.UserDomain.Infrastructure
 
             if (aggregate.Mood != null)
             {
-                _context.Moods.Add(new UserMood { Date = aggregate.Mood.Date, Rate = aggregate.Mood.Rate, UserId = aggregate.Id });
+                _context.Moods.AddOrUpdate(new UserMood { Date = aggregate.Mood.Date, Rate = aggregate.Mood.Rate, UserId = aggregate.Id });
             }
 
             _context.SaveChanges();

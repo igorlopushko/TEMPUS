@@ -121,7 +121,7 @@ namespace TEMPUS.UserDomain.Services.DomainLayer
             if (user.Mood != null)
                 throw new ArgumentException("User can set his mood only one time per day.");
 
-            var date = DateTime.Now;
+            var date = DateTime.Now.Date;
             user.AddMood(command.Rate, date);
 
             _userRepository.Save(user);

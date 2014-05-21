@@ -6,7 +6,7 @@ using TEMPUS.DB;
 using TEMPUS.ProjectDomain.Model.DomainLayer;
 using TEMPUS.ProjectDomain.Model.ServiceLayer;
 using TEMPUS.ProjectDomain.Services;
-    
+
 namespace TEMPUS.ProjectDomain.Infrastructure
 {
     /// <summary>
@@ -39,11 +39,11 @@ namespace TEMPUS.ProjectDomain.Infrastructure
         {
             var userInProject = _context.ProjectRoleRelations.Where(x => x.UserId == userId.Id).Select(x => x.ProjectId);
 
-            return _context.Projects.Where(x => userInProject.Contains(x.Id))
+            return _context.Projects.Where(x => userInProject.Contains(x.Id) && x.IsDeleted == false)
                     .AsEnumerable()
                     .Select(x => new ProjectInfo(x.Id, x.Name));
         }
-        
+
         /// <summary>
         /// Gets the project by identifier.
         /// </summary>
@@ -51,7 +51,7 @@ namespace TEMPUS.ProjectDomain.Infrastructure
         public ProjectInfo GetProjectById(Guid projectId)
         {
             var project = _context.Projects.FirstOrDefault(x => x.Id == projectId);
-            return new ProjectInfo(project.Id, project.Name);
+            return project == null ? null : new ProjectInfo(project.Id, project.Name);
         }
 
         /// <summary>

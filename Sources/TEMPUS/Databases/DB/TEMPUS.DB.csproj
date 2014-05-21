@@ -79,6 +79,10 @@
     <Compile Include="Migrations\201405110837445_AddUserMoods.Designer.cs">
       <DependentUpon>201405110837445_AddUserMoods.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405192005112_AddedFieldToUserAndProjectEntities.cs" />
+    <Compile Include="Migrations\201405192005112_AddedFieldToUserAndProjectEntities.Designer.cs">
+      <DependentUpon>201405192005112_AddedFieldToUserAndProjectEntities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Project\Department.cs">
@@ -119,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201405110837445_AddUserMoods.resx">
       <DependentUpon>201405110837445_AddUserMoods.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405192005112_AddedFieldToUserAndProjectEntities.resx">
+      <DependentUpon>201405192005112_AddedFieldToUserAndProjectEntities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

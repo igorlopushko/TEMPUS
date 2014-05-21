@@ -142,7 +142,6 @@
     <Compile Include="Controllers\RisksController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -168,6 +167,7 @@
     <Compile Include="Models\Project\TaskViewModel.cs" />
     <Compile Include="Models\Project\TimeRecordViewModel.cs" />
     <Compile Include="Models\Task\TaskListViewModel.cs" />
+    <Compile Include="Models\Team\TeamViewModel.cs" />
     <Compile Include="Models\Team\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\AllowedRolesAttribute.cs" />
@@ -203,6 +203,7 @@
     <Content Include="Content\Styles\Main.css" />
     <Content Include="Content\Styles\Profile.css" />
     <Content Include="Content\Styles\Projects.css" />
+    <Content Include="Content\Styles\Projects\Plan.css" />
     <Content Include="Content\Styles\Team.css" />
     <Content Include="Content\Styles\UserBlock.css" />
     <Content Include="Content\Styles\UserPage.css" />
@@ -221,6 +222,9 @@
     <Content Include="Content\test-mood-data.json" />
     <None Include="Scripts\Lib\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\grids.js" />
+    <Content Include="Scripts\Lib\backbone.localStorage.min.js" />
+    <Content Include="Scripts\Lib\backbone.marionette.min.js" />
+    <Content Include="Scripts\Lib\backbone.min.js" />
     <Content Include="Scripts\Lib\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\Lib\bootstrap-select.js" />
     <Content Include="Scripts\Lib\bootstrap.js" />
@@ -230,14 +234,15 @@
     <Content Include="Scripts\Lib\d3.v3.min.js" />
     <Content Include="Scripts\Lib\jquery-2.1.0.js" />
     <Content Include="Scripts\Lib\jquery-2.1.0.min.js" />
-    <Content Include="Scripts\Lib\jquery.ddslick.min.js" />
     <Content Include="Scripts\Lib\moment.min.js" />
+    <Content Include="Scripts\Lib\underscore.min.js" />
     <Content Include="Scripts\Main.js" />
     <Content Include="Scripts\moodCharts.js" />
     <Content Include="Scripts\Profile.js" />
+    <Content Include="Scripts\Projects\Plan.js" />
     <Content Include="Scripts\Projects.js" />
-    <Content Include="Scripts\Team.js" />
-    <Content Include="Scripts\UserPage.js" />
+    <Content Include="Scripts\Utils\ModalRegion.js" />
+    <Content Include="Scripts\Utils\SerializeObject.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -265,6 +270,7 @@
     <Content Include="Views\Shared\DisplayTemplates\UserMenuViewModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\TopNavigationViewModel.cshtml" />
     <Content Include="Views\Projects\Select.cshtml" />
+    <Content Include="Views\Account\EditProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
