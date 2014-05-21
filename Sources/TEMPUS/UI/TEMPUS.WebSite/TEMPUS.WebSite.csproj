@@ -239,8 +239,6 @@
     <Content Include="Scripts\Profile.js" />
     <Content Include="Scripts\Projects\Plan.js" />
     <Content Include="Scripts\Projects.js" />
-    <Content Include="Scripts\Team.js" />
-    <Content Include="Scripts\UserPage.js" />
     <Content Include="Scripts\Utils\ModalRegion.js" />
     <Content Include="Scripts\Utils\SerializeObject.js" />
     <Content Include="Web.config" />
