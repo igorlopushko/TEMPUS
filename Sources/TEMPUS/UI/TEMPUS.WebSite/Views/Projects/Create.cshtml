@@ -47,13 +47,13 @@
                         <div class="form-group">
                             <label for="projectManager" class="col-sm-3 control-label">Project Manager</label>
                             <div class="col-sm-4">
-                                @Html.DropDownListFor(model => model.ProjectMainInfo.ManagerId, Model.ProjectMainInfo.Managers, null, new { @class = "form-control", id = "projectManager" })
+                                @Html.DropDownListFor(model => model.ProjectMainInfo.ManagerId, Model.ProjectMainInfo.Managers, null, new { @class = "form-control selectpicker", id = "projectManager", data_live_search = "true" })
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="projectOwner" class="col-sm-3 control-label">Project Owner</label>
                             <div class="col-sm-4">
-                                @Html.DropDownListFor(model => model.ProjectMainInfo.OwnerId, Model.ProjectMainInfo.Owners, null, new { @class = "form-control", id = "projectOwner" })
+                                @Html.DropDownListFor(model => model.ProjectMainInfo.OwnerId, Model.ProjectMainInfo.Owners, null, new { @class = "form-control selectpicker", id = "projectOwner", data_live_search = "true" })
                             </div>
                         </div>
                         <div class="form-group">
@@ -63,9 +63,15 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="priority" class="col-sm-3 control-label">Priority</label>
+                            <label for="time" class="col-sm-3 control-label">Time</label>
                             <div class="col-sm-4">
-                                @Html.DropDownListFor(model => model.ProjectMainInfo.Priority, Model.ProjectMainInfo.Priorities, null, new { @class = "form-control", id = "priority" })
+                                <input type="text" class="form-control" placeholder="Time">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cost" class="col-sm-3 control-label">Cost</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" placeholder="Cost">
                             </div>
                         </div>
                         <div class="form-group">
@@ -89,7 +95,7 @@
                         <div class="form-group">
                             <label for="mandatory" class="col-sm-3 control-label">Mandatory</label>
                             <div class="col-sm-4">
-                                @Html.CheckBoxFor(model => model.ProjectMainInfo.Mandatory, new { @class = "form-control", id = "mandatory" })
+                                @Html.CheckBoxFor(model => model.ProjectMainInfo.Mandatory, new { @class = "checkbox", id = "mandatory" })
                             </div>
                         </div>
                         <div class="form-group">
@@ -101,13 +107,24 @@
                         <div class="form-group row">
                             <label for="start" class="col-sm-3 control-label">Start Date</label>
                             <div class="col-sm-4">
-                                @Html.TextBoxFor(model => model.ProjectMainInfo.StartDate, new { @class = "form-control", id = "start", placeholder = "Start Date", type = "date" })
+                                <div class='input-group date' id='start_date' role="datepicker">
+                                    @Html.TextBoxFor(model => model.ProjectMainInfo.StartDate, new { @class = "form-control", @Value = "", id = "start", placeholder = "Start Date" })
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
                             </div>
+
                         </div>
                         <div class="form-group row">
                             <label for="due" class="col-sm-3 control-label">Due Date</label>
                             <div class="col-sm-4">
-                                @Html.TextBoxFor(model => model.ProjectMainInfo.EndDate, new { @class = "form-control", id = "due", placeholder = "Due Date", type = "date" })
+                                <div class='input-group date' id='end_date' role="datepicker">
+                                    @Html.TextBoxFor(model => model.ProjectMainInfo.EndDate, new { @class = "form-control", @Value = "", id = "due", placeholder = "Due Date" })
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -136,44 +153,50 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <h3>Search Results</h3>
                             <table class="table" id="table">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Department</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>John Wane</td>
+                                        <td>Department1</td>
                                         <td>
-                                            <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-arrow-right" />
+                                            <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-plus" />
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>John Wane</td>
+                                        <td>Department1</td>
                                         <td>
-                                            <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-arrow-right" />
+                                            <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-plus" />
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>John Wane</td>
+                                        <td>Department1</td>
                                         <td>
-                                            <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-arrow-right" />
+                                            <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-plus" />
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col-md-6 projectTeam">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
                             <h3>Project Team</h3>
                             <table class="table" id="table">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Role</th>
+                                        <th>% of FTE</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -181,12 +204,9 @@
                                     <tr>
                                         <td>John Wane</td>
                                         <td>
-                                            <select class="form-control">
-                                                <option>Assignment</option>
-                                                <option>Mini</option>
-                                                <option>Medium</option>
-                                                <option>Mega</option>
-                                            </select>
+                                            <div class="form-group col-md-3 col-sm-3">
+                                                 <input type="text" class="form-control">
+                                            </div>
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-danger btn-sm glyphicon glyphicon-remove" />
@@ -194,12 +214,9 @@
                                     <tr>
                                         <td>John Wane</td>
                                         <td>
-                                            <select class="form-control">
-                                                <option>Assignment</option>
-                                                <option>Mini</option>
-                                                <option>Medium</option>
-                                                <option>Mega</option>
-                                            </select>
+                                            <div class="form-group col-md-3 col-sm-3">
+                                                <input type="text" class="form-control">
+                                            </div>
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-danger btn-sm glyphicon glyphicon-remove" />
@@ -207,12 +224,9 @@
                                     <tr>
                                         <td>John Wane</td>
                                         <td>
-                                            <select class="form-control">
-                                                <option>Assignment</option>
-                                                <option>Mini</option>
-                                                <option>Medium</option>
-                                                <option>Mega</option>
-                                            </select>
+                                            <div class="form-group col-md-3 col-sm-3">
+                                                 <input type="text" class="form-control">
+                                            </div>
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-danger btn-sm glyphicon glyphicon-remove" />
