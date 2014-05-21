@@ -12,5 +12,6 @@ namespace TEMPUS.ProjectDomain.Services
         ProjectInfo GetProjectById(Guid projectId);
         IEnumerable<PpsClassification> GetPpsClassifications();
         IEnumerable<Department> GetDepartments();
+        IEnumerable<KeyValuePair<Guid, string>> GetProjectRoles();
     }
 }

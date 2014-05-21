@@ -69,5 +69,13 @@ namespace TEMPUS.ProjectDomain.Infrastructure
         {
             return _context.Departments.AsEnumerable().Select(x => new Department(x.Id, x.Name));
         }
+
+        /// <summary>
+        /// Gets the project roles.
+        /// </summary>
+        public IEnumerable<KeyValuePair<Guid,string>> GetProjectRoles()
+        {
+            return _context.ProjectRoles.ToArray().Select(x => new KeyValuePair<Guid, string>(x.Id, x.Name));
+        }
     }
 }
