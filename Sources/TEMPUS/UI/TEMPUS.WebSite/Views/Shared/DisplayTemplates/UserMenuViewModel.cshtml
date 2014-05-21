@@ -19,15 +19,15 @@
                 <li class="divider"></li>
                 <li>
                     <span id="profile-btn">
-                        <a href="@Url.Action("Profile", "Account", new { id = UserContext.Current.UserId.Id })" class=" btn btn-primary">
-                            <span class="fa fa-user"></span> Profile
+                        <a href="@Url.Action("Profile", "Account", new { id = UserContext.Current.UserId.Id })" class="btn btn-primary">
+                            <span class="fa fa-user"></span>&nbsp;Profile
                         </a>
                     </span>
                     <span id="logout-btn">
                         @using (Html.BeginForm("LogOut", "Account"))
                         {
                             <button type="submit" class="btn btn-danger">
-                                <span class="fa fa-sign-out"></span>LogOut
+                                <span class="fa fa-sign-out"></span>&nbsp;Log Out
                             </button>
                         }
                     </span>
