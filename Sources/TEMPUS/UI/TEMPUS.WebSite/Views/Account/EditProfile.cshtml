@@ -60,7 +60,7 @@
                             <div class='input-group date' id='date_of_birth' role="datepicker">
                                 @Html.TextBoxFor(model => model.DateOfBirth, new
                            {
-                               @Value = TEMPUS.WebSite.Contexts.UserContext.Current.DateOfBirth.Date,
+                               @Value = TEMPUS.WebSite.Contexts.UserContext.Current.DateOfBirth.Date.ToString("MM'/'dd'/'yyyy"),
                                @class = "form-control",
                                placeholder = "Date of birth"
                            })
@@ -69,6 +69,13 @@
                                 </span>
                             </div>
                         </div>
+                        <script type="text/javascript">
+                            $(function () {
+                                $('#date_of_birth').datetimepicker({
+                                    pickTime: false
+                                });
+                            });
+                        </script>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label"></label>
