@@ -101,7 +101,7 @@ namespace TEMPUS.WebSite.Controllers
         public ActionResult Create(CreateProjectViewModel model,
             [Bind(Prefix = "CreateProjectTeamViewModel.ProjectTeamMemberViewModel")]ProjectTeamMemberViewModel[] teamMembers)
         {
-            model.ProjectTeam.TeamMembers = teamMembers;
+            model.ProjectTeam.TeamMembers = teamMembers ?? Enumerable.Empty<ProjectTeamMemberViewModel>();
 
             ICommand command;
             if (ModelState.IsValid)
@@ -123,7 +123,13 @@ namespace TEMPUS.WebSite.Controllers
                 _commandSender.Send(command);
 
                 //TODO: create commands for information from 2, 3, 4 steps.
-                
+
+                foreach (var teamMember in model.ProjectTeam.TeamMembers)
+                {
+                    command = new AssignUserToProject(new ProjectId(newProjectId), new UserId(teamMember.UserId), teamMember.RoleId, teamMember.FTE);
+                    _commandSender.Send(command);
+                }
+
                 return RedirectToAction("Index");
             }
             return View(this.PrepareCreateProjectModel(model));

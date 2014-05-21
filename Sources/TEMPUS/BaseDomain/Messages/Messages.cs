@@ -13,18 +13,20 @@ namespace TEMPUS.BaseDomain.Messages
 		
 	[Serializable]
 	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
-	public sealed class AssignUserToProject : ICommand<UserId>
+	public sealed class AssignUserToProject : ICommand<ProjectId>
 	{
-		public UserId Id { get; set; }
+		public ProjectId Id { get; set; }
 		public int Version { get; set; }
-		public ProjectId ProjectId { get; set; }
-		public Guid roleId { get; set; }
+		public UserId UserId { get; set; }
+		public Guid RoleId { get; set; }
+		public int FTE { get; set; }
 		private AssignUserToProject () {}
-		public AssignUserToProject (UserId userId, ProjectId projectId, Guid roleId)
+		public AssignUserToProject (ProjectId projectId, UserId userId, Guid roleId, int fTE)
 		{
-			Id = userId;
-			ProjectId = projectId;
-			roleId = roleId;
+			Id = projectId;
+			UserId = userId;
+			RoleId = roleId;
+			FTE = fTE;
 		}
 		public override bool Equals(object obj)
 		{
@@ -37,11 +39,11 @@ namespace TEMPUS.BaseDomain.Messages
 			{
 				return false;
 			}
-			return Id.Equals(target.Id) && ProjectId.Equals(target.ProjectId) && roleId.Equals(target.roleId);
+			return Id.Equals(target.Id) && UserId.Equals(target.UserId) && RoleId.Equals(target.RoleId) && FTE.Equals(target.FTE);
 		}
 		public override int GetHashCode()
 		{
-			return Id.GetHashCode() ^ ProjectId.GetHashCode() ^ roleId.GetHashCode();
+			return Id.GetHashCode() ^ UserId.GetHashCode() ^ RoleId.GetHashCode() ^ FTE.GetHashCode();
 		}
 		public static bool operator ==(AssignUserToProject a, AssignUserToProject b)
 		{
@@ -63,18 +65,20 @@ namespace TEMPUS.BaseDomain.Messages
 	
 	[Serializable]
 	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
-	public sealed class UserAssignedToProject : IEvent<UserId>
+	public sealed class UserAssignedToProject : IEvent<ProjectId>
 	{
-		public UserId Id { get; set; }
+		public ProjectId Id { get; set; }
 		public int Version { get; set; }
-		public ProjectId ProjectId { get; set; }
-		public Guid roleId { get; set; }
+		public UserId UserId { get; set; }
+		public Guid RoleId { get; set; }
+		public int FTE { get; set; }
 		private UserAssignedToProject () {}
-		public UserAssignedToProject (UserId userId, ProjectId projectId, Guid roleId)
+		public UserAssignedToProject (ProjectId projectId, UserId userId, Guid roleId, int fTE)
 		{
-			Id = userId;
-			ProjectId = projectId;
-			roleId = roleId;
+			Id = projectId;
+			UserId = userId;
+			RoleId = roleId;
+			FTE = fTE;
 		}
 		public override bool Equals(object obj)
 		{
@@ -87,11 +91,11 @@ namespace TEMPUS.BaseDomain.Messages
 			{
 				return false;
 			}
-			return Id.Equals(target.Id) && ProjectId.Equals(target.ProjectId) && roleId.Equals(target.roleId);
+			return Id.Equals(target.Id) && UserId.Equals(target.UserId) && RoleId.Equals(target.RoleId) && FTE.Equals(target.FTE);
 		}
 		public override int GetHashCode()
 		{
-			return Id.GetHashCode() ^ ProjectId.GetHashCode() ^ roleId.GetHashCode();
+			return Id.GetHashCode() ^ UserId.GetHashCode() ^ RoleId.GetHashCode() ^ FTE.GetHashCode();
 		}
 		public static bool operator ==(UserAssignedToProject a, UserAssignedToProject b)
 		{

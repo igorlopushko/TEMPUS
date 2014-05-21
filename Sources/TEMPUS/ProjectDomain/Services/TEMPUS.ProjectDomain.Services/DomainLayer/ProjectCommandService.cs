@@ -48,10 +48,10 @@ namespace TEMPUS.ProjectDomain.Services.DomainLayer
             var department = this.GetDepartment(command.DepartmentId);
             var classification = this.GetPpsClassification(command.PpsClassificationId);
 
-            if(department == null)
+            if (department == null)
                 throw new ArgumentNullException("department");
 
-            if(classification == null)
+            if (classification == null)
                 throw new ArgumentNullException("classification");
 
             project.CreateProject(command.Name, command.Description, command.ProjectOrderer,
@@ -87,6 +87,32 @@ namespace TEMPUS.ProjectDomain.Services.DomainLayer
             project.ChangeInformation(command.Name, command.Description, command.ProjectOrderer,
                 command.RecievingOrganization, command.Mandatory,
                 command.StartDate, command.EndDate, department, classification, command.OwnerId, command.Manager);
+
+            _projectRepository.Save(project);
+        }
+
+        /// <summary>
+        /// Handles the specified <see cref="AssignUserToProject"/> command.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        public void Handle(AssignUserToProject command)
+        {
+            if (command.Id == null)
+                throw new ArgumentNullException("ProjectId");
+
+            if (command.UserId == null)
+                throw new ArgumentNullException("UserId");
+
+            var user = _context.Users.Find(command.UserId.Id);
+            if (user == null)
+                throw new ArgumentException(string.Format("User with id {0} does not exist.", command.UserId.Id));
+
+            var role = _context.ProjectRoles.Find(command.RoleId);
+            if (role == null)
+                throw new ArgumentException(string.Format("Project role with id {0} does not exist.", command.UserId.Id));
+
+            var project = _projectRepository.Get(command.Id);
+            project.AssignUser(command.UserId, command.RoleId, command.FTE);
 
             _projectRepository.Save(project);
         }

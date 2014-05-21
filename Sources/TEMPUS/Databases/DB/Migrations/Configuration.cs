@@ -48,7 +48,7 @@ namespace TEMPUS.DB.Migrations
         {
             if (!context.Users.Any(x => x.Email == "igor.lopushko@sigmaukraine.com"))
             {
-                var id = Guid.NewGuid();
+                var id = Guid.Parse("70e64d96-93df-e311-be94-d850e64cba2a");
                 context.Users.AddOrUpdate(x => x.Email,
                     new User
                     {
@@ -229,8 +229,10 @@ namespace TEMPUS.DB.Migrations
         {
             Guid department = context.Departments.FirstOrDefault().Id;
             Guid pps = context.PpsClassifications.FirstOrDefault().Id;
-            context.Projects.AddOrUpdate(x => x.Name, new Project
+            var projectId = Guid.NewGuid();
+            context.Projects.AddOrUpdate(new Project
             {
+                Id = projectId,
                 Name = "Tempus project",
                 Description = "Management tool",
                 ProjectOrderer = "IKEA",

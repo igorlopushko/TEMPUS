@@ -10,7 +10,7 @@ namespace TEMPUS.DB.Models.User
     /// </summary>
     public class User : Entity
     {
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        [Key]
         public Guid Id { get; set; }
 
         public string Password { get; set; }

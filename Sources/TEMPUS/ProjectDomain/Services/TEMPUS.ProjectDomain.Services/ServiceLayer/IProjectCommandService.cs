@@ -3,7 +3,8 @@
 namespace TEMPUS.ProjectDomain.Services
 {
     public interface IProjectCommandService : IHandle<CreateProject>,
-        IHandle<ChangeProjectInformation>
+        IHandle<ChangeProjectInformation>,
+        IHandle<AssignUserToProject>
     {
     }
 }

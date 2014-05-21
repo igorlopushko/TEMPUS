@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using TEMPUS.BaseDomain.Infrastructure;
 using TEMPUS.BaseDomain.Messages;
 using TEMPUS.BaseDomain.Messages.Identities;
@@ -46,6 +47,7 @@ namespace TEMPUS.ProjectDomain.Infrastructure
             var projectAggregate = projectEntity == null
                                        ? null
                                        : new Project(
+                                             new ProjectId(projectEntity.Id),
                                              projectEntity.Name,
                                              projectEntity.Description,
                                              projectEntity.ProjectOrderer,
@@ -66,7 +68,11 @@ namespace TEMPUS.ProjectDomain.Infrastructure
                                              null,
                                              null,
                                              null,
-                                             null,
+                                             projectEntity.TeamMembers.Select(x => new TeamMember
+                                                 {
+                                                     UserId = new UserId(x.UserId),
+                                                     RoleId = x.ProjectRoleId
+                                                 }).ToList(),
                                              projectEntity.IsDeleted);
 
             return projectAggregate;
@@ -90,7 +96,15 @@ namespace TEMPUS.ProjectDomain.Infrastructure
                     EndDate = root.EndDate,
                     DepartmentId = root.Department.Id,
                     PpsClassificationId = root.Classification.Id,
-                    IsDeleted = root.IsDeleted
+                    IsDeleted = root.IsDeleted,
+                    TeamMembers = root.TeamMembers == null
+                            ? null
+                            : root.TeamMembers.Select(x => new DB.Models.Project.ProjectRoleRelation
+                                {
+                                    UserId = x.UserId.Id,
+                                    ProjectRoleId = x.RoleId,
+                                    ProjectId = root.Id.Id
+                                })
                 };
 
             if (root.IsNew)

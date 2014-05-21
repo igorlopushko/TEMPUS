@@ -5,9 +5,12 @@ using System.Linq.Expressions;
 using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.DB;
 using TEMPUS.ProjectDomain.Services;
+using System.Data.Entity.Migrations;
 
 namespace TEMPUS.ProjectDomain.Infrastructure
 {
+    using TEMPUS.DB.Models.Project;
+
     /// <summary>
     /// The class represents functionality for saving, updating, removing data from DB.
     /// </summary>
@@ -42,8 +45,14 @@ namespace TEMPUS.ProjectDomain.Infrastructure
                 throw new ArgumentNullException("id");
             }
 
-            //TODO: Added getting Tasks, Risks, TeamMembers.
-            return _context.Projects.Find(id.Id);
+            var project = _context.Projects.FirstOrDefault(x => x.Id == id.Id && x.IsDeleted == false);
+            if (project != null)
+            {
+                //TODO: Added getting Tasks, Risks.
+                project.TeamMembers = this.GetTeamMembers(project.Id);
+            }
+
+            return project;
         }
 
         /// <summary>
@@ -111,9 +120,25 @@ namespace TEMPUS.ProjectDomain.Infrastructure
             project.DepartmentId = aggregate.DepartmentId;
             project.IsDeleted = aggregate.IsDeleted;
 
-            //TODO: Add updating Tasks, Risks, TeamMembers.
+            //TODO: Add updating Tasks, Risks.
+            foreach (var teamMember in aggregate.TeamMembers)
+            {
+                _context.ProjectRoleRelations.AddOrUpdate(teamMember);
+            }
 
             _context.SaveChanges();
+        }
+
+        private IEnumerable<ProjectRoleRelation> GetTeamMembers(Guid projectId)
+        {
+            return _context.ProjectRoleRelations.Where(x => x.ProjectId == projectId)
+                .ToArray()
+                .Select(x => new ProjectRoleRelation
+                {
+                    UserId = x.UserId,
+                    ProjectId = x.ProjectId,
+                    ProjectRoleId = x.ProjectRoleId
+                });
         }
     }
 }

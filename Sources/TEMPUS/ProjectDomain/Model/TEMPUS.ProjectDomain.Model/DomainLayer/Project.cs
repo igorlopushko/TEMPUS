@@ -24,7 +24,7 @@ namespace TEMPUS.ProjectDomain.Model.DomainLayer
 
         public UserId Owner { get; private set; }
         public UserId Manager { get; private set; }
-        public IEnumerable<UserId> TeamMembers { get; private set; }
+        public IList<TeamMember> TeamMembers { get; private set; }
 
         public bool IsNew { get; private set; }
         public bool IsDeleted { get; private set; }
@@ -44,8 +44,9 @@ namespace TEMPUS.ProjectDomain.Model.DomainLayer
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Project"/> class.
+        /// Initializes a new instance of the <see cref="Project" /> class.
         /// </summary>
+        /// <param name="id">The project identifier.</param>
         /// <param name="name">The name of the project.</param>
         /// <param name="description">The description of the project.</param>
         /// <param name="projectOrdered">The project ordered of the project.</param>
@@ -60,10 +61,12 @@ namespace TEMPUS.ProjectDomain.Model.DomainLayer
         /// <param name="owner">The owner of the project.</param>
         /// <param name="manager">The manager of the project.</param>
         /// <param name="teamMember">The team members of the project.</param>
-        public Project(string name, string description, string projectOrdered, string receivingOrganization, bool mandatory,
+        /// <param name="isDeleted">if set to <c>true</c> project is deleted, otherwise <c>false</c>.</param>
+        public Project(ProjectId id, string name, string description, string projectOrdered, string receivingOrganization, bool mandatory,
             DateTime startDate, DateTime endDate, Department department, PpsClassification classification, IEnumerable<Task> tasks,
-            IEnumerable<Risk> risks, UserId owner, UserId manager, IEnumerable<UserId> teamMember, bool isDeleted)
+            IEnumerable<Risk> risks, UserId owner, UserId manager, IList<TeamMember> teamMember, bool isDeleted)
         {
+            this._id = id;
             this.Name = name;
             this.Description = description;
             this.ProjectOrderer = projectOrdered;
@@ -111,6 +114,7 @@ namespace TEMPUS.ProjectDomain.Model.DomainLayer
             this.Manager = manager;
             this.IsNew = true;
             this.IsDeleted = false;
+            this.TeamMembers = new List<TeamMember>();
 
             var @event = new ProjectCreated(this.Id);
 
@@ -154,14 +158,33 @@ namespace TEMPUS.ProjectDomain.Model.DomainLayer
             this.ApplyChange(@event);
         }
 
+        public void AssignUser(UserId userId, Guid roleId, int fte)
+        {
+            this.TeamMembers.Add(new TeamMember
+                {
+                    UserId = userId,
+                    RoleId = roleId
+                });
+            this.IsNew = false;
+
+            var @event = new UserAssignedToProject(this.Id, userId, roleId, fte);
+
+            this.ApplyChange(@event);
+        }
+
         private void Apply(ProjectCreated @event)
         {
-            
+
         }
 
         private void Apply(ProjectInformationChanged @event)
         {
 
+        }
+
+        private void Apply(UserAssignedToProject @event)
+        {
+            
         }
     }
 }
