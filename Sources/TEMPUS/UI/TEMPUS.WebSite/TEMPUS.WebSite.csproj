@@ -158,9 +158,11 @@
     <Compile Include="Models\Account\UserMoodViewModel.cs" />
     <Compile Include="Models\Base\TopNavigationViewModel.cs" />
     <Compile Include="Models\Project\CreateProjectMainInfoViewModel.cs" />
+    <Compile Include="Models\Project\CreateProjectTeamViewModel.cs" />
     <Compile Include="Models\Project\CreateProjectViewModel.cs" />
     <Compile Include="Models\Project\ProjectStatus.cs" />
     <Compile Include="Models\Project\ProjectListViewModel.cs" />
+    <Compile Include="Models\Project\ProjectTeamMemberViewModel.cs" />
     <Compile Include="Models\Project\RiskViewModel.cs" />
     <Compile Include="Models\Project\TaskStatus.cs" />
     <Compile Include="Models\Project\ProjectViewModel.cs" />

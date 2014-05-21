@@ -20,9 +20,14 @@ namespace TEMPUS.WebSite.Models.Project
         [Required]
         public Guid DepartmentId { get; set; }
 
-        public int Priority { get; set; }
+        [RegularExpression("([0][.]([0-9]?)[1-9]?)")]
+        public float Time { get; set; }
 
+        [RegularExpression("[[0][.]([0-9]?)[1-9]]?")]
         public float Quality { get; set; }
+
+        [RegularExpression("[0][.]([0-9]?)[1-9]")]
+        public float Cost { get; set; }
 
         [MaxLength(64, ErrorMessage = "Orderer field length must be less than 64 symbols.")]
         public string Orderer { get; set; }
@@ -46,9 +51,6 @@ namespace TEMPUS.WebSite.Models.Project
         public IEnumerable<SelectListItem> Managers { get; set; }
         public IEnumerable<SelectListItem> Owners { get; set; }
         public IEnumerable<SelectListItem> Departments { get; set; }
-        public IEnumerable<SelectListItem> Priorities { get; set; }
-        public IEnumerable<SelectListItem> Qualities { get; set; }
         public IEnumerable<SelectListItem> PpsClassifications { get; set; }
-
     }
 }

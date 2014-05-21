@@ -12,7 +12,7 @@ namespace TEMPUS.WebSite.Controllers
 {
     public class ProjectsController : BaseController
     {
-        private readonly IProjectQueryService _projectService;
+        private readonly IProjectQueryService _projectQueryService;
         private readonly ICommandSender _commandSender;
         private readonly IUserQueryService _userQueryService;
 
@@ -35,7 +35,7 @@ namespace TEMPUS.WebSite.Controllers
             if (userQueryService == null)
                 throw new ArgumentNullException("userQueryService");
 
-            _projectService = projectService;
+            _projectQueryService = projectService;
             _commandSender = commandSender;
             _userQueryService = userQueryService;
         }
@@ -90,19 +90,26 @@ namespace TEMPUS.WebSite.Controllers
         {
             var model = new CreateProjectViewModel
                 {
-                    ProjectMainInfo = new CreateProjectMainInfoViewModel()
+                    ProjectMainInfo = new CreateProjectMainInfoViewModel(),
+                    ProjectTeam = new CreateProjectTeamViewModel()
                 };
             return View(this.PrepareCreateProjectModel(model));
         }
 
         [Authorize]
         [HttpPost]
-        public ActionResult Create(CreateProjectViewModel model)
+        public ActionResult Create(CreateProjectViewModel model,
+            [Bind(Prefix = "CreateProjectTeamViewModel.ProjectTeamMemberViewModel")]ProjectTeamMemberViewModel[] teamMembers)
         {
+            model.ProjectTeam.TeamMembers = teamMembers;
+
+            ICommand command;
             if (ModelState.IsValid)
             {
                 var newProjectId = Guid.NewGuid();
-                var command = new CreateProject(new ProjectId(newProjectId), model.ProjectMainInfo.Name,
+                command = new CreateProject(
+                    new ProjectId(newProjectId),
+                    model.ProjectMainInfo.Name,
                     model.ProjectMainInfo.Description,
                     model.ProjectMainInfo.Orderer,
                     model.ProjectMainInfo.RecievingOrganization,
@@ -116,10 +123,9 @@ namespace TEMPUS.WebSite.Controllers
                 _commandSender.Send(command);
 
                 //TODO: create commands for information from 2, 3, 4 steps.
-
+                
                 return RedirectToAction("Index");
             }
-
             return View(this.PrepareCreateProjectModel(model));
         }
 
@@ -181,20 +187,20 @@ namespace TEMPUS.WebSite.Controllers
 
         private IEnumerable<SelectListItem> GetDepartments()
         {
-            var departments = _projectService.GetDepartments().ToArray();
+            var departments = _projectQueryService.GetDepartments().ToArray();
             return departments.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Name }).ToList();
         }
 
         private IEnumerable<SelectListItem> GetPpsClassifications()
         {
-            var classifications = _projectService.GetPpsClassifications().ToArray();
+            var classifications = _projectQueryService.GetPpsClassifications().ToArray();
             return classifications.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Name }).ToList();
         }
 
         private IEnumerable<SelectListItem> GetUsers()
         {
-            var users = _userQueryService.GetUsers().ToArray();
-            return users.Select(x => new SelectListItem { Value = x.UserId.Id.ToString(), Text = x.Email }).ToList();
+            var users = _userQueryService.GetAllActiveUsers().ToArray();
+            return users.Select(x => new SelectListItem { Value = x.UserId.Id.ToString(), Text = x.Email });
         }
 
         private CreateProjectViewModel PrepareCreateProjectModel(CreateProjectViewModel model)
@@ -202,24 +208,20 @@ namespace TEMPUS.WebSite.Controllers
             if (model == null)
                 throw new ArgumentNullException("model");
 
-            model.ProjectMainInfo.Priorities = new List<SelectListItem>
-                {
-                    new SelectListItem { Text = "High", Value = "1" },
-                    new SelectListItem { Text = "Medium", Value = "2" },
-                    new SelectListItem { Text = "Low", Value = "3" }
-                };
             model.ProjectMainInfo.Departments = this.GetDepartments();
             model.ProjectMainInfo.PpsClassifications = this.GetPpsClassifications();
             model.ProjectMainInfo.Managers = this.GetUsers();
             model.ProjectMainInfo.Owners = this.GetUsers();
-            model.ProjectMainInfo.Qualities = new List<SelectListItem>
-                {
-                    new SelectListItem { Text = "0.1", Value = "0.1" },
-                    new SelectListItem { Text = "0.3", Value = "0.3" },
-                    new SelectListItem { Text = "0.6", Value = "0.6" }
-                };
 
+            model.ProjectTeam.Users = _userQueryService.GetAllActiveUsers();
+            model.Roles = this.GetProjectRoles();
             return model;
+        }
+
+        private IEnumerable<SelectListItem> GetProjectRoles()
+        {
+            var projectRoles = _projectQueryService.GetProjectRoles();
+            return projectRoles.Select(x => new SelectListItem { Value = x.Key.ToString(), Text = x.Value });
         }
     }
 }
