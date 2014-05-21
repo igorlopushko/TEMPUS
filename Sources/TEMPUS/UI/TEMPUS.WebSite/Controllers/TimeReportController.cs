@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using TEMPUS.WebSite.Models.Project;
 using TEMPUS.WebSite.Models.Team;
@@ -73,53 +70,48 @@ namespace TEMPUS.WebSite.Controllers
             TimeRecordViewModel[] records = new TimeRecordViewModel[] {
                 new TimeRecordViewModel() {
                     Project = tempus,
+                    Task = task1,
                     User = admin,
                     Hours = 4.0,
-                    Description = "Task is done"
+                    Date = new DateTime(2014, 04, 18)
                 },
                 new TimeRecordViewModel() {
                     Project = tempus,
                     Task = task1,
                     User = volkov,
                     Hours = 16,
-                    StartDate = new DateTime(2014, 04, 18),
-                    EndDate = new DateTime(2014, 04, 22),
-                    Description = "Create part of the task"
+                    Date = new DateTime(2014, 04, 18)
                 },
                 new TimeRecordViewModel() {
                     Project = happy,
                     Task = task3,
                     User = doe,
                     Hours = 7.5,
-                    StartDate = new DateTime(2014, 04, 14),
-                    EndDate = new DateTime(2014, 04, 17),
-                    Description = "Have a problem for now"
+                    Date = new DateTime(2014, 04, 14)
                 },
                 new TimeRecordViewModel() {
                     Project = lucky,
+                    Task = task3,
                     User = zayats,
                     Hours = 11,
-                    StartDate = new DateTime(2014, 05, 14),
-                    EndDate = new DateTime(2014, 05, 17),
+                    Date = new DateTime(2014, 05, 14)
                 },
                 new TimeRecordViewModel() {                    
                     Project = happy,
                     Task = task3,
                     User = doe,
                     Hours = 3,
-                    StartDate = new DateTime(2014, 04, 20),
-                    EndDate = new DateTime(2014, 04, 21),
+                    Date = new DateTime(2014, 04, 20)
                 },
                 new TimeRecordViewModel() {                    
                     Project = happy,
                     Task = task3,
                     User = admin,
                     Hours = 7,
-                    StartDate = new DateTime(2014, 04, 19),
-                    EndDate = new DateTime(2014, 04, 23),
+                    Date = new DateTime(2014, 04, 19)
                 },
             };
-            
+
             return View(records);
         }
     }
