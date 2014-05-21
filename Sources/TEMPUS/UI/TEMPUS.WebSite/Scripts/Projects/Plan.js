@@ -151,4 +151,134 @@ App.module('Project.Plan', function (ProjectPlan, App, Backbone, Marionette, $, 
         }
     });
 
+    this.GanttItemView = Backbone.Marionette.ItemView.extend({
+        template: Backbone.Marionette.TemplateCache.get('#ganttItemTemplate'),
+
+        tagName: 'tr',
+
+        initialize: function (options) {
+            this.minDate = options.minDate;
+            this.maxDate = options.maxDate;
+        },
+
+        serializeData: function () {
+            var columnWidth = 52;
+            return {
+                isVisible: this.model.get('start_date') !== null && this.model.get('due_date') !== null,
+                size: this.maxDate.diff(this.minDate, 'days'),
+                width: columnWidth * moment(this.model.get('due_date')).diff(moment(this.model.get('start_date')), 'days'),
+                left: columnWidth * moment(this.model.get('start_date')).diff(this.minDate, 'days')
+            }
+        }
+    });
+
+    this.GanttView = Backbone.Marionette.CompositeView.extend({
+        template: Backbone.Marionette.TemplateCache.get('#ganttTemplate'),
+
+        itemView: this.GanttItemView,
+
+        className: 'gantt-container',
+
+        itemViewContainer: 'tbody',
+
+        events: {
+            'mousedown .gantt': 'startDragging',
+            'mousemove .gantt': 'drag',
+            'mouseleave .gantt': 'stopDragging',
+            'mouseup .gantt': 'stopDragging'
+        },
+
+        ui: {
+            'gantt': '.gantt',
+            'ganttTable': '.gantt table'
+        },
+
+        initialize: function () {
+            this.collection.on('add remove reset change', this.render);
+        },
+
+        itemViewOptions: function (model, index) {
+            return {
+                minDate: this.getStartDate(),
+                maxDate: this.getFinishDate()
+            };
+        },
+
+        startDragging: function (e) {
+            this.dragPoint = e.screenX;
+        },
+
+        drag: function (e) {
+            if (this.dragPoint) {
+                var offset = this.dragPoint - e.screenX,
+                    left = parseInt(this.ui.gantt.css('left'), 10),
+                    maxLeft = 0,
+                    minLeft = this.ui.gantt.width() - this.ui.ganttTable.width(),
+                    newLeft = left - offset;
+
+                if (newLeft > maxLeft) {
+                    newLeft = maxLeft;
+                }
+
+                if (newLeft < minLeft) {
+                    newLeft = minLeft;
+                }
+
+                this.ui.gantt.css('left', newLeft + 'px');
+                this.dragPoint = e.screenX;
+            }
+        },
+
+        stopDragging: function (e) {
+            this.dragPoint = null;
+        },
+
+        getStartDate: function () {
+            var start = _.min(this._getDates('start_date'));
+
+            if (!start) {
+                start = new Date();
+            }
+
+            return moment(start).subtract('days', 7);
+        },
+
+        getFinishDate: function () {
+            var finish = _.max(this._getDates('due_date'));
+
+            if (!finish) {
+                finish = new Date();
+            }
+
+            return moment(finish).add('days', 7);
+        },
+
+        _getDates: function (attribute) {
+            return _.map(
+                _.filter(
+                    this.collection.pluck(attribute),
+                    function (val) {
+                        return val !== null;
+                    }
+                ),
+                function (val) {
+                    return moment(val).toDate();
+                }
+            );
+        },
+
+        serializeData: function () {
+            var start = this.getStartDate(),
+                finish = this.getFinishDate();
+
+            days = []
+            while (start.unix() < finish.unix()) {
+                days.push(start);
+                start = start.clone().add('days', 1);
+            }
+            return {days: days};
+        },
+
+    });
+
 });

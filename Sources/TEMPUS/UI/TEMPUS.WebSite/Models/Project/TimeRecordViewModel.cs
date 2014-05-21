@@ -9,8 +9,6 @@ namespace TEMPUS.WebSite.Models.Project
         public ProjectViewModel Project { get; set; }
         public UserViewModel User { get; set; }
         public double Hours { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public string Description { get; set; }
+        public DateTime Date { get; set; }
     }
 }

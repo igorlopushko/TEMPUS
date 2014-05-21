@@ -1,1 +1,17 @@
-﻿
+﻿.gantt-container {
+    overflow: hidden;
+}
+
+.gantt {
+    position: relative;
+    left: 0;
+    cursor: move;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.gantt-bar {
+    position: relative;
+    margin-bottom: 0;
+}
