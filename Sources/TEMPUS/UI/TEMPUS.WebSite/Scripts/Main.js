@@ -10,6 +10,7 @@ jQuery(function ($) {
     $('[role="datepicker"]').datetimepicker({
         pickTime: false
     });
+    $('.selectpicker').selectpicker();
 });
 
 /* Noscroll for collapsing navbar */
