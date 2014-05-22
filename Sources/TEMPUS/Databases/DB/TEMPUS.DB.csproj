@@ -87,6 +87,10 @@
     <Compile Include="Migrations\201405212255215_RemovedDataBaseGeneratedKey.Designer.cs">
       <DependentUpon>201405212255215_RemovedDataBaseGeneratedKey.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405221827438_RemovedDataBaseGeneratedKeyInProjectRole.cs" />
+    <Compile Include="Migrations\201405221827438_RemovedDataBaseGeneratedKeyInProjectRole.Designer.cs">
+      <DependentUpon>201405221827438_RemovedDataBaseGeneratedKeyInProjectRole.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Project\Department.cs">
@@ -133,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201405212255215_RemovedDataBaseGeneratedKey.resx">
       <DependentUpon>201405212255215_RemovedDataBaseGeneratedKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405221827438_RemovedDataBaseGeneratedKeyInProjectRole.resx">
+      <DependentUpon>201405221827438_RemovedDataBaseGeneratedKeyInProjectRole.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

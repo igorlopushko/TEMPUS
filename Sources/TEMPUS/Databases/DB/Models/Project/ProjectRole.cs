@@ -6,7 +6,7 @@ namespace TEMPUS.DB.Models.Project
 {
     public class ProjectRole : Entity
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public Guid Id { get; set; }
 
         [MaxLength(64)]

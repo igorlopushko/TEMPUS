@@ -107,10 +107,9 @@ namespace TEMPUS.ProjectDomain.Services.DomainLayer
             if (user == null)
                 throw new ArgumentException(string.Format("User with id {0} does not exist.", command.UserId.Id));
 
-            //TODO: Remove when implemented
-            //var role = _context.ProjectRoles.Find(command.RoleId);
-            //if (role == null)
-            //    throw new ArgumentException(string.Format("Project role with id {0} does not exist.", command.UserId.Id));
+            var role = _context.ProjectRoles.Find(command.RoleId);
+            if (role == null)
+                throw new ArgumentException(string.Format("Project role with id {0} does not exist.", command.UserId.Id));
 
             var project = _projectRepository.Get(command.Id);
             project.AssignUser(command.UserId, command.RoleId, command.FTE);

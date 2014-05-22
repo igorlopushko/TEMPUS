@@ -218,9 +218,15 @@ namespace TEMPUS.DB.Migrations
                 "Team member"
             };
 
+            var ownerRoleId = Guid.Parse("7eb33e5e-1bd6-e311-be7f-94de8066e6a1");
+
             foreach (string role in roles)
             {
-                context.ProjectRoles.AddOrUpdate(x => x.Name, new ProjectRole { Name = role });
+                context.ProjectRoles.AddOrUpdate(x => x.Name, new ProjectRole
+                {
+                    Name = role,
+                    Id = role == "Owner" ? ownerRoleId : Guid.NewGuid()
+                });
             }
             context.SaveChanges();
         }

@@ -126,7 +126,9 @@ namespace TEMPUS.WebSite.Controllers
 
                 foreach (var teamMember in model.ProjectTeam.TeamMembers)
                 {
-                    command = new AssignUserToProject(new ProjectId(newProjectId), new UserId(teamMember.UserId), teamMember.RoleId, teamMember.FTE);
+                    //TODO: Remove when RoleId field added in the UI.
+                    var roleId = Guid.Parse("7eb33e5e-1bd6-e311-be7f-94de8066e6a1");
+                    command = new AssignUserToProject(new ProjectId(newProjectId), new UserId(teamMember.UserId), roleId, teamMember.FTE);
                     _commandSender.Send(command);
                 }
 
