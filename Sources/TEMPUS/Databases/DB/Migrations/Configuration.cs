@@ -230,7 +230,7 @@ namespace TEMPUS.DB.Migrations
             Guid department = context.Departments.FirstOrDefault().Id;
             Guid pps = context.PpsClassifications.FirstOrDefault().Id;
             var projectId = Guid.NewGuid();
-            context.Projects.AddOrUpdate(new Project
+            context.Projects.AddOrUpdate(x => x.Name, new Project
             {
                 Id = projectId,
                 Name = "Tempus project",

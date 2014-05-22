@@ -1,70 +1,42 @@
-﻿@model TEMPUS.WebSite.Models.Team.UserViewModel
+﻿@model IEnumerable<TEMPUS.WebSite.Models.User.UserListViewModel>
 
 @{
-    ViewBag.Title = "User";
-    ViewBag.PageTitle = Model.FirstName + " " + Model.LastName + ", " + Model.Role;
+    ViewBag.Title = "Manage users";
 }
 
-@section CustomCss {
-    <link rel="stylesheet" href="@Url.Content("~/Content/Styles/UserPage.css")">
-}
-
-@section CustomJs {
-    <script src="~/Scripts/Lib/Chart.js"></script>
-    <script src="~/Scripts/UserPage.js"></script>
-}
-
-<script>
-    $(document).ready(function (ev) {
-        setMood(@Model.Mood);
-    });
-</script>
-
-<div class="row">
-    <div class="col-sm-4 col-md-3 text-center">
-        <img id="avatar" src="@Url.Content(@Model.Image)" class="img-thumbnail img-responsive" />
-        <div class="text-center">
-            <a href="@Url.Action("Index", "Team")" class="btn btn-default hidden-xs back-button">
-                <span class="glyphicon glyphicon-chevron-left"></span>Back
+<div class="col-md-12">
+    <table class="table" id="table">
+        <thead>
+            <tr>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Role</th>
+                <th>Is deleted</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    @Html.HiddenFor(x => user.UserId)
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>
+                        @Html.DropDownList("UserRole", user.UserRoles)
+                    </td>
+                    <td>
+                        @Html.CheckBox("IsDeleted", user.IsDeleted)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="form-group">
+        <div class="col-sm-4">
+            <a href="@Url.Action("Register","Account")">
+                <input class="btn btn-primary next" value="Register user" type="submit" />
             </a>
+            <input class="btn btn-primary next" value="Save changes" type="submit" />
         </div>
-    </div>
-
-    <div class="col-sm-8 col-md-9">
-        <div class="row">
-            <div class="col-md-1 col-sm-2 col-xs-2">
-                <p>Mood: </p>
-                <p>Age:</p>
-                <p>Email:</p>
-                <p>Phone:</p>
-            </div>
-            <div class="col-md-11 col-sm-10 col-xs-10">
-                <p>
-                    <img src="~/Content/Images/4_mood.png" class="img-responsive" id="mood-img" />
-                </p>
-                <p>@Model.Age</p>
-                <p>@Model.Email</p>
-                <p>@Model.Phone</p>
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Mood by days</div>
-                    <div class="panel-body">
-
-                        <canvas id="respondCanvas" height="200"></canvas>
-                    </div>
-                    <div class="panel-footer">
-                        <span class="text-muted">1  - very sad, 2 - not ok, 3 - good, 4 - awesome</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-4 col-xs-offset-4">
-        <a href="@Url.Action("Index", "Team")" class="btn btn-default visible-xs">
-            <span class="glyphicon glyphicon-chevron-left"></span>Back
-        </a>
     </div>
 </div>

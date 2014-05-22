@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using TEMPUS.BaseDomain.Messages.Identities;
 
 namespace TEMPUS.WebSite.Models.Account
 {
@@ -12,7 +11,7 @@ namespace TEMPUS.WebSite.Models.Account
         /// <summary>
         /// Gets or sets the user identifier.
         /// </summary>
-        public UserId UserId { get; set; }
+        public Guid UserId { get; set; }
         /// <summary>
         /// Gets or sets the login of the user.
         /// </summary>

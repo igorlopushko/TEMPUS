@@ -40,7 +40,7 @@ namespace TEMPUS.UserDomain.Infrastructure
 
             return _userReadRepository.Users.Where(x => x.Id == id.Id && x.IsDeleted == false).AsEnumerable().Select(x => new UserInfo
             {
-                UserId = new UserId(x.Id),
+                UserId = x.Id,
                 LastName = x.LastName,
                 FirstName = x.FirstName,
                 Email = x.Email,
@@ -48,6 +48,7 @@ namespace TEMPUS.UserDomain.Infrastructure
                 Password = x.Password,
                 Phone = x.Phone,
                 DateOfBirth = x.DateOfBirth,
+                IsDeleted = x.IsDeleted,
                 Roles = GetUserRoles(new UserId(x.Id))
             }).FirstOrDefault();
         }
@@ -60,19 +61,20 @@ namespace TEMPUS.UserDomain.Infrastructure
         {
             var user = _userReadRepository.Users.Where(x => x.Email == email && x.IsDeleted == false).ToArray().Select(x => new UserInfo
             {
-                UserId = new UserId(x.Id),
+                UserId = x.Id,
                 LastName = x.LastName,
                 FirstName = x.FirstName,
                 Email = x.Email,
                 Image = x.Image,
                 Password = x.Password,
                 Phone = x.Phone,
+                IsDeleted = x.IsDeleted,
                 DateOfBirth = x.DateOfBirth
             }).FirstOrDefault();
             if (user != null)
             {
-                user.Roles = GetUserRoles(user.UserId);
-                user.Mood = this.GetUserMood(user.UserId);
+                user.Roles = GetUserRoles(new UserId(user.UserId));
+                user.Mood = this.GetUserMood(new UserId(user.UserId));
                 return user;
             }
 
@@ -149,7 +151,7 @@ namespace TEMPUS.UserDomain.Infrastructure
                 _userReadRepository.ProjectRoleRelations.Where(x => x.ProjectId == projectId.Id).Select(x => x.UserId);
             var users = _userReadRepository.Users.Where(x => teamMembersIds.Contains(x.Id)).ToArray().Select(x => new UserInfo
             {
-                UserId = new UserId(x.Id),
+                UserId = x.Id,
                 LastName = x.LastName,
                 FirstName = x.FirstName,
                 Email = x.Email,
@@ -157,6 +159,7 @@ namespace TEMPUS.UserDomain.Infrastructure
                 Password = x.Password,
                 Phone = x.Phone,
                 DateOfBirth = x.DateOfBirth,
+                IsDeleted = x.IsDeleted,
                 Roles = GetUserRoles(new UserId(x.Id))
             });
             return users;
@@ -182,10 +185,9 @@ namespace TEMPUS.UserDomain.Infrastructure
             if (userId == null)
                 throw new ArgumentNullException("userId");
 
-            var date = DateTime.Now;
+            var date = DateTime.Now.Date;
             return _userReadRepository.Moods.Where(
-                    x => x.UserId == userId.Id && x.Date.Year == date.Year && x.Date.Month == date.Month
-                    && x.Date.Day == date.Day).ToArray().Select(x => new UserMood
+                    x => x.UserId == userId.Id && x.Date == date).ToArray().Select(x => new UserMood
                         {
                             Date = x.Date,
                             Rate = x.Rate,
@@ -222,7 +224,8 @@ namespace TEMPUS.UserDomain.Infrastructure
                     Mood = this.GetUserMood(id),
                     Password = user.Password,
                     Phone = user.Phone,
-                    UserId = id,
+                    UserId = id.Id,
+                    IsDeleted = user.IsDeleted,
                     Roles = this.GetUserRoles(id)
                 };
         }
@@ -236,7 +239,7 @@ namespace TEMPUS.UserDomain.Infrastructure
                     new UserInfo
                         {
                             DateOfBirth = x.DateOfBirth,
-                            UserId = new UserId(x.Id),
+                            UserId = x.Id,
                             Email = x.Email,
                             FirstName = x.FirstName,
                             LastName = x.LastName,
@@ -244,6 +247,7 @@ namespace TEMPUS.UserDomain.Infrastructure
                             Mood = this.GetUserMood(new UserId(x.Id)),
                             Password = x.Password,
                             Phone = x.Phone,
+                            IsDeleted = x.IsDeleted,
                             Roles = this.GetUserRoles(new UserId(x.Id))
                         });
         }
@@ -258,7 +262,7 @@ namespace TEMPUS.UserDomain.Infrastructure
                     new UserInfo
                     {
                         DateOfBirth = x.DateOfBirth,
-                        UserId = new UserId(x.Id),
+                        UserId = x.Id,
                         Email = x.Email,
                         FirstName = x.FirstName,
                         LastName = x.LastName,
@@ -266,6 +270,7 @@ namespace TEMPUS.UserDomain.Infrastructure
                         Mood = this.GetUserMood(new UserId(x.Id)),
                         Password = x.Password,
                         Phone = x.Phone,
+                        IsDeleted = x.IsDeleted,
                         Roles = this.GetUserRoles(new UserId(x.Id))
                     });
         }

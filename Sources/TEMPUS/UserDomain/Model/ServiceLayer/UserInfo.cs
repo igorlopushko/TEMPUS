@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.BaseDomain.Model.ServiceLayer;
 
 namespace TEMPUS.UserDomain.Model.ServiceLayer
@@ -11,7 +10,7 @@ namespace TEMPUS.UserDomain.Model.ServiceLayer
     [Serializable]
     public class UserInfo : Dto
     {
-        public UserId UserId { get; set; }
+        public Guid UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -20,6 +19,7 @@ namespace TEMPUS.UserDomain.Model.ServiceLayer
         public DateTime DateOfBirth { get; set; }
         public string Image { get; set; }
         public UserMood Mood { get; set; }
+        public bool IsDeleted { get; set; }
         public IEnumerable<UserRole> Roles { get; set; }
     }
 }

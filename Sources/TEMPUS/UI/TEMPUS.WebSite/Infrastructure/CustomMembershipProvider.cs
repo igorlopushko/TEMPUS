@@ -127,7 +127,7 @@ namespace TEMPUS.WebSite.Infrastructure
             var user = _userSvc.GetUserByEmail(username);
             if (user != null)
             {
-                var memUser = new MembershipUser("CustomMembershipProvider", username, user.UserId.Id, user.Email,
+                var memUser = new MembershipUser("CustomMembershipProvider", username, user.UserId, user.Email,
                                                             string.Empty, string.Empty,
                                                             true, false, DateTime.MinValue,
                                                             DateTime.MinValue,

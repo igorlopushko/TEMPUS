@@ -39,7 +39,7 @@ namespace TEMPUS.WebSite.Controllers
         {
             //Next two lines are just stub, don't look at them!
             Guid id = _projectQueryService
-                .GetUserProjects(_userQueryService.GetUserByEmail("shatovska@gmail.com").UserId).FirstOrDefault().Id;
+                .GetUserProjects(new UserId(_userQueryService.GetUserByEmail("shatovska@gmail.com").UserId)).FirstOrDefault().Id;
             ProjectId projectId = new ProjectId(id);
 
             var Team = _userQueryService.GetUsersByProjectId(projectId).Select(x => new ProfileViewModel
@@ -50,7 +50,7 @@ namespace TEMPUS.WebSite.Controllers
                 Image = x.Image == null ? "~/Content/images/user.png" : x.Image,
                 LastName = x.LastName,
                 UserId = x.UserId,
-                Role = _userQueryService.GetProjectRoleForUser(projectId, x.UserId).Name
+                Role = _userQueryService.GetProjectRoleForUser(projectId, new UserId(x.UserId)).Name
             }).OrderBy(x => x.Role).AsEnumerable();
             return View(new TeamViewModel{users = Team.ToList(), projectId = projectId});
         }

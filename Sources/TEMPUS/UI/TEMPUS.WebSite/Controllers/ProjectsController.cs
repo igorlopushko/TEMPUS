@@ -206,7 +206,7 @@ namespace TEMPUS.WebSite.Controllers
         private IEnumerable<SelectListItem> GetUsers()
         {
             var users = _userQueryService.GetAllActiveUsers().ToArray();
-            return users.Select(x => new SelectListItem { Value = x.UserId.Id.ToString(), Text = x.Email });
+            return users.Select(x => new SelectListItem { Value = x.UserId.ToString(), Text = x.Email });
         }
 
         private CreateProjectViewModel PrepareCreateProjectModel(CreateProjectViewModel model)

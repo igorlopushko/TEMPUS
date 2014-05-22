@@ -191,7 +191,7 @@ namespace TEMPUS.WebSite.Controllers
                 return View("EditProfile", model);
             }
 
-            var userInfo = _userQueryService.GetUser(UserContext.Current.UserId);
+            var userInfo = _userQueryService.GetUser(new UserId(UserContext.Current.UserId));
             if (userInfo == null)
             {
                 //TODO: return error message.
@@ -200,12 +200,12 @@ namespace TEMPUS.WebSite.Controllers
 
             if (userInfo.FirstName != model.FirstName || userInfo.LastName != model.LastName || userInfo.Phone != model.Phone || userInfo.DateOfBirth != model.DateOfBirth)
             {
-                var command = new ChangeUserInformation(userInfo.UserId, model.Phone, userInfo.Image, model.FirstName,
+                var command = new ChangeUserInformation(new UserId(userInfo.UserId), model.Phone, userInfo.Image, model.FirstName,
                     model.LastName, model.DateOfBirth);
                 _cmdSender.Send(command);
             }
 
-            return RedirectToAction("Profile", new { id = userInfo.UserId.Id });
+            return RedirectToAction("Profile", new { id = userInfo.UserId });
         }
 
         /// <summary>
@@ -258,7 +258,7 @@ namespace TEMPUS.WebSite.Controllers
             if (model == null)
                 throw new ArgumentNullException("model");
 
-            if (model.UserId != UserContext.Current.UserId.Id)
+            if (model.UserId != UserContext.Current.UserId)
                 throw new ArgumentException("User can change rate of the mood only for himself.");
 
             if (model.Rate <= 0 || model.Rate > 4)
