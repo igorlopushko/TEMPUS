@@ -18,5 +18,6 @@ namespace TEMPUS.UserDomain.Services.ServiceLayer
         UserInfo GetUser(UserId id);
         IEnumerable<UserInfo> GetUsers();
         IEnumerable<UserInfo> GetAllActiveUsers();
+        Guid GetUserRoleId(UserRole role);
     }
 }

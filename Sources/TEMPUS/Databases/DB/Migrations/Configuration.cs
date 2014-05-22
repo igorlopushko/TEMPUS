@@ -259,7 +259,7 @@ namespace TEMPUS.DB.Migrations
             Guid manager = context.ProjectRoles.FirstOrDefault(x => x.Name == "Manager").Id;
             Guid teamMember = context.ProjectRoles.FirstOrDefault(x => x.Name == "Team member").Id;
             Guid shatovska = context.Users.FirstOrDefault(x => x.LastName == "Shatovska").Id;
-            context.ProjectRoleRelations.AddOrUpdate(x => x.UserId, new ProjectRoleRelation
+            context.ProjectRoleRelations.AddOrUpdate(new ProjectRoleRelation
             {
                 ProjectId = project,
                 ProjectRoleId = manager,
@@ -267,7 +267,7 @@ namespace TEMPUS.DB.Migrations
             });
             foreach (var userId in context.Users.Where(x => x.Id != shatovska).Select(x => x.Id).ToArray())
             {
-                context.ProjectRoleRelations.AddOrUpdate(x => x.UserId, new ProjectRoleRelation
+                context.ProjectRoleRelations.AddOrUpdate(new ProjectRoleRelation
                 {
                     ProjectId = project,
                     ProjectRoleId = teamMember,
@@ -285,7 +285,7 @@ namespace TEMPUS.DB.Migrations
             {
                 for (int i = 1; i < 8; i++)
                 {
-                    context.Moods.AddOrUpdate(x => new { x.Date, x.UserId }, new UserMood
+                    context.Moods.AddOrUpdate(new UserMood
                     {
                         UserId = userId,
                         Rate = r.Next(1, 5),

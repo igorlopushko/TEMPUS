@@ -274,5 +274,15 @@ namespace TEMPUS.UserDomain.Infrastructure
                         Roles = this.GetUserRoles(new UserId(x.Id))
                     });
         }
+
+        /// <summary>
+        /// Gets the user role identifier.
+        /// </summary>
+        /// <param name="role">The role.</param>
+        public Guid GetUserRoleId(UserRole role)
+        {
+            var userRole = _userReadRepository.Roles.FirstOrDefault(x => x.Name == role.ToString());
+            return userRole == null ? Guid.Empty : userRole.Id;
+        }
     }
 }

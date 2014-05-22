@@ -86,6 +86,26 @@ namespace TEMPUS.UserDomain.Services.DomainLayer
         }
 
         /// <summary>
+        /// Handles the specified <see cref="RestoreUser"/> command.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        /// <exception cref="System.ArgumentNullException">When UserId is null.</exception>
+        /// <exception cref="System.ArgumentException">When user does not exist.</exception>
+        public void Handle(RestoreUser command)
+        {
+            if (command.Id == null)
+                throw new ArgumentNullException("command", "UserId must be specified.");
+
+            var user = _userRepository.Get(command.Id);
+            if (user == null)
+                throw new ArgumentException(string.Format("User with such id: {0} does not exist.", command.Id));
+
+            user.RestoreUser();
+
+            _userRepository.Save(user);
+        }
+
+        /// <summary>
         /// Handles the specified <see cref="AddRoleToUser"/> command.
         /// </summary>
         /// <param name="command">The command.</param>

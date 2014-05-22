@@ -517,6 +517,98 @@ namespace TEMPUS.BaseDomain.Messages
 	
 	[Serializable]
 	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
+	public sealed class RestoreUser : ICommand<UserId>
+	{
+		public UserId Id { get; set; }
+		public int Version { get; set; }
+		private RestoreUser () {}
+		public RestoreUser (UserId userId)
+		{
+			Id = userId;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+			var target = obj as RestoreUser;
+			if (target == null)
+			{
+				return false;
+			}
+			return Id.Equals(target.Id);
+		}
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode();
+		}
+		public static bool operator ==(RestoreUser a, RestoreUser b)
+		{
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+			return a.Equals(b);
+		}
+		public static bool operator !=(RestoreUser a, RestoreUser b)
+		{
+			return !(a == b);
+		}
+	}
+	
+	[Serializable]
+	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
+	public sealed class UserRestored : IEvent<UserId>
+	{
+		public UserId Id { get; set; }
+		public int Version { get; set; }
+		private UserRestored () {}
+		public UserRestored (UserId userId)
+		{
+			Id = userId;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+			var target = obj as UserRestored;
+			if (target == null)
+			{
+				return false;
+			}
+			return Id.Equals(target.Id);
+		}
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode();
+		}
+		public static bool operator ==(UserRestored a, UserRestored b)
+		{
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+			return a.Equals(b);
+		}
+		public static bool operator !=(UserRestored a, UserRestored b)
+		{
+			return !(a == b);
+		}
+	}
+	
+	[Serializable]
+	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
 	public sealed class SetUserMood : ICommand<UserId>
 	{
 		public UserId Id { get; set; }

@@ -98,6 +98,19 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
         }
 
         /// <summary>
+        /// Deletes the user.
+        /// </summary>
+        public void RestoreUser()
+        {
+            this.IsNew = false;
+            this.IsDeleted = false;
+
+            var @event = new UserRestored(this.Id);
+
+            this.ApplyChange(@event);
+        }
+
+        /// <summary>
         /// Changes the information.
         /// </summary>
         /// <param name="firstName">The user first name.</param>
@@ -126,6 +139,7 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
         /// <param name="roleId">The role identifier.</param>
         public void AddRole(Guid roleId)
         {
+            this.Roles.Clear();
             this.Roles.Add(roleId);
             this.IsNew = false;
 
@@ -160,6 +174,11 @@ namespace TEMPUS.UserDomain.Model.DomainLayer
         }
 
         private void Apply(UserDeleted @event)
+        {
+            //TODO: Investigate why we need this.
+        }
+
+        private void Apply(UserRestored @event)
         {
             //TODO: Investigate why we need this.
         }

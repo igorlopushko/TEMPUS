@@ -13,7 +13,7 @@ namespace TEMPUS.WebSite.Models.User
 
         public string LastName { get; set; }
 
-        public Guid UserRole { get; set; }
+        public string UserRole { get; set; }
 
         public bool IsDeleted { get; set; }
 

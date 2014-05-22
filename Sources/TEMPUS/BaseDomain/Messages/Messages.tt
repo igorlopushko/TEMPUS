@@ -33,6 +33,8 @@ namespace TEMPUS.BaseDomain.Messages
 	RoleToUserAdded!(userId, Guid RoleId)
 	DeleteUser?(userId)
 	UserDeleted!(userId)
+	RestoreUser?(userId)
+	UserRestored!(userId)
 	SetUserMood?(userId, int Rate)
 	UserMoodSet!(userId, int Rate, DateTime Date)
 	CreateProject?(projectId, string Name, string Description, string ProjectOrderer, string RecievingOrganization, bool Mandatory, DateTime StartDate, DateTime EndDate,
