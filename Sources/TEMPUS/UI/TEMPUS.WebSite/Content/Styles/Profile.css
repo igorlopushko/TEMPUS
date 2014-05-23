@@ -11,6 +11,7 @@
 .ul-chooser li
 {
     padding:0px 5px 0px 5px;
+    cursor:pointer;
 }
 
 .ul-chooser li img
