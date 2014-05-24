@@ -140,7 +140,9 @@ namespace TEMPUS.WebSite.Controllers
                 if (_membershipService.ValidateUser(model.Email, model.Password))
                 {
                     _formsService.SignIn(model.Email, model.RememberMe);
-                    if(SiteSecurity.UserInRole(UserRole.Administrator))
+
+                    var user = _userQueryService.GetUserByEmail(model.Email);
+                    if(SiteSecurity.UserInRole(user, UserRole.Administrator))
                     {
                         return RedirectToAction("Index", "User");
                     }

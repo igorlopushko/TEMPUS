@@ -1,4 +1,6 @@
-﻿@using TEMPUS.WebSite.Contexts
+﻿@using TEMPUS.UserDomain.Model.ServiceLayer
+@using TEMPUS.WebSite.Contexts
+@using TEMPUS.WebSite.Security
 <!doctype html>
 <html lang="en">
 
@@ -36,7 +38,8 @@
 
 <body>
     
-        @if (Request.IsAuthenticated && UserContext.CurrentProjectId != Guid.Empty)
+        @if (Request.IsAuthenticated && 
+            (UserContext.CurrentProjectId != Guid.Empty || SiteSecurity.UserInRole(UserRole.Administrator)))
         {
             <!-- Fixed navbar -->
             <div class="navbar navbar-default navbar-fixed-top" role="navigation">
