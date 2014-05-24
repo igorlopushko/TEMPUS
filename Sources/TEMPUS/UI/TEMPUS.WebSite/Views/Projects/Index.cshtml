@@ -81,7 +81,7 @@
             <tbody>
                 @foreach (var project in Model)
                 {
-                    <tr data-url="@Url.Action("Details", "Projects")">
+                    <tr data-url="@Url.Action("Details", "Projects", new {projectId = project.Id})">
                         <td data-title="Title">@project.Name</td>
                         <td data-title="Status">
                             @if (project.Status == ProjectStatus.Green)

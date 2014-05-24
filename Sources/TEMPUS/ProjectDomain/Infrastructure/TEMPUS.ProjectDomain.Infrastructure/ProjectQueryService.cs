@@ -48,9 +48,9 @@ namespace TEMPUS.ProjectDomain.Infrastructure
         /// Gets the project by identifier.
         /// </summary>
         /// <param name="projectId">The project identifier.</param>
-        public ProjectInfo GetProjectById(Guid projectId)
+        public ProjectInfo GetProjectById(ProjectId projectId)
         {
-            var project = _context.Projects.FirstOrDefault(x => x.Id == projectId);
+            var project = _context.Projects.FirstOrDefault(x => x.Id == projectId.Id);
             return project == null ? null : new ProjectInfo(project.Id, project.Name);
         }
 
