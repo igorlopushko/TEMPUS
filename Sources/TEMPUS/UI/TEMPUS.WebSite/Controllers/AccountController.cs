@@ -140,7 +140,11 @@ namespace TEMPUS.WebSite.Controllers
                 if (_membershipService.ValidateUser(model.Email, model.Password))
                 {
                     _formsService.SignIn(model.Email, model.RememberMe);
-                    return RedirectToAction("Index", "Home");
+                    if(SiteSecurity.UserInRole(UserRole.Administrator))
+                    {
+                        return RedirectToAction("Index", "User");
+                    }
+                    return RedirectToAction("Select", "Projects");
                 }
                 ModelState.AddModelError("Error", "The user name or password provided is incorrect.");
             }
@@ -155,6 +159,7 @@ namespace TEMPUS.WebSite.Controllers
         public ActionResult LogOut()
         {
             _formsService.SignOut();
+            UserContext.CurrentProjectId = Guid.Empty;
             return RedirectToAction("Index", "Home");
         }
 

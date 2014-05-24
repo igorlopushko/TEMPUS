@@ -1,4 +1,6 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
+using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.Infrastructure.Unity;
 using TEMPUS.UserDomain.Model.ServiceLayer;
 using TEMPUS.UserDomain.Services.ServiceLayer;
@@ -25,6 +27,24 @@ namespace TEMPUS.WebSite.Contexts
                 }
 
                 return User;
+            }
+        }
+
+        public static Guid CurrentProjectId
+        {
+            get
+            {
+                if (HttpContext.Current.Request.Cookies["projectId"] != null)
+                {
+                    return new Guid(HttpContext.Current.Request.Cookies["projectId"].Value);
+                }
+                return Guid.Empty;
+            }
+            set
+            {
+                var userCookie = new HttpCookie("projectId", value.ToString());
+                userCookie.Expires.AddDays(1);
+                HttpContext.Current.Response.Cookies.Add(userCookie);
             }
         }
     }

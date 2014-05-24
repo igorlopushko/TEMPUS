@@ -6,6 +6,7 @@ using TEMPUS.BaseDomain.Messages;
 using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.ProjectDomain.Services;
 using TEMPUS.UserDomain.Services.ServiceLayer;
+using TEMPUS.WebSite.Contexts;
 using TEMPUS.WebSite.Models.Project;
 
 namespace TEMPUS.WebSite.Controllers
@@ -191,6 +192,12 @@ namespace TEMPUS.WebSite.Controllers
                 }
             };
             return View(projects);
+        }
+
+        public ActionResult SelectProject(string projectId)
+        {
+            UserContext.CurrentProjectId = Guid.NewGuid();
+            return RedirectToAction("Index", "Home");
         }
 
         private IEnumerable<SelectListItem> GetDepartments()
