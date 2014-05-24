@@ -50,11 +50,10 @@ namespace TEMPUS.WebSite.Helpers
 
         private static void RegisterCommandHandlers(InMemoryBus bus)
         {
-            // TODO: Review! It's highly recommended to use one DataContext per request to avoid high memory consumption.
-            var context = new DataContext();
+            Container.Add<DataContext>(new DataContext());
 
-            Container.Add<IUserStorage<DB.Models.User.User>>(new UserStorage(context));
-            Container.Add<IProjectStorage<DB.Models.Project.Project>>(new ProjectStorage(context));
+            Container.Add<IUserStorage<DB.Models.User.User>>(new UserStorage(Container.Get<DataContext>()));
+            Container.Add<IProjectStorage<DB.Models.Project.Project>>(new ProjectStorage(Container.Get<DataContext>()));
 
             var userRepository = new UserRepository(Container.Get<IEventStore>(),
                 Container.Get<IUserStorage<DB.Models.User.User>>());
@@ -66,7 +65,7 @@ namespace TEMPUS.WebSite.Helpers
                 Container.Get<IProjectStorage<DB.Models.Project.Project>>());
             Container.Add<IRepository<Project, ProjectId>>(projectRepository);
 
-            Container.Add(new ProjectCommandService(projectRepository, context));
+            Container.Add(new ProjectCommandService(projectRepository, Container.Get<DataContext>()));
 
             var commandHandlersAssemblies = new List<Assembly>
             {

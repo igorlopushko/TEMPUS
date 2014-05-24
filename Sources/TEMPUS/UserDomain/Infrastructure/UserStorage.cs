@@ -121,7 +121,10 @@ namespace TEMPUS.UserDomain.Infrastructure
                 var oldRole = _context.UserRoleRelations.FirstOrDefault(x => x.UserId == aggregate.Id);
 
                 if (oldRole == null)
+                {
+                    _context.UserRoleRelations.Add(newRole);
                     continue;
+                }
 
                 if (oldRole.UserId == newRole.UserId &&
                     oldRole.RoleId == newRole.RoleId)
