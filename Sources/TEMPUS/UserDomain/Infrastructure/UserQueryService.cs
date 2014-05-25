@@ -146,7 +146,9 @@ namespace TEMPUS.UserDomain.Infrastructure
         public IEnumerable<UserInfo> GetUsersByProjectId(ProjectId projectId)
         {
             if (projectId == null)
+            {
                 throw new ArgumentNullException("projectId");
+            }
             var teamMembersIds =
                 _userReadRepository.ProjectRoleRelations.Where(x => x.ProjectId == projectId.Id).Select(x => x.UserId);
             var users = _userReadRepository.Users.Where(x => teamMembersIds.Contains(x.Id)).ToArray().Select(x => new UserInfo

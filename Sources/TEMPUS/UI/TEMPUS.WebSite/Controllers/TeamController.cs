@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using TEMPUS.BaseDomain.Messages;
 using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.ProjectDomain.Services;
+using TEMPUS.UserDomain.Model.ServiceLayer;
 using TEMPUS.UserDomain.Services;
 using TEMPUS.UserDomain.Services.ServiceLayer;
 using TEMPUS.WebSite.Contexts;
@@ -37,22 +38,20 @@ namespace TEMPUS.WebSite.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            //Next two lines are just stub, don't look at them!
-            Guid id = _projectQueryService
-                .GetUserProjects(new UserId(_userQueryService.GetUserByEmail("shatovska@gmail.com").UserId)).FirstOrDefault().Id;
-            ProjectId projectId = new ProjectId(id);
+            var projectId = new ProjectId(UserContext.CurrentProjectId);
 
-            var Team = _userQueryService.GetUsersByProjectId(projectId).Select(x => new ProfileViewModel
-            {
-                DateOfBirth = x.DateOfBirth,
-                Email = x.Email,
-                FirstName = x.FirstName,
-                Image = x.Image == null ? "~/Content/images/user.png" : x.Image,
-                LastName = x.LastName,
-                UserId = x.UserId,
-                Role = _userQueryService.GetProjectRoleForUser(projectId, new UserId(x.UserId)).Name
-            }).OrderBy(x => x.Role).AsEnumerable();
-            return View(new TeamViewModel{users = Team.ToList(), projectId = projectId});
+            List<UserInfo> userList = _userQueryService.GetUsersByProjectId(projectId).ToList();
+            List<ProfileViewModel> modelUser = 
+                userList.Select(userInfo => new ProfileViewModel(userInfo.UserId, 
+                    userInfo.FirstName, 
+                    userInfo.LastName, 
+                    userInfo.Email, 
+                    userInfo.Phone, 
+                    userInfo.Image ?? "~/Content/images/user.png",
+                    userInfo.DateOfBirth,
+                    _userQueryService.GetProjectRoleForUser(projectId, new UserId(userInfo.UserId)).Name)).ToList();
+
+            return View(new TeamViewModel { users = modelUser, projectId = projectId });
         }
 
         [HttpGet]

@@ -162,7 +162,7 @@ namespace TEMPUS.WebSite.Controllers
 
         public ActionResult SelectProject(string projectId)
         {
-            UserContext.CurrentProjectId = Guid.NewGuid();
+            UserContext.CurrentProjectId = new Guid(projectId);
             return RedirectToAction("Index", "Home");
         }
 

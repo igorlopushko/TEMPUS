@@ -220,28 +220,24 @@ namespace TEMPUS.WebSite.Controllers
         /// </summary>
         [Authorize]
         [HttpGet]
-        public ActionResult Profile(Guid id)
+        public ActionResult Profile(string id)
         {
-            var userInfo = _userQueryService.GetUser(new UserId(id));
+            var userInfo = _userQueryService.GetUser(new UserId(new Guid(id)));
             if (userInfo == null)
             {
                 //TODO: Set the error message.
                 return View();
             }
 
-            var model = new ProfileViewModel
-            {
-                Image = userInfo.Image ?? "~/Content/images/user.png",
-                Login = userInfo.Email,
-                Phone = userInfo.Phone,
-                FirstName = userInfo.FirstName,
-                LastName = userInfo.LastName,
-                DateOfBirth = userInfo.DateOfBirth,
-                UserId = userInfo.UserId,
-                Email = userInfo.Email,
-                Mood = userInfo.Mood == null ? 0 : userInfo.Mood.Rate,
-                Role = userInfo.Roles == null ? null : userInfo.Roles.FirstOrDefault().ToString()
-            };
+            var model = 
+                new ProfileViewModel(userInfo.UserId, 
+                    userInfo.FirstName, 
+                    userInfo.LastName, 
+                    userInfo.Email, 
+                    userInfo.Phone, 
+                    userInfo.Image ?? "~/Content/images/user.png", 
+                    userInfo.DateOfBirth, 
+                    userInfo.Roles == null ? null : userInfo.Roles.FirstOrDefault().ToString());
 
             return View(model);
         }
