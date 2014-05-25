@@ -72,7 +72,8 @@ namespace TEMPUS.WebSite.Models.Account
             string phone, 
             string image, 
             DateTime dateOfBirth, 
-            string role)
+            string role,
+            int mood)
         {
             UserId = id;
             FirstName = firstName;
@@ -82,6 +83,7 @@ namespace TEMPUS.WebSite.Models.Account
             Image = image;
             DateOfBirth = dateOfBirth;
             Role = role;
+            Mood = mood;
         }
     }
 }

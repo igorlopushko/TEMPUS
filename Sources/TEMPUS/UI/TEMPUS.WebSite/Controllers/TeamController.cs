@@ -41,15 +41,16 @@ namespace TEMPUS.WebSite.Controllers
             var projectId = new ProjectId(UserContext.CurrentProjectId);
 
             List<UserInfo> userList = _userQueryService.GetUsersByProjectId(projectId).ToList();
-            List<ProfileViewModel> modelUser = 
-                userList.Select(userInfo => new ProfileViewModel(userInfo.UserId, 
-                    userInfo.FirstName, 
-                    userInfo.LastName, 
-                    userInfo.Email, 
-                    userInfo.Phone, 
+            List<ProfileViewModel> modelUser =
+                userList.Select(userInfo => new ProfileViewModel(userInfo.UserId,
+                    userInfo.FirstName,
+                    userInfo.LastName,
+                    userInfo.Email,
+                    userInfo.Phone,
                     userInfo.Image ?? "~/Content/images/user.png",
                     userInfo.DateOfBirth,
-                    _userQueryService.GetProjectRoleForUser(projectId, new UserId(userInfo.UserId)).Name)).ToList();
+                    _userQueryService.GetProjectRoleForUser(projectId, new UserId(userInfo.UserId)).Name,
+                    userInfo.Mood == null ? 0 : userInfo.Mood.Rate)).ToList();
 
             return View(new TeamViewModel { users = modelUser, projectId = projectId });
         }
@@ -67,7 +68,7 @@ namespace TEMPUS.WebSite.Controllers
                 var data = moods.Where(x => x.UserId == id).Select(x => new { date = x.Date.ToString("yyyy-MM-dd"), mood = x.Rate });
                 var chosenUser = moods.Where(x => x.UserId == id).FirstOrDefault();
                 string name = chosenUser.FirstName + " " + chosenUser.LastName;
-                users.Add(new {name = name, data = data});
+                users.Add(new { name = name, data = data });
             }
             return Json(users, JsonRequestBehavior.AllowGet);
         }

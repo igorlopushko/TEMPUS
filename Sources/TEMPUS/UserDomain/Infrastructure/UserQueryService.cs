@@ -47,6 +47,7 @@ namespace TEMPUS.UserDomain.Infrastructure
                 Image = x.Image,
                 Password = x.Password,
                 Phone = x.Phone,
+                Mood = this.GetUserMood(new UserId(x.Id)),
                 DateOfBirth = x.DateOfBirth,
                 IsDeleted = x.IsDeleted,
                 Roles = GetUserRoles(new UserId(x.Id))
@@ -68,6 +69,7 @@ namespace TEMPUS.UserDomain.Infrastructure
                 Image = x.Image,
                 Password = x.Password,
                 Phone = x.Phone,
+                Mood = this.GetUserMood(new UserId(x.Id)),
                 IsDeleted = x.IsDeleted,
                 DateOfBirth = x.DateOfBirth
             }).FirstOrDefault();
@@ -162,7 +164,8 @@ namespace TEMPUS.UserDomain.Infrastructure
                 Phone = x.Phone,
                 DateOfBirth = x.DateOfBirth,
                 IsDeleted = x.IsDeleted,
-                Roles = GetUserRoles(new UserId(x.Id))
+                Mood = this.GetUserMood(new UserId(x.Id)),
+                Roles = this.GetUserRoles(new UserId(x.Id))
             });
             return users;
         }

@@ -1,6 +1,7 @@
 ﻿#mood-img img
 {
-    height:20px;
+    height:19px;
+    width:19px;
 }
 
 .ul-chooser
@@ -17,7 +18,9 @@
 .ul-chooser li img
 {
     opacity:0.4;
-    height:20px;
+    height:19px;
+    width:19px;
+    box-shadow: #000 0em 0em 0em;
 }
 
 .ul-chooser li img:hover

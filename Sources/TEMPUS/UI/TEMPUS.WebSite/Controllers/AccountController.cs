@@ -237,7 +237,8 @@ namespace TEMPUS.WebSite.Controllers
                     userInfo.Phone, 
                     userInfo.Image ?? "~/Content/images/user.png", 
                     userInfo.DateOfBirth, 
-                    userInfo.Roles == null ? null : userInfo.Roles.FirstOrDefault().ToString());
+                    userInfo.Roles == null ? null : userInfo.Roles.FirstOrDefault().ToString(),
+                    userInfo.Mood == null ? 0 : userInfo.Mood.Rate);
 
             return View(model);
         }
