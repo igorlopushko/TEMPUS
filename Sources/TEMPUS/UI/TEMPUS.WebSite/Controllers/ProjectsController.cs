@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using TEMPUS.BaseDomain.Messages;
 using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.ProjectDomain.Services;
+using TEMPUS.UserDomain.Model.ServiceLayer;
 using TEMPUS.UserDomain.Services.ServiceLayer;
 using TEMPUS.WebSite.Contexts;
 using TEMPUS.WebSite.Models.Project;
@@ -45,21 +46,18 @@ namespace TEMPUS.WebSite.Controllers
         public ActionResult Index()
         {
             var projects = _projectQueryService.GetUserProjects(new UserId(UserContext.Current.UserId));
-            var model = new List<ProjectListViewModel>();
+            var model = new List<ProjectDetailsViewModel>();
 
             foreach (var projectInfo in projects)
             {
-                var project = new ProjectListViewModel
-                {
-                    Id = projectInfo.Id.ToString(),
-                    Name = projectInfo.Name,
-                    Status = ProjectStatus.Green,
-                    StartDate = DateTime.Now.AddDays(-100),
-                    EndDate = DateTime.Now,
-                    Manager = "John Walk",
-                    Department = "Department1",
-                    Description = "Description1"
-                };
+                var project = new ProjectDetailsViewModel(projectInfo.Id.ToString(), 
+                    projectInfo.Name, 
+                    ProjectStatus.Green, 
+                    DateTime.Now.AddDays(-100),
+                    DateTime.Now.AddDays(100), 
+                    new UserInfo { FirstName = "Tatyana", LastName = "Shatovska"}, 
+                    "Department1", 
+                    "Description");
                 model.Add(project);
             }
             return View(model.ToArray());
@@ -74,7 +72,7 @@ namespace TEMPUS.WebSite.Controllers
                     ProjectMainInfo = new CreateProjectMainInfoViewModel(),
                     ProjectTeam = new CreateProjectTeamViewModel()
                 };
-            return View(this.PrepareCreateProjectModel(model));
+            return View(PrepareCreateProjectModel(model));
         }
 
         [Authorize]
@@ -121,12 +119,18 @@ namespace TEMPUS.WebSite.Controllers
         [Authorize]
         public ActionResult Details(string projectId)
         {
-            if (!String.IsNullOrWhiteSpace(projectId))
-            {
-                var project = _projectQueryService.GetProjectById(new ProjectId(new Guid(projectId)));
-            }
+            var project = _projectQueryService.GetProjectById(new ProjectId(new Guid(projectId)));
 
-            return View();
+            var model = new ProjectDetailsViewModel(project.Id.ToString(),
+                                                    project.Name,
+                                                    ProjectStatus.Green,
+                                                    DateTime.Now.AddDays(-100),
+                                                    DateTime.Now.AddDays(100),
+                                                    new UserInfo {FirstName = "Tatyana", LastName = "Shatovska"},
+                                                    "Department1",
+                                                    "Description");
+
+            return View(model);
         }
 
         [Authorize]
@@ -139,21 +143,18 @@ namespace TEMPUS.WebSite.Controllers
         public ActionResult Select()
         {
             var projects = _projectQueryService.GetUserProjects(new UserId(UserContext.Current.UserId));
-            var model = new List<ProjectListViewModel>();
+            var model = new List<ProjectDetailsViewModel>();
 
             foreach (var projectInfo in projects)
             {
-                var project = new ProjectListViewModel
-                    {
-                        Id = projectInfo.Id.ToString(),
-                        Name = projectInfo.Name,
-                        Status = ProjectStatus.Green,
-                        StartDate = DateTime.Now.AddDays(-100),
-                        EndDate = DateTime.Now,
-                        Manager = "John Walk",
-                        Department = "Department1",
-                        Description = "Description1"
-                    };
+                var project = new ProjectDetailsViewModel(projectInfo.Id.ToString(),
+                    projectInfo.Name,
+                    ProjectStatus.Green,
+                    DateTime.Now.AddDays(-100),
+                    DateTime.Now.AddDays(100),
+                    new UserInfo { FirstName = "Tatyana", LastName = "Shatovska" },
+                    "Department1",
+                    "Description");
                 model.Add(project);
             }
             return View(model.ToArray());
@@ -188,10 +189,10 @@ namespace TEMPUS.WebSite.Controllers
             if (model == null)
                 throw new ArgumentNullException("model");
 
-            model.ProjectMainInfo.Departments = this.GetDepartments();
-            model.ProjectMainInfo.PpsClassifications = this.GetPpsClassifications();
-            model.ProjectMainInfo.Managers = this.GetUsers();
-            model.ProjectMainInfo.Owners = this.GetUsers();
+            model.ProjectMainInfo.Departments = GetDepartments();
+            model.ProjectMainInfo.PpsClassifications = GetPpsClassifications();
+            model.ProjectMainInfo.Managers = GetUsers();
+            model.ProjectMainInfo.Owners = GetUsers();
 
             model.ProjectTeam.Users = _userQueryService.GetAllActiveUsers();
             model.Roles = this.GetProjectRoles();

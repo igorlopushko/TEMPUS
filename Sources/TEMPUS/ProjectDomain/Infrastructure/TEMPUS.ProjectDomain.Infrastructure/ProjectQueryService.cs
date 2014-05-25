@@ -28,7 +28,7 @@ namespace TEMPUS.ProjectDomain.Infrastructure
                 throw new ArgumentNullException("context");
             }
 
-            this._context = context;
+            _context = context;
         }
 
         /// <summary>
