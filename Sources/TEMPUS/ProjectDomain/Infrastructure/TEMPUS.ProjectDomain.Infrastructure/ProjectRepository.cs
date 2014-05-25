@@ -66,8 +66,8 @@ namespace TEMPUS.ProjectDomain.Infrastructure
                                                        projectEntity.PpsClassification.Name),
                                              null,
                                              null,
-                                             null,
-                                             null,
+                                             new UserId(projectEntity.OwnerId),
+                                             new UserId(projectEntity.ManagerId),
                                              projectEntity.TeamMembers.Select(x => new TeamMember
                                                  {
                                                      UserId = new UserId(x.UserId),
@@ -104,7 +104,9 @@ namespace TEMPUS.ProjectDomain.Infrastructure
                                     UserId = x.UserId.Id,
                                     ProjectRoleId = x.RoleId,
                                     ProjectId = root.Id.Id
-                                })
+                                }),
+                    ManagerId = root.Manager.Id,
+                    OwnerId = root.Owner.Id
                 };
 
             if (root.IsNew)
