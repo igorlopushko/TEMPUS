@@ -54,13 +54,13 @@
             <div class="page-header">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <h1>
+                        <h2>
                             @if (ViewBag.PageTitle != null) {
                                 @ViewBag.PageTitle
                             } else {
                                 @ViewBag.Title
                             }
-                        </h1>
+                        </h2>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 page-buttons">@RenderSection("PageButtons", false)</div>
                 </div>

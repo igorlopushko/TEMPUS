@@ -4,6 +4,10 @@
     ViewBag.Title = "Manage users";
 }
 
+@section CustomCss {
+    <link rel="stylesheet" href="@Url.Content("~/Content/Styles/MobileButton.css")">
+}
+
 @section CustomJs {
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 }
@@ -44,7 +48,7 @@
             </table>
         </div>
         <div class="form-group">
-            <div class="col-sm-4">
+            <div class="col-sm-5">
                 <a href="@Url.Action("Register", "Account")">
                     <input class="btn btn-primary next" value="Register user" type="button" />
                 </a>
