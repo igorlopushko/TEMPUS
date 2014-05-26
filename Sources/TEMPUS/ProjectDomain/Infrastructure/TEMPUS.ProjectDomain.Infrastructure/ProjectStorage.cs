@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
 using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.DB;
+using TEMPUS.DB.Models.Project;
 using TEMPUS.ProjectDomain.Services;
-using System.Data.Entity.Migrations;
 
 namespace TEMPUS.ProjectDomain.Infrastructure
 {
-    using TEMPUS.DB.Models.Project;
-
     /// <summary>
     /// The class represents functionality for saving, updating, removing data from DB.
     /// </summary>
     public class ProjectStorage : IProjectStorage<DB.Models.Project.Project>
     {
         private readonly DataContext _context;
+        private const string OwnerRoleName = "Owner";
+        private const string ManagerRoleName = "Manager";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectStorage"/> class.
@@ -50,6 +51,10 @@ namespace TEMPUS.ProjectDomain.Infrastructure
             {
                 //TODO: Added getting Tasks, Risks.
                 project.TeamMembers = this.GetTeamMembers(project.Id);
+
+                project.ManagerId = this.GetUserIdByProjectRole(id, ManagerRoleName);
+
+                project.OwnerId = this.GetUserIdByProjectRole(id, OwnerRoleName);
             }
 
             return project;
@@ -76,7 +81,14 @@ namespace TEMPUS.ProjectDomain.Infrastructure
                 throw new ArgumentNullException("entity");
             }
 
+            var projectId = new ProjectId(entity.Id);
+
             _context.Projects.Add(entity);
+
+            this.ChangeProjectRole(projectId, new UserId(entity.OwnerId), OwnerRoleName);
+
+            this.ChangeProjectRole(projectId, new UserId(entity.ManagerId), ManagerRoleName);
+
             _context.SaveChanges();
         }
 
@@ -120,6 +132,12 @@ namespace TEMPUS.ProjectDomain.Infrastructure
             project.DepartmentId = aggregate.DepartmentId;
             project.IsDeleted = aggregate.IsDeleted;
 
+            var projectId = new ProjectId(aggregate.Id);
+
+            this.ChangeProjectRole(projectId, new UserId(aggregate.OwnerId), OwnerRoleName);
+
+            this.ChangeProjectRole(projectId, new UserId(aggregate.ManagerId), ManagerRoleName);
+
             //TODO: Add updating Tasks, Risks.
             foreach (var teamMember in aggregate.TeamMembers)
             {
@@ -139,6 +157,54 @@ namespace TEMPUS.ProjectDomain.Infrastructure
                     ProjectId = x.ProjectId,
                     ProjectRoleId = x.ProjectRoleId
                 });
+        }
+
+        private void ChangeProjectRole(ProjectId projectId, UserId managerId, string roleName)
+        {
+            var role = _context.ProjectRoles.FirstOrDefault(x => x.Name == roleName);
+
+            if (role != null)
+            {
+                var oldRole = _context.ProjectRoleRelations.FirstOrDefault(
+                    x => x.ProjectId == projectId.Id && x.ProjectRoleId == role.Id);
+
+                if (oldRole == null)
+                {
+                    _context.ProjectRoleRelations.Add(new ProjectRoleRelation
+                        {
+                            ProjectId = projectId.Id,
+                            ProjectRoleId = role.Id,
+                            UserId = managerId.Id
+                        });
+                    return;
+                }
+
+                if (oldRole.UserId != managerId.Id)
+                {
+                    _context.ProjectRoleRelations.Remove(oldRole);
+
+                    _context.ProjectRoleRelations.Add(new ProjectRoleRelation
+                        {
+                            ProjectId = projectId.Id,
+                            ProjectRoleId = role.Id,
+                            UserId = managerId.Id
+                        });
+                }
+            }
+        }
+
+        private Guid GetUserIdByProjectRole(ProjectId id, string roleName)
+        {
+            var role = _context.ProjectRoles.FirstOrDefault(x => x.Name == roleName);
+            if (role != null)
+            {
+                var manager = _context.ProjectRoleRelations.FirstOrDefault(
+                        x => x.ProjectId == id.Id && x.ProjectRoleId == role.Id);
+
+                return manager != null ? manager.UserId : Guid.Empty;
+            }
+
+            return Guid.Empty;
         }
     }
 }

@@ -40,6 +40,12 @@ namespace TEMPUS.DB.Models.Project
         public bool IsDeleted { get; set; }
 
         [NotMapped]
+        public Guid ManagerId { get; set; }
+
+        [NotMapped]
+        public Guid OwnerId { get; set; }
+
+        [NotMapped]
         public IEnumerable<ProjectRoleRelation> TeamMembers { get; set; }
     }
 }

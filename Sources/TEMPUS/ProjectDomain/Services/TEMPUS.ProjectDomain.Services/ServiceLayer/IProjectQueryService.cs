@@ -9,7 +9,7 @@ namespace TEMPUS.ProjectDomain.Services
     public interface IProjectQueryService
     {
         IEnumerable<ProjectInfo> GetUserProjects(UserId userId);
-        ProjectInfo GetProjectById(Guid projectId);
+        ProjectInfo GetProjectById(ProjectId projectId);
         IEnumerable<PpsClassification> GetPpsClassifications();
         IEnumerable<Department> GetDepartments();
         IEnumerable<KeyValuePair<Guid, string>> GetProjectRoles();

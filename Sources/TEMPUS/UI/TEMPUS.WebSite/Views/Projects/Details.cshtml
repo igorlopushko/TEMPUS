@@ -1,4 +1,4 @@
-﻿@using TEMPUS.WebSite.Helpers
+﻿@model TEMPUS.WebSite.Models.Project.ProjectDetailsViewModel
 
 @{
     ViewBag.Title = "Project Details";
@@ -15,7 +15,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-6">Project Name:</div>
-                    <div class="col-md-6">Project1</div>
+                    <div class="col-md-6">@Model.Name</div>
                 </div>
                 <p />
                 <div class="row">

@@ -11,11 +11,7 @@ namespace TEMPUS.WebSite.Models.Account
         /// <summary>
         /// Gets or sets the user identifier.
         /// </summary>
-        public Guid UserId { get; set; }
-        /// <summary>
-        /// Gets or sets the login of the user.
-        /// </summary>
-        public string Login { get; set; }
+        public Guid UserId { get; private set; }
 
         /// <summary>
         /// Gets or sets the user first name.
@@ -58,11 +54,36 @@ namespace TEMPUS.WebSite.Models.Account
         /// <summary>
         /// Gets or sets user's email.
         /// </summary>
-        public string Email { get; set; }
+        public string Email { get; private set; }
 
         /// <summary>
         /// Gets or sets user's mood.
         /// </summary>
         public int Mood { get; set; }
+
+        public ProfileViewModel()
+        {
+        }
+
+        public ProfileViewModel(Guid id, 
+            string firstName, 
+            string lastName, 
+            string email, 
+            string phone, 
+            string image, 
+            DateTime dateOfBirth, 
+            string role,
+            int mood)
+        {
+            UserId = id;
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+            Phone = phone;
+            Image = image;
+            DateOfBirth = dateOfBirth;
+            Role = role;
+            Mood = mood;
+        }
     }
 }

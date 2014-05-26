@@ -1,4 +1,7 @@
-﻿<!doctype html>
+﻿@using TEMPUS.UserDomain.Model.ServiceLayer
+@using TEMPUS.WebSite.Contexts
+@using TEMPUS.WebSite.Security
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -34,28 +37,30 @@
 </head>
 
 <body>
-    <!-- Fixed navbar -->
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-        @if (Request.IsAuthenticated)
+    
+        @if (Request.IsAuthenticated && 
+            (UserContext.CurrentProjectId != Guid.Empty || SiteSecurity.UserInRole(UserRole.Administrator)))
         {
-            <div class="container">
-                @{ Html.RenderAction("TopNavigation", "Base"); }
+            <!-- Fixed navbar -->
+            <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+                <div class="container">
+                    @{ Html.RenderAction("TopNavigation", "Base"); }
+                </div>
             </div>
         }
-    </div>
 
     <div id="content">
         <div class="container">
             <div class="page-header">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <h1>
+                        <h2>
                             @if (ViewBag.PageTitle != null) {
                                 @ViewBag.PageTitle
                             } else {
                                 @ViewBag.Title
                             }
-                        </h1>
+                        </h2>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 page-buttons">@RenderSection("PageButtons", false)</div>
                 </div>

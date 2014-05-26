@@ -11,7 +11,7 @@
 
 @section PageButtons {
     <div class="row">
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 pull-right">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 pull-right">
             <a href="@Url.Action("Create", "Projects")" class="btn btn-primary form-control">
                 <span class="fa fa-plus"></span>&nbsp;Create Project
             </a>
@@ -81,7 +81,7 @@
             <tbody>
                 @foreach (var project in Model)
                 {
-                    <tr data-url="@Url.Action("Details", "Projects")">
+                    <tr data-url="@Url.Action("Details", "Projects", new {projectId = project.Id})">
                         <td data-title="Title">@project.Name</td>
                         <td data-title="Status">
                             @if (project.Status == ProjectStatus.Green)

@@ -140,7 +140,13 @@ namespace TEMPUS.WebSite.Controllers
                 if (_membershipService.ValidateUser(model.Email, model.Password))
                 {
                     _formsService.SignIn(model.Email, model.RememberMe);
-                    return RedirectToAction("Index", "Home");
+
+                    var user = _userQueryService.GetUserByEmail(model.Email);
+                    if(SiteSecurity.UserInRole(user, UserRole.Administrator))
+                    {
+                        return RedirectToAction("Index", "User");
+                    }
+                    return RedirectToAction("Select", "Projects");
                 }
                 ModelState.AddModelError("Error", "The user name or password provided is incorrect.");
             }
@@ -155,6 +161,7 @@ namespace TEMPUS.WebSite.Controllers
         public ActionResult LogOut()
         {
             _formsService.SignOut();
+            UserContext.CurrentProjectId = Guid.Empty;
             return RedirectToAction("Index", "Home");
         }
 
@@ -213,28 +220,25 @@ namespace TEMPUS.WebSite.Controllers
         /// </summary>
         [Authorize]
         [HttpGet]
-        public ActionResult Profile(Guid id)
+        public ActionResult Profile(string id)
         {
-            var userInfo = _userQueryService.GetUser(new UserId(id));
+            var userInfo = _userQueryService.GetUser(new UserId(new Guid(id)));
             if (userInfo == null)
             {
                 //TODO: Set the error message.
                 return View();
             }
 
-            var model = new ProfileViewModel
-            {
-                Image = userInfo.Image ?? "~/Content/images/user.png",
-                Login = userInfo.Email,
-                Phone = userInfo.Phone,
-                FirstName = userInfo.FirstName,
-                LastName = userInfo.LastName,
-                DateOfBirth = userInfo.DateOfBirth,
-                UserId = userInfo.UserId,
-                Email = userInfo.Email,
-                Mood = userInfo.Mood == null ? 0 : userInfo.Mood.Rate,
-                Role = userInfo.Roles == null ? null : userInfo.Roles.FirstOrDefault().ToString()
-            };
+            var model = 
+                new ProfileViewModel(userInfo.UserId, 
+                    userInfo.FirstName, 
+                    userInfo.LastName, 
+                    userInfo.Email, 
+                    userInfo.Phone, 
+                    userInfo.Image ?? "~/Content/images/user.png", 
+                    userInfo.DateOfBirth, 
+                    userInfo.Roles == null ? null : userInfo.Roles.FirstOrDefault().ToString(),
+                    userInfo.Mood == null ? 0 : userInfo.Mood.Rate);
 
             return View(model);
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using TEMPUS.BaseDomain.Messages;
+using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.UserDomain.Model.ServiceLayer;
 using TEMPUS.UserDomain.Services.ServiceLayer;
 using TEMPUS.WebSite.Models.User;
@@ -40,6 +41,9 @@ namespace TEMPUS.WebSite.Controllers
             _commandSender = commandSender;
         }
 
+        /// <summary>
+        /// Return the view with list of the users.
+        /// </summary>
         [HttpGet]
         [AllowedRoles(UserRole.Administrator)]
         public ActionResult Index()
@@ -53,13 +57,61 @@ namespace TEMPUS.WebSite.Controllers
                 UserRoles = this.GetUserRoles(userRoles, x.Roles.FirstOrDefault()),
                 IsDeleted = x.IsDeleted
             });
-            
-            return View(model);
+
+            return View(model.ToList());
+        }
+
+        [HttpPost]
+        [AllowedRoles(UserRole.Administrator)]
+        public ActionResult Index([Bind(Prefix = "UserListViewModel")]IEnumerable<UserListViewModel> model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException("model");
+            }
+
+            var users = _userQueryService.GetUsers();
+            ICommand command;
+
+            foreach (var userListViewModel in model)
+            {
+                var user = users.FirstOrDefault(x => x.UserId == userListViewModel.UserId);
+                if (user == null)
+                    continue;
+
+                if (user.IsDeleted != userListViewModel.IsDeleted)
+                {
+                    if (userListViewModel.IsDeleted)
+                    {
+                        command = new DeleteUser(new UserId(userListViewModel.UserId));
+                        _commandSender.Send(command);
+                    }
+                    else
+                    {
+                        command = new RestoreUser(new UserId(userListViewModel.UserId));
+                        _commandSender.Send(command);
+                    }
+                }
+
+                var userRole = new UserRole();
+
+                UserRole.TryParse(userListViewModel.UserRole, out userRole);
+
+                if (!user.Roles.Contains(userRole))
+                {
+                    var roleId = _userQueryService.GetUserRoleId(userRole);
+
+                    command = new AddRoleToUser(new UserId(userListViewModel.UserId), roleId);
+                    _commandSender.Send(command);
+                }
+            }
+
+            return RedirectToAction("Index");
         }
 
         private IEnumerable<SelectListItem> GetUserRoles(IEnumerable<KeyValuePair<Guid, string>> userRoles, UserRole activeRole)
         {
-            return userRoles.Select(x => new SelectListItem { Value = x.Key.ToString(), Text = x.Value, Selected = x.Value == activeRole.ToString() });
+            return userRoles.Select(x => new SelectListItem { Value = x.Value, Text = x.Value, Selected = x.Value == activeRole.ToString() });
         }
     }
 }

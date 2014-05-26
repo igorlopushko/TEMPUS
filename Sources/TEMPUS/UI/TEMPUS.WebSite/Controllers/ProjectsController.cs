@@ -5,7 +5,9 @@ using System.Web.Mvc;
 using TEMPUS.BaseDomain.Messages;
 using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.ProjectDomain.Services;
+using TEMPUS.UserDomain.Model.ServiceLayer;
 using TEMPUS.UserDomain.Services.ServiceLayer;
+using TEMPUS.WebSite.Contexts;
 using TEMPUS.WebSite.Models.Project;
 
 namespace TEMPUS.WebSite.Controllers
@@ -43,45 +45,22 @@ namespace TEMPUS.WebSite.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            ProjectListViewModel[] projects = new ProjectListViewModel[] {
-                new ProjectListViewModel() {
-                    Name = "Project1",
-                    Status = ProjectStatus.Green,
-                    StartDate = DateTime.Now.AddDays(-100),
-                    EndDate = DateTime.Now,
-                    Manager = "John Walk",
-                    Department = "Department1",
-                    Description = "Description1"
-                },
-                new ProjectListViewModel() {
-                    Name = "Project2",
-                    Status = ProjectStatus.Red,
-                    StartDate = DateTime.Now.AddDays(-200),
-                    EndDate = DateTime.Now.AddDays(-50),
-                    Manager = "Peter Jackson",
-                    Department = "Department2",
-                    Description = "Description2"
-                },
-                new ProjectListViewModel() {
-                    Name = "Project3",
-                    Status = ProjectStatus.Red,
-                    StartDate = DateTime.Now.AddDays(-200),
-                    EndDate = DateTime.Now.AddDays(-50),
-                    Manager = "Jim Cleverly",
-                    Department = "Department3",
-                    Description = "Description3"
-                },
-                 new ProjectListViewModel() {
-                    Name = "Project4",
-                    Status = ProjectStatus.Yellow,
-                    StartDate = DateTime.Now.AddDays(-200),
-                    EndDate = DateTime.Now.AddDays(-50),
-                    Manager = "Jim Cleverly",
-                    Department = "Department4",
-                    Description = "Description4"
-                }
-            };
-            return View(projects);
+            var projects = _projectQueryService.GetUserProjects(new UserId(UserContext.Current.UserId));
+            var model = new List<ProjectDetailsViewModel>();
+
+            foreach (var projectInfo in projects)
+            {
+                var project = new ProjectDetailsViewModel(projectInfo.Id.ToString(), 
+                    projectInfo.Name, 
+                    ProjectStatus.Green, 
+                    DateTime.Now.AddDays(-100),
+                    DateTime.Now.AddDays(100), 
+                    new UserInfo { FirstName = "Tatyana", LastName = "Shatovska"}, 
+                    "Department1", 
+                    "Description");
+                model.Add(project);
+            }
+            return View(model.ToArray());
         }
 
         [Authorize]
@@ -93,7 +72,7 @@ namespace TEMPUS.WebSite.Controllers
                     ProjectMainInfo = new CreateProjectMainInfoViewModel(),
                     ProjectTeam = new CreateProjectTeamViewModel()
                 };
-            return View(this.PrepareCreateProjectModel(model));
+            return View(PrepareCreateProjectModel(model));
         }
 
         [Authorize]
@@ -138,9 +117,20 @@ namespace TEMPUS.WebSite.Controllers
         }
 
         [Authorize]
-        public ActionResult Details()
+        public ActionResult Details(string projectId)
         {
-            return View();
+            var project = _projectQueryService.GetProjectById(new ProjectId(new Guid(projectId)));
+
+            var model = new ProjectDetailsViewModel(project.Id.ToString(),
+                                                    project.Name,
+                                                    ProjectStatus.Green,
+                                                    DateTime.Now.AddDays(-100),
+                                                    DateTime.Now.AddDays(100),
+                                                    new UserInfo {FirstName = "Tatyana", LastName = "Shatovska"},
+                                                    "Department1",
+                                                    "Description");
+
+            return View(model);
         }
 
         [Authorize]
@@ -152,45 +142,28 @@ namespace TEMPUS.WebSite.Controllers
         [Authorize]
         public ActionResult Select()
         {
-            ProjectListViewModel[] projects = new ProjectListViewModel[] {
-                new ProjectListViewModel() {
-                    Name = "Project1",
-                    Status = ProjectStatus.Green,
-                    StartDate = DateTime.Now.AddDays(-100),
-                    EndDate = DateTime.Now,
-                    Manager = "John Walk",
-                    Department = "Department1",
-                    Description = "Description1"
-                },
-                new ProjectListViewModel() {
-                    Name = "Project2",
-                    Status = ProjectStatus.Red,
-                    StartDate = DateTime.Now.AddDays(-200),
-                    EndDate = DateTime.Now.AddDays(-50),
-                    Manager = "Peter Jackson",
-                    Department = "Department2",
-                    Description = "Description2"
-                },
-                new ProjectListViewModel() {
-                    Name = "Project3",
-                    Status = ProjectStatus.Red,
-                    StartDate = DateTime.Now.AddDays(-200),
-                    EndDate = DateTime.Now.AddDays(-50),
-                    Manager = "Jim Cleverly",
-                    Department = "Department3",
-                    Description = "Description3"
-                },
-                 new ProjectListViewModel() {
-                    Name = "Project4",
-                    Status = ProjectStatus.Yellow,
-                    StartDate = DateTime.Now.AddDays(-200),
-                    EndDate = DateTime.Now.AddDays(-50),
-                    Manager = "Jim Cleverly",
-                    Department = "Department4",
-                    Description = "Description4"
-                }
-            };
-            return View(projects);
+            var projects = _projectQueryService.GetUserProjects(new UserId(UserContext.Current.UserId));
+            var model = new List<ProjectDetailsViewModel>();
+
+            foreach (var projectInfo in projects)
+            {
+                var project = new ProjectDetailsViewModel(projectInfo.Id.ToString(),
+                    projectInfo.Name,
+                    ProjectStatus.Green,
+                    DateTime.Now.AddDays(-100),
+                    DateTime.Now.AddDays(100),
+                    new UserInfo { FirstName = "Tatyana", LastName = "Shatovska" },
+                    "Department1",
+                    "Description");
+                model.Add(project);
+            }
+            return View(model.ToArray());
+        }
+
+        public ActionResult SelectProject(string projectId)
+        {
+            UserContext.CurrentProjectId = new Guid(projectId);
+            return RedirectToAction("Index", "Home");
         }
 
         private IEnumerable<SelectListItem> GetDepartments()
@@ -216,13 +189,13 @@ namespace TEMPUS.WebSite.Controllers
             if (model == null)
                 throw new ArgumentNullException("model");
 
-            model.ProjectMainInfo.Departments = this.GetDepartments();
-            model.ProjectMainInfo.PpsClassifications = this.GetPpsClassifications();
-            model.ProjectMainInfo.Managers = this.GetUsers();
-            model.ProjectMainInfo.Owners = this.GetUsers();
+            model.ProjectMainInfo.Departments = GetDepartments();
+            model.ProjectMainInfo.PpsClassifications = GetPpsClassifications();
+            model.ProjectMainInfo.Managers = GetUsers();
+            model.ProjectMainInfo.Owners = GetUsers();
 
             model.ProjectTeam.Users = _userQueryService.GetAllActiveUsers();
-            model.Roles = this.GetProjectRoles();
+            model.ProjectTeam.Roles = this.GetProjectRoles();
             return model;
         }
 

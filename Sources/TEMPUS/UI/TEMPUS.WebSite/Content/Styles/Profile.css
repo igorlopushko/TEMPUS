@@ -1,6 +1,12 @@
-﻿#mood-img img
+﻿#mood-img
 {
     height:20px;
+}
+
+#mood-img img
+{
+    height:20px;
+    image-rendering:optimizeQuality;
 }
 
 .ul-chooser
@@ -11,12 +17,14 @@
 .ul-chooser li
 {
     padding:0px 5px 0px 5px;
+    cursor:pointer;
 }
 
 .ul-chooser li img
 {
     opacity:0.4;
     height:20px;
+    image-rendering:optimizeQuality;
 }
 
 .ul-chooser li img:hover

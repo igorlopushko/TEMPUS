@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pull-right">
                 <a href="@Url.Action("EditProfile", "Account")" class="btn btn-primary form-control">
-                    <span class="fa fa-pencil"></span>Edit Profile
+                    <span class="fa fa-pencil"></span>&nbsp;Edit Profile
                 </a>
             </div>
         </div>
@@ -54,7 +54,7 @@
             <img id="avatar" src="@Url.Content(@Model.Image)" class="img-thumbnail img-responsive" />
         </div>
         <div>
-            <a href="@Url.Action("Index", "Team")" class="btn btn-default hidden-xs back-button">
+            <a href="#" onclick="window.history.back();return false;" class="btn btn-default hidden-xs back-button">
                 <span class="fa fa-chevron-left"></span>Back
             </a>
         </div>
@@ -70,8 +70,7 @@
             </div>
             <div class="col-md-6 col-sm-9 col-xs-8">
                 <p class="mood-related" id="mood-img">
-                    <img src="" class="img-responsive" />
-
+                    <img src="" />
                 </p>
                 <ul class="list-inline ul-chooser mood-set">
                     <li>
@@ -97,7 +96,7 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="text-center">
-            <a href="@Url.Action("Index", "Team")" class="btn btn-default visible-xs back-button">
+            <a href="#" onclick="window.history.back();" class="btn btn-default visible-xs back-button">
                 <span class="fa fa-chevron-left"></span>Back
             </a>
         </div>

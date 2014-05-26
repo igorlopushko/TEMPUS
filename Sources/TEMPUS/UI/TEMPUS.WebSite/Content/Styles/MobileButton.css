@@ -1,6 +1,7 @@
 ﻿@media (max-width: 768px) {
-    input.btn
+    input.btn, button.btn
     {
         width:100%;
+        margin-bottom:10px;
     }
 }

@@ -1,42 +1,59 @@
-﻿@model IEnumerable<TEMPUS.WebSite.Models.User.UserListViewModel>
+﻿@model IList<TEMPUS.WebSite.Models.User.UserListViewModel>
 
 @{
     ViewBag.Title = "Manage users";
 }
 
-<div class="col-md-12">
-    <table class="table" id="table">
-        <thead>
-            <tr>
-                <th>First name</th>
-                <th>Last name</th>
-                <th>Role</th>
-                <th>Is deleted</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var user in Model)
-            {
-                <tr>
-                    @Html.HiddenFor(x => user.UserId)
-                    <td>@user.FirstName</td>
-                    <td>@user.LastName</td>
-                    <td>
-                        @Html.DropDownList("UserRole", user.UserRoles)
-                    </td>
-                    <td>
-                        @Html.CheckBox("IsDeleted", user.IsDeleted)
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <div class="form-group">
-        <div class="col-sm-4">
-            <a href="@Url.Action("Register","Account")">
-                <input class="btn btn-primary next" value="Register user" type="submit" />
-            </a>
-            <input class="btn btn-primary next" value="Save changes" type="submit" />
+@section CustomCss {
+    <link rel="stylesheet" href="@Url.Content("~/Content/Styles/MobileButton.css")">
+}
+
+@section CustomJs {
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+}
+
+@using (Html.BeginForm("Index", "User", FormMethod.Post, null))
+{
+    <div class="row">
+        <div class="col-md-12 responsiveGrid">
+            <table class="table table-hover table-striped" id="userList">
+                <thead>
+                    <tr>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Role</th>
+                        <th>Is deleted</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Count(); i++)
+                    {
+                        <tr>
+                            @Html.Hidden("UserListViewModel[" + i + "].UserId", Model[i].UserId)
+                            <td data-title="First name">
+                                @Html.DisplayFor(x => Model[i].FirstName)
+                            </td>
+                            <td data-title="Last name">
+                                @Html.DisplayFor(x => Model[i].LastName)
+                            </td>
+                            <td data-title="User roles">
+                                @Html.DropDownList("UserListViewModel[" + i + "].UserRole", Model[i].UserRoles, new { @class = "form-control", id = "roles" })
+                            </td>
+                            <td data-title="Is deleted">
+                                @Html.CheckBox("UserListViewModel[" + i + "].IsDeleted", Model[i].IsDeleted)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-5">
+                <a href="@Url.Action("Register", "Account")">
+                    <input class="btn btn-primary next" value="Register user" type="button" />
+                </a>
+                <input class="btn btn-primary next" value="Save changes" type="submit" />
+            </div>
         </div>
     </div>
-</div>
+}

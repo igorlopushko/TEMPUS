@@ -76,7 +76,7 @@ namespace TEMPUS.UserDomain.Infrastructure
             {
                 throw new ArgumentNullException("id");
             }
-            var user = _context.Users.FirstOrDefault(x => x.Id == id.Id && x.IsDeleted == false);
+            var user = _context.Users.FirstOrDefault(x => x.Id == id.Id);
             if (user != null)
             {
                 user.Roles = this.GetUserRoles(id);
@@ -117,7 +117,22 @@ namespace TEMPUS.UserDomain.Infrastructure
 
             foreach (var role in aggregate.Roles)
             {
-                _context.UserRoleRelations.AddOrUpdate(new UserRoleRelation { RoleId = role, UserId = aggregate.Id });
+                var newRole = new UserRoleRelation { RoleId = role, UserId = aggregate.Id };
+                var oldRole = _context.UserRoleRelations.FirstOrDefault(x => x.UserId == aggregate.Id);
+
+                if (oldRole == null)
+                {
+                    _context.UserRoleRelations.Add(newRole);
+                    continue;
+                }
+
+                if (oldRole.UserId == newRole.UserId &&
+                    oldRole.RoleId == newRole.RoleId)
+                    continue;
+
+                _context.UserRoleRelations.Remove(oldRole);
+
+                _context.UserRoleRelations.AddOrUpdate(newRole);
             }
 
             if (aggregate.Mood != null)

@@ -47,6 +47,7 @@ namespace TEMPUS.UserDomain.Infrastructure
                 Image = x.Image,
                 Password = x.Password,
                 Phone = x.Phone,
+                Mood = this.GetUserMood(new UserId(x.Id)),
                 DateOfBirth = x.DateOfBirth,
                 IsDeleted = x.IsDeleted,
                 Roles = GetUserRoles(new UserId(x.Id))
@@ -68,6 +69,7 @@ namespace TEMPUS.UserDomain.Infrastructure
                 Image = x.Image,
                 Password = x.Password,
                 Phone = x.Phone,
+                Mood = this.GetUserMood(new UserId(x.Id)),
                 IsDeleted = x.IsDeleted,
                 DateOfBirth = x.DateOfBirth
             }).FirstOrDefault();
@@ -146,7 +148,9 @@ namespace TEMPUS.UserDomain.Infrastructure
         public IEnumerable<UserInfo> GetUsersByProjectId(ProjectId projectId)
         {
             if (projectId == null)
+            {
                 throw new ArgumentNullException("projectId");
+            }
             var teamMembersIds =
                 _userReadRepository.ProjectRoleRelations.Where(x => x.ProjectId == projectId.Id).Select(x => x.UserId);
             var users = _userReadRepository.Users.Where(x => teamMembersIds.Contains(x.Id)).ToArray().Select(x => new UserInfo
@@ -160,7 +164,8 @@ namespace TEMPUS.UserDomain.Infrastructure
                 Phone = x.Phone,
                 DateOfBirth = x.DateOfBirth,
                 IsDeleted = x.IsDeleted,
-                Roles = GetUserRoles(new UserId(x.Id))
+                Mood = this.GetUserMood(new UserId(x.Id)),
+                Roles = this.GetUserRoles(new UserId(x.Id))
             });
             return users;
         }
@@ -258,7 +263,13 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// </summary>
         public IEnumerable<UserInfo> GetAllActiveUsers()
         {
-            return _userReadRepository.Users.Where(x => x.IsDeleted == false).ToArray().Select(x =>
+            var administratorRole = _userReadRepository.Roles.FirstOrDefault(x => x.Name == UserRole.Administrator.ToString());
+            if (administratorRole == null)
+                return null;
+
+            var administrators = _userReadRepository.UserRoleRelations.Where(x => x.RoleId == administratorRole.Id).Select(x => x.UserId).ToArray();
+
+            return _userReadRepository.Users.Where(x => x.IsDeleted == false && !administrators.Contains(x.Id)).ToArray().Select(x =>
                     new UserInfo
                     {
                         DateOfBirth = x.DateOfBirth,
@@ -273,6 +284,16 @@ namespace TEMPUS.UserDomain.Infrastructure
                         IsDeleted = x.IsDeleted,
                         Roles = this.GetUserRoles(new UserId(x.Id))
                     });
+        }
+
+        /// <summary>
+        /// Gets the user role identifier.
+        /// </summary>
+        /// <param name="role">The role.</param>
+        public Guid GetUserRoleId(UserRole role)
+        {
+            var userRole = _userReadRepository.Roles.FirstOrDefault(x => x.Name == role.ToString());
+            return userRole == null ? Guid.Empty : userRole.Id;
         }
     }
 }

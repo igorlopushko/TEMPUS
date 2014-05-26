@@ -9,6 +9,8 @@ namespace TEMPUS.DB.Migrations
 {
     public sealed class Configuration : DbMigrationsConfiguration<DataContext>
     {
+        private const string PasswordHash = "4297f44b13955235245b2497399d7a93";
+
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
@@ -46,22 +48,41 @@ namespace TEMPUS.DB.Migrations
 
         private void CreateTestUsers(DataContext context)
         {
+            if (!context.Users.Any(x => x.Email == "lopushko.igor@gmail.com"))
+            {
+                var id = Guid.NewGuid();
+                context.Users.AddOrUpdate(x => x.Email,
+                    new User
+                    {
+                        Id = id,
+                        Email = "lopushko.igor@gmail.com",
+                        Password = PasswordHash,
+                        DateOfBirth = new DateTime(1987, 7, 15),
+                        FirstName = "Admin",
+                        LastName = "",
+                        Phone = "911",
+                        IsDeleted = false
+                    });
+                var role = context.Roles.FirstOrDefault(x => x.Name == "Administrator");
+                context.UserRoleRelations.Add(new UserRoleRelation { RoleId = role.Id, UserId = id });
+            }
+
             if (!context.Users.Any(x => x.Email == "igor.lopushko@sigmaukraine.com"))
             {
-                var id = Guid.Parse("70e64d96-93df-e311-be94-d850e64cba2a");
+                var id = Guid.NewGuid();
                 context.Users.AddOrUpdate(x => x.Email,
                     new User
                     {
                         Id = id,
                         Email = "igor.lopushko@sigmaukraine.com",
-                        Password = "4297f44b13955235245b2497399d7a93",
+                        Password = PasswordHash,
                         DateOfBirth = new DateTime(1987, 7, 15),
                         FirstName = "Igor",
                         LastName = "Lopushko",
                         Phone = "+380979233667",
                         IsDeleted = false
                     });
-                var role = context.Roles.FirstOrDefault(x => x.Name == "Administrator");
+                var role = context.Roles.FirstOrDefault(x => x.Name == "User");
                 context.UserRoleRelations.Add(new UserRoleRelation { RoleId = role.Id, UserId = id });
             }
             if (!context.Users.Any(x => x.Email == "shatovska@gmail.com"))
@@ -72,7 +93,7 @@ namespace TEMPUS.DB.Migrations
                     {
                         Id = id,
                         Email = "shatovska@gmail.com",
-                        Password = "4297f44b13955235245b2497399d7a93",
+                        Password = PasswordHash,
                         DateOfBirth = new DateTime(1975, 5, 10),
                         FirstName = "Tetyana",
                         LastName = "Shatovska",
@@ -90,7 +111,7 @@ namespace TEMPUS.DB.Migrations
                     {
                         Id = id,
                         Email = "devoto13@gmail.com",
-                        Password = "4297f44b13955235245b2497399d7a93",
+                        Password = PasswordHash,
                         DateOfBirth = new DateTime(1993, 1, 13),
                         FirstName = "Yaroslav",
                         LastName = "Admin",
@@ -108,7 +129,7 @@ namespace TEMPUS.DB.Migrations
                     {
                         Id = id,
                         Email = "sanyazayats@gmail.com",
-                        Password = "4297f44b13955235245b2497399d7a93",
+                        Password = PasswordHash,
                         DateOfBirth = new DateTime(1993, 1, 1),
                         FirstName = "Alexander",
                         LastName = "Zayats",
@@ -126,7 +147,7 @@ namespace TEMPUS.DB.Migrations
                     {
                         Id = id,
                         Email = "anatoliy.ovchinnikov@sigmaukraine.com",
-                        Password = "4297f44b13955235245b2497399d7a93",
+                        Password = PasswordHash,
                         DateOfBirth = new DateTime(1993, 7, 24),
                         FirstName = "Anatoliy",
                         LastName = "Ovchinnikov",
@@ -144,7 +165,7 @@ namespace TEMPUS.DB.Migrations
                     {
                         Id = id,
                         Email = "wer3452@gmail.com",
-                        Password = "4297f44b13955235245b2497399d7a93",
+                        Password = PasswordHash,
                         DateOfBirth = new DateTime(1994, 4, 30),
                         FirstName = "Dmitriy",
                         LastName = "Volkov",
@@ -162,7 +183,7 @@ namespace TEMPUS.DB.Migrations
                     {
                         Id = id,
                         Email = "alexandra.yugan@sigmaukraine.com",
-                        Password = "4297f44b13955235245b2497399d7a93",
+                        Password = PasswordHash,
                         DateOfBirth = new DateTime(1993, 1, 1),
                         FirstName = "Alexandra",
                         LastName = "Yugan",
@@ -218,14 +239,14 @@ namespace TEMPUS.DB.Migrations
                 "Team member"
             };
 
-            var ownerRoleId = Guid.Parse("7eb33e5e-1bd6-e311-be7f-94de8066e6a1");
+            var teamMemberRole = Guid.Parse("7eb33e5e-1bd6-e311-be7f-94de8066e6a1");
 
             foreach (string role in roles)
             {
                 context.ProjectRoles.AddOrUpdate(x => x.Name, new ProjectRole
                 {
                     Name = role,
-                    Id = role == "Owner" ? ownerRoleId : Guid.NewGuid()
+                    Id = role == "Team member" ? teamMemberRole : Guid.NewGuid()
                 });
             }
             context.SaveChanges();
@@ -259,15 +280,15 @@ namespace TEMPUS.DB.Migrations
             Guid manager = context.ProjectRoles.FirstOrDefault(x => x.Name == "Manager").Id;
             Guid teamMember = context.ProjectRoles.FirstOrDefault(x => x.Name == "Team member").Id;
             Guid shatovska = context.Users.FirstOrDefault(x => x.LastName == "Shatovska").Id;
-            context.ProjectRoleRelations.AddOrUpdate(x => x.UserId, new ProjectRoleRelation
+            context.ProjectRoleRelations.AddOrUpdate(new ProjectRoleRelation
             {
                 ProjectId = project,
                 ProjectRoleId = manager,
                 UserId = shatovska
             });
-            foreach (var userId in context.Users.Where(x => x.Id != shatovska).Select(x => x.Id).ToArray())
+            foreach (var userId in context.Users.Where(x => x.Id != shatovska && x.FirstName != "Admin").Select(x => x.Id).ToArray())
             {
-                context.ProjectRoleRelations.AddOrUpdate(x => x.UserId, new ProjectRoleRelation
+                context.ProjectRoleRelations.AddOrUpdate(new ProjectRoleRelation
                 {
                     ProjectId = project,
                     ProjectRoleId = teamMember,
@@ -285,7 +306,7 @@ namespace TEMPUS.DB.Migrations
             {
                 for (int i = 1; i < 8; i++)
                 {
-                    context.Moods.AddOrUpdate(x => new { x.Date, x.UserId }, new UserMood
+                    context.Moods.AddOrUpdate(new UserMood
                     {
                         UserId = userId,
                         Rate = r.Next(1, 5),
