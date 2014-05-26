@@ -141,7 +141,7 @@ function deleteUser(userId) {
 
 function validateDigit(input) {
     text = $(input).val();
-    return (text.match(/^\d[\.,]{1}\d+/) != null);
+    return (text.match(/^[0][.]([0-9]?)[1-9]/) != null);
 }
 
 function validateStep1() {
@@ -200,7 +200,7 @@ function validateStep1() {
         time.parent().parent().addClass("has-error");
         $("#timeError").text("Time is required");
         hasErrors = true;
-    } if(!validateDigit(time)) {
+    } else if (!validateDigit(time)) {
         time.parent().parent().addClass("has-error");
         $("#timeError").text("Time must be between 0.1 - 0.9");
         hasErrors = true;
@@ -213,7 +213,7 @@ function validateStep1() {
         cost.parent().parent().addClass("has-error");
         $("#costError").text("Cost is required");
         hasErrors = true;
-    } if(!validateDigit(cost)) {
+    } else if (!validateDigit(cost)) {
         cost.parent().parent().addClass("has-error");
         $("#costError").text("Cost must be between 0.1 - 0.9");
         hasErrors = true;
@@ -226,7 +226,7 @@ function validateStep1() {
         quality.parent().parent().addClass("has-error");
         $("#qualityError").text("Quality is required");
         hasErrors = true;
-    } if(!validateDigit(quality)) {
+    } else if (!validateDigit(quality)) {
         quality.parent().parent().addClass("has-error");
         $("#qualityError").text("Quality must be between 0.1 - 0.9");
         hasErrors = true;
@@ -279,29 +279,20 @@ function validateStep1() {
         $("#dueError").text("");
     }
 
-    if (isEmpty(description.val())) {
-        description.parent().parent().addClass("has-error");
-        $("#descriptionError").text("Description is required");
-        hasErrors = true;
-    } else {
-        description.parent().parent().removeClass("has-error");
-        $("#descriptionError").text("");
-    }
-
     if (hasErrors == false) {
         timeValue = $(time).val();
         costValue = $(cost).val();
         qualityValue = $(quality).val();
-        if (timeValue + costValue + qualityValue != 1) {
-            time.parent().parent().parent().addClass("has-error");
-            cost.parent().parent().parent().addClass("has-error");
-            quality.parent().parent().parent().addClass("has-error");
+        if (parseFloat(timeValue) + parseFloat(costValue) + parseFloat(qualityValue) != 1) {
+            time.parent().parent().addClass("has-error");
+            cost.parent().parent().addClass("has-error");
+            quality.parent().parent().addClass("has-error");
             $("#timeError").text("The sum of Time, Cost and Quality must be 1.");
             hasErrors = true;
         } else {
-            time.parent().parent().parent().removeClass("has-error");
-            cost.parent().parent().parent().removeClass("has-error");
-            quality.parent().parent().parent().removeClass("has-error");
+            time.parent().parent().removeClass("has-error");
+            cost.parent().parent().removeClass("has-error");
+            quality.parent().parent().removeClass("has-error");
             $("#timeError").text("");
             hasErrors = false;
         }
@@ -313,14 +304,32 @@ function validateStep1() {
 }
 
 function validateStep2() {
-    hasErrors == false;
-    if ($('#resultTable tr').length == 1) {
-        hasErrors == true;
+    hasErrors = false;
+    if ($('#resultTable tr td').length == 0) {
+        hasErrors = true;
         $("#errorMessage").text("Add at least one user to team.");
+    } else {
+        $('#resultTable tr').each(function () {
+            $(this).find('td input').each(function () {
+                var str = $(this).attr('name');
+                if (str.indexOf("FTE") > -1) {
+                    if ($(this).val().length == 0) {
+                        hasErrors = true;
+                        $(this).parent().addClass("has-error");
+                        $("#errorMessage").text("FTE is required for all users.");
+                        return false;
+                    } else if ($(this).val().match(/\D/) != null) {
+                        hasErrors = true;
+                        $(this).parent().addClass("has-error");
+                        $("#errorMessage").text("% of FTE must be only digits.");
+                        return false;
+                    } else {
+                        $(this).parent().removeClass("has-error");
+                    }
+                }
+            });
+        });
     }
-
-
-
     if (hasErrors == false) {
         $('#create-carusel').carousel('next');
     }

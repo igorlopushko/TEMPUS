@@ -81,7 +81,7 @@
                         <div class="form-group">
                             <label for="department" class="col-sm-3 control-label">Department</label>
                             <div class="col-sm-4">
-                                @Html.DropDownListFor(model => model.ProjectMainInfo.DepartmentId, Model.ProjectMainInfo.Departments, null, new { @class = "form-control", id = "department" })
+                                @Html.DropDownListFor(model => model.ProjectMainInfo.DepartmentId, Model.ProjectMainInfo.Departments, null, new { @class = "form-control", id = "department", data_live_search = "true" })
                             </div>
                             <div class="col-sm-4">
                                 <span class="help-block" id="departmentError"></span>
@@ -90,7 +90,7 @@
                         <div class="form-group">
                             <label for="time" class="col-sm-3 control-label">Time</label>
                             <div class="col-sm-4">
-                                @Html.TextBoxFor(model => model.ProjectMainInfo.Time, new { @class = "form-control", @Value = "", id = "time", placeholder = "Time" })
+                                @Html.TextBoxFor(model => model.ProjectMainInfo.Time, new { @class = "form-control", id = "time", placeholder = "Time" })
                             </div>
                             <div class="col-sm-4">
                                 <span class="help-block" id="timeError"></span>
@@ -99,7 +99,7 @@
                         <div class="form-group">
                             <label for="cost" class="col-sm-3 control-label">Cost</label>
                             <div class="col-sm-4">
-                                @Html.TextBoxFor(model => model.ProjectMainInfo.Cost, new { @class = "form-control", @Value = "", id = "cost", placeholder = "Cost" })
+                                @Html.TextBoxFor(model => model.ProjectMainInfo.Cost, new { @class = "form-control", id = "cost", placeholder = "Cost" })
                             </div>
                             <div class="col-sm-4">
                                 <span class="help-block" id="costError"></span>
@@ -108,7 +108,7 @@
                         <div class="form-group">
                             <label for="quality" class="col-sm-3 control-label">Quality</label>
                             <div class="col-sm-4">
-                                @Html.TextBoxFor(model => model.ProjectMainInfo.Quality, new { @class = "form-control", @Value = "", id = "quality", placeholder = "Quality" })
+                                @Html.TextBoxFor(model => model.ProjectMainInfo.Quality, new { @class = "form-control", id = "quality", placeholder = "Quality" })
                             </div>
                             <div class="col-sm-4">
                                 <span class="help-block" id="qualityError"></span>
@@ -185,7 +185,7 @@
                         <div class="form-group">
                             <label for="step2" class="col-sm-3 control-label"></label>
                             <div class="col-sm-4">
-                                <button onclick="validateStep1();" class="btn btn-primary next">Next Step</button>
+                                <button type="button" onclick="validateStep1();" id="step0_next" class="btn btn-primary next">Next Step</button>
                             </div>
                         </div>
                     </div>
@@ -233,7 +233,9 @@
                         <div class="col-md-12">
                             <h3>Project Team</h3>
                             <div class="h4" id="emptyMessage">There are no users in Team</div>
-                            <div id="errorMessage"></div>
+                            <div class="has-error">
+                                <div id="errorMessage" class="help-block"></div>
+                            </div>
                             <table class="table" hidden="hidden" id="resultTable">
                                 <thead>
                                     <tr>
@@ -248,7 +250,7 @@
                         </div>
                     </div>
                     <button data-target="#create-carusel" id="step1_prev" data-slide-to="0" class="btn btn-primary prev">Back</button>
-                    <button data-target="#create-carusel" id="step1_next" data-slide-to="2" class="btn btn-primary next">Next Step</button>
+                    <button type="button" onclick="validateStep2();" id="step1_next" class="btn btn-primary next">Next Step</button>
                 </div>
             </div>
             <div class="item">
