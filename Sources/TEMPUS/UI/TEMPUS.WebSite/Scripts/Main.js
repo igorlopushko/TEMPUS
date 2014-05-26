@@ -10,6 +10,7 @@ jQuery(function ($) {
     $('[role="datepicker"]').datetimepicker({
         pickTime: false
     });
+    $('select').selectpicker();
     $('.selectpicker').selectpicker();
 });
 
