@@ -51,11 +51,17 @@
                             <div class="col-sm-4">
                                 @Html.TextBoxFor(model => model.ProjectMainInfo.Name, new { @class = "form-control", id = "projectName", placeholder = "Project Name" })
                             </div>
+                            <div class="col-sm-4">
+                                <span class="help-block" id="projectNameError"></span>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="projectManager" class="col-sm-3 control-label">Project Manager</label>
                             <div class="col-sm-4">
                                 @Html.DropDownListFor(model => model.ProjectMainInfo.ManagerId, Model.ProjectMainInfo.Managers, null, new { @class = "form-control selectpicker", id = "projectManager", data_live_search = "true" })
+                            </div>
+                            <div class="col-sm-4">
+                                <span class="help-block" id="projectManagerError"></span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -63,29 +69,44 @@
                             <div class="col-sm-4">
                                 @Html.DropDownListFor(model => model.ProjectMainInfo.OwnerId, Model.ProjectMainInfo.Owners, null, new { @class = "form-control selectpicker", id = "projectOwner", data_live_search = "true" })
                             </div>
+                            <div class="col-sm-4">
+                                <span class="help-block" id="projectOwnerError"></span>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="department" class="col-sm-3 control-label">Department</label>
                             <div class="col-sm-4">
                                 @Html.DropDownListFor(model => model.ProjectMainInfo.DepartmentId, Model.ProjectMainInfo.Departments, null, new { @class = "form-control", id = "department" })
                             </div>
+                            <div class="col-sm-4">
+                                <span class="help-block" id="departmentError"></span>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="time" class="col-sm-3 control-label">Time</label>
                             <div class="col-sm-4">
-                                @Html.TextBoxFor(model => model.ProjectMainInfo.Time, new { @class = "form-control", id = "time", placeholder = "Time" })
+                                @Html.TextBoxFor(model => model.ProjectMainInfo.Time, new { @class = "form-control", @Value = "", id = "time", placeholder = "Time" })
+                            </div>
+                            <div class="col-sm-4">
+                                <span class="help-block" id="timeError"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="cost" class="col-sm-3 control-label">Cost</label>
                             <div class="col-sm-4">
-                                @Html.TextBoxFor(model => model.ProjectMainInfo.Cost, new { @class = "form-control", id = "cost", placeholder = "Cost" })
+                                @Html.TextBoxFor(model => model.ProjectMainInfo.Cost, new { @class = "form-control", @Value = "", id = "cost", placeholder = "Cost" })
+                            </div>
+                            <div class="col-sm-4">
+                                <span class="help-block" id="costError"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="quality" class="col-sm-3 control-label">Quality</label>
                             <div class="col-sm-4">
-                                @Html.TextBoxFor(model => model.ProjectMainInfo.Quality, new { @class = "form-control", id = "quality", placeholder = "Quality" })
+                                @Html.TextBoxFor(model => model.ProjectMainInfo.Quality, new { @class = "form-control", @Value = "", id = "quality", placeholder = "Quality" })
+                            </div>
+                            <div class="col-sm-4">
+                                <span class="help-block" id="qualityError"></span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -93,11 +114,17 @@
                             <div class="col-sm-4">
                                 @Html.TextBoxFor(model => model.ProjectMainInfo.Orderer, new { @class = "form-control", id = "orderer", placeholder = "Orderer" })
                             </div>
+                            <div class="col-sm-4">
+                                <span class="help-block" id="ordererError"></span>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="classification" class="col-sm-3 control-label">PPS Classification</label>
                             <div class="col-sm-4">
                                 @Html.DropDownListFor(model => model.ProjectMainInfo.PpsClassificationId, Model.ProjectMainInfo.PpsClassifications, null, new { @class = "form-control", id = "classification" })
+                            </div>
+                            <div class="col-sm-4">
+                                <span class="help-block" id="classificationError"></span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -111,6 +138,9 @@
                             <div class="col-sm-4">
                                 @Html.TextBoxFor(model => model.ProjectMainInfo.RecievingOrganization, new { @class = "form-control", id = "organisation", placeholder = "Receiving organisation" })
                             </div>
+                            <div class="col-sm-4">
+                                <span class="help-block" id="organisationError"></span>
+                            </div>
                         </div>
                         <div class="form-group row">
                             <label for="start" class="col-sm-3 control-label">Start Date</label>
@@ -121,7 +151,9 @@
                                     </span>
                                 </div>
                             </div>
-
+                            <div class="col-sm-4">
+                                <span class="help-block" id="startError"></span>
+                            </div>
                         </div>
                         <div class="form-group row">
                             <label for="due" class="col-sm-3 control-label">Due Date</label>
@@ -133,6 +165,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-4">
+                                <span class="help-block" id="dueError"></span>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -140,11 +173,14 @@
                             <div class="col-sm-4">
                                 @Html.TextAreaFor(model => model.ProjectMainInfo.Description, new { @class = "form-control", id = "description", placeholder = "Description" })
                             </div>
+                            <div class="col-sm-4">
+                                <span class="help-block" id="descriptionError"></span>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="step2" class="col-sm-3 control-label"></label>
                             <div class="col-sm-4">
-                                <button data-target="#create-carusel" id="step0_next" data-slide-to="1" class="btn btn-primary next">Next Step</button>
+                                <button onclick="validateStep1();" class="btn btn-primary next">Next Step</button>
                             </div>
                         </div>
                     </div>
@@ -192,6 +228,7 @@
                         <div class="col-md-12">
                             <h3>Project Team</h3>
                             <div class="h4" id="emptyMessage">There are no users in Team</div>
+                            <div id="errorMessage"></div>
                             <table class="table" hidden="hidden" id="resultTable">
                                 <thead>
                                     <tr>
@@ -201,7 +238,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
                                 </tbody>
                             </table>
                         </div>
@@ -216,7 +252,7 @@
                     <div class="row">
                         <div class="col-md-12 col-lg-12 col-sm-12">
                             <div class="h4">There are no risks in project</div>
-                             @*<table class="responsiveGrid table table-striped table-hover">
+                            @*<table class="responsiveGrid table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>№</th>

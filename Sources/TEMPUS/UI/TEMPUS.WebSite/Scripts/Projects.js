@@ -35,8 +35,8 @@ function redrawTimeChart() {
 function redrawBudgetChart() {
     var data = google.visualization.arrayToDataTable([
 	    ['Project', 'Budget', { role: 'style' }],
-        ['Project1', 1800, '#3399FF'],          
-	    ['Project2', 2100, '#3399FF'],       
+        ['Project1', 1800, '#3399FF'],
+	    ['Project2', 2100, '#3399FF'],
 	    ['Project3', 1500, '#3399FF']
     ]);
 
@@ -137,4 +137,195 @@ function deleteUser(userId) {
         $('#emptyMessage').show();
         $('#resultTable').hide();
     }
+}
+
+function validateDigit(input) {
+    text = $(input).val();
+    return (text.match(/^\d[\.,]{1}\d+/) != null);
+}
+
+function validateStep1() {
+    projectName = $("#projectName");
+    projectManager = $("#projectManager");
+    projectOwner = $("#projectOwner");
+    department = $("#department");
+    time = $("#time");
+    cost = $("#cost");
+    quality = $("#quality");
+    orderer = $("#orderer");
+    organisation = $("#organisation");
+    start = $("#start");
+    due = $("#due");
+    description = $("#description");
+
+    var hasErrors = false;
+
+    if (isEmpty(projectName.val())) {
+        projectName.parent().parent().addClass("has-error");
+        $("#projectNameError").text("Project Name is required");
+        hasErrors = true;
+    } else {
+        projectName.parent().parent().removeClass("has-error");
+        $("#projectNameError").text("");
+    }
+
+    if (isEmpty(projectManager.val())) {
+        projectManager.parent().parent().addClass("has-error");
+        $("#projectManagerError").text("Project Manager is required");
+        hasErrors = true;
+    } else {
+        projectManager.parent().parent().removeClass("has-error");
+        $("#projectManagerError").text("");
+    }
+
+    if (isEmpty(projectOwner.val())) {
+        projectOwner.parent().parent().addClass("has-error");
+        $("#projectOwnerError").text("Project Owner is required");
+        hasErrors = true;
+    } else {
+        projectOwner.parent().parent().removeClass("has-error");
+        $("#projectOwnerError").text("");
+    }
+
+    if (isEmpty(department.val())) {
+        department.parent().parent().addClass("has-error");
+        $("#departmentError").text("Department is required");
+        hasErrors = true;
+    } else {
+        department.parent().parent().removeClass("has-error");
+        $("#departmentError").text("");
+    }
+
+    if (isEmpty(time.val())) {
+        time.parent().parent().addClass("has-error");
+        $("#timeError").text("Time is required");
+        hasErrors = true;
+    } if(!validateDigit(time)) {
+        time.parent().parent().addClass("has-error");
+        $("#timeError").text("Time must be between 0.1 - 0.9");
+        hasErrors = true;
+    } else {
+        time.parent().parent().removeClass("has-error");
+        $("#timeError").text("");
+    }
+
+    if (isEmpty(cost.val())) {
+        cost.parent().parent().addClass("has-error");
+        $("#costError").text("Cost is required");
+        hasErrors = true;
+    } if(!validateDigit(cost)) {
+        cost.parent().parent().addClass("has-error");
+        $("#costError").text("Cost must be between 0.1 - 0.9");
+        hasErrors = true;
+    } else {
+        cost.parent().parent().removeClass("has-error");
+        $("#costError").text("");
+    }
+
+    if (isEmpty(quality.val())) {
+        quality.parent().parent().addClass("has-error");
+        $("#qualityError").text("Quality is required");
+        hasErrors = true;
+    } if(!validateDigit(quality)) {
+        quality.parent().parent().addClass("has-error");
+        $("#qualityError").text("Quality must be between 0.1 - 0.9");
+        hasErrors = true;
+    } else {
+        quality.parent().parent().removeClass("has-error");
+        $("#qualityError").text("");
+    }
+
+    if (isEmpty(orderer.val())) {
+        orderer.parent().parent().addClass("has-error");
+        $("#ordererError").text("Orderer is required");
+        hasErrors = true;
+    } else {
+        orderer.parent().parent().removeClass("has-error");
+        $("#ordererError").text("");
+    }
+
+    if (isEmpty(organisation.val())) {
+        organisation.parent().parent().addClass("has-error");
+        $("#organisationError").text("Organisation is required");
+        hasErrors = true;
+    } else {
+        organisation.parent().parent().removeClass("has-error");
+        $("#organisationError").text("");
+    }
+
+    if (isEmpty(start.val())) {
+        start.parent().parent().parent().addClass("has-error");
+        $("#startError").text("Start Date is required");
+        hasErrors = true;
+    } else if ($(start).val().match(/\d{2}\/\d{2}\/\d{4}/) == null) {
+        start.parent().parent().parent().addClass("has-error");
+        $("#startError").text("Start Date must be in dd/MM/yyyy format");
+        hasErrors = true;
+    } else {
+        start.parent().parent().parent().removeClass("has-error");
+        $("#startError").text("");
+    }
+
+    if (isEmpty(due.val())) {
+        due.parent().parent().parent().addClass("has-error");
+        $("#dueError").text("Due Date is required");
+        hasErrors = true;
+    } else if ($(due).val().match(/\d{2}\/\d{2}\/\d{4}/) == null) {
+        due.parent().parent().parent().addClass("has-error");
+        $("#dueError").text("Due Date must be in dd/MM/yyyy format");
+        hasErrors = true;
+    } else {
+        due.parent().parent().parent().removeClass("has-error");
+        $("#dueError").text("");
+    }
+
+    if (isEmpty(description.val())) {
+        description.parent().parent().addClass("has-error");
+        $("#descriptionError").text("Description is required");
+        hasErrors = true;
+    } else {
+        description.parent().parent().removeClass("has-error");
+        $("#descriptionError").text("");
+    }
+
+    if (hasErrors == false) {
+        timeValue = $(time).val();
+        costValue = $(cost).val();
+        qualityValue = $(quality).val();
+        if (timeValue + costValue + qualityValue != 1) {
+            time.parent().parent().parent().addClass("has-error");
+            cost.parent().parent().parent().addClass("has-error");
+            quality.parent().parent().parent().addClass("has-error");
+            $("#timeError").text("The sum of Time, Cost and Quality must be 1.");
+            hasErrors = true;
+        } else {
+            time.parent().parent().parent().removeClass("has-error");
+            cost.parent().parent().parent().removeClass("has-error");
+            quality.parent().parent().parent().removeClass("has-error");
+            $("#timeError").text("");
+            hasErrors = false;
+        }
+    }
+
+    if (hasErrors == false) {
+        $('#create-carusel').carousel('next');
+    }
+}
+
+function validateStep2() {
+    hasErrors == false;
+    if ($('#resultTable tr').length == 1) {
+        hasErrors == true;
+        $("#errorMessage").text("Add at least one user to team.");
+    }
+
+
+
+    if (hasErrors == false) {
+        $('#create-carusel').carousel('next');
+    }
+}
+
+function isEmpty(str) {
+    return (!str || !str.trim() || 0 === str.length);
 }
