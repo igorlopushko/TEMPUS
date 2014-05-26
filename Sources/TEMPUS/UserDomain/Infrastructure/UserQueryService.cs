@@ -263,7 +263,13 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// </summary>
         public IEnumerable<UserInfo> GetAllActiveUsers()
         {
-            return _userReadRepository.Users.Where(x => x.IsDeleted == false).ToArray().Select(x =>
+            var administratorRole = _userReadRepository.Roles.FirstOrDefault(x => x.Name == UserRole.Administrator.ToString());
+            if (administratorRole == null)
+                return null;
+
+            var administrators = _userReadRepository.UserRoleRelations.Where(x => x.RoleId == administratorRole.Id).Select(x => x.UserId).ToArray();
+
+            return _userReadRepository.Users.Where(x => x.IsDeleted == false && !administrators.Contains(x.Id)).ToArray().Select(x =>
                     new UserInfo
                     {
                         DateOfBirth = x.DateOfBirth,

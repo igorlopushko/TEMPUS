@@ -195,7 +195,7 @@ namespace TEMPUS.WebSite.Controllers
             model.ProjectMainInfo.Owners = GetUsers();
 
             model.ProjectTeam.Users = _userQueryService.GetAllActiveUsers();
-            model.Roles = this.GetProjectRoles();
+            model.ProjectTeam.Roles = this.GetProjectRoles();
             return model;
         }
 
