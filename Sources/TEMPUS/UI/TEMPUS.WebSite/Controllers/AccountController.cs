@@ -144,6 +144,7 @@ namespace TEMPUS.WebSite.Controllers
                     var user = _userQueryService.GetUserByEmail(model.Email);
                     if(SiteSecurity.UserInRole(user, UserRole.Administrator))
                     {
+                        UserContext.IsUpdated = false;
                         return RedirectToAction("Index", "User");
                     }
                     return RedirectToAction("Select", "Projects");
@@ -161,6 +162,7 @@ namespace TEMPUS.WebSite.Controllers
         public ActionResult LogOut()
         {
             _formsService.SignOut();
+            UserContext.IsUpdated = false;
             UserContext.CurrentProjectId = Guid.Empty;
             return RedirectToAction("Index", "Home");
         }
@@ -210,6 +212,8 @@ namespace TEMPUS.WebSite.Controllers
                 var command = new ChangeUserInformation(new UserId(userInfo.UserId), model.Phone, userInfo.Image, model.FirstName,
                     model.LastName, model.DateOfBirth);
                 _cmdSender.Send(command);
+
+                UserContext.IsUpdated = false;
             }
 
             return RedirectToAction("Profile", new { id = userInfo.UserId });
