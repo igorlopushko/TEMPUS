@@ -106,7 +106,7 @@ namespace TEMPUS.WebSite.Controllers
 
             if (result == MembershipCreateStatus.Success)
             {
-                return RedirectToAction("Index", "Team");
+                return RedirectToAction("Index", "User");
             }
             else
             {
