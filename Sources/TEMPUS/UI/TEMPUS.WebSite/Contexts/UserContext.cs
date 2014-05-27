@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web;
-using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.Infrastructure.Unity;
 using TEMPUS.UserDomain.Model.ServiceLayer;
 using TEMPUS.UserDomain.Services.ServiceLayer;
@@ -11,6 +10,11 @@ namespace TEMPUS.WebSite.Contexts
     {
         private static UserInfo User;
 
+        /// <summary>
+        /// Gets or sets a value indicating whether need to update the current user.
+        /// </summary>
+        public static bool IsUpdated { get; set; }
+
         public static UserInfo Current
         {
             get
@@ -20,8 +24,10 @@ namespace TEMPUS.WebSite.Contexts
                     User = null;
                     return null;
                 }
-                if (User == null)
+                if (User == null || !IsUpdated)
                 {
+                    IsUpdated = true;
+
                     var userSvc = Container.Get<IUserQueryService>();
                     User = userSvc.GetUserByEmail(HttpContext.Current.User.Identity.Name);
                 }
