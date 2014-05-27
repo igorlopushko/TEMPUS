@@ -13,86 +13,80 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    <div class="carousel-inner">
-        <div class="item active">
-            <div class="container">
-                <div class="row">
-                    <div class="form-group">
-                        <div class="col-sm-4">
-                            <div class="form-group has-error" align="center">
-                                <label class="control-label">
-                                    <p>@Html.ValidationMessageFor(model => model.Email)</p>
-                                    <p>@Html.ValidationMessageFor(model => model.Password)</p>
-                                    <p>@Html.ValidationMessageFor(model => model.ConfirmPassword)</p>
-                                    <p>@Html.ValidationMessageFor(model => model.FirstName)</p>
-                                    <p>@Html.ValidationMessageFor(model => model.LastName)</p>
-                                    <p>@Html.ValidationMessageFor(model => model.DateOfBirth)</p>
-                                    @if (ViewData.ModelState["Error"] != null)
-                                    {
-                                        if (ViewData.ModelState["Error"].Errors[0] != null)
-                                        {
-                                            <p>@ViewData.ModelState["Error"].Errors[0].ErrorMessage</p>
-                                        }
-                                    }
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="Email" class="col-sm-3 control-label">Email</label>
-                        <div class="col-sm-4">
-                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "email", placeholder = "Email" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="Password" class="col-sm-3 control-label">Password</label>
-                        <div class="col-sm-4">
-                            @Html.PasswordFor(model => model.Password, new { @class = "form-control", id = "password", placeholder = "Password" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="ConfirmPassword" class="col-sm-3 control-label">Confirm password</label>
-                        <div class="col-sm-4">
-                            @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", id = "confirmpassword", placeholder = "Confirm password" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="FirstName" class="col-sm-3 control-label">First name</label>
-                        <div class="col-sm-4">
-                            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", id = "firstname", placeholder = "First name" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="LastName" class="col-sm-3 control-label">Last name</label>
-                        <div class="col-sm-4">
-                            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", id = "lastname", placeholder = "Last name" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="DateOfBirth" class="col-sm-3 control-label">Date of birth</label>
-                        <div class="col-sm-4">
-                            <div class='input-group date' id='date_of_birth' role="datepicker">
-                                @Html.TextBoxFor(model => model.DateOfBirth, new { @class = "form-control", placeholder = "Date of birth" })
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="Role" class="col-sm-3 control-label">Role</label>
-                        <div class="col-sm-4">
-                            @Html.DropDownListFor(model => model.RoleId, ViewBag.UserRoles as IEnumerable<SelectListItem>, null, new { @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label"></label>
-                        <div class="col-sm-6">
-                            <input class="btn btn-primary next" value="Register user" type="submit" />
-                            <input class="btn btn-primary next" value="Cancel" type="button" onclick="window.history.back();" />
-                        </div>
-                    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-sm-4">
+                <div class="form-group has-error" align="center">
+                    <label class="control-label">
+                        <p>@Html.ValidationMessageFor(model => model.Email)</p>
+                        <p>@Html.ValidationMessageFor(model => model.Password)</p>
+                        <p>@Html.ValidationMessageFor(model => model.ConfirmPassword)</p>
+                        <p>@Html.ValidationMessageFor(model => model.FirstName)</p>
+                        <p>@Html.ValidationMessageFor(model => model.LastName)</p>
+                        <p>@Html.ValidationMessageFor(model => model.DateOfBirth)</p>
+                        @if (ViewData.ModelState["Error"] != null)
+                        {
+                            if (ViewData.ModelState["Error"].Errors[0] != null)
+                            {
+                                <p>@ViewData.ModelState["Error"].Errors[0].ErrorMessage</p>
+                            }
+                        }
+                    </label>
                 </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Email" class="col-sm-3 control-label">Email</label>
+            <div class="col-sm-4">
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "email", placeholder = "Email" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Password" class="col-sm-3 control-label">Password</label>
+            <div class="col-sm-4">
+                @Html.PasswordFor(model => model.Password, new { @class = "form-control", id = "password", placeholder = "Password" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="ConfirmPassword" class="col-sm-3 control-label">Confirm password</label>
+            <div class="col-sm-4">
+                @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", id = "confirmpassword", placeholder = "Confirm password" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="FirstName" class="col-sm-3 control-label">First name</label>
+            <div class="col-sm-4">
+                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", id = "firstname", placeholder = "First name" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="LastName" class="col-sm-3 control-label">Last name</label>
+            <div class="col-sm-4">
+                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", id = "lastname", placeholder = "Last name" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="DateOfBirth" class="col-sm-3 control-label">Date of birth</label>
+            <div class="col-sm-4">
+                <div class='input-group date' id='date_of_birth' role="datepicker">
+                    @Html.TextBoxFor(model => model.DateOfBirth, new { @class = "form-control", placeholder = "Date of birth" })
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Role" class="col-sm-3 control-label">Role</label>
+            <div class="col-sm-4">
+                @Html.DropDownListFor(model => model.RoleId, ViewBag.UserRoles as IEnumerable<SelectListItem>, null, new { @class = "form-control", data_container = "" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label"></label>
+            <div class="col-sm-6">
+                <input class="btn btn-primary next" value="Register user" type="submit" />
+                <input class="btn btn-primary next" value="Cancel" type="button" onclick="window.history.back();" />
             </div>
         </div>
     </div>
