@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,6 +18,13 @@ namespace TEMPUS.DB.Models.Project
         [Key, ForeignKey("User")]
         [Column(Order = 3)]
         public Guid UserId { get; set; }
+
+        public DateTime StartDate { get; set; }
+
+        public DateTime EndDate { get; set; }
+
+        [Required]
+        public int FTE { get; set; }
 
         public Project Project { get; set; }
         public ProjectRole ProjectRole { get; set; }

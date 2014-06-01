@@ -284,7 +284,10 @@ namespace TEMPUS.DB.Migrations
             {
                 ProjectId = project,
                 ProjectRoleId = manager,
-                UserId = shatovska
+                UserId = shatovska,
+                StartDate = DateTime.Now.Date,
+                EndDate = DateTime.Now.Date.AddDays(20),
+                FTE = 100
             });
             foreach (var userId in context.Users.Where(x => x.Id != shatovska && x.FirstName != "Admin").Select(x => x.Id).ToArray())
             {
@@ -292,7 +295,10 @@ namespace TEMPUS.DB.Migrations
                 {
                     ProjectId = project,
                     ProjectRoleId = teamMember,
-                    UserId = userId
+                    UserId = userId,
+                    StartDate = DateTime.Now.Date,
+                    EndDate = DateTime.Now.Date.AddDays(20),
+                    FTE = 70
                 });
             }
             context.SaveChanges();
