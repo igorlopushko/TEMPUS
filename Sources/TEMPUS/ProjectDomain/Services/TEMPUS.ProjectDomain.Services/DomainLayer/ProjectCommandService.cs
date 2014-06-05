@@ -112,7 +112,7 @@ namespace TEMPUS.ProjectDomain.Services.DomainLayer
                 throw new ArgumentException(string.Format("Project role with id {0} does not exist.", command.UserId.Id));
 
             var project = _projectRepository.Get(command.Id);
-            project.AssignUser(command.UserId, command.RoleId, command.FTE);
+            project.AssignUser(command.UserId, command.RoleId, command.FTE, command.StartDate, command.EndDate);
 
             _projectRepository.Save(project);
         }

@@ -29,13 +29,19 @@ namespace TEMPUS.WebSite.Controllers
             IUserQueryService userQueryService)
         {
             if (projectService == null)
+            {
                 throw new ArgumentNullException("projectService");
+            }
 
             if (commandSender == null)
+            {
                 throw new ArgumentNullException("commandSender");
+            }
 
             if (userQueryService == null)
+            {
                 throw new ArgumentNullException("userQueryService");
+            }
 
             _projectQueryService = projectService;
             _commandSender = commandSender;
@@ -50,13 +56,13 @@ namespace TEMPUS.WebSite.Controllers
 
             foreach (var projectInfo in projects)
             {
-                var project = new ProjectDetailsViewModel(projectInfo.Id.ToString(), 
-                    projectInfo.Name, 
-                    ProjectStatus.Green, 
+                var project = new ProjectDetailsViewModel(projectInfo.Id.ToString(),
+                    projectInfo.Name,
+                    ProjectStatus.Green,
                     DateTime.Now.AddDays(-100),
-                    DateTime.Now.AddDays(100), 
-                    new UserInfo { FirstName = "Tatyana", LastName = "Shatovska"}, 
-                    "Department1", 
+                    DateTime.Now.AddDays(100),
+                    new UserInfo { FirstName = "Tatyana", LastName = "Shatovska" },
+                    "Department1",
                     "Description");
                 model.Add(project);
             }
@@ -105,10 +111,13 @@ namespace TEMPUS.WebSite.Controllers
 
                 foreach (var teamMember in model.ProjectTeam.TeamMembers)
                 {
-                    //TODO: Remove when RoleId field added in the UI.
-                    var roleId = Guid.Parse("7eb33e5e-1bd6-e311-be7f-94de8066e6a1");
-                    command = new AssignUserToProject(new ProjectId(newProjectId), new UserId(teamMember.UserId), roleId, teamMember.FTE);
-                    _commandSender.Send(command);
+                    foreach (var activity in teamMember.TeamMemberActivities)
+                    {
+                        //TODO: Remove when RoleId field added in the UI.
+                        var roleId = Guid.Parse("7eb33e5e-1bd6-e311-be7f-94de8066e6a1");
+                        command = new AssignUserToProject(new ProjectId(newProjectId), new UserId(teamMember.UserId), roleId, activity.FTE, activity.StartDate, activity.EndDate);
+                        _commandSender.Send(command);
+                    }
                 }
 
                 return RedirectToAction("Index");
@@ -126,7 +135,7 @@ namespace TEMPUS.WebSite.Controllers
                                                     ProjectStatus.Green,
                                                     DateTime.Now.AddDays(-100),
                                                     DateTime.Now.AddDays(100),
-                                                    new UserInfo {FirstName = "Tatyana", LastName = "Shatovska"},
+                                                    new UserInfo { FirstName = "Tatyana", LastName = "Shatovska" },
                                                     "Department1",
                                                     "Description");
 
@@ -189,12 +198,12 @@ namespace TEMPUS.WebSite.Controllers
             if (model == null)
                 throw new ArgumentNullException("model");
 
-            model.ProjectMainInfo.Departments = GetDepartments();
-            model.ProjectMainInfo.PpsClassifications = GetPpsClassifications();
-            model.ProjectMainInfo.Managers = GetUsers();
-            model.ProjectMainInfo.Owners = GetUsers();
+            model.ProjectMainInfo.Departments = this.GetDepartments();
+            model.ProjectMainInfo.PpsClassifications = this.GetPpsClassifications();
+            model.ProjectMainInfo.Managers = this.GetUsers();
+            model.ProjectMainInfo.Owners = this.GetUsers();
 
-            model.ProjectTeam.Users = _userQueryService.GetAllActiveUsers();
+            model.ProjectTeam.Users = this.GetUsersWithFTE();
             model.ProjectTeam.Roles = this.GetProjectRoles();
             return model;
         }
@@ -203,6 +212,26 @@ namespace TEMPUS.WebSite.Controllers
         {
             var projectRoles = _projectQueryService.GetProjectRoles();
             return projectRoles.Select(x => new SelectListItem { Value = x.Key.ToString(), Text = x.Value });
+        }
+
+        private IEnumerable<ProjectTeamMemberViewModel> GetUsersWithFTE()
+        {
+            var activeUsers = _userQueryService.GetAllActiveUsers();
+            return activeUsers.Select(x => new ProjectTeamMemberViewModel
+                {
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    UserId = x.UserId,
+                    TeamMemberActivities = _userQueryService.GetUserActivities(new UserId(x.UserId))
+                                            .Select(s => new ProjectTeamMemberActivityViewModel
+                                                            {
+                                                                RoleId = s.RoleId,
+                                                                FTE = s.FTE,
+                                                                EndDate = s.EndDate,
+                                                                StartDate = s.StartDate,
+                                                                UserId = s.UserId
+                                                            })
+                });
         }
     }
 }

@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TEMPUS.WebSite.Models.Project
 {
     public class ProjectTeamMemberViewModel
     {
         public Guid UserId { get; set; }
-        public string UserName { get; set; }
-        public Guid RoleId { get; set; }
-        public int FTE { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public IEnumerable<ProjectTeamMemberActivityViewModel> TeamMemberActivities { get; set; }
     }
 }

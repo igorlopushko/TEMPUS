@@ -103,7 +103,10 @@ namespace TEMPUS.ProjectDomain.Infrastructure
                                 {
                                     UserId = x.UserId.Id,
                                     ProjectRoleId = x.RoleId,
-                                    ProjectId = root.Id.Id
+                                    ProjectId = root.Id.Id,
+                                    EndDate = x.EndDate,
+                                    StartDate = x.StartDate,
+                                    FTE = x.FTE
                                 }),
                     ManagerId = root.Manager.Id,
                     OwnerId = root.Owner.Id

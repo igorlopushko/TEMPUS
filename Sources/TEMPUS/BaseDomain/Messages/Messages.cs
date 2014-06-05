@@ -20,13 +20,17 @@ namespace TEMPUS.BaseDomain.Messages
 		public UserId UserId { get; set; }
 		public Guid RoleId { get; set; }
 		public int FTE { get; set; }
+		public DateTime StartDate { get; set; }
+		public DateTime EndDate { get; set; }
 		private AssignUserToProject () {}
-		public AssignUserToProject (ProjectId projectId, UserId userId, Guid roleId, int fTE)
+		public AssignUserToProject (ProjectId projectId, UserId userId, Guid roleId, int fTE, DateTime startDate, DateTime endDate)
 		{
 			Id = projectId;
 			UserId = userId;
 			RoleId = roleId;
 			FTE = fTE;
+			StartDate = startDate;
+			EndDate = endDate;
 		}
 		public override bool Equals(object obj)
 		{
@@ -39,11 +43,11 @@ namespace TEMPUS.BaseDomain.Messages
 			{
 				return false;
 			}
-			return Id.Equals(target.Id) && UserId.Equals(target.UserId) && RoleId.Equals(target.RoleId) && FTE.Equals(target.FTE);
+			return Id.Equals(target.Id) && UserId.Equals(target.UserId) && RoleId.Equals(target.RoleId) && FTE.Equals(target.FTE) && StartDate.Equals(target.StartDate) && EndDate.Equals(target.EndDate);
 		}
 		public override int GetHashCode()
 		{
-			return Id.GetHashCode() ^ UserId.GetHashCode() ^ RoleId.GetHashCode() ^ FTE.GetHashCode();
+			return Id.GetHashCode() ^ UserId.GetHashCode() ^ RoleId.GetHashCode() ^ FTE.GetHashCode() ^ StartDate.GetHashCode() ^ EndDate.GetHashCode();
 		}
 		public static bool operator ==(AssignUserToProject a, AssignUserToProject b)
 		{
@@ -72,13 +76,17 @@ namespace TEMPUS.BaseDomain.Messages
 		public UserId UserId { get; set; }
 		public Guid RoleId { get; set; }
 		public int FTE { get; set; }
+		public DateTime StartDate { get; set; }
+		public DateTime EndDate { get; set; }
 		private UserAssignedToProject () {}
-		public UserAssignedToProject (ProjectId projectId, UserId userId, Guid roleId, int fTE)
+		public UserAssignedToProject (ProjectId projectId, UserId userId, Guid roleId, int fTE, DateTime startDate, DateTime endDate)
 		{
 			Id = projectId;
 			UserId = userId;
 			RoleId = roleId;
 			FTE = fTE;
+			StartDate = startDate;
+			EndDate = endDate;
 		}
 		public override bool Equals(object obj)
 		{
@@ -91,11 +99,11 @@ namespace TEMPUS.BaseDomain.Messages
 			{
 				return false;
 			}
-			return Id.Equals(target.Id) && UserId.Equals(target.UserId) && RoleId.Equals(target.RoleId) && FTE.Equals(target.FTE);
+			return Id.Equals(target.Id) && UserId.Equals(target.UserId) && RoleId.Equals(target.RoleId) && FTE.Equals(target.FTE) && StartDate.Equals(target.StartDate) && EndDate.Equals(target.EndDate);
 		}
 		public override int GetHashCode()
 		{
-			return Id.GetHashCode() ^ UserId.GetHashCode() ^ RoleId.GetHashCode() ^ FTE.GetHashCode();
+			return Id.GetHashCode() ^ UserId.GetHashCode() ^ RoleId.GetHashCode() ^ FTE.GetHashCode() ^ StartDate.GetHashCode() ^ EndDate.GetHashCode();
 		}
 		public static bool operator ==(UserAssignedToProject a, UserAssignedToProject b)
 		{

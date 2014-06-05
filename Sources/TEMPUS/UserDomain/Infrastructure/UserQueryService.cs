@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using TEMPUS.BaseDomain.Messages.Identities;
 using TEMPUS.DB;
-using TEMPUS.DB.Models.Project;
 using TEMPUS.UserDomain.Model.ServiceLayer;
 using TEMPUS.UserDomain.Services.ServiceLayer;
 
@@ -24,7 +23,9 @@ namespace TEMPUS.UserDomain.Infrastructure
         public UserQueryService(DataContext userReadRepository)
         {
             if (userReadRepository == null)
+            {
                 throw new ArgumentNullException("userReadRepository");
+            }
 
             _userReadRepository = userReadRepository;
         }
@@ -36,7 +37,9 @@ namespace TEMPUS.UserDomain.Infrastructure
         public UserInfo GetUserById(UserId id)
         {
             if (id == null)
+            {
                 throw new ArgumentNullException("id");
+            }
 
             return _userReadRepository.Users.Where(x => x.Id == id.Id && x.IsDeleted == false).AsEnumerable().Select(x => new UserInfo
             {
@@ -60,6 +63,11 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// <param name="email">user specific email address</param>
         public UserInfo GetUserByEmail(string email)
         {
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentException("Email must be specified.");
+            }
+
             var user = _userReadRepository.Users.Where(x => x.Email == email && x.IsDeleted == false).ToArray().Select(x => new UserInfo
             {
                 UserId = x.Id,
@@ -131,7 +139,9 @@ namespace TEMPUS.UserDomain.Infrastructure
         public IEnumerable<UserMood> GetTeamMoods(ProjectId projectId)
         {
             if (projectId == null)
+            {
                 throw new ArgumentNullException("projectId");
+            }
 
             var teamMembersIds =
                 _userReadRepository.ProjectRoleRelations.Where(x => x.ProjectId == projectId.Id).Select(x => x.UserId);
@@ -145,14 +155,21 @@ namespace TEMPUS.UserDomain.Infrastructure
                 });
         }
 
+        /// <summary>
+        /// Gets the users by project identifier.
+        /// </summary>
+        /// <param name="projectId">The project identifier.</param>
+        /// <exception cref="System.ArgumentNullException">projectId</exception>
         public IEnumerable<UserInfo> GetUsersByProjectId(ProjectId projectId)
         {
             if (projectId == null)
             {
                 throw new ArgumentNullException("projectId");
             }
+
             var teamMembersIds =
                 _userReadRepository.ProjectRoleRelations.Where(x => x.ProjectId == projectId.Id).Select(x => x.UserId);
+
             var users = _userReadRepository.Users.Where(x => teamMembersIds.Contains(x.Id)).ToArray().Select(x => new UserInfo
             {
                 UserId = x.Id,
@@ -167,6 +184,7 @@ namespace TEMPUS.UserDomain.Infrastructure
                 Mood = this.GetUserMood(new UserId(x.Id)),
                 Roles = this.GetUserRoles(new UserId(x.Id))
             });
+
             return users;
         }
 
@@ -177,7 +195,23 @@ namespace TEMPUS.UserDomain.Infrastructure
         /// <param name="userId">The user identifier.</param>
         public ProjectRole GetProjectRoleForUser(ProjectId projectId, UserId userId)
         {
-            return _userReadRepository.ProjectRoleRelations.Where(x => x.ProjectId == projectId.Id && x.UserId == userId.Id).Select(x => x.ProjectRole).FirstOrDefault();
+            if (projectId == null)
+            {
+                throw new ArgumentNullException("projectId");
+            }
+
+            if (userId == null)
+            {
+                throw new ArgumentNullException("userId");
+            }
+
+            return _userReadRepository.ProjectRoleRelations
+                .Where(x => x.ProjectId == projectId.Id && x.UserId == userId.Id)
+                .Select(x => new ProjectRole
+                    {
+                        Id = x.ProjectRole.Id,
+                        Name = x.ProjectRole.Name
+                    }).FirstOrDefault();
         }
 
         /// <summary>
@@ -188,7 +222,9 @@ namespace TEMPUS.UserDomain.Infrastructure
         public UserMood GetUserMood(UserId userId)
         {
             if (userId == null)
+            {
                 throw new ArgumentNullException("userId");
+            }
 
             var date = DateTime.Now.Date;
             return _userReadRepository.Moods.Where(
@@ -294,6 +330,33 @@ namespace TEMPUS.UserDomain.Infrastructure
         {
             var userRole = _userReadRepository.Roles.FirstOrDefault(x => x.Name == role.ToString());
             return userRole == null ? Guid.Empty : userRole.Id;
+        }
+
+
+        /// <summary>
+        /// Gets the user activities.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public IEnumerable<UserActivity> GetUserActivities(UserId id)
+        {
+            if (id == null)
+            {
+                throw new ArgumentNullException("id");
+            }
+
+            var date = DateTime.Now.Date;
+
+            return _userReadRepository.ProjectRoleRelations
+                    .Where(x => x.UserId == id.Id && x.EndDate > date)
+                    .Select(x => new UserActivity
+                                    {
+                                        RoleId = x.ProjectRoleId,
+                                        FTE = x.FTE,
+                                        EndDate = x.EndDate,
+                                        StartDate = x.StartDate,
+                                        UserId = x.UserId
+                                    });
         }
     }
 }

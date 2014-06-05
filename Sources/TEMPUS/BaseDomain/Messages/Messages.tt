@@ -23,8 +23,8 @@ namespace TEMPUS.BaseDomain.Messages
 	let userId = UserId UserId;
 	let projectId = ProjectId ProjectId;	
 
-	AssignUserToProject?(projectId, userId, Guid RoleId, int FTE)
-	UserAssignedToProject!(projectId, userId, Guid RoleId, int FTE)
+	AssignUserToProject?(projectId, userId, Guid RoleId, int FTE, DateTime StartDate, DateTime EndDate)
+	UserAssignedToProject!(projectId, userId, Guid RoleId, int FTE, DateTime StartDate, DateTime EndDate)
 	UserCreated! (userId, string Login, string Password)
 	CreateUser? (userId, string Login, string Password)
 	ChangeUserInformation?(userId, string Phone, string Image, string FirstName, string LastName, DateTime DateOfBirth)

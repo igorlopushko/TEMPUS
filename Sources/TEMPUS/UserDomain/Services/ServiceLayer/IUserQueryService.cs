@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using TEMPUS.BaseDomain.Messages.Identities;
-using TEMPUS.DB.Models.Project;
 using TEMPUS.UserDomain.Model.ServiceLayer;
 ﻿
 namespace TEMPUS.UserDomain.Services.ServiceLayer
@@ -19,5 +18,6 @@ namespace TEMPUS.UserDomain.Services.ServiceLayer
         IEnumerable<UserInfo> GetUsers();
         IEnumerable<UserInfo> GetAllActiveUsers();
         Guid GetUserRoleId(UserRole role);
+        IEnumerable<UserActivity> GetUserActivities(UserId id);
     }
 }

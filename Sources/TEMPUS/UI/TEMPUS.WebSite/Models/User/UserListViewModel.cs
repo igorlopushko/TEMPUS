@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using TEMPUS.UserDomain.Model.ServiceLayer;
 
 namespace TEMPUS.WebSite.Models.User
 {

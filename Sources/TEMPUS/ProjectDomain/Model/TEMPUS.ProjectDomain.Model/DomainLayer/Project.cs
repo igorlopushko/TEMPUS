@@ -158,16 +158,19 @@ namespace TEMPUS.ProjectDomain.Model.DomainLayer
             this.ApplyChange(@event);
         }
 
-        public void AssignUser(UserId userId, Guid roleId, int fte)
+        public void AssignUser(UserId userId, Guid roleId, int fte, DateTime startDate, DateTime endDate)
         {
             this.TeamMembers.Add(new TeamMember
                 {
                     UserId = userId,
-                    RoleId = roleId
+                    RoleId = roleId,
+                    FTE = fte,
+                    EndDate = endDate,
+                    StartDate = startDate
                 });
             this.IsNew = false;
 
-            var @event = new UserAssignedToProject(this.Id, userId, roleId, fte);
+            var @event = new UserAssignedToProject(this.Id, userId, roleId, fte, startDate, endDate);
 
             this.ApplyChange(@event);
         }
@@ -184,7 +187,7 @@ namespace TEMPUS.ProjectDomain.Model.DomainLayer
 
         private void Apply(UserAssignedToProject @event)
         {
-            
+
         }
     }
 }
