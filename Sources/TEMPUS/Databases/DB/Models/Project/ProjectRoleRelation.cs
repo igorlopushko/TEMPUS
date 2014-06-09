@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -28,6 +27,6 @@ namespace TEMPUS.DB.Models.Project
 
         public Project Project { get; set; }
         public ProjectRole ProjectRole { get; set; }
-        public TEMPUS.DB.Models.User.User User { get; set; }
+        public User.User User { get; set; }
     }
 }

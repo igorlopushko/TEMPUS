@@ -30,6 +30,7 @@ namespace TEMPUS.DB
         public DbSet<ProjectRole> ProjectRoles { get; set; }
         public DbSet<ProjectRoleRelation> ProjectRoleRelations { get; set; }
         public DbSet<PpsClassification> PpsClassifications { get; set; }
+        public DbSet<TimeRecord> TimeRecords { get; set; }
 
         /// <summary>
         /// Configure model properties for mapping to database

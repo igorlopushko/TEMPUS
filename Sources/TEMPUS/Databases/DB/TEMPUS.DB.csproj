@@ -95,6 +95,10 @@
     <Compile Include="Migrations\201406011534407_AddedFTEToProjectRoleRelation.Designer.cs">
       <DependentUpon>201406011534407_AddedFTEToProjectRoleRelation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201406092237368_AddedTimeRecord.cs" />
+    <Compile Include="Migrations\201406092237368_AddedTimeRecord.Designer.cs">
+      <DependentUpon>201406092237368_AddedTimeRecord.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Project\Department.cs">
@@ -104,6 +108,8 @@
     <Compile Include="Models\Project\PpsClassification.cs" />
     <Compile Include="Models\Project\ProjectRole.cs" />
     <Compile Include="Models\Project\ProjectRoleRelation.cs" />
+    <Compile Include="Models\Project\TimeRecord.cs" />
+    <Compile Include="Models\Project\TimeRecordStatus.cs" />
     <Compile Include="Models\User\UserMood.cs" />
     <Compile Include="Models\User\User.cs" />
     <Compile Include="Models\User\Role.cs" />
@@ -147,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201406011534407_AddedFTEToProjectRoleRelation.resx">
       <DependentUpon>201406011534407_AddedFTEToProjectRoleRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406092237368_AddedTimeRecord.resx">
+      <DependentUpon>201406092237368_AddedTimeRecord.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
