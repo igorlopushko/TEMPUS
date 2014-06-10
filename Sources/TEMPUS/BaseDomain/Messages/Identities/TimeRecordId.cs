@@ -2,16 +2,16 @@
 
 namespace TEMPUS.BaseDomain.Messages.Identities
 {
-    public class ProjectId : GuidIdentity
+    [Serializable]
+    public class TimeRecordId : GuidIdentity
     {
-        public const string Tag = "project";
+        public const string Tag = "timeRecordId";
 
         //need this for serialization only
-        private ProjectId()
-        {
-        }
+        private TimeRecordId()
+        { }
 
-        public ProjectId(Guid id)
+        public TimeRecordId(Guid id)
         {
             if (id == Guid.Empty)
             {
@@ -21,7 +21,11 @@ namespace TEMPUS.BaseDomain.Messages.Identities
             Id = id;
         }
 
-        public override Guid Id { get; protected set; }
+        public override Guid Id
+        {
+            get;
+            protected set;
+        }
 
         public override string GetTag()
         {
@@ -35,7 +39,7 @@ namespace TEMPUS.BaseDomain.Messages.Identities
                 return false;
             }
 
-            var target = obj as ProjectId;
+            var target = obj as TimeRecordId;
             if (target == null)
             {
                 return false;
@@ -49,14 +53,14 @@ namespace TEMPUS.BaseDomain.Messages.Identities
             return base.GetHashCode();
         }
 
-        public static bool operator ==(ProjectId a, ProjectId b)
+        public static bool operator ==(TimeRecordId a, TimeRecordId b)
         {
             if (Object.ReferenceEquals(a, b))
             {
                 return true;
             }
 
-            if (((object) a == null) || ((object) b == null))
+            if (((object)a == null) || ((object)b == null))
             {
                 return false;
             }
@@ -64,7 +68,7 @@ namespace TEMPUS.BaseDomain.Messages.Identities
             return a.Equals(b);
         }
 
-        public static bool operator !=(ProjectId a, ProjectId b)
+        public static bool operator !=(TimeRecordId a, TimeRecordId b)
         {
             return !(a == b);
         }

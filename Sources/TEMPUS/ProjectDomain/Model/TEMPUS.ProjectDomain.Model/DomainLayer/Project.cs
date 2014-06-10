@@ -40,7 +40,7 @@ namespace TEMPUS.ProjectDomain.Model.DomainLayer
         /// <param name="id">The project identifier.</param>
         public Project(ProjectId id)
         {
-            _id = id;
+            this._id = id;
         }
 
         /// <summary>

@@ -53,6 +53,11 @@ namespace TEMPUS.DB.Models.Project
         public DateTime EndDate { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether time record is deleted.
+        /// </summary>
+        public bool IsDeleted { get; set; }
+
+        /// <summary>
         /// Gets or sets the user which is reported the time.
         /// </summary>
         public virtual User.User User { get; set; }

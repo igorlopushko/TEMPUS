@@ -46,6 +46,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DomainLayer\TeamMember.cs" />
+    <Compile Include="DomainLayer\TimeRecord.cs" />
+    <Compile Include="DomainLayer\TimeRecordStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DomainLayer\Risk.cs" />
     <Compile Include="ServiceLayer\ProjectInfo.cs">

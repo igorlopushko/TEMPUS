@@ -962,5 +962,489 @@ namespace TEMPUS.BaseDomain.Messages
 			return !(a == b);
 		}
 	}
+	
+	[Serializable]
+	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
+	public sealed class CreateTimeRecord : ICommand<TimeRecordId>
+	{
+		public TimeRecordId Id { get; set; }
+		public int Version { get; set; }
+		public UserId UserId { get; set; }
+		public ProjectId ProjectId { get; set; }
+		public string Description { get; set; }
+		public double Effort { get; set; }
+		public DateTime StartDate { get; set; }
+		public DateTime EndDate { get; set; }
+		private CreateTimeRecord () {}
+		public CreateTimeRecord (TimeRecordId timeRecordId, UserId userId, ProjectId projectId, string description, double effort, DateTime startDate, DateTime endDate)
+		{
+			Id = timeRecordId;
+			UserId = userId;
+			ProjectId = projectId;
+			Description = description;
+			Effort = effort;
+			StartDate = startDate;
+			EndDate = endDate;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+			var target = obj as CreateTimeRecord;
+			if (target == null)
+			{
+				return false;
+			}
+			return Id.Equals(target.Id) && UserId.Equals(target.UserId) && ProjectId.Equals(target.ProjectId) && Description.Equals(target.Description) && Effort.Equals(target.Effort) && StartDate.Equals(target.StartDate) && EndDate.Equals(target.EndDate);
+		}
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode() ^ UserId.GetHashCode() ^ ProjectId.GetHashCode() ^ Description.GetHashCode() ^ Effort.GetHashCode() ^ StartDate.GetHashCode() ^ EndDate.GetHashCode();
+		}
+		public static bool operator ==(CreateTimeRecord a, CreateTimeRecord b)
+		{
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+			return a.Equals(b);
+		}
+		public static bool operator !=(CreateTimeRecord a, CreateTimeRecord b)
+		{
+			return !(a == b);
+		}
+	}
+	
+	[Serializable]
+	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
+	public sealed class TimeRecordCreated : IEvent<TimeRecordId>
+	{
+		public TimeRecordId Id { get; set; }
+		public int Version { get; set; }
+		public UserId UserId { get; set; }
+		public ProjectId ProjectId { get; set; }
+		public string Description { get; set; }
+		public double Effort { get; set; }
+		public DateTime StartDate { get; set; }
+		public DateTime EndDate { get; set; }
+		private TimeRecordCreated () {}
+		public TimeRecordCreated (TimeRecordId timeRecordId, UserId userId, ProjectId projectId, string description, double effort, DateTime startDate, DateTime endDate)
+		{
+			Id = timeRecordId;
+			UserId = userId;
+			ProjectId = projectId;
+			Description = description;
+			Effort = effort;
+			StartDate = startDate;
+			EndDate = endDate;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+			var target = obj as TimeRecordCreated;
+			if (target == null)
+			{
+				return false;
+			}
+			return Id.Equals(target.Id) && UserId.Equals(target.UserId) && ProjectId.Equals(target.ProjectId) && Description.Equals(target.Description) && Effort.Equals(target.Effort) && StartDate.Equals(target.StartDate) && EndDate.Equals(target.EndDate);
+		}
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode() ^ UserId.GetHashCode() ^ ProjectId.GetHashCode() ^ Description.GetHashCode() ^ Effort.GetHashCode() ^ StartDate.GetHashCode() ^ EndDate.GetHashCode();
+		}
+		public static bool operator ==(TimeRecordCreated a, TimeRecordCreated b)
+		{
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+			return a.Equals(b);
+		}
+		public static bool operator !=(TimeRecordCreated a, TimeRecordCreated b)
+		{
+			return !(a == b);
+		}
+	}
+	
+	[Serializable]
+	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
+	public sealed class NotifyTimeRecord : ICommand<TimeRecordId>
+	{
+		public TimeRecordId Id { get; set; }
+		public int Version { get; set; }
+		private NotifyTimeRecord () {}
+		public NotifyTimeRecord (TimeRecordId timeRecordId)
+		{
+			Id = timeRecordId;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+			var target = obj as NotifyTimeRecord;
+			if (target == null)
+			{
+				return false;
+			}
+			return Id.Equals(target.Id);
+		}
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode();
+		}
+		public static bool operator ==(NotifyTimeRecord a, NotifyTimeRecord b)
+		{
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+			return a.Equals(b);
+		}
+		public static bool operator !=(NotifyTimeRecord a, NotifyTimeRecord b)
+		{
+			return !(a == b);
+		}
+	}
+	
+	[Serializable]
+	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
+	public sealed class TimeRecordNotified : IEvent<TimeRecordId>
+	{
+		public TimeRecordId Id { get; set; }
+		public int Version { get; set; }
+		private TimeRecordNotified () {}
+		public TimeRecordNotified (TimeRecordId timeRecordId)
+		{
+			Id = timeRecordId;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+			var target = obj as TimeRecordNotified;
+			if (target == null)
+			{
+				return false;
+			}
+			return Id.Equals(target.Id);
+		}
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode();
+		}
+		public static bool operator ==(TimeRecordNotified a, TimeRecordNotified b)
+		{
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+			return a.Equals(b);
+		}
+		public static bool operator !=(TimeRecordNotified a, TimeRecordNotified b)
+		{
+			return !(a == b);
+		}
+	}
+	
+	[Serializable]
+	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
+	public sealed class AcceptTimeRecord : ICommand<TimeRecordId>
+	{
+		public TimeRecordId Id { get; set; }
+		public int Version { get; set; }
+		private AcceptTimeRecord () {}
+		public AcceptTimeRecord (TimeRecordId timeRecordId)
+		{
+			Id = timeRecordId;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+			var target = obj as AcceptTimeRecord;
+			if (target == null)
+			{
+				return false;
+			}
+			return Id.Equals(target.Id);
+		}
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode();
+		}
+		public static bool operator ==(AcceptTimeRecord a, AcceptTimeRecord b)
+		{
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+			return a.Equals(b);
+		}
+		public static bool operator !=(AcceptTimeRecord a, AcceptTimeRecord b)
+		{
+			return !(a == b);
+		}
+	}
+	
+	[Serializable]
+	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
+	public sealed class TimeRecordAccepted : IEvent<TimeRecordId>
+	{
+		public TimeRecordId Id { get; set; }
+		public int Version { get; set; }
+		private TimeRecordAccepted () {}
+		public TimeRecordAccepted (TimeRecordId timeRecordId)
+		{
+			Id = timeRecordId;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+			var target = obj as TimeRecordAccepted;
+			if (target == null)
+			{
+				return false;
+			}
+			return Id.Equals(target.Id);
+		}
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode();
+		}
+		public static bool operator ==(TimeRecordAccepted a, TimeRecordAccepted b)
+		{
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+			return a.Equals(b);
+		}
+		public static bool operator !=(TimeRecordAccepted a, TimeRecordAccepted b)
+		{
+			return !(a == b);
+		}
+	}
+	
+	[Serializable]
+	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
+	public sealed class DeclineTimeRecord : ICommand<TimeRecordId>
+	{
+		public TimeRecordId Id { get; set; }
+		public int Version { get; set; }
+		private DeclineTimeRecord () {}
+		public DeclineTimeRecord (TimeRecordId timeRecordId)
+		{
+			Id = timeRecordId;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+			var target = obj as DeclineTimeRecord;
+			if (target == null)
+			{
+				return false;
+			}
+			return Id.Equals(target.Id);
+		}
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode();
+		}
+		public static bool operator ==(DeclineTimeRecord a, DeclineTimeRecord b)
+		{
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+			return a.Equals(b);
+		}
+		public static bool operator !=(DeclineTimeRecord a, DeclineTimeRecord b)
+		{
+			return !(a == b);
+		}
+	}
+	
+	[Serializable]
+	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
+	public sealed class TimeReportDeclined : IEvent<TimeRecordId>
+	{
+		public TimeRecordId Id { get; set; }
+		public int Version { get; set; }
+		private TimeReportDeclined () {}
+		public TimeReportDeclined (TimeRecordId timeRecordId)
+		{
+			Id = timeRecordId;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+			var target = obj as TimeReportDeclined;
+			if (target == null)
+			{
+				return false;
+			}
+			return Id.Equals(target.Id);
+		}
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode();
+		}
+		public static bool operator ==(TimeReportDeclined a, TimeReportDeclined b)
+		{
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+			return a.Equals(b);
+		}
+		public static bool operator !=(TimeReportDeclined a, TimeReportDeclined b)
+		{
+			return !(a == b);
+		}
+	}
+	
+	[Serializable]
+	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
+	public sealed class DeleteTimeReport : ICommand<TimeRecordId>
+	{
+		public TimeRecordId Id { get; set; }
+		public int Version { get; set; }
+		private DeleteTimeReport () {}
+		public DeleteTimeReport (TimeRecordId timeRecordId)
+		{
+			Id = timeRecordId;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+			var target = obj as DeleteTimeReport;
+			if (target == null)
+			{
+				return false;
+			}
+			return Id.Equals(target.Id);
+		}
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode();
+		}
+		public static bool operator ==(DeleteTimeReport a, DeleteTimeReport b)
+		{
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+			return a.Equals(b);
+		}
+		public static bool operator !=(DeleteTimeReport a, DeleteTimeReport b)
+		{
+			return !(a == b);
+		}
+	}
+	
+	[Serializable]
+	[GeneratedCodeAttribute("MessagesGenerator", "1.0.0.0")]
+	public sealed class TimeReportDeleted : IEvent<TimeRecordId>
+	{
+		public TimeRecordId Id { get; set; }
+		public int Version { get; set; }
+		private TimeReportDeleted () {}
+		public TimeReportDeleted (TimeRecordId timeRecordId)
+		{
+			Id = timeRecordId;
+		}
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+			var target = obj as TimeReportDeleted;
+			if (target == null)
+			{
+				return false;
+			}
+			return Id.Equals(target.Id);
+		}
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode();
+		}
+		public static bool operator ==(TimeReportDeleted a, TimeReportDeleted b)
+		{
+			if (System.Object.ReferenceEquals(a, b))
+			{
+				return true;
+			}
+			if (((object)a == null) || ((object)b == null))
+			{
+				return false;
+			}
+			return a.Equals(b);
+		}
+		public static bool operator !=(TimeReportDeleted a, TimeReportDeleted b)
+		{
+			return !(a == b);
+		}
+	}
 
 }

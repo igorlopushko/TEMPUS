@@ -21,7 +21,8 @@ namespace TEMPUS.BaseDomain.Messages
 	
 
 	let userId = UserId UserId;
-	let projectId = ProjectId ProjectId;	
+	let projectId = ProjectId ProjectId;
+	let timeRecordId = TimeRecordId TimeRecordId;	
 
 	AssignUserToProject?(projectId, userId, Guid RoleId, int FTE, DateTime StartDate, DateTime EndDate)
 	UserAssignedToProject!(projectId, userId, Guid RoleId, int FTE, DateTime StartDate, DateTime EndDate)
@@ -44,6 +45,16 @@ namespace TEMPUS.BaseDomain.Messages
 					Guid DepartmentId, Guid PpsClassificationId, UserId OwnerId, UserId Manager)
 	ProjectInformationChanged!(projectId, string Name, string Description, string ProjectOrderer, string RecievingOrganization, bool Mandatory, DateTime StartDate, DateTime EndDate, 
 					Guid DepartmentId, Guid PpsClassificationId, UserId OwnerId, UserId Manager)
+	CreateTimeRecord?(timeRecordId, userId, projectId, string Description, double Effort, DateTime StartDate, DateTime EndDate)
+	TimeRecordCreated!(timeRecordId, userId, projectId, string Description, double Effort, DateTime StartDate, DateTime EndDate)
+	NotifyTimeRecord?(timeRecordId)
+	TimeRecordNotified!(timeRecordId)
+	AcceptTimeRecord?(timeRecordId)
+	TimeRecordAccepted!(timeRecordId)
+	DeclineTimeRecord?(timeRecordId)
+	TimeReportDeclined!(timeRecordId)
+	DeleteTimeReport?(timeRecordId)
+	TimeReportDeleted!(timeRecordId)
 
 
 ";

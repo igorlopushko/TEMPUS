@@ -99,6 +99,10 @@
     <Compile Include="Migrations\201406092237368_AddedTimeRecord.Designer.cs">
       <DependentUpon>201406092237368_AddedTimeRecord.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201406100019101_AddedIsDeletedFieldToTimeRecord.cs" />
+    <Compile Include="Migrations\201406100019101_AddedIsDeletedFieldToTimeRecord.Designer.cs">
+      <DependentUpon>201406100019101_AddedIsDeletedFieldToTimeRecord.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Project\Department.cs">
@@ -156,6 +160,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201406092237368_AddedTimeRecord.resx">
       <DependentUpon>201406092237368_AddedTimeRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406100019101_AddedIsDeletedFieldToTimeRecord.resx">
+      <DependentUpon>201406100019101_AddedIsDeletedFieldToTimeRecord.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

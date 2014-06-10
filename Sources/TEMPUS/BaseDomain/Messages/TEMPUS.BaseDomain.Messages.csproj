@@ -48,6 +48,7 @@
     <Compile Include="ICommand.cs" />
     <Compile Include="ICommandSender.cs" />
     <Compile Include="Identities\ProjectId.cs" />
+    <Compile Include="Identities\TimeRecordId.cs" />
     <Compile Include="Identities\UserId.cs" />
     <Compile Include="IEvent.cs" />
     <Compile Include="IEventPublisher.cs" />
