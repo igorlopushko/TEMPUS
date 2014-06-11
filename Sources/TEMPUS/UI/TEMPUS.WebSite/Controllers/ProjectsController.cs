@@ -84,7 +84,8 @@ namespace TEMPUS.WebSite.Controllers
         [Authorize]
         [HttpPost]
         public ActionResult Create(CreateProjectViewModel model,
-            [Bind(Prefix = "CreateProjectTeamViewModel.ProjectTeamMemberViewModel")]ProjectTeamMemberViewModel[] teamMembers)
+            [Bind(Prefix = "CreateProjectTeamViewModel.ProjectTeamMemberViewModel")]ProjectTeamMemberViewModel[] teamMembers,
+            [Bind(Prefix = "ProjectTeamMemberViewModel.ProjectTeamMemberActivityViewModel")]ProjectTeamMemberActivityViewModel[] teamMembersActivity)
         {
             model.ProjectTeam.TeamMembers = teamMembers ?? Enumerable.Empty<ProjectTeamMemberViewModel>();
 
@@ -111,6 +112,9 @@ namespace TEMPUS.WebSite.Controllers
 
                 foreach (var teamMember in model.ProjectTeam.TeamMembers)
                 {
+                    teamMember.TeamMemberActivities =
+                        teamMembersActivity.Where(x => x.UserId == teamMember.UserId).ToArray();
+
                     foreach (var activity in teamMember.TeamMemberActivities)
                     {
                         //TODO: Remove when RoleId field added in the UI.
