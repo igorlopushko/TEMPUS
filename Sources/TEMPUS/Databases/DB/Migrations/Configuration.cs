@@ -27,6 +27,7 @@ namespace TEMPUS.DB.Migrations
             CreateProjects(context);
             CreateProjectRoleRelations(context);
             CreateUserMoods(context);
+            CreateTimeReports(context);
         }
 
         private void CreateRoles(DataContext context)
@@ -321,6 +322,59 @@ namespace TEMPUS.DB.Migrations
                 }
             }
             context.SaveChanges();
+        }
+
+        private void CreateTimeReports(DataContext context)
+        {
+            if (context.TimeRecords.Any())
+                return;
+
+            var random = new Random();
+            var users = context.Users;
+            var project = context.Projects.First();
+            foreach (var user in users)
+            {
+                for (int i = 0; i <= 14; i++)
+                {
+                    var record = new TimeRecord
+                    {
+                        Id = Guid.NewGuid(),
+                        Description = "Some description",
+                        IsDeleted = false,
+                        UserId = user.Id,
+                        ProjectId = project.Id,
+                        Effort = random.Next(5, 8),
+                        StartDate = DateTime.Now.Date.AddDays(i),
+                        EndDate = DateTime.Now.Date.AddDays(i)
+                    };
+
+                    this.SetStatusToTimeRecord(record, random);
+
+                    context.TimeRecords.Add(record);
+                }
+            }
+
+            context.SaveChanges();
+        }
+
+        private void SetStatusToTimeRecord(TimeRecord record, Random random)
+        {
+            var number = random.Next(0, 3);
+            switch (number)
+            {
+                case 0:
+                    record.Status = TimeRecordStatus.Open;
+                    break;
+                case 1:
+                    record.Status = TimeRecordStatus.Accepted;
+                    break;
+                case 2:
+                    record.Status = TimeRecordStatus.Notified;
+                    break;
+                case 3:
+                    record.Status = TimeRecordStatus.Declined;
+                    break;
+            }
         }
     }
 }

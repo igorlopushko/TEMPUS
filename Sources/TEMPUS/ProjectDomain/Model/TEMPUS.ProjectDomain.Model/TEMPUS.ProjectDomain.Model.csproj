@@ -54,6 +54,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DomainLayer\Task.cs" />
+    <Compile Include="ServiceLayer\TaskInfo.cs" />
+    <Compile Include="ServiceLayer\TimeRecordInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\BaseDomain\Infrastructure\TEMPUS.BaseDomain.Infrastructure\TEMPUS.BaseDomain.Infrastructure.csproj">

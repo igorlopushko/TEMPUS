@@ -55,6 +55,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TimeRecordQueryService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\BaseDomain\Infrastructure\TEMPUS.BaseDomain.Infrastructure\TEMPUS.BaseDomain.Infrastructure.csproj">

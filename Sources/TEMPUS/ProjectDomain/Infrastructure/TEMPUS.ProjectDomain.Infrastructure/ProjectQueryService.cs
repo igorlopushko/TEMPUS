@@ -73,9 +73,18 @@ namespace TEMPUS.ProjectDomain.Infrastructure
         /// <summary>
         /// Gets the project roles.
         /// </summary>
-        public IEnumerable<KeyValuePair<Guid,string>> GetProjectRoles()
+        public IEnumerable<KeyValuePair<Guid, string>> GetProjectRoles()
         {
             return _context.ProjectRoles.ToArray().Select(x => new KeyValuePair<Guid, string>(x.Id, x.Name));
+        }
+
+
+        /// <summary>
+        /// Gets the projects.
+        /// </summary>
+        public IEnumerable<ProjectInfo> GetProjects()
+        {
+            return _context.Projects.AsEnumerable().Select(x => new ProjectInfo(x.Id, x.Name));
         }
     }
 }

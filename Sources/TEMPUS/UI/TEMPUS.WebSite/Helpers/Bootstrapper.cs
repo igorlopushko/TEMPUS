@@ -13,6 +13,7 @@ using TEMPUS.ProjectDomain.Infrastructure;
 using TEMPUS.ProjectDomain.Model.DomainLayer;
 using TEMPUS.ProjectDomain.Services;
 using TEMPUS.ProjectDomain.Services.DomainLayer;
+using TEMPUS.ProjectDomain.Services.ServiceLayer;
 using TEMPUS.UserDomain.Infrastructure;
 using TEMPUS.UserDomain.Model.DomainLayer;
 using TEMPUS.UserDomain.Services.DomainLayer;
@@ -36,6 +37,7 @@ namespace TEMPUS.WebSite.Helpers
             Container.Add<IFormsAuthenticationService, FormsAuthenticationService>();
             Container.Add<IMembershipService, AccountMembershipService>();
             Container.Add<IProjectQueryService, ProjectQueryService>();
+            Container.Add<ITimeRecordQueryService, TimeRecordQueryService>();
 
             var bus = new InMemoryBus();
             Container.Add<ICommandSender>(bus);

@@ -1,118 +1,119 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
-using TEMPUS.WebSite.Models.Project;
-using TEMPUS.WebSite.Models.Team;
+using TEMPUS.BaseDomain.Messages;
+using TEMPUS.BaseDomain.Messages.Identities;
+using TEMPUS.ProjectDomain.Model.ServiceLayer;
+using TEMPUS.ProjectDomain.Services;
+using TEMPUS.ProjectDomain.Services.ServiceLayer;
+using TEMPUS.WebSite.Contexts;
+using TEMPUS.WebSite.Models.TimeRecord;
 
 namespace TEMPUS.WebSite.Controllers
 {
+    /// <summary>
+    /// The class represents functionality related to time records.
+    /// </summary>
     public class TimeReportController : Controller
     {
+        private readonly ICommandSender _commandSender;
+        private readonly ITimeRecordQueryService _timeRecordQueryService;
+        private readonly IProjectQueryService _projectQueryService;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TimeReportController" /> class.
+        /// </summary>
+        /// <param name="commandSender">The sender.</param>
+        /// <param name="timeRecordQueryService">The query service.</param>
+        /// <param name="projectQueryService">The project query service.</param>
+        /// <exception cref="System.ArgumentNullException">When commandSender or timeRecordQueryService or projectQueryService are null.</exception>
+        public TimeReportController(ICommandSender commandSender, ITimeRecordQueryService timeRecordQueryService,
+            IProjectQueryService projectQueryService)
+        {
+            if (commandSender == null)
+            {
+                throw new ArgumentNullException("commandSender");
+            }
+
+            if (timeRecordQueryService == null)
+            {
+                throw new ArgumentNullException("timeRecordQueryService");
+            }
+
+            if (projectQueryService == null)
+            {
+                throw new ArgumentNullException("projectQueryService");
+            }
+
+            _commandSender = commandSender;
+            _timeRecordQueryService = timeRecordQueryService;
+            _projectQueryService = projectQueryService;
+        }
+
         [Authorize]
+        [HttpGet]
         public ActionResult Index()
         {
-            ProjectViewModel tempus = new ProjectViewModel()
+            var userId = new UserId(UserContext.Current.UserId);
+            var timeRecords = _timeRecordQueryService.GetUserTimeRecords(userId);
+            var model = new TimeRecordsListViewModel();
+
+            return View(this.PrepareTimeRecords(model, timeRecords));
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Index(TimeRecordsListViewModel model)
+        {
+            var userId = new UserId(UserContext.Current.UserId);
+            var timeRecords = _timeRecordQueryService.GetUserTimeRecords(userId)
+                .Where(x => x.StartDate >= model.SelectedStartDate
+                    && x.EndDate <= model.SelectedEndDate
+                    && x.Project.Id == model.SelectedProject);
+
+            if (model.SelectedStatus != TimeRecordStatus.All)
+                timeRecords = timeRecords.Where(x => x.Status == (ProjectDomain.Model.DomainLayer.TimeRecordStatus)model.SelectedStatus);
+
+            return View(this.PrepareTimeRecords(model, timeRecords.ToList()));
+        }
+
+        private TimeRecordsListViewModel PrepareTimeRecords(TimeRecordsListViewModel model,
+            IEnumerable<TimeRecordInfo> timeRecords)
+        {
+            model.SelectedEndDate = DateTime.Now.Date;
+            model.SelectedStartDate = DateTime.Now.Date;
+            model.Projects = _projectQueryService.GetProjects().Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() });
+            model.Statuses = this.GetStatuses();
+            model.User = new UserViewModel
             {
-                Name = "TEMPUS"
+                LastName = UserContext.Current.LastName,
+                FirstName = UserContext.Current.FirstName
             };
-
-            ProjectViewModel happy = new ProjectViewModel()
+            model.Records = timeRecords.Select(x => new TimeRecordViewModel
             {
-                Name = "Happy Project"
-            };
+                StartDate = x.StartDate,
+                EndDate = x.EndDate,
+                Effort = x.Effort,
+                Project = x.Project == null ? null : new ProjectVewModel { Name = x.Project.Name, ProjectId = new ProjectId(x.Project.Id) },
+                TimeRecordId = x.TimeRecordId,
+                Status = (TimeRecordStatus)x.Status,
+                Task = x.Task == null ? null : new TaskViewModel { TaskId = x.Task.TaskId, Title = x.Task.Title }
+            });
 
-            ProjectViewModel lucky = new ProjectViewModel()
+            return model;
+        }
+
+        private IEnumerable<SelectListItem> GetStatuses()
+        {
+            return new List<SelectListItem>
             {
-                Name = "Lucky Project"
-            };
-
-            UserViewModel admin = new UserViewModel()
-            {
-                FirstName = "Yaroslav",
-                LastName = "Admin"
-            };
-
-            UserViewModel zayats = new UserViewModel()
-            {
-                FirstName = "Alexander",
-                LastName = "Zayats"
-            };
-
-            UserViewModel volkov = new UserViewModel()
-            {
-                FirstName = "Dmitriy",
-                LastName = "Volkov"
-            };
-
-            UserViewModel doe = new UserViewModel()
-            {
-                FirstName = "John",
-                LastName = "Doe"
-            };
-
-            TaskViewModel task1 = new TaskViewModel()
-            {
-                Name = "Setup Online Demo",
-                Status = TaskStatus.InProgress
-            };
-
-            TaskViewModel task2 = new TaskViewModel()
-            {
-                Name = "Add ACL System",
-                Status = TaskStatus.New
-            };
-
-            TaskViewModel task3 = new TaskViewModel()
-            {
-                Name = "Make People Happy",
-                Status = TaskStatus.InProgress
-            };
-
-            TimeRecordViewModel[] records = new TimeRecordViewModel[] {
-                new TimeRecordViewModel() {
-                    Project = tempus,
-                    Task = task1,
-                    User = admin,
-                    Hours = 4.0,
-                    Date = new DateTime(2014, 04, 18)
-                },
-                new TimeRecordViewModel() {
-                    Project = tempus,
-                    Task = task1,
-                    User = volkov,
-                    Hours = 16,
-                    Date = new DateTime(2014, 04, 18)
-                },
-                new TimeRecordViewModel() {
-                    Project = happy,
-                    Task = task3,
-                    User = doe,
-                    Hours = 7.5,
-                    Date = new DateTime(2014, 04, 14)
-                },
-                new TimeRecordViewModel() {
-                    Project = lucky,
-                    Task = task3,
-                    User = zayats,
-                    Hours = 11,
-                    Date = new DateTime(2014, 05, 14)
-                },
-                new TimeRecordViewModel() {                    
-                    Project = happy,
-                    Task = task3,
-                    User = doe,
-                    Hours = 3,
-                    Date = new DateTime(2014, 04, 20)
-                },
-                new TimeRecordViewModel() {                    
-                    Project = happy,
-                    Task = task3,
-                    User = admin,
-                    Hours = 7,
-                    Date = new DateTime(2014, 04, 19)
-                },
-            };
-
-            return View(records);
+                new SelectListItem{Text = TimeRecordStatus.All.ToString(), Value = ((int)TimeRecordStatus.All).ToString(), Selected = true},
+                new SelectListItem{Text = TimeRecordStatus.Open.ToString(), Value = ((int)TimeRecordStatus.Open).ToString()},
+                new SelectListItem{Text = TimeRecordStatus.Notified.ToString(), Value = ((int)TimeRecordStatus.Notified).ToString()},
+                new SelectListItem{Text = TimeRecordStatus.Declined.ToString(), Value = ((int)TimeRecordStatus.Declined).ToString()},
+                new SelectListItem{Text = TimeRecordStatus.Accepted.ToString(), Value = ((int)TimeRecordStatus.Accepted).ToString()}
+            }.ToList();
         }
     }
 }

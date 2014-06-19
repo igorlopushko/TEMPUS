@@ -1,4 +1,5 @@
-﻿@{
+﻿@model TEMPUS.WebSite.Models.TimeRecord.TimeRecordsListViewModel
+@{
     ViewBag.Title = "Time Records";
 }
 
@@ -11,134 +12,145 @@
         </div>
     </div>
 }
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-<div class="row">
-    <div class="form-horizontal">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label for="user" class="col-md-4 control-label">Person</label>
-                <div class="col-md-8">
-                    <select class="form-control" id="user">
-                        <option>Person</option>
-                        <option>Aleksander Zayats</option>
-                        <option>Dmitriy Volkov</option>
-                        <option>John Doe</option>
-                        <option>Yaroslav Admin</option>
-                    </select>
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="project" class="col-md-4 control-label">Project</label>
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(model => model.SelectedProject, Model.Projects, null, new { @class = "form-control", id = "project" })
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label for="project" class="col-md-4 control-label">Project</label>
-                <div class="col-md-8">
-                    <select class="form-control" id="project">
-                        <option>Project</option>
-                        <option>TEMPUS</option>
-                        <option>Happy Project</option>
-                        <option>Lucky Project</option>
-                    </select>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="status" class="col-md-4 control-label">Status</label>
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(model => model.SelectedStatus, Model.Statuses, null, new { @class = "form-control", id = "status" })
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label for="status" class="col-md-4 control-label">Status</label>
-                <div class="col-md-8">
-                    <select class="form-control" id="status">
-                        <option>Status</option>
-                        <option>New</option>
-                        <option>In Progress</option>
-                        <option>Done</option>
-                    </select>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="date" class="col-md-4 control-label">Start date</label>
+                    <div class="col-md-8">
+                        <div class='input-group date' id='startDate' role="datepicker">
+                            @Html.TextBoxFor(model => model.SelectedStartDate, new { @class = "form-control", placeholder = "Start date" })
+                            <span class="input-group-addon">
+                                <span class="fa fa-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label for="date" class="col-md-4 control-label">Date</label>
-                <div class="col-md-8">
-                    <div class='input-group date' id='date' role="datepicker">
-                        <input type='text' class="form-control" placeholder="Date" />
-                        <span class="input-group-addon"><span class="fa fa-calendar"></span>
-                        </span>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="date" class="col-md-4 control-label">End date</label>
+                    <div class="col-md-8">
+                        <div class='input-group date' id='endDate' role="datepicker">
+                            @Html.TextBoxFor(model => model.SelectedEndDate, new { @class = "form-control", placeholder = "End date" })
+                            <span class="input-group-addon">
+                                <span class="fa fa-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="date" class="col-md-4 control-label"></label>
+                    <div class="col-md-8">
+                        <input type="submit" class="btn btn-primary form-control" value="Show" />
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-md-12">
-        <table class="responsiveGrid table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>Project</th>
-                    <th>Task</th>
-                    <th>Person</th>
-                    <th>Effort (hours)</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var record in Model)
-                {
+    <div class="row">
+        <div class="col-md-12">
+            <table class="responsiveGrid table table-striped table-hover">
+                <thead>
                     <tr>
-                        <td data-title="Project">@record.Project.Name</td>
-                        <td data-title="Task">@if (record.Task != null)
-                            { @record.Task.Name }</td>
-                        <td data-title="Person">@record.User.FirstName @record.User.LastName</td>
-                        <td data-title="Effort (hours)">@record.Hours</td>
-                        <td data-title="Date">@record.Date.ToString("MM/dd/yyyy")</td>
+                        <th>Project</th>
+                        <th>Person</th>
+                        <th>Effort (hours)</th>
+                        <th>Start date</th>
+                        <th>End date</th>
+                        <th>Status</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var record in Model.Records)
+                    {
+                        <tr>
+                            <td data-title="Project">@record.Project.Name</td>
+                            <td data-title="Person">@Model.User.FirstName @Model.User.LastName</td>
+                            <td data-title="Effort (hours)">@record.Effort</td>
+                            <td data-title="Start date">@record.StartDate.ToString("MM/dd/yyyy")</td>
+                            <td data-title="End date">@record.EndDate.ToString("MM/dd/yyyy")</td>
+                            <td data-title="Status">@record.Status</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td>Total value</td>
+                        <td></td>
+                        <td>@Model.Records.Sum(x => x.Effort)</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 
-<div class="modal fade" id="timeSheetModal" tabindex="-1" role="dialog" aria-labelledby="timeSheetModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="timeSheetModalLabel">Create Time Record</h4>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label for="date_" class="col-sm-3 control-label">Date</label>
-                        <div class="col-sm-9">
-                            <div class="input-group" role="datepicker">
-                                <input id="date_" type="text" class="form-control" placeholder="Date">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+    <div class="modal fade" id="timeSheetModal" tabindex="-1" role="dialog" aria-labelledby="timeSheetModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="timeSheetModalLabel">Create Time Record</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="date_" class="col-sm-3 control-label">Date</label>
+                            <div class="col-sm-9">
+                                <div class="input-group" role="datepicker">
+                                    <input id="date_" type="text" class="form-control" placeholder="Date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="task_" class="col-sm-3 control-label">Task</label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="task_">
-                                <option>Task</option>
-                                <option>Make people happy</option>
-                                <option>Show some beautiful things</option>
-                                <option>Make Project Plan works</option>
-                            </select>
+                        <div class="form-group">
+                            <label for="task_" class="col-sm-3 control-label">Task</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="task_">
+                                    <option>Task</option>
+                                    <option>Make people happy</option>
+                                    <option>Show some beautiful things</option>
+                                    <option>Make Project Plan works</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Hours</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Hours">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-3 control-label">Hours</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="Hours">
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Create</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Create</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+}
