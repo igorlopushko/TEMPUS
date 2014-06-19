@@ -2,6 +2,8 @@
 
 namespace TEMPUS.WebSite.Models.TimeRecord
 {
+    using System.ComponentModel.DataAnnotations;
+
     /// <summary>
     /// The class represents information related to specific time record.
     /// </summary>
@@ -25,6 +27,7 @@ namespace TEMPUS.WebSite.Models.TimeRecord
         /// <summary>
         /// Gets or sets the effort which user reported.
         /// </summary>
+        [Required]
         public double Effort { get; set; }
 
         /// <summary>
@@ -40,6 +43,11 @@ namespace TEMPUS.WebSite.Models.TimeRecord
         /// <summary>
         /// Gets or sets the status of the time record.
         /// </summary>
-        public TimeRecordStatus Status { get; set; }   
+        public TimeRecordStatus Status { get; set; }
+
+        /// <summary>
+        /// Gets or sets the description of the task.
+        /// </summary>
+        public string Description { get; set; }
     }
 }

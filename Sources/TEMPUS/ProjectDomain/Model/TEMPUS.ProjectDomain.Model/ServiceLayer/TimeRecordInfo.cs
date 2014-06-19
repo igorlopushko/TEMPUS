@@ -44,5 +44,10 @@ namespace TEMPUS.ProjectDomain.Model.ServiceLayer
         /// Gets or sets the status of the time record.
         /// </summary>
         public TimeRecordStatus Status { get; set; }
+
+        /// <summary>
+        /// Gets or sets the description of the task.
+        /// </summary>
+        public string Description { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using TEMPUS.BaseDomain.Messages.Identities;
+﻿using System;
 
 namespace TEMPUS.WebSite.Models.TimeRecord
 {
@@ -10,7 +10,7 @@ namespace TEMPUS.WebSite.Models.TimeRecord
         /// <summary>
         /// Gets or sets the project identifier.
         /// </summary>
-        public ProjectId ProjectId { get; set; }
+        public Guid ProjectId { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the project.

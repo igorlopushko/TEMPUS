@@ -15,6 +15,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
 
     <div class="row">
         <div class="form-horizontal">
@@ -39,7 +40,7 @@
                     <label for="date" class="col-md-4 control-label">Start date</label>
                     <div class="col-md-8">
                         <div class='input-group date' id='startDate' role="datepicker">
-                            @Html.TextBoxFor(model => model.SelectedStartDate, new { @class = "form-control", placeholder = "Start date" })
+                            @Html.TextBoxFor(model => model.SelectedStartDate, Model.SelectedStartDate.ToString("MM/dd/yyyy"), new { @class = "form-control", placeholder = "Start date" })
                             <span class="input-group-addon">
                                 <span class="fa fa-calendar"></span>
                             </span>
@@ -52,7 +53,7 @@
                     <label for="date" class="col-md-4 control-label">End date</label>
                     <div class="col-md-8">
                         <div class='input-group date' id='endDate' role="datepicker">
-                            @Html.TextBoxFor(model => model.SelectedEndDate, new { @class = "form-control", placeholder = "End date" })
+                            @Html.TextBoxFor(model => model.SelectedEndDate, Model.SelectedEndDate.ToString("MM/dd/yyyy"), new { @class = "form-control", placeholder = "End date" })
                             <span class="input-group-addon">
                                 <span class="fa fa-calendar"></span>
                             </span>
@@ -78,6 +79,7 @@
                     <tr>
                         <th>Project</th>
                         <th>Person</th>
+                        <th>Description</th>
                         <th>Effort (hours)</th>
                         <th>Start date</th>
                         <th>End date</th>
@@ -90,6 +92,7 @@
                         <tr>
                             <td data-title="Project">@record.Project.Name</td>
                             <td data-title="Person">@Model.User.FirstName @Model.User.LastName</td>
+                            <td data-title="Description">@record.Description</td>
                             <td data-title="Effort (hours)">@record.Effort</td>
                             <td data-title="Start date">@record.StartDate.ToString("MM/dd/yyyy")</td>
                             <td data-title="End date">@record.EndDate.ToString("MM/dd/yyyy")</td>
@@ -98,6 +101,7 @@
                     }
                     <tr>
                         <td>Total value</td>
+                        <td></td>
                         <td></td>
                         <td>@Model.Records.Sum(x => x.Effort)</td>
                         <td></td>
@@ -117,38 +121,49 @@
                     <h4 class="modal-title" id="timeSheetModalLabel">Create Time Record</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal">
+                    <div class="form-horizontal">
                         <div class="form-group">
-                            <label for="date_" class="col-sm-3 control-label">Date</label>
+                            <label for="project" class="col-md-3 control-label">Project</label>
+                            <div class="col-md-9">
+                                @Html.DropDownListFor(model => model.NewTimeRecord.Project.ProjectId, Model.Projects, null, new { @class = "form-control", id = "project" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-md-3 control-label">Description</label>
+                            <div class="col-md-9">
+                                @Html.TextAreaFor(model => model.NewTimeRecord.Description, new { @class = "form-control", id = "project" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="date_" class="col-sm-3 control-label">Start date</label>
                             <div class="col-sm-9">
                                 <div class="input-group" role="datepicker">
-                                    <input id="date_" type="text" class="form-control" placeholder="Date">
+                                    @Html.TextBoxFor(model => model.NewTimeRecord.StartDate, new { @class = "form-control", placeholder = "Start date" })
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="task_" class="col-sm-3 control-label">Task</label>
+                            <label for="date_" class="col-sm-3 control-label">End date</label>
                             <div class="col-sm-9">
-                                <select class="form-control" id="task_">
-                                    <option>Task</option>
-                                    <option>Make people happy</option>
-                                    <option>Show some beautiful things</option>
-                                    <option>Make Project Plan works</option>
-                                </select>
+                                <div class="input-group" role="datepicker">
+                                    @Html.TextBoxFor(model => model.NewTimeRecord.EndDate, new { @class = "form-control", placeholder = "End date" })
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-3 control-label">Hours</label>
+                            <label for="inputEmail3" class="col-sm-3 control-label">Effort</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" placeholder="Hours">
+                                @Html.TextAreaFor(model => model.NewTimeRecord.Effort, new { @class = "form-control", placeholder = "Hours" })
+                                @Html.ValidationMessageFor(model => model.NewTimeRecord.Effort)
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Create</button>
+                    <input type="submit" class="btn btn-primary" value="Create" />
                 </div>
             </div>
         </div>

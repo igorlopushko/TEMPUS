@@ -95,11 +95,12 @@ namespace TEMPUS.WebSite.Controllers
                 StartDate = x.StartDate,
                 EndDate = x.EndDate,
                 Effort = x.Effort,
-                Project = x.Project == null ? null : new ProjectVewModel { Name = x.Project.Name, ProjectId = new ProjectId(x.Project.Id) },
+                Project = x.Project == null ? null : new ProjectVewModel { Name = x.Project.Name, ProjectId = x.Project.Id },
                 TimeRecordId = x.TimeRecordId,
                 Status = (TimeRecordStatus)x.Status,
-                Task = x.Task == null ? null : new TaskViewModel { TaskId = x.Task.TaskId, Title = x.Task.Title }
-            });
+                Task = x.Task == null ? null : new TaskViewModel { TaskId = x.Task.TaskId, Title = x.Task.Title },
+                Description = this.TrimString(x.Description, 60)
+            }).OrderBy(x => x.StartDate);
 
             return model;
         }
@@ -114,6 +115,11 @@ namespace TEMPUS.WebSite.Controllers
                 new SelectListItem{Text = TimeRecordStatus.Declined.ToString(), Value = ((int)TimeRecordStatus.Declined).ToString()},
                 new SelectListItem{Text = TimeRecordStatus.Accepted.ToString(), Value = ((int)TimeRecordStatus.Accepted).ToString()}
             }.ToList();
+        }
+
+        private string TrimString(string input, int length)
+        {
+            return input.Length > length ? input.Substring(0, length) + "..." : input;
         }
     }
 }

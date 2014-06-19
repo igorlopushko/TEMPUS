@@ -50,7 +50,8 @@ namespace TEMPUS.ProjectDomain.Infrastructure
                 EndDate = x.EndDate,
                 StartDate = x.StartDate,
                 TimeRecordId = x.Id,
-                Project = new ProjectInfo(x.Project.Id, x.Project.Name)
+                Project = new ProjectInfo(x.Project.Id, x.Project.Name),
+                Description = x.Description
             });
         }
     }
