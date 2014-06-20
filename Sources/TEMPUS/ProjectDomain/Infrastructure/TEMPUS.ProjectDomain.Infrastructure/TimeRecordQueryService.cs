@@ -43,7 +43,7 @@ namespace TEMPUS.ProjectDomain.Infrastructure
                 throw new ArgumentNullException("id");
             }
 
-            return _context.TimeRecords.Where(x => x.UserId == id.Id).AsEnumerable().Select(x => new TimeRecordInfo
+            return _context.TimeRecords.Where(x => x.UserId == id.Id && x.IsDeleted == false).AsEnumerable().Select(x => new TimeRecordInfo
             {
                 Status = (TimeRecordStatus)x.Status,
                 Effort = x.Effort,

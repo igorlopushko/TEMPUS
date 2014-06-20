@@ -1,5 +1,5 @@
 ﻿@using TEMPUS.WebSite.Models.TimeRecord
-@model TEMPUS.WebSite.Models.TimeRecord.TimeRecordsListViewModel
+@model TimeRecordsListViewModel
 @{
     ViewBag.Title = "Time Records";
 }
@@ -78,6 +78,8 @@
             <table class="responsiveGrid table table-hover">
                 <thead>
                     <tr>
+                        <th></th>
+                        <th></th>
                         <th>Project</th>
                         <th>Person</th>
                         <th>Description</th>
@@ -107,6 +109,16 @@
                         }
 
                         <tr class="@trClass">
+                            @if (record.Status == TimeRecordStatus.Open)
+                            {
+                                <td><a href="#timeEditModal" data-toggle="modal" data-><i class="fa fa-pencil"></i></a></td>
+                                <td><a href="@Url.Action("Delete", new {id = record.TimeRecordId})" data-toggle="modal" data-><i class="fa fa-trash-o"></i></a></td>
+                            }
+                            else
+                            {
+                                <td></td>
+                                <td></td>
+                            }
                             <td data-title="Project">@record.Project.Name</td>
                             <td data-title="Person">@Model.User.FirstName @Model.User.LastName</td>
                             <td data-title="Description">@record.Description</td>
@@ -117,6 +129,8 @@
                         </tr>
                     }
                     <tr>
+                        <td></td>
+                        <td></td>
                         <td>Total value</td>
                         <td></td>
                         <td></td>

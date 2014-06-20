@@ -62,7 +62,7 @@ namespace TEMPUS.ProjectDomain.Infrastructure
         /// </summary>
         /// <param name="root">The time record aggregate root.</param>
         /// <exception cref="System.ArgumentNullException">When root is null.</exception>
-        public void Save(TimeRecord root)
+        public override void Save(TimeRecord root)
         {
             if (root == null)
             {

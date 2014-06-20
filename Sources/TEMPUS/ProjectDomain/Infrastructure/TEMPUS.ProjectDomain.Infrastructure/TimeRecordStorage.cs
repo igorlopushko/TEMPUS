@@ -98,6 +98,16 @@ namespace TEMPUS.ProjectDomain.Infrastructure
                 throw new ArgumentNullException("aggregate");
             }
 
+            var timeRecord = this.context.TimeRecords.Find(aggregate.Id);
+            timeRecord.IsDeleted = aggregate.IsDeleted;
+            timeRecord.StartDate = aggregate.StartDate;
+            timeRecord.EndDate = aggregate.EndDate;
+            timeRecord.Description = aggregate.Description;
+            timeRecord.Effort = aggregate.Effort;
+            timeRecord.ProjectId = aggregate.ProjectId;
+            timeRecord.UserId = aggregate.UserId;
+            timeRecord.Status = aggregate.Status;
+
             this.context.SaveChanges();
         }
     }

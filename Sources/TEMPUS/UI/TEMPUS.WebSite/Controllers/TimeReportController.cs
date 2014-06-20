@@ -93,6 +93,16 @@ namespace TEMPUS.WebSite.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult Delete(Guid id)
+        {
+            var timeRecordId = new TimeRecordId(id);
+            var command = new DeleteTimeReport(timeRecordId);
+            _commandSender.Send(command);
+
+            return RedirectToAction("Index");
+        }
+
         private TimeRecordsListViewModel PrepareTimeRecords(TimeRecordsListViewModel model,
             IEnumerable<TimeRecordInfo> timeRecords)
         {
