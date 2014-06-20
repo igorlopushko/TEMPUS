@@ -56,6 +56,7 @@ namespace TEMPUS.WebSite.Helpers
 
             Container.Add<IUserStorage<DB.Models.User.User>>(new UserStorage(Container.Get<DataContext>()));
             Container.Add<IProjectStorage<DB.Models.Project.Project>>(new ProjectStorage(Container.Get<DataContext>()));
+            Container.Add<ITimeRecordStorage<DB.Models.Project.TimeRecord>>(new TimeRecordStorage(Container.Get<DataContext>()));
 
             var userRepository = new UserRepository(Container.Get<IEventStore>(),
                 Container.Get<IUserStorage<DB.Models.User.User>>());
@@ -68,6 +69,12 @@ namespace TEMPUS.WebSite.Helpers
             Container.Add<IRepository<Project, ProjectId>>(projectRepository);
 
             Container.Add(new ProjectCommandService(projectRepository, Container.Get<DataContext>()));
+
+            var timeRecordRepository = new TimeRecordRepository(Container.Get<IEventStore>(),
+                Container.Get<ITimeRecordStorage<DB.Models.Project.TimeRecord>>());
+            Container.Add<IRepository<TimeRecord, TimeRecordId>>(timeRecordRepository);
+
+            Container.Add(new TimeRecordCommandService(timeRecordRepository));
 
             var commandHandlersAssemblies = new List<Assembly>
             {

@@ -86,7 +86,7 @@ namespace TEMPUS.ProjectDomain.Model.DomainLayer
         /// <summary>
         /// Notifies the time record.
         /// </summary>
-        public void NotifiedTimeRecord()
+        public void NotifyTimeRecord()
         {
             this.Status = TimeRecordStatus.Notified;
         }

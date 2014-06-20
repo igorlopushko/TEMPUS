@@ -78,6 +78,21 @@ namespace TEMPUS.WebSite.Controllers
             return View(this.PrepareTimeRecords(model, timeRecords.ToList()));
         }
 
+        [HttpPost]
+        public ActionResult Create(TimeRecordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = new UserId(UserContext.Current.UserId);
+                var timeRecordId = Guid.NewGuid();
+                var command = new CreateTimeRecord(new TimeRecordId(timeRecordId), userId, new ProjectId(model.Project.ProjectId),
+                    model.Description, model.Effort, model.StartDate,
+                    model.EndDate);
+                _commandSender.Send(command);
+            }
+            return RedirectToAction("Index");
+        }
+
         private TimeRecordsListViewModel PrepareTimeRecords(TimeRecordsListViewModel model,
             IEnumerable<TimeRecordInfo> timeRecords)
         {

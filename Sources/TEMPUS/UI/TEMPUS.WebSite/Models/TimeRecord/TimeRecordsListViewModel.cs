@@ -36,11 +36,6 @@ namespace TEMPUS.WebSite.Models.TimeRecord
         public Guid SelectedProject { get; set; }
 
         /// <summary>
-        /// Gets or sets the new time record.
-        /// </summary>
-        public TimeRecordViewModel NewTimeRecord { get; set; }
-
-        /// <summary>
         /// Gets or sets the selected status.
         /// </summary>
         public TimeRecordStatus SelectedStatus { get; set; }

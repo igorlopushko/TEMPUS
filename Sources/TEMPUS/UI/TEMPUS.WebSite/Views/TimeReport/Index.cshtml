@@ -1,4 +1,5 @@
-﻿@model TEMPUS.WebSite.Models.TimeRecord.TimeRecordsListViewModel
+﻿@using TEMPUS.WebSite.Models.TimeRecord
+@model TEMPUS.WebSite.Models.TimeRecord.TimeRecordsListViewModel
 @{
     ViewBag.Title = "Time Records";
 }
@@ -74,7 +75,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <table class="responsiveGrid table table-striped table-hover">
+            <table class="responsiveGrid table table-hover">
                 <thead>
                     <tr>
                         <th>Project</th>
@@ -89,7 +90,23 @@
                 <tbody>
                     @foreach (var record in Model.Records)
                     {
-                        <tr>
+                        var trClass = String.Empty;
+                        if (@record.Status == TimeRecordStatus.Accepted)
+                        {
+                            trClass = "success";
+                        }
+
+                        if (@record.Status == TimeRecordStatus.Notified)
+                        {
+                            trClass = "warning";
+                        }
+
+                        if (@record.Status == TimeRecordStatus.Declined)
+                        {
+                            trClass = "error";
+                        }
+
+                        <tr class="@trClass">
                             <td data-title="Project">@record.Project.Name</td>
                             <td data-title="Person">@Model.User.FirstName @Model.User.LastName</td>
                             <td data-title="Description">@record.Description</td>
@@ -112,7 +129,10 @@
             </table>
         </div>
     </div>
+}
 
+@using (Html.BeginForm("Create", "TimeReport", FormMethod.Post))
+{
     <div class="modal fade" id="timeSheetModal" tabindex="-1" role="dialog" aria-labelledby="timeSheetModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -125,38 +145,37 @@
                         <div class="form-group">
                             <label for="project" class="col-md-3 control-label">Project</label>
                             <div class="col-md-9">
-                                @Html.DropDownListFor(model => model.NewTimeRecord.Project.ProjectId, Model.Projects, null, new { @class = "form-control", id = "project" })
+                                @Html.DropDownList("model.Project.ProjectId", Model.Projects, null, new { @class = "form-control", id = "project" })
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="description" class="col-md-3 control-label">Description</label>
                             <div class="col-md-9">
-                                @Html.TextAreaFor(model => model.NewTimeRecord.Description, new { @class = "form-control", id = "project" })
+                                @Html.TextArea("model.Description", null, new { @class = "form-control", id = "project" })
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="date_" class="col-sm-3 control-label">Start date</label>
+                            <label for="startDate" class="col-sm-3 control-label">Start date</label>
                             <div class="col-sm-9">
                                 <div class="input-group" role="datepicker">
-                                    @Html.TextBoxFor(model => model.NewTimeRecord.StartDate, new { @class = "form-control", placeholder = "Start date" })
+                                    @Html.TextBox("model.StartDate", null, new { @class = "form-control", placeholder = "Start date" })
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="date_" class="col-sm-3 control-label">End date</label>
+                            <label for="endDate" class="col-sm-3 control-label">End date</label>
                             <div class="col-sm-9">
                                 <div class="input-group" role="datepicker">
-                                    @Html.TextBoxFor(model => model.NewTimeRecord.EndDate, new { @class = "form-control", placeholder = "End date" })
+                                    @Html.TextBox("model.EndDate", null, new { @class = "form-control", placeholder = "End date" })
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-3 control-label">Effort</label>
+                            <label for="effort" class="col-sm-3 control-label">Effort</label>
                             <div class="col-sm-9">
-                                @Html.TextAreaFor(model => model.NewTimeRecord.Effort, new { @class = "form-control", placeholder = "Hours" })
-                                @Html.ValidationMessageFor(model => model.NewTimeRecord.Effort)
+                                @Html.TextBox("model.Effort", null, new { @class = "form-control", placeholder = "Hours" })
                             </div>
                         </div>
                     </div>

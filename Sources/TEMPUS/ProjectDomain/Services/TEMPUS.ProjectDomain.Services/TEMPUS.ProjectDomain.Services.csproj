@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DomainLayer\ProjectCommandService.cs" />
+    <Compile Include="DomainLayer\TimeRecordCommandService.cs" />
     <Compile Include="ServiceLayer\IProjectCommandService.cs" />
     <Compile Include="ServiceLayer\IProjectQueryService.cs">
       <SubType>Code</SubType>
@@ -62,7 +63,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceLayer\ITimeRecordCommandService.cs" />
     <Compile Include="ServiceLayer\ITimeRecordQueryService.cs" />
+    <Compile Include="ServiceLayer\ITimeRecordRepository.cs" />
+    <Compile Include="ServiceLayer\ITimeRecordStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\BaseDomain\Messages\TEMPUS.BaseDomain.Messages.csproj">
