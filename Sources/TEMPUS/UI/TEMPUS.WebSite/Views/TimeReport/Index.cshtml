@@ -4,6 +4,10 @@
     ViewBag.Title = "Time Records";
 }
 
+@section CustomJs {
+    <script src="@Url.Content("~/Scripts/TimeReport.js")"></script>
+}
+
 @section PageButtons {
     <div class="row">
         <div class="col-lg-5 col-md-5 col-sm-7 col-xs-12 pull-right">
@@ -15,9 +19,6 @@
 }
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-
     <div class="row">
         <div class="form-horizontal">
             <div class="col-md-4">
@@ -72,12 +73,16 @@
             </div>
         </div>
     </div>
+}
 
+@using (Html.BeginForm("Notify", "TimeReport", FormMethod.Post))
+{
     <div class="row">
         <div class="col-md-12">
             <table class="responsiveGrid table table-hover">
                 <thead>
                     <tr>
+                        <th></th>
                         <th></th>
                         <th></th>
                         <th>Project</th>
@@ -90,61 +95,81 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var record in Model.Records)
+                    @for (int i = 0; i < Model.Records.Count(); i++)
                     {
                         var trClass = String.Empty;
-                        if (@record.Status == TimeRecordStatus.Accepted)
+                        if (Model.Records[i].Status == TimeRecordStatus.Accepted)
                         {
                             trClass = "success";
                         }
 
-                        if (@record.Status == TimeRecordStatus.Notified)
+                        if (Model.Records[i].Status == TimeRecordStatus.Notified)
                         {
                             trClass = "warning";
                         }
 
-                        if (@record.Status == TimeRecordStatus.Declined)
+                        if (Model.Records[i].Status == TimeRecordStatus.Declined)
                         {
                             trClass = "error";
                         }
 
                         <tr class="@trClass">
-                            @if (record.Status == TimeRecordStatus.Open)
+                            @Html.Hidden("NotifiedTimeRecordViewModel[" + i + "].TimeRecordId", Model.Records[i].TimeRecordId)
+                            @if (Model.Records[i].Status == TimeRecordStatus.Open)
                             {
-                                <td><a href="#timeEditModal" data-toggle="modal" data-><i class="fa fa-pencil"></i></a></td>
-                                <td><a href="@Url.Action("Delete", new {id = record.TimeRecordId})" data-toggle="modal" data-><i class="fa fa-trash-o"></i></a></td>
+                                <td data-title="Edit">
+                                    <a href="#timeEditModal" data-toggle="modal" data-><i class="fa fa-pencil"></i></a>
+                                </td>
+                                <td data-title="Remove">
+                                    <a href="#timeDeleteModal" class="deleteTimeRecord" data-toggle="modal" data-id="@Model.Records[i].TimeRecordId"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                                <td data-title="Notify">
+                                    @Html.CheckBox("NotifiedTimeRecordViewModel[" + i + "].IsNotified")
+                                </td>
                             }
                             else
                             {
                                 <td></td>
                                 <td></td>
+                                <td></td>
                             }
-                            <td data-title="Project">@record.Project.Name</td>
+                            <td data-title="Project">@Model.Records[i].Project.Name</td>
                             <td data-title="Person">@Model.User.FirstName @Model.User.LastName</td>
-                            <td data-title="Description">@record.Description</td>
-                            <td data-title="Effort (hours)">@record.Effort</td>
-                            <td data-title="Start date">@record.StartDate.ToString("MM/dd/yyyy")</td>
-                            <td data-title="End date">@record.EndDate.ToString("MM/dd/yyyy")</td>
-                            <td data-title="Status">@record.Status</td>
+                            <td data-title="Description">@Model.Records[i].Description</td>
+                            <td data-title="Effort (hours)">@Model.Records[i].Effort</td>
+                            <td data-title="Start date">@Model.Records[i].StartDate.ToString("MM/dd/yyyy")</td>
+                            <td data-title="End date">@Model.Records[i].EndDate.ToString("MM/dd/yyyy")</td>
+                            <td data-title="Status">@Model.Records[i].Status</td>
                         </tr>
                     }
                     <tr>
                         <td></td>
                         <td></td>
+                        <td></td>
                         <td>Total value</td>
                         <td></td>
                         <td></td>
-                        <td>@Model.Records.Sum(x => x.Effort)</td>
+                        <td data-title="Total value">@Model.Records.Sum(x => x.Effort)</td>
                         <td></td>
                         <td></td>
                         <td></td>
                     </tr>
                 </tbody>
             </table>
+            <div class="row">
+                <div class="form-horizontal">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="col-md-8">
+                                <input type="submit" class="btn btn-primary form-control" value="Notify selected" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 }
-
 @using (Html.BeginForm("Create", "TimeReport", FormMethod.Post))
 {
     <div class="modal fade" id="timeSheetModal" tabindex="-1" role="dialog" aria-labelledby="timeSheetModalLabel" aria-hidden="true">
@@ -172,7 +197,7 @@
                             <label for="startDate" class="col-sm-3 control-label">Start date</label>
                             <div class="col-sm-9">
                                 <div class="input-group" role="datepicker">
-                                    @Html.TextBox("model.StartDate", null, new { @class = "form-control", placeholder = "Start date" })
+                                    @Html.TextBox("model.StartDate", null, new { @class = "form-control", placeholder = "Start date", @readonly = "" })
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>
@@ -181,7 +206,7 @@
                             <label for="endDate" class="col-sm-3 control-label">End date</label>
                             <div class="col-sm-9">
                                 <div class="input-group" role="datepicker">
-                                    @Html.TextBox("model.EndDate", null, new { @class = "form-control", placeholder = "End date" })
+                                    @Html.TextBox("model.EndDate", null, new { @class = "form-control", placeholder = "End date", @readonly = "" })
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>
@@ -202,3 +227,27 @@
         </div>
     </div>
 }
+
+<div class="modal fade" id="timeDeleteModal" tabindex="-1" role="dialog" aria-labelledby="timeDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="timeSheetModalLabel">Delete Time Record</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            You are going to delete time record. Are you sure?
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <a href="#" id="deleteBtn" class="btn btn-default">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>

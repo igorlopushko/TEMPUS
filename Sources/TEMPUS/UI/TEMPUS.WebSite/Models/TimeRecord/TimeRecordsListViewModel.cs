@@ -18,7 +18,7 @@ namespace TEMPUS.WebSite.Models.TimeRecord
         /// <summary>
         /// Gets or sets the time records for specified user.
         /// </summary>
-        public IEnumerable<TimeRecordViewModel> Records { get; set; }
+        public TimeRecordViewModel[] Records { get; set; }
 
         /// <summary>
         /// Gets or sets the start date for search.

@@ -15,6 +15,7 @@ namespace TEMPUS.WebSite.Controllers
     /// <summary>
     /// The class represents functionality related to time records.
     /// </summary>
+    [Authorize]
     public class TimeReportController : Controller
     {
         private readonly ICommandSender _commandSender;
@@ -51,7 +52,6 @@ namespace TEMPUS.WebSite.Controllers
             _projectQueryService = projectQueryService;
         }
 
-        [Authorize]
         [HttpGet]
         public ActionResult Index()
         {
@@ -62,7 +62,6 @@ namespace TEMPUS.WebSite.Controllers
             return View(this.PrepareTimeRecords(model, timeRecords));
         }
 
-        [Authorize]
         [HttpPost]
         public ActionResult Index(TimeRecordsListViewModel model)
         {
@@ -103,6 +102,19 @@ namespace TEMPUS.WebSite.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public ActionResult Notify([Bind(Prefix = "NotifiedTimeRecordViewModel")]IEnumerable<NotifiedTimeRecordViewModel> models)
+        {
+            models = models.Where(x => x.IsNotified);
+
+            foreach (var notifiedTimeRecord in models)
+            {
+                var command = new NotifyTimeRecord(new TimeRecordId(notifiedTimeRecord.TimeRecordId));
+                _commandSender.Send(command);
+            }
+            return RedirectToAction("Index");
+        }
+
         private TimeRecordsListViewModel PrepareTimeRecords(TimeRecordsListViewModel model,
             IEnumerable<TimeRecordInfo> timeRecords)
         {
@@ -125,7 +137,7 @@ namespace TEMPUS.WebSite.Controllers
                 Status = (TimeRecordStatus)x.Status,
                 Task = x.Task == null ? null : new TaskViewModel { TaskId = x.Task.TaskId, Title = x.Task.Title },
                 Description = this.TrimString(x.Description, 60)
-            }).OrderBy(x => x.StartDate);
+            }).OrderBy(x => x.StartDate).ToArray();
 
             return model;
         }

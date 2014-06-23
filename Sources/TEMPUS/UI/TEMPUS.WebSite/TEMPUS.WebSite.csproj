@@ -157,6 +157,7 @@
     <Compile Include="Models\Account\UserMenuViewModel.cs" />
     <Compile Include="Models\Account\UserMoodViewModel.cs" />
     <Compile Include="Models\Project\ProjectTeamMemberActivityViewModel.cs" />
+    <Compile Include="Models\TimeRecord\NotifiedTimeRecordViewModel.cs" />
     <Compile Include="Models\TimeRecord\ProjectVewModel.cs" />
     <Compile Include="Models\TimeRecord\TaskViewModel.cs" />
     <Compile Include="Models\TimeRecord\TimeRecordsListViewModel.cs" />
@@ -250,6 +251,7 @@
     <Content Include="Scripts\Profile.js" />
     <Content Include="Scripts\Projects\Plan.js" />
     <Content Include="Scripts\Projects.js" />
+    <Content Include="Scripts\TimeReport.js" />
     <Content Include="Scripts\Utils\ModalRegion.js" />
     <Content Include="Scripts\Utils\SerializeObject.js" />
     <Content Include="Web.config" />
