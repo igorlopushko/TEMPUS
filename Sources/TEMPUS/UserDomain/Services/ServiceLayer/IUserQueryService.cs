@@ -19,5 +19,7 @@ namespace TEMPUS.UserDomain.Services.ServiceLayer
         IEnumerable<UserInfo> GetAllActiveUsers();
         Guid GetUserRoleId(UserRole role);
         IEnumerable<UserActivity> GetUserActivities(UserId id);
+        IEnumerable<UserMainInfo> GetTeamForProjectManager(UserId id, ProjectId projectId);
+        bool IsUserProjectManager(ProjectId projectId, UserId userId);
     }
 }

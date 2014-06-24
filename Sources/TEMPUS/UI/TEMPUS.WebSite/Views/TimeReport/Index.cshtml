@@ -39,10 +39,18 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
+                    <label for="person" class="col-md-4 control-label">Person</label>
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(model => model.SelectedPerson, Model.People, null, new { @class = "form-control", id = "status" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
                     <label for="date" class="col-md-4 control-label">Start date</label>
                     <div class="col-md-8">
                         <div class='input-group date' id='startDate' role="datepicker">
-                            @Html.TextBoxFor(model => model.SelectedStartDate, Model.SelectedStartDate.ToString("MM/dd/yyyy"), new { @class = "form-control", placeholder = "Start date" })
+                            @Html.TextBoxFor(model => model.SelectedStartDate, Model.SelectedStartDate.ToString("MM/dd/yyyy"), new { @class = "form-control", placeholder = "Start date", @readonly = "" })
                             <span class="input-group-addon">
                                 <span class="fa fa-calendar"></span>
                             </span>
@@ -55,7 +63,7 @@
                     <label for="date" class="col-md-4 control-label">End date</label>
                     <div class="col-md-8">
                         <div class='input-group date' id='endDate' role="datepicker">
-                            @Html.TextBoxFor(model => model.SelectedEndDate, Model.SelectedEndDate.ToString("MM/dd/yyyy"), new { @class = "form-control", placeholder = "End date" })
+                            @Html.TextBoxFor(model => model.SelectedEndDate, Model.SelectedEndDate.ToString("MM/dd/yyyy"), new { @class = "form-control", placeholder = "End date", @readonly = "" })
                             <span class="input-group-addon">
                                 <span class="fa fa-calendar"></span>
                             </span>
@@ -65,7 +73,7 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="date" class="col-md-4 control-label"></label>
+                    <label for="button" class="col-md-4 control-label"></label>
                     <div class="col-md-8">
                         <input type="submit" class="btn btn-primary form-control" value="Show" />
                     </div>
@@ -91,7 +99,7 @@
                         <th>Effort (hours)</th>
                         <th>Start date</th>
                         <th>End date</th>
-                        <th>Status</th>
+                        <th colspan="2">Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -110,7 +118,7 @@
 
                         if (Model.Records[i].Status == TimeRecordStatus.Declined)
                         {
-                            trClass = "error";
+                            trClass = "danger";
                         }
 
                         <tr class="@trClass">
@@ -118,10 +126,10 @@
                             @if (Model.Records[i].Status == TimeRecordStatus.Open)
                             {
                                 <td data-title="Edit">
-                                    <a href="#timeEditModal" data-toggle="modal" data-><i class="fa fa-pencil"></i></a>
+                                    <a href="#timeEditModal" data-toggle="modal" title="Edit"><i class="fa fa-pencil"></i></a>
                                 </td>
                                 <td data-title="Remove">
-                                    <a href="#timeDeleteModal" class="deleteTimeRecord" data-toggle="modal" data-id="@Model.Records[i].TimeRecordId"><i class="fa fa-trash-o"></i></a>
+                                    <a href="#timeDeleteModal" class="deleteTimeRecord" data-toggle="modal" data-id="@Model.Records[i].TimeRecordId" title="Remove"><i class="fa fa-trash-o"></i></a>
                                 </td>
                                 <td data-title="Notify">
                                     @Html.CheckBox("NotifiedTimeRecordViewModel[" + i + "].IsNotified")
@@ -139,7 +147,19 @@
                             <td data-title="Effort (hours)">@Model.Records[i].Effort</td>
                             <td data-title="Start date">@Model.Records[i].StartDate.ToString("MM/dd/yyyy")</td>
                             <td data-title="End date">@Model.Records[i].EndDate.ToString("MM/dd/yyyy")</td>
-                            <td data-title="Status">@Model.Records[i].Status</td>
+                            @if (Model.Records[i].Status == TimeRecordStatus.Notified && Model.IsProjectManager)
+                            {
+                                <td data-title="Accept">
+                                    <a href="@Url.Action("Accept", new { id = Model.Records[i].TimeRecordId })" title="Accept"><i class="fa fa-check"></i></a>
+                                </td>
+                                <td data-title="Decline">
+                                    <a href="@Url.Action("Decline", new { id = Model.Records[i].TimeRecordId })" title="Decline"><i class="fa fa-ban"></i></a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td data-title="Status" colspan="2">@Model.Records[i].Status</td>
+                            }
                         </tr>
                     }
                     <tr>
@@ -152,7 +172,8 @@
                         <td data-title="Total value">@Model.Records.Sum(x => x.Effort)</td>
                         <td></td>
                         <td></td>
-                        <td></td>
+                        <td colspan="2"></td>
+
                     </tr>
                 </tbody>
             </table>
@@ -227,6 +248,7 @@
         </div>
     </div>
 }
+
 
 <div class="modal fade" id="timeDeleteModal" tabindex="-1" role="dialog" aria-labelledby="timeDeleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">

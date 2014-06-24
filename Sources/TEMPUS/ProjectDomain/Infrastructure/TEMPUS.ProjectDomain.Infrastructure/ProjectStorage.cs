@@ -85,9 +85,9 @@ namespace TEMPUS.ProjectDomain.Infrastructure
 
             _context.Projects.Add(entity);
 
-            this.ChangeProjectRole(projectId, new UserId(entity.OwnerId), OwnerRoleName);
+            this.ChangeProjectRole(projectId, new UserId(entity.OwnerId), OwnerRoleName, entity);
 
-            this.ChangeProjectRole(projectId, new UserId(entity.ManagerId), ManagerRoleName);
+            this.ChangeProjectRole(projectId, new UserId(entity.ManagerId), ManagerRoleName, entity);
 
             _context.SaveChanges();
         }
@@ -134,9 +134,9 @@ namespace TEMPUS.ProjectDomain.Infrastructure
 
             var projectId = new ProjectId(aggregate.Id);
 
-            this.ChangeProjectRole(projectId, new UserId(aggregate.OwnerId), OwnerRoleName);
+            this.ChangeProjectRole(projectId, new UserId(aggregate.OwnerId), OwnerRoleName, project);
 
-            this.ChangeProjectRole(projectId, new UserId(aggregate.ManagerId), ManagerRoleName);
+            this.ChangeProjectRole(projectId, new UserId(aggregate.ManagerId), ManagerRoleName, project);
 
             //TODO: Add updating Tasks, Risks.
             foreach (var teamMember in aggregate.TeamMembers)
@@ -159,7 +159,7 @@ namespace TEMPUS.ProjectDomain.Infrastructure
                 });
         }
 
-        private void ChangeProjectRole(ProjectId projectId, UserId managerId, string roleName)
+        private void ChangeProjectRole(ProjectId projectId, UserId managerId, string roleName, DB.Models.Project.Project project)
         {
             var role = _context.ProjectRoles.FirstOrDefault(x => x.Name == roleName);
 
@@ -174,7 +174,10 @@ namespace TEMPUS.ProjectDomain.Infrastructure
                         {
                             ProjectId = projectId.Id,
                             ProjectRoleId = role.Id,
-                            UserId = managerId.Id
+                            UserId = managerId.Id,
+                            StartDate = project.StartDate,
+                            EndDate = project.EndDate
+                            //Investigate FTE for role.
                         });
                     return;
                 }
@@ -187,7 +190,10 @@ namespace TEMPUS.ProjectDomain.Infrastructure
                         {
                             ProjectId = projectId.Id,
                             ProjectRoleId = role.Id,
-                            UserId = managerId.Id
+                            UserId = managerId.Id,
+                            StartDate = project.StartDate,
+                            EndDate = project.EndDate
+                            //Investigate FTE for role.
                         });
                 }
             }

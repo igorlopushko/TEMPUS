@@ -88,6 +88,7 @@ namespace TEMPUS.WebSite.Controllers
             [Bind(Prefix = "ProjectTeamMemberViewModel.ProjectTeamMemberActivityViewModel")]ProjectTeamMemberActivityViewModel[] teamMembersActivity)
         {
             model.ProjectTeam.TeamMembers = teamMembers ?? Enumerable.Empty<ProjectTeamMemberViewModel>();
+            teamMembersActivity = teamMembersActivity ?? new ProjectTeamMemberActivityViewModel[0];
 
             ICommand command;
             if (ModelState.IsValid)

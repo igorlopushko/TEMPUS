@@ -14,6 +14,7 @@ namespace TEMPUS.UserDomain.Infrastructure
     public class UserQueryService : IUserQueryService
     {
         private readonly DataContext _userReadRepository;
+        private const string managerRoleName = "Manager";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserQueryService"/> class.
@@ -357,6 +358,70 @@ namespace TEMPUS.UserDomain.Infrastructure
                                         StartDate = x.StartDate,
                                         UserId = x.UserId
                                     });
+        }
+
+
+        /// <summary>
+        /// Gets the team for project manager.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="projectId">The project identifier.</param>
+        /// <exception cref="System.ArgumentNullException">When id or projectId are null.</exception>
+        public IEnumerable<UserMainInfo> GetTeamForProjectManager(UserId id, ProjectId projectId)
+        {
+            if (id == null)
+            {
+                throw new ArgumentNullException("id");
+            }
+
+            if (projectId == null)
+            {
+                throw new ArgumentNullException("projectId");
+            }
+
+            var teamMembers = _userReadRepository.ProjectRoleRelations
+                .Where(x => x.ProjectId == projectId.Id);
+
+            var isUserProjectManager = teamMembers
+                .FirstOrDefault(x => x.UserId == id.Id && x.ProjectRole.Name == managerRoleName) != null;
+
+            if (!isUserProjectManager)
+                return null;
+
+            return _userReadRepository.Users.Where(x => teamMembers.Select(user => user.UserId).Contains(x.Id))
+                    .Select(x => new UserMainInfo
+                    {
+                        UserId = x.Id,
+                        LastName = x.LastName,
+                        FirstName = x.FirstName
+                    });
+        }
+
+
+        /// <summary>
+        /// Determines whether user is project manager on the specified project.
+        /// </summary>
+        /// <param name="projectId">The project identifier.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <exception cref="System.ArgumentNullException">When userId or projectId are null.</exception>
+        public bool IsUserProjectManager(ProjectId projectId, UserId userId)
+        {
+            if (userId == null)
+            {
+                throw new ArgumentNullException("userId");
+            }
+
+            if (projectId == null)
+            {
+                throw new ArgumentNullException("projectId");
+            }
+
+            var managerProjectRole = _userReadRepository.ProjectRoles.First(x => x.Name == managerRoleName);
+
+            var teamMembers = _userReadRepository.ProjectRoleRelations
+                .Where(x => x.ProjectId == projectId.Id).ToArray();
+
+            return teamMembers.FirstOrDefault(x => x.UserId == userId.Id && x.ProjectRoleId == managerProjectRole.Id) != null;
         }
     }
 }

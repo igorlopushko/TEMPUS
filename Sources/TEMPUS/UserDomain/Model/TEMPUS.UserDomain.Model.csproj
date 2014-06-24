@@ -45,6 +45,7 @@
     <Compile Include="ServiceLayer\ProjectRole.cs" />
     <Compile Include="ServiceLayer\UserActivity.cs" />
     <Compile Include="ServiceLayer\UserInfo.cs" />
+    <Compile Include="ServiceLayer\UserMainInfo.cs" />
     <Compile Include="ServiceLayer\UserMood.cs" />
     <Compile Include="ServiceLayer\UserRole.cs" />
   </ItemGroup>

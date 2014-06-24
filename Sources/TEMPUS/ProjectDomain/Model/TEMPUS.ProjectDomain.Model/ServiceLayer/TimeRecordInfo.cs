@@ -21,6 +21,11 @@ namespace TEMPUS.ProjectDomain.Model.ServiceLayer
         public ProjectInfo Project { get; set; }
 
         /// <summary>
+        /// Gets or sets the user identifier.
+        /// </summary>
+        public Guid UserId { get; set; }
+
+        /// <summary>
         /// Gets or sets the task.
         /// </summary>
         public TaskInfo Task { get; set; }

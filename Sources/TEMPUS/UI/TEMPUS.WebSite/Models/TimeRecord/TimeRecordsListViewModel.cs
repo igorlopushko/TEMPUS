@@ -16,6 +16,11 @@ namespace TEMPUS.WebSite.Models.TimeRecord
         public UserViewModel User { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether user is project manager.
+        /// </summary>
+        public bool IsProjectManager { get; set; }
+
+        /// <summary>
         /// Gets or sets the time records for specified user.
         /// </summary>
         public TimeRecordViewModel[] Records { get; set; }
@@ -36,6 +41,11 @@ namespace TEMPUS.WebSite.Models.TimeRecord
         public Guid SelectedProject { get; set; }
 
         /// <summary>
+        /// Gets or sets the selected person.
+        /// </summary>
+        public Guid SelectedPerson { get; set; }
+
+        /// <summary>
         /// Gets or sets the selected status.
         /// </summary>
         public TimeRecordStatus SelectedStatus { get; set; }
@@ -43,5 +53,7 @@ namespace TEMPUS.WebSite.Models.TimeRecord
         public IEnumerable<SelectListItem> Projects { get; set; }
 
         public IEnumerable<SelectListItem> Statuses { get; set; }
+
+        public IEnumerable<SelectListItem> People { get; set; }
     }
 }
