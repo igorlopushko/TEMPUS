@@ -1,0 +1,6 @@
+﻿@media only screen and (max-width: 768px) {
+    a.edit-risk, a.delete-risk {
+        font-size: 43px;
+        margin-right: 10px;
+    }
+}

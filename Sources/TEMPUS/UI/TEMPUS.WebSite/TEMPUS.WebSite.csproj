@@ -214,6 +214,7 @@
     <Content Include="Content\Styles\Profile.css" />
     <Content Include="Content\Styles\Projects.css" />
     <Content Include="Content\Styles\Projects\Plan.css" />
+    <Content Include="Content\Styles\Risks.css" />
     <Content Include="Content\Styles\Team.css" />
     <Content Include="Content\Styles\UserBlock.css" />
     <Content Include="Content\Styles\UserPage.css" />
@@ -251,6 +252,7 @@
     <Content Include="Scripts\Profile.js" />
     <Content Include="Scripts\Projects\Plan.js" />
     <Content Include="Scripts\Projects.js" />
+    <Content Include="Scripts\Risks\Risks.js" />
     <Content Include="Scripts\TimeReport.js" />
     <Content Include="Scripts\Utils\ModalRegion.js" />
     <Content Include="Scripts\Utils\SerializeObject.js" />
